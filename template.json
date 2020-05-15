@@ -12,7 +12,9 @@
 				"age": "",
 				"enemy": "",
 				"home": "",
-				"level": "",
+				"level": {
+					"value": 1
+				},
 				"raiment": ""
 			},
 			"purpose": {
@@ -453,7 +455,27 @@
 			}
     },
     "Character": {
-      "templates": ["background", "purpose", "traits", "rewards", "conditions", "abilities", "skills", "wises", "inventory", "allies", "enemies"]
+			"templates": ["background", "purpose", "traits", "rewards", "conditions", "abilities", "skills", "wises", "inventory", "allies", "enemies"],
+			"class": {
+				"outcast": {
+					"value": "Dwarven Outcast"
+				},
+				"ranger": {
+					"value": "Elf Ranger"
+				},
+				"burglar": {
+					"value": "Halfling Burglar"
+				},
+				"theurge": {
+					"value": "Human Theurge"
+				},
+				"magician": {
+					"value": "Human Magician"
+				},
+				"warrior": {
+					"value": "Human Warrior"
+				}
+			}
     },
     "NPC": {
       "templates": ["purpose", "traits", "rewards", "abilities", "skills", "wises"]

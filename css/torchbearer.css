@@ -1,5 +1,32 @@
 @import url("https://fonts.googleapis.com/css2?family=Martel:wght@400;800&family=Roboto:wght@300;400;500&display=swap");
 /* Global styles */
+@font-face {
+  font-family: 'Souvenir-Bold';
+  src: url('../assets/fonts/Souvenir-Bold.otf')
+}
+
+@font-face {
+   font-family: 'Souvenir-BoldItalic';
+   src: url('../assets/fonts/Souvenir-BoldItalic.otf');
+}
+@font-face {
+  font-family: 'Souvenir-Demi';
+  src: url('../assets/fonts/Souvenir-Demi.otf')
+}
+
+@font-face {
+   font-family: 'Souvenir-DemiItalic';
+   src: url('../assets/fonts/Souvenir-DemiItalic.otf');
+}
+@font-face {
+  font-family: 'Souvenir-Medium';
+  src: url('../assets/fonts/Souvenir-Medium.otf');
+}
+@font-face {
+  font-family: 'Souvenir-MediumItalic';
+  src: url('../assets/fonts/Souvenir-MediumItalic.otf');
+}
+
 .window-app {
   font-family: "Roboto", sans-serif;
 }

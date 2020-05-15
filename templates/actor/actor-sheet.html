@@ -3,64 +3,69 @@
     {{!-- Sheet Header --}}
     <header class="sheet-header">
         
-        <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
+      <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
         
-        <div class="header-fields">
+      <div class="header-fields">
             
-            <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name"/></h1>
+        <h1 style="font-family: Souvenir-Demi;" class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name"/></h1>
             
-            {{!-- The grid classes are defined in scss/global/_grid.scss. To use,
-            use both the "grid" and "grid-Ncol" class where "N" can be any number
-            from 1 to 12 and will create that number of columns.  --}}
-            
-            <div class="resources grid grid-2col">
-              
-              {{!-- "flex-group-center" is also defined in the _grid.scss file
-              and it will add a small amount of padding, a border, and will
-              center all of its child elements content and text. --}}
-              
-              <div class="resource flex-group-center">
-                  
-                  <label for="data.fate.value" class="resource-label">Fate</label>
-                  <div class="resource-content flexrow flex-center flex-between">
-                    <input type="text" name="data.fate.value" value="{{data.fate.value}}" data-dtype="Number"/>
-                    <span> / </span>
-                    <input type="text" name="data.fate.spent" value="{{data.fate.spent}}" data-dtype="Number"/>
-                  </div>
+        <div class="classLevel grid grid-2col">
 
-              </div>
-
-              <div class="resource flex-group-center">
-
-                  <label for="data.persona.value" class="resource-label">Persona</label>
-                  <div class="resource-content flexrow flex-center flex-between">
-                    <input type="text" name="data.persona.value" value="{{data.persona.value}}" data-dtype="Number"/>
-                    <span> / </span>
-                    <input type="text" name="data.persona.spent" value="{{data.persona.spent}}" data-dtype="Number"/>
-                  </div>
-                  
-              </div>
-
+          <div class="resource flexrow flex-group-center">
+            <label style="font-family: Souvenir-Demi; font-size: 16px;" for="data.class.value">Class</label>
+            <select name="data.class.value" id="classDropdown">
+              {{#select data.class.value}}
+              <option value="default" selected disabled hidden>Choose a class...</option>
+              {{#each data.class as |charClass key|}}
+              <option name="data.class.{{key}}.value" value="{{charClass.value}}">{{charClass.value}}</option>
+              {{/each}}
+              {{/select}}
+            </select>
           </div>
-          
-          {{!-- The grid classes are defined in scss/global/_grid.scss. To use,
-          use both the "grid" and "grid-Ncol" class where "N" can be any number
-          from 1 to 12 and will create that number of columns.  --}}
-          
-          <div class="abilities grid grid-3col">
-            
-            <!-- {{#each data.abilities as |ability key|}}
-              <div class="ability flexrow flex-group-center">
-                <label for="data.abilities.{{key}}.value" class="resource-label">{{key}}</label>
-                <input type="text" name="data.abilities.{{key}}.value" value="{{ability.value}}" data-dtype="Number"/>
-                <span class="ability-mod rollable" data-roll="d20+@abilities.{{key}}.mod" data-label="{{key}}">{{numberFormat ability.mod decimals=0 sign=true}}</span>
-              </div>
-            {{/each}} -->
-          
+
+          <div class="resource flexrow flex-group-center">
+            <label style="font-family: Souvenir-Demi; font-size: 16px;" for="data.level">Level</label>
+            <input type="text" name="data.level.value" value="{{data.level.value}}" data-dtype="Number"/>
           </div>
 
         </div>
+            
+        <div class="grid grid-3col">
 
+          <div class="resource flex-group-center">
+              <label style="font-family: Souvenir-Demi; font-size: 16px;" for="data.fate.value">Fate</label>
+              <div class="resource-content flexrow flex-center flex-between">
+                <input id="currentFate" type="text" name="data.fate.value" value="{{data.fate.value}}" data-dtype="Number"/>
+                <span> / </span>
+                <input id="spentFate" type="text" name="data.fate.spent" value="{{data.fate.spent}}" data-dtype="Number"/>
+              </div>
+
+          </div>
+
+          <div class="resource flex-group-center">
+
+              <label style="font-family: Souvenir-Demi; font-size: 16px;" for="data.persona.value">Persona</label>
+
+              <div class="resource-content flexrow flex-center flex-between">
+                <input id="currentPersona" type="text" name="data.persona.value" value="{{data.persona.value}}" data-dtype="Number"/>
+                <span> / </span>
+                <input id="spentPersona" type="text" name="data.persona.spent" value="{{data.persona.spent}}" data-dtype="Number"/>
+              </div>
+
+          </div>
+
+          <div class="flex-group-center">
+
+            <label style="font-family: Souvenir-Demi; font-size: 16px;" for="data.persona.value">Checks</label>
+            
+            <div class="resource-content flexrow">
+              <input id="currentChecks" type="text" name="data.checks.value" value="{{data.persona.value}}" data-dtype="Number" size="5"/>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
     </header>
 
     {{!-- Sheet Tab Navigation --}}
