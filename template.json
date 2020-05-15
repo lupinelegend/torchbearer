@@ -1,0 +1,505 @@
+{
+  "Actor": {
+    "types": ["Character", "NPC", "GMPC"],
+    "templates": {
+      "background": {
+				"name": "",
+				"parents": "",
+				"stock": "",
+				"mentor": "",
+				"class": "",
+				"friend": "",
+				"age": "",
+				"enemy": "",
+				"home": "",
+				"level": "",
+				"raiment": ""
+			},
+			"purpose": {
+				"belief": "",
+				"creed": "",
+				"goal": "",
+				"instinct": ""
+			},
+			"traits": {
+				"trait1": {
+					"name": "",
+					"level": {
+						"value": 1
+					}
+				},
+				"trait2": {
+					"name": "",
+					"level": {
+						"value": 1
+					}
+				},
+				"trait3": {
+					"name": "",
+					"level": {
+						"value": 1
+					}
+				},
+				"trait4": {
+					"name": "",
+					"level": {
+						"value": 1
+					}
+				}
+      },
+      "rewards": {
+				"fate": {
+					"value": 3,
+					"spent": 0
+				},
+				"persona": {
+					"value": 2,
+					"spent": 0
+				},
+				"checks": {
+					"value": 0
+				}
+			},
+			"conditions": {
+				"fresh": true,
+				"hungryandthirsty": false,
+				"angry": false,
+				"afraid": false,
+				"exhausted": false,
+				"injured": false,
+				"sick": false,
+				"dead": false
+			},
+			"abilities": {
+				"will": {
+					"value": 0,
+					"max": 10
+				},
+				"health": {
+					"value": 0,
+					"max": 10
+				},
+				"nature": {
+					"value": 0,
+					"max": 10
+				},
+				"resources": {
+					"value": 0,
+					"max": 10
+				},
+				"circles": {
+					"value": 0,
+					"max": 10
+				},
+				"precedence": {
+					"value": 0,
+					"max": 10
+				},
+				"might": {
+					"value": 3,
+					"max": 10
+				},
+				"urdr": {
+					"value": 0,
+					"max": 10
+				},
+				"burden": {
+					"value": 0,
+					"max": 10
+				},
+				"memorypalace": {
+					"value": 0,
+					"max": 10
+				}
+			},
+			"skills": {
+				"alchemist": {
+					"value": 0,
+					"max": 10
+				},
+				"arcanist": {
+					"value": 0,
+					"max": 10
+				},
+				"armorer": {
+					"value": 0,
+					"max": 10
+				},
+				"cartographer": {
+					"value": 0,
+					"max": 10
+				},
+				"commander": {
+					"value": 0,
+					"max": 10
+				},
+				"cook": {
+					"value": 0,
+					"max": 10
+				},
+				"criminal": {
+					"value": 0,
+					"max": 10
+				},
+				"dungeoneer": {
+					"value": 0,
+					"max": 10
+				},
+				"fighter": {
+					"value": 0,
+					"max": 10
+				},
+				"haggler": {
+					"value": 0,
+					"max": 10
+				},
+				"healer": {
+					"value": 0,
+					"max": 10
+				},
+				"hunter": {
+					"value": 0,
+					"max": 10
+				},
+				"loremaster": {
+					"value": 0,
+					"max": 10
+				},
+				"manipulator": {
+					"value": 0,
+					"max": 10
+				},
+				"mentor": {
+					"value": 0,
+					"max": 10
+				},
+				"orator": {
+					"value": 0,
+					"max": 10
+				},
+				"pathfinder": {
+					"value": 0,
+					"max": 10
+				},
+				"persuader": {
+					"value": 0,
+					"max": 10
+				},
+				"rider": {
+					"value": 0,
+					"max": 10
+				},
+				"ritualist": {
+					"value": 0,
+					"max": 10
+				},
+				"scavenger": {
+					"value": 0,
+					"max": 10
+				},
+				"scholar": {
+					"value": 0,
+					"max": 10
+				},
+				"scout": {
+					"value": 0,
+					"max": 10
+				},
+				"survivalist": {
+					"value": 0,
+					"max": 10
+				},
+				"theologian": {
+					"value": 0,
+					"max": 10
+				}
+			},
+			"wises": {
+				"wise1": {
+					"name": "",
+					"pass": false,
+					"fail": false,
+					"fate": false,
+					"persona": false
+				},
+				"wise2": {
+					"name": "",
+					"pass": false,
+					"fail": false,
+					"fate": false,
+					"persona": false
+				},
+				"wise3": {
+					"name": "",
+					"pass": false,
+					"fail": false,
+					"fate": false,
+					"persona": false
+				},
+				"wise4": {
+					"name": "",
+					"pass": false,
+					"fail": false,
+					"fate": false,
+					"persona": false
+				}
+			},
+			"inventory": {
+				"head": {
+					"headWorn": "",
+					"damaged": false
+				},
+				"neck": {
+					"neckWorn": ""
+				},
+				"hands": {
+					"handsWorn1": "",
+					"handsWorn2": "",
+					"handsCarried1": "",
+					"handsCarried2": ""
+				},
+				"feet": {
+					"feetWorn": ""
+				},
+				"torso": {
+					"torsoWorn1": "",
+					"torsoWorn2": "",
+					"torsoWorn3": "",
+					"damaged": false
+				},
+				"belt": {
+					"beltCarried1": "",
+					"beltCarried2": "",
+					"beltCarried3": ""
+				},
+				"pocket": {
+					"pocketCarried1": "",
+					"pocketCarried2": "",
+					"pocketCarried3": ""
+				},
+				"satchelBackpack": {
+					"satchelBackpackCarried1": "",
+					"satchelBackpackCarried2": "",
+					"satchelBackpackCarried3": "",
+					"satchelBackpackCarried4": "",
+					"satchelBackpackCarried5": "",
+					"satchelBackpackCarried6": "",
+					"satchelBackpackDropped": false,
+					"satchelBackpackLost": false
+				},
+				"smallSack1": {
+					"smallSack1Carried1": "",
+					"smallSack1Carried2": "",
+					"smallSack1Carried": false,
+					"smallSack1Dropped": false,
+					"smallSack1Lost": false
+				},
+				"smallSack2": {
+					"smallSack2Carried1": "",
+					"smallSack2Carried2": "",
+					"smallSack2Carried": false,
+					"smallSack2Dropped": false,
+					"smallSack2Lost": false
+				},
+				"largeSack": {
+					"largeSackCarried1": "",
+					"largeSackCarried2": "",
+					"largeSackCarried3": "",
+					"largeSackCarried4": "",
+					"largeSackCarried5": "",
+					"largeSackCarried6": "",
+					"largeSackCarried": false,
+					"largeSackDropped": false,
+					"largeSackLost": false
+				},
+				"cache": {
+					"cacheSlot1": "",
+					"cacheSlot2": "",
+					"cacheSlot3": "",
+					"cacheSlot4": "",
+					"cacheSlot5": "",
+					"cacheSlot6": "",
+					"cacheSlot7": "",
+					"cacheSlot8": "",
+					"cacheSlot9": "",
+					"cacheSlot10": "",
+					"cacheSlot11": "",
+					"cacheSlot12": ""
+				}
+			},
+			"allies": {
+				"ally1": {
+					"name": "",
+					"location": "",
+					"status": ""
+				},
+				"ally2": {
+					"name": "",
+					"location": "",
+					"status": ""
+				},
+				"ally3": {
+					"name": "",
+					"location": "",
+					"status": ""
+				},
+				"ally4": {
+					"name": "",
+					"location": "",
+					"status": ""
+				},
+				"ally5": {
+					"name": "",
+					"location": "",
+					"status": ""
+				},
+				"ally6": {
+					"name": "",
+					"location": "",
+					"status": ""
+				},
+				"ally7": {
+					"name": "",
+					"location": "",
+					"status": ""
+				},
+				"ally8": {
+					"name": "",
+					"location": "",
+					"status": ""
+				},
+				"ally9": {
+					"name": "",
+					"location": "",
+					"status": ""
+				},
+				"ally10": {
+					"name": "",
+					"location": "",
+					"status": ""
+				},
+				"ally11": {
+					"name": "",
+					"location": "",
+					"status": ""
+				},
+				"ally12": {
+					"name": "",
+					"location": "",
+					"status": ""
+				}
+			},
+			"enemies": {
+				"enemy1": {
+					"name": "",
+					"location": "",
+					"status": ""
+				},
+				"enemy2": {
+					"name": "",
+					"location": "",
+					"status": ""
+				},
+				"enemy3": {
+					"name": "",
+					"location": "",
+					"status": ""
+				},
+				"enemy4": {
+					"name": "",
+					"location": "",
+					"status": ""
+				},
+				"enemy5": {
+					"name": "",
+					"location": "",
+					"status": ""
+				},
+				"enemy6": {
+					"name": "",
+					"location": "",
+					"status": ""
+				},
+				"enemy7": {
+					"name": "",
+					"location": "",
+					"status": ""
+				},
+				"enemy8": {
+					"name": "",
+					"location": "",
+					"status": ""
+				},
+				"enemy9": {
+					"name": "",
+					"location": "",
+					"status": ""
+				},
+				"enemy10": {
+					"name": "",
+					"location": "",
+					"status": ""
+				},
+				"enemy11": {
+					"name": "",
+					"location": "",
+					"status": ""
+				},
+				"enemy12": {
+					"name": "",
+					"location": "",
+					"status": ""
+				}
+			}
+    },
+    "Character": {
+      "templates": ["background", "purpose", "traits", "rewards", "conditions", "abilities", "skills", "wises", "inventory", "allies", "enemies"]
+    },
+    "NPC": {
+      "templates": ["purpose", "traits", "rewards", "abilities", "skills", "wises"]
+    },
+    "GMPC": {
+      "templates": ["background", "purpose", "traits", "rewards", "conditions", "abilities", "skills", "wises", "inventory", "allies", "enemies"]
+    }
+  },
+  "Item": {
+    "types": ["item", "relic", "spell", "class", "feature"],
+    "templates": {
+      "base": {
+        "description": ""
+      }
+    },
+    "item": {
+      "templates": ["base"],
+      "quantity": 1,
+      "weight": 0
+    },
+    "relic": {
+      "name": "",
+	  	"inventoryslot": "",
+	  	"invocationpatroncircle": ""
+    },
+    "spell": {
+      "name": "",
+			"ob": 0,
+			"known": false,
+			"spellbook": false,
+			"memorized": false,
+			"cast": false,
+			"scroll": false,
+			"supplies": false,
+			"effect": ""
+    },
+    "class": {
+			"types": ["Dwarven Outcast", "Elf Ranger", "Halfling Burglar", "Human Theurge", "Human Magician", "Human Warrior"]
+		},
+    "feature": {
+      "outcast": {
+				"level1": "You may wear any armor and wield any weapon except great swords and lances."
+			},
+			"ranger": {
+				"level1": "You may wield swords, spears, and daggers and wear leather or chain armor, and wear a helmet. Your Level 1 benefit is to add +1 to wilderness camp event rolls."
+			}
+    }
+  }
+}
