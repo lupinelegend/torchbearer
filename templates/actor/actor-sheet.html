@@ -1,36 +1,26 @@
-<form class="{{cssClass}} flexcol" autocomplete="off">
+<form class="{{cssClass}} flexcol tbBackground" autocomplete="off" style="margin: 22px;">
 
     {{!-- Sheet Header --}}
     <header class="sheet-header">
-        
-      <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
-        
+
+      <!-- Actor Image -->
+      <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/> 
       <div class="header-fields">
-            
-        <h1 style="font-family: Souvenir-Demi;" class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name"/></h1>
-            
-        <div class="classLevel grid grid-2col">
-
-          <div class="resource flexrow flex-group-center">
-            <label style="font-family: Souvenir-Demi; font-size: 16px;" for="data.class.value">Class</label>
-            <select name="data.class.value" id="classDropdown">
-              {{#select data.class.value}}
-              <option value="default" selected disabled hidden>Choose a class...</option>
-              {{#each data.class as |charClass key|}}
-              <option name="data.class.{{key}}.value" value="{{charClass.value}}">{{charClass.value}}</option>
-              {{/each}}
-              {{/select}}
-            </select>
-          </div>
-
+        <!-- Actor Name -->
+        <h1 style="font-family: Souvenir-Demi;" class="charname">
+          <input name="name" type="text" value="{{actor.name}}" placeholder="Name"/>
+        </h1>
+      
+        <!-- <div class="classAndLevel grid grid-2col">
+          Class dropdown was here
           <div class="resource flexrow flex-group-center">
             <label style="font-family: Souvenir-Demi; font-size: 16px;" for="data.level">Level</label>
             <input type="text" name="data.level.value" value="{{data.level.value}}" data-dtype="Number"/>
           </div>
+        </div> -->
 
-        </div>
-            
-        <div class="grid grid-3col">
+        <!-- Fate, Persona, and Checks -->
+        <div class="rewards grid grid-3col">
 
           <div class="resource flex-group-center">
               <label style="font-family: Souvenir-Demi; font-size: 16px;" for="data.fate.value">Fate</label>
@@ -56,34 +46,903 @@
 
           <div class="flex-group-center">
 
-            <label style="font-family: Souvenir-Demi; font-size: 16px;" for="data.persona.value">Checks</label>
+            <label style="font-family: Souvenir-Demi; font-size: 16px;" for="data.checks.value">Checks</label>
             
             <div class="resource-content flexrow">
-              <input id="currentChecks" type="text" name="data.checks.value" value="{{data.persona.value}}" data-dtype="Number" size="5"/>
+              <input id="currentChecks" type="text" name="data.checks.value" value="{{data.checks.value}}" data-dtype="Number"/>
             </div>
 
           </div>
 
         </div>
       </div>
+      
     </header>
+
+    <!-- Condition Bar -->
+    <progress max="100" id="conditionBar" name="data.conditionProgress" value="{{data.conditionProgress}}" style="width: 100%;" class="testBar"></progress>
+
+    <!-- Condition Checkboxes -->
+    <div style="flex: none;">
+      <div class="grid grid-8col" style="grid-template-columns: auto auto auto auto auto auto auto auto; justify-items: center; gap: 0px; margin: 0 0 0 0;">
+        <div>
+          <input type="checkbox" name="data.fresh" id="freshCheckbox" data-dtype="Boolean" {{checked data.fresh}}>
+        </div>
+        <div>
+          <input type="checkbox" name="data.hungryandthirsty" id="hungryandthirstyCheckbox" data-dtype="Boolean" {{checked data.hungryandthirsty}}>
+        </div>
+        <div>
+          <input type="checkbox" name="data.angry" id="angryCheckbox" data-dtype="Boolean" {{checked data.angry}}>
+        </div>
+        <div>
+          <input type="checkbox" name="data.afraid" id="afraidCheckbox" data-dtype="Boolean" {{checked data.afraid}}>
+        </div>
+        <div>
+          <input type="checkbox" name="data.exhausted" id="exhaustedCheckbox" data-dtype="Boolean" {{checked data.exhausted}}>
+        </div>
+        <div>
+          <input type="checkbox" name="data.injured" id="injuredCheckbox" data-dtype="Boolean" {{checked data.injured}}>
+        </div>
+        <div>
+          <input type="checkbox" name="data.sick" id="sickCheckbox" data-dtype="Boolean" {{checked data.sick}}>
+        </div>
+        <div>
+          <input type="checkbox" name="data.dead" id="deadCheckbox" data-dtype="Boolean" {{checked data.dead}}>
+        </div>
+      </div>
+      <div class="grid grid-8col" style="justify-items: center; gap: 0px; margin: 0 0 0 0;">
+        <div>
+          <label for="data.fresh" style="font-family: Souvenir-Medium;">Fresh</label>
+        </div>
+        <div style="text-align: center;">
+          <label for="data.hungryandthirsty" style="font-family: Souvenir-Medium;">Hungry & Thirsty</label>
+        </div>
+        <div>
+          <label for="data.angry" style="font-family: Souvenir-Medium;">Angry</label>
+        </div>
+        <div>
+          <label for="data.afraid" style="font-family: Souvenir-Medium;">Afraid</label>
+        </div>
+        <div>
+          <label for="data.exhausted" style="font-family: Souvenir-Medium;">Exhausted</label>
+        </div>
+        <div>
+          <label for="data.injured" style="font-family: Souvenir-Medium;">Injured</label>
+        </div>
+        <div>
+          <label for="data.sick" style="font-family: Souvenir-Medium;">Sick</label>
+        </div>
+        <div>
+          <label for="data.dead" style="font-family: Souvenir-Medium;">Dead</label>
+        </div>
+      </div>
+    </div> 
 
     {{!-- Sheet Tab Navigation --}}
     <nav class="sheet-tabs tabs" data-group="primary">
-        <a class="item" data-tab="description">Description</a>
-        <a class="item" data-tab="items">Items</a>
+        <a class="item" data-tab="whoYouAre" style="font-family: Souvenir-Demi;">Who You Are</a>
+        <a class="item" data-tab="abilities" style="font-family: Souvenir-Demi;">Abilities</a>
+        <a class="item" data-tab="skills" style="font-family: Souvenir-Demi;">Skills</a>
+        <a class="item" data-tab="inventory" style="font-family: Souvenir-Demi;">Inventory</a>
+        <a class="item" data-tab="magic" style="font-family: Souvenir-Demi;">Magic</a>
+        <a class="item" data-tab="notes" style="font-family: Souvenir-Demi;">Notes</a>
     </nav>
 
     {{!-- Sheet Body --}}
     <section class="sheet-body">
 
-        {{!-- Biography Tab --}}
-        <div class="tab biography" data-group="primary" data-tab="description">
-            {{editor content=data.biography target="data.biography" button=true owner=owner editable=editable}}
+        {{!-- 'Who You Are' Tab --}}
+        <div class="tab whoYouAre" data-group="primary" data-tab="whoYouAre" style="margin-top: 5px;">
+          
+          <!-- Tooltip description on hover
+            <div>
+            <h2 class="tooltip" style="font-family: Souvenir-Demi; border: none; margin: 0 0 0 0rem !important;">Belief
+              <span class="tooltiptext" style="font-family: Souvenir-Medium; font-size: 12px !important;">Uphold your belief in your actions and earn a fate point</span>
+            </h2>
+            <textarea name="" id="belief" cols="30" rows="1"></textarea>
+          </div> -->
+
+          <!-- Belief -->
+          <div>
+            <div style="display: flex; flex-direction: row; align-items: baseline;">
+              <h2 style="font-family: Souvenir-Demi; border: none; margin: 0 0 0 0rem !important;">Belief</h2>
+              <h5 style="font-family: Souvenir-MediumItalic; margin: 0 0 0 0rem !important; text-align: right; flex-grow: 3;">Uphold your belief in your actions and earn a fate point</h5>
+            </div>
+            <input type="text" name="data.belief" value="{{data.belief}}" id="belief">
+          </div>
+
+          <!-- Creed -->
+          <div>
+            <div style="display: flex; flex-direction: row; align-items: baseline;">
+              <h2 style="font-family: Souvenir-Demi; border: none; margin: 0 0 0 0rem !important;">Creed</h2>
+              <h5 style="font-family: Souvenir-MediumItalic; margin: 0 0 0 0rem !important; text-align: right; flex-grow: 3;">Endure a moral test driven by your creed and earn a persona point</h5>
+            </div>
+            <input type="text" name="data.creed" value="{{data.creed}}" id="creed">
+          </div>
+
+          <!-- Goal -->
+          <div>
+            <div style="display: flex; flex-direction: row; align-items: baseline;">
+              <h2 style="font-family: Souvenir-Demi; border: none; margin: 0 0 0 0rem !important;">Goal</h2>
+              <h5 style="font-family: Souvenir-MediumItalic; margin: 0 0 0 0rem !important; text-align: right; flex-grow: 3;">Accomplish a goal to earn a persona point</h5>
+            </div>
+            <input type="text" name="data.goal" value="{{data.goal}}" id="goal">
+          </div>
+
+            <!-- Instinct -->
+          <div>
+            <div style="display: flex; flex-direction: row; align-items: baseline;">
+              <h2 style="font-family: Souvenir-Demi; border: none; margin: 0 0 0 0rem !important;">Instinct</h2>
+              <h5 style="font-family: Souvenir-MediumItalic; margin: 0 0 0 0rem !important; text-align: right; flex-grow: 3;">Use an instinct to aid the group and earn a fate point</h5>
+            </div>
+            <input type="text" name="data.instinct" value="{{data.instinct}}" id="instinct">
+          </div>
+
+          <div id="characterDetails">
+            <div class="grid grid-2col">
+              <div class="resource flexrow flex-group-center">
+                <label style="font-family: Souvenir-Demi; font-size: 16px;" for="data.class.value">Class</label>
+                <select name="data.class.value" id="classDropdown">
+                  {{#select data.class.value}}
+                  <option value="default" selected disabled hidden>Choose a class...</option>
+                  {{#each data.class as |charClass key|}}
+                  <option name="data.class.{{key}}.value" value="{{charClass.value}}">{{charClass.value}}</option>
+                  {{/each}}
+                  {{/select}}
+                </select>
+              </div>
+              <div class="resource flexrow flex-group-center">
+                <label style="font-family: Souvenir-Demi; font-size: 16px;" for="data.level">Level</label>
+                <input type="text" name="data.level.value" value="{{data.level.value}}" data-dtype="Number"/>
+              </div>
+            </div>
+            <div class="grid grid-2col">
+              <div class="resource flexrow flex-group-center">
+                <label style="font-family: Souvenir-Demi; font-size: 16px;" for="data.age">Age</label>
+                <input type="text" name="data.age" value="{{data.age}}" data-dtype="Number"/>
+              </div>
+              <div class="resource flexrow flex-group-center">
+                <label style="font-family: Souvenir-Demi; font-size: 16px;" for="data.home">Home</label>
+                <input type="text" name="data.home" value="{{data.home}}" data-dtype="String"/>
+              </div>
+            </div>
+            <div class="grid grid-2col">
+              <div class="resource flexrow flex-group-center">
+                <label style="font-family: Souvenir-Demi; font-size: 16px;" for="data.parents">Parents</label>
+                <input type="text" name="data.parents" value="{{data.parents}}" data-dtype="String"/>
+              </div>
+              <div class="resource flexrow flex-group-center">
+                <label style="font-family: Souvenir-Demi; font-size: 16px;" for="data.charMentor">Mentor</label>
+                <input type="text" name="data.charMentor" value="{{data.charMentor}}" data-dtype="String"/>
+              </div>
+            </div>
+            <div class="grid grid-2col">
+              <div class="resource flexrow flex-group-center">
+                <label style="font-family: Souvenir-Demi; font-size: 16px;" for="data.friend">Friend</label>
+                <input type="text" name="data.friend" value="{{data.friend}}" data-dtype="String"/>
+              </div>
+              <div class="resource flexrow flex-group-center">
+                <label style="font-family: Souvenir-Demi; font-size: 16px;" for="data.enemy">Enemy</label>
+                <input type="text" name="data.enemy" value="{{data.enemy}}" data-dtype="String"/>
+              </div>
+            </div>
+            <div class="grid grid-2col">
+              <div class="resource flexrow flex-group-center">
+                <label style="font-family: Souvenir-Demi; font-size: 16px;" for="data.raiment">Raiment</label>
+                <input type="text" name="data.raiment" value="{{data.raiment}}" data-dtype="String"/>
+              </div>
+            </div>
+          </div>
         </div>
 
-        {{!-- Owned Items Tab --}}
-        <div class="tab items" data-group="primary" data-tab="items">
+        {{!-- 'Abilities / Wises / Traits' Tab --}}
+        <div class="tab items" data-group="primary" data-tab="abilities">
+          <div class="grid grid-col2" style="gap: 0px; margin: 5px 0 5px 0;">
+            <!-- Abilities Div -->
+            <div id="abilities" style="border-right: 1px solid #AAA;">
+              <!-- Header -->
+              <h2 style="font-family: Souvenir-Demi; border: none; margin: 0 0 0 0rem !important; text-align: center;">Abilities</h2>
+              <!-- Table Start -->
+              <div class="grid grid-3col" style="margin-right: 10px;">
+                <h4 style="font-family: Souvenir-Demi; margin: 0 0 0 0rem !important;"><u>Ability</u></h4>
+                <h4 style="font-family: Souvenir-Demi; margin: 0 0 0 0rem !important; text-align: center"><u>Rating</u></h4>
+                <h4 style="font-family: Souvenir-Demi; margin: 0 0 0 0rem !important; text-align: center"><u>Pass / Fail</u></h4>
+              </div>
+              <!-- Will -->
+              <div class="grid grid-3col" style="margin-right: 10px;">
+                <div>
+                  <h4 style="font-family: Souvenir-Medium; margin: 0 0 0 0rem !important;">Will</h4>
+                </div>
+                <div style="display: flex; flex-direction: row;">
+                  <input type="text" name="data.will.value" value="{{data.will.value}}" data-dtype="Number" style="padding: 5px; margin: 0 10px 0 10px; width: 30px"/>
+                  <img src="../systems/torchbearer/assets/icons/d6.png" style="height: 24px; width: 24; border: none;">
+                </div>
+                <div class="resource-content flexrow flex-center flex-between">
+                  <input id="willPass" type="text" name="data.will.pass" value="{{data.will.pass}}" data-dtype="Number"/>
+                  <span> / </span>
+                  <input id="willFail" type="text" name="data.will.fail" value="{{data.will.fail}}" data-dtype="Number"/>
+                </div>
+              </div>
+              <!-- Health -->
+              <div class="grid grid-3col" style="margin-right: 10px;">
+                <h4 style="font-family: Souvenir-Medium; margin: 0 0 0 0rem !important;">Health</h4>
+                <div style="display: flex; flex-direction: row;">
+                  <input type="text" name="data.health.value" value="{{data.health.value}}" data-dtype="Number" style="padding: 5px; margin: 0 10px 0 10px; width: 30px"/>
+                  <img src="../systems/torchbearer/assets/icons/d6.png" style="height: 24px; width: 24; border: none;">
+                </div>
+                <div class="resource-content flexrow flex-center flex-between">
+                  <input id="healthPass" type="text" name="data.health.pass" value="{{data.health.pass}}" data-dtype="Number"/>
+                  <span> / </span>
+                  <input id="healthFail" type="text" name="data.health.fail" value="{{data.health.fail}}" data-dtype="Number"/>
+                </div>
+              </div>
+              <!-- Nature -->
+              <div class="grid grid-3col" style="margin-right: 10px;">
+                <h4 style="font-family: Souvenir-Medium; margin: 0 0 0 0rem !important;">Nature</h4>
+                <div style="display: flex; flex-direction: row; align-items: center;">
+                  <input type="text" name="data.nature.value" value="{{data.nature.value}}" data-dtype="Number" style="padding: 5px; width: 10px"/>
+                  <span> / </span>
+                  <input type="text" name="data.nature.max" value="{{data.nature.max}}" data-dtype="Number" style="padding: 5px; margin-right: 5px; width: 10px"/>
+                  <img src="../systems/torchbearer/assets/icons/d6.png" style="height: 24px; width: 24; border: none;">
+                </div>
+                <div class="resource-content flexrow flex-center flex-between">
+                  <input id="naturePass" type="text" name="data.nature.pass" value="{{data.nature.pass}}" data-dtype="Number"/>
+                  <span> / </span>
+                  <input id="natureFail" type="text" name="data.nature.fail" value="{{data.nature.fail}}" data-dtype="Number"/>
+                </div>
+              </div>
+              <!-- Resources -->
+              <div class="grid grid-3col" style="margin-right: 10px;">
+                <h4 style="font-family: Souvenir-Medium; margin: 0 0 0 0rem !important;">Resources</h4>
+                <div style="display: flex; flex-direction: row;">
+                  <input type="text" name="data.resources.value" value="{{data.resources.value}}" data-dtype="Number" style="padding: 5px; margin: 0 10px 0 10px; width: 30px"/>
+                  <img src="../systems/torchbearer/assets/icons/d6.png" style="height: 24px; width: 24; border: none;">
+                </div>
+                <div class="resource-content flexrow flex-center flex-between">
+                  <input id="resourcesPass" type="text" name="data.resources.pass" value="{{data.resources.pass}}" data-dtype="Number"/>
+                  <span> / </span>
+                  <input id="resourcesFail" type="text" name="data.resources.fail" value="{{data.resources.fail}}" data-dtype="Number"/>
+                </div>
+              </div>
+              <!-- Circles -->
+              <div class="grid grid-3col" style="margin-right: 10px;">
+                <h4 style="font-family: Souvenir-Medium; margin: 0 0 0 0rem !important;">Circles</h4>
+                <div style="display: flex; flex-direction: row;">
+                  <input type="text" name="data.circles.value" value="{{data.circles.value}}" data-dtype="Number" style="padding: 5px; margin: 0 10px 0 10px; width: 30px"/>
+                  <img src="../systems/torchbearer/assets/icons/d6.png" style="height: 24px; width: 24; border: none;">
+                </div>
+                <div class="resource-content flexrow flex-center flex-between">
+                  <input id="circlesPass" type="text" name="data.circles.pass" value="{{data.circles.pass}}" data-dtype="Number"/>
+                  <span> / </span>
+                  <input id="circlesFail" type="text" name="data.circles.fail" value="{{data.circles.fail}}" data-dtype="Number"/>
+                </div>
+              </div>
+              <!-- Precedence and Might -->
+              <div style="display: flex; flex-direction: row;">
+                <!-- Precedence -->
+                <div style="display: flex; flex-direction: row;">
+                  <h4 style="font-family: Souvenir-Medium; width: 81.66px; margin: 0 10px 0 0 !important;">Precedence</h4>
+                  <input type="text" name="data.precedence.value" value="{{data.precedence.value}}" data-dtype="Number" style="margin: 0 0 0 10px; width: 30px !important; justify-self: end;"/>
+                </div>
+                <!-- Might -->
+                <div style="display: flex; flex-direction: row;">
+                  <h4 style="font-family: Souvenir-Medium; margin: 0 20px 0 46px !important;">Might</h4>
+                  <input type="text" name="data.might.value" value="{{data.might.value}}" data-dtype="Number" style="width: 30px !important; justify-self: end;"/>
+                </div>
+              </div>
+            </div>
+            <!-- Wises Div -->
+            <div id="wises">
+              <h2 style="font-family: Souvenir-Demi; border: none; margin: 0 0 0 0rem !important; text-align: center;">Wises</h2>
+              <div id="wise1">
+                <div style="padding: 0 10px 0 10px;">
+                  <input style="margin-top: 10px;" type="text" name="data.wise1.name" value="{{data.wise1.name}}" data-dtype="String"/>
+                </div>
+                <div class="flexrow" style="align-items: center; padding: 0 10px 0 10px;">
+                  <label for="data.wise1.pass" style="font-family: Souvenir-Medium;">Pass</label>
+                  <input type="checkbox" name="data.wise1.pass" id="wise1pass" {{checked data.wise1.pass}}>
+                  <span> | </span>
+                  <label for="data.wise1.fail" style="font-family: Souvenir-Medium;">Fail</label>
+                  <input type="checkbox" name="data.wise1.fail" id="wise1fail" {{checked data.wise1.fail}}>
+                  <span> | </span>
+                  <label for="data.wise1.fate" style="font-family: Souvenir-Medium;">Fate</label>
+                  <input type="checkbox" name="data.wise1.fate" id="wise1fate" {{checked data.wise1.fate}}>
+                  <span> | </span>
+                  <label for="data.wise1.persona" style="font-family: Souvenir-Medium;">Persona</label>
+                  <input type="checkbox" name="data.wise1.persona" id="wise1persona" {{checked data.wise1.persona}}>
+                </div>
+              </div>
+              <div id="wise2">
+                <div style="padding: 0 10px 0 10px;">
+                  <input style="margin-top: 10px;" type="text" name="data.wise2.name" value="{{data.wise2.name}}" data-dtype="String"/>
+                </div>
+                <div class="flexrow" style="align-items: center; padding: 0 10px 0 10px;">
+                  <label for="data.wise2.pass" style="font-family: Souvenir-Medium;">Pass</label>
+                  <input type="checkbox" name="data.wise2.pass" id="wise2pass" {{checked data.wise2.pass}}>
+                  <span> | </span>
+                  <label for="data.wise2.fail" style="font-family: Souvenir-Medium;">Fail</label>
+                  <input type="checkbox" name="data.wise2.fail" id="wise2fail" {{checked data.wise2.fail}}>
+                  <span> | </span>
+                  <label for="data.wise2.fate" style="font-family: Souvenir-Medium;">Fate</label>
+                  <input type="checkbox" name="data.wise2.fate" id="wise2fate" {{checked data.wise2.fate}}>
+                  <span> | </span>
+                  <label for="data.wise2.persona" style="font-family: Souvenir-Medium;">Persona</label>
+                  <input type="checkbox" name="data.wise2.persona" id="wise2persona" {{checked data.wise2.persona}}>
+                </div>
+              </div>
+              <div id="wise3">
+                <div style="padding: 0 10px 0 10px;">
+                  <input style="margin-top: 10px;" type="text" name="data.wise3.name" value="{{data.wise3.name}}" data-dtype="String"/>
+                </div>
+                <div class="flexrow" style="align-items: center; padding: 0 10px 0 10px;">
+                  <label for="data.wise3.pass" style="font-family: Souvenir-Medium;">Pass</label>
+                  <input type="checkbox" name="data.wise3.pass" id="wise3pass" {{checked data.wise3.pass}}>
+                  <span> | </span>
+                  <label for="data.wise3.fail" style="font-family: Souvenir-Medium;">Fail</label>
+                  <input type="checkbox" name="data.wise3.fail" id="wise3fail" {{checked data.wise3.fail}}>
+                  <span> | </span>
+                  <label for="data.wise3.fate" style="font-family: Souvenir-Medium;">Fate</label>
+                  <input type="checkbox" name="data.wise3.fate" id="wise3fate" {{checked data.wise3.fate}}>
+                  <span> | </span>
+                  <label for="data.wise3.persona" style="font-family: Souvenir-Medium;">Persona</label>
+                  <input type="checkbox" name="data.wise3.persona" id="wise3persona" {{checked data.wise3.persona}}>
+                </div>
+              </div>
+              <div id="wise4">
+                <div style="padding: 0 10px 0 10px;">
+                  <input style="margin-top: 10px;" type="text" name="data.wise4.name" value="{{data.wise4.name}}" data-dtype="String"/>
+                </div>
+                <div class="flexrow" style="align-items: center; padding: 0 10px 0 10px;">
+                  <label for="data.wise4.pass" style="font-family: Souvenir-Medium;">Pass</label>
+                  <input type="checkbox" name="data.wise4.pass" id="wise4pass" {{checked data.wise4.pass}}>
+                  <span> | </span>
+                  <label for="data.wise4.fail" style="font-family: Souvenir-Medium;">Fail</label>
+                  <input type="checkbox" name="data.wise4.fail" id="wise4fail" {{checked data.wise4.fail}}>
+                  <span> | </span>
+                  <label for="data.wise4.fate" style="font-family: Souvenir-Medium;">Fate</label>
+                  <input type="checkbox" name="data.wise4.fate" id="wise4fate" {{checked data.wise4.fate}}>
+                  <span> | </span>
+                  <label for="data.wise4.persona" style="font-family: Souvenir-Medium;">Persona</label>
+                  <input type="checkbox" name="data.wise4.persona" id="wise4persona" {{checked data.wise4.persona}}>
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr style="border-top: 1px solid #AAA; border-bottom: none;">
+          <!-- Traits Div -->
+          <div>
+            <!-- Traits Header -->
+            <h2 style="font-family: Souvenir-Demi; border: none; margin: 0 0 0 0rem !important; text-align: center;">Traits</h2>
+            <div class="grid grid-4col" style="margin: 0 0 0 0 !important;">
+              <h4 style="font-family: Souvenir-Demi; margin: 0 0 0 0rem !important;"><u>Trait name</u></h4>
+              <h4 style="font-family: Souvenir-Demi; margin: 0 0 0 0rem !important; justify-self: center;"><u>Trait level</u></h4>
+              <h4 style="font-family: Souvenir-Demi; margin: 0 0 0 0rem !important;"><u>Beneficial Uses</u></h4>
+              <h4 style="font-family: Souvenir-Demi; margin: 0 0 0 0rem !important; justify-self: center;"><u>Checks</u></h4>
+            </div>
+            <!-- Trait 1 -->
+            <div class="grid grid-4col" style="gap: 5px; align-items: flex-end;">
+              <div id="trait1Input">
+                <input type="text" id="trait1Dialog" class="clearPulldown" list="traitsList">
+              </div>
+              <div id="trait1Data" style="justify-self: center;">
+                <select name="data.trait1.level.value" id="trait1LevelDropdown">
+                  {{#select data.trait1.level.value}}
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  {{/select}}
+                </select>
+              </div>
+              <div id="trait1Uses" style="display: flex; flex-direction: row; align-items: center;">
+                <input type="checkbox" name="data.trait1.uses.level1.use1" id="trait1Level1Used" {{checked data.trait1.uses.level1.use1}}>
+                <label for="data.trait1.uses.level1.use1" style="font-family: Souvenir-Medium;">+1D per session</label>
+              </div>
+              <div id="trait1Checks" style="margin: auto;">
+                <input type="text" name="data.trait1.checks.checksEarned" value="{{data.trait1.checks.checksEarned}}" id="trait1ChecksEarned" style="width: 30px">
+              </div>
+            </div>
+            <!-- Trait 2 -->
+            <div class="grid grid-4col" style="gap: 5px; align-items: flex-end;">
+              <div id="trait2Input">
+                <input type="text" id="trait2Dialog" class="clearPulldown" list="traitsList">
+              </div>
+              <div id="trait2Data" style="justify-self: center;">
+                <select name="data.trait2.level.value" id="trait2Level">
+                  {{#select data.trait2.level.value}}
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  {{/select}}
+                </select>
+              </div>
+              <div id="trait2Uses" style="display: flex; flex-direction: row; align-items: center;">
+                <input type="checkbox" name="data.trait2.uses.level1.use1" id="trait2Level1Used" {{checked data.trait2.uses.level1.use1}}>
+                <label for="data.trait2.uses.level1.use1" style="font-family: Souvenir-Medium;">+1D per session</label>
+              </div>
+              <div id="trait2Checks" style="margin: auto;">
+                <input type="text" name="data.trait2.checks.checksEarned" value="{{data.trait2.checks.checksEarned}}" id="trait2ChecksEarned" style="width: 30px">
+              </div>
+            </div>
+            <!-- Trait 3 -->
+            <div class="grid grid-4col" style="gap: 5px; align-items: flex-end;">
+              <div id="trait3Input">
+                <input type="text" id="trait3Dialog" class="clearPulldown" list="traitsList">
+              </div>
+              <div id="trait3Data" style="justify-self: center;">
+                <select name="data.trait3.level.value" id="trait3Level">
+                  {{#select data.trait3.level.value}}
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  {{/select}}
+                </select>
+              </div>
+              <div id="trait3Uses" style="display: flex; flex-direction: row; align-items: center;">
+                <input type="checkbox" name="data.trait3.uses.level1.use1" id="trait3Level1Used" {{checked data.trait3.uses.level1.use1}}>
+                <label for="data.trait3.uses.level1.use1" style="font-family: Souvenir-Medium;">+1D per session</label>
+              </div>
+              <div id="trait3Checks" style="margin: auto;">
+                <input type="text" name="data.trait3.checks.checksEarned" value="{{data.trait3.checks.checksEarned}}" id="trait3ChecksEarned" style="width: 30px">
+              </div>
+            </div>
+            <!-- Trait 4 -->
+            <div class="grid grid-4col" style="gap: 5px; align-items: flex-end;">
+              <div id="trait4Input">
+                <input type="text" id="trait4Dialog" class="clearPulldown" list="traitsList">
+              </div>
+              <div id="trait4Data" style="justify-self: center;">
+                <select name="data.trait4.level.value" id="trait4Level">
+                  {{#select data.trait4.level.value}}
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  {{/select}}
+                </select>
+              </div>
+              <div id="trait4Uses" style="display: flex; flex-direction: row; align-items: center;">
+                <input type="checkbox" name="data.trait4.uses.level1.use1" id="trait4Level1Used" {{checked data.trait4.uses.level1.use1}}>
+                <label for="data.trait4.uses.level1.use1" style="font-family: Souvenir-Medium;">+1D per session</label>
+              </div>
+              <div id="trait4Checks" style="margin: auto;">
+                <input type="text" name="data.trait4.checks.checksEarned" value="{{data.trait4.checks.checksEarned}}" id="trait4ChecksEarned" style="width: 30px">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {{!-- 'Skills' Tab --}}
+        <div class="tab items" data-group="primary" data-tab="skills">
+          <div class="container scroll">
+            <table class="tbtable">
+              <thead class="theader" style="font-family: Souvenir-Demi;">
+                <th style="text-align: left;">Skill</th>
+                <th style="text-align: center;">Rating</th>
+                <th style="text-align: center; padding-left: 20px;">Pass / Fail</th>
+                <th style="text-align: center; padding-left: 20px;">BL</th>
+                <th style="text-align: left; padding-left: 20px;">Suggested Help</th>
+              </thead>
+              <tbody style="font-family: Souvenir-Medium;">
+                {{#each data.skills as |skill key|}}
+                <tr>
+                  <td name="data.skills.{{key}}">{{key}}</td>
+                  <td class="resource-content flex-center flexrow">
+                    <input type="text" name="data.skills.{{key}}.rating" value="{{skill.rating}}" data-dtype="Number" style="width: 30px; margin: 0 10px 0 0;"/>
+                    <img src="../systems/torchbearer/assets/icons/d6.png" style="height: auto; width: 24px; border: none;">
+                  </td>
+                  <td>
+                    <div class="resource-content flexrow flex-center flex-between" style="padding-left: 20px;">
+                      <input type="text" name="data.skills.{{key}}.pass" value="{{skill.pass}}" data-dtype="Number" style="width: 30px;"/>
+                      <span> / </span>
+                      <input type="text" name="data.skills.{{key}}.fail" value="{{skill.fail}}" data-dtype="Number" style="width: 30px;"/>
+                    </div>
+                  </td>
+                  <td name="data.skills.{{key}}.bl" style="padding-left: 20px;">{{skill.bl}}</td>
+                  <td name="data.skills.{{key}}.help" style="padding-left: 20px;">{{skill.help}}</td>
+                </tr>
+                {{/each}}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        {{!-- Inventory Tab --}}
+        <div class="tab items" data-group="primary" data-tab="inventory">
+          <div class="container scroll">
+            <div class="row">
+              <div class="col">
+                <ol id="headSlot" class="items-list col" style="margin: 0 3px 0 3px;">
+                  <!-- Section header -->
+                  <li class="item flexrow item-header" id="headSlotHeader">
+                    <div class="item-image"></div>
+                    <div class="item-name" style="font-family: Souvenir-Demi;">Head</div>
+                    <div class="item-controls">
+                      <a class="item-control item-create" title="Create item" data-type="item" type="Head"><i class="fas fa-plus"></i></a>
+                    </div>
+                  </li>
+    
+                  <!-- Placeholder Div -->
+                  <div id="headPlaceholder">
+                    <li class="flexrow placeholder">
+                      <h4 class="item-name" style="font-family: Souvenir-Medium;">[Worn]</h4>
+                    </li>
+                  </div>
+    
+                  {{#each actor.items as |item id|}}
+                    {{#ifeq item.data.equip "Head"}}
+                      <script>
+                        // console.log(document.getElementById('pocketPlaceholder'));
+                        if (document.getElementById('headPlaceholder') != null) {
+                          // console.log(document.getElementById("pocketSlot").firstElementChild.nextElementSibling);
+                          document.getElementById('headSlotHeader').insertAdjacentHTML("afterend", '<li class="item flexrow" data-item-id="{{item._id}}" data-item-type="{{item.equip}}"><div class="item-image"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></div><h4 class="item-name" style="font-family: Souvenir-Medium;">{{item.name}}</h4><div class="item-controls"><a class="item-control item-edit" title="Edit Item" style="margin-right: 5px;"><i class="fas fa-edit"></i></a><a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a></div></li>');
+                          document.getElementById('headPlaceholder').remove();
+                        } else {
+                          ui.notifications.error('ERROR: Player tried to add more items than slots available.');
+                        }
+                      </script>
+                    {{/ifeq}}
+                  {{/each}}
+                </ol>
+                <ol id="handsSlot" class="items-list col" style="margin: 0 3px 0 3px;">
+                  <li class="item flexrow item-header">
+                    <div class="item-image"></div>
+                    <div class="item-name" style="font-family: Souvenir-Demi;">Hands</div>
+                    <div class="item-controls">
+                      <a class="item-control item-create" title="Create item" data-type="item" type="Hands"><i class="fas fa-plus"></i></a>
+                    </div>
+                  </li>
+    
+                  <!-- Placeholder <li> -->
+                  <li class="flexrow placeholder">
+                    <h4 class="item-name" style="font-family: Souvenir-Medium;">[Worn]</h4>
+                  </li>
+                  <li class="flexrow placeholder">
+                    <h4 class="item-name" style="font-family: Souvenir-Medium;">[Worn]</h4>
+                  </li>
+                  <li class="flexrow placeholder">
+                    <h4 class="item-name" style="font-family: Souvenir-Medium;">[Carried]</h4>
+                  </li>
+                  <li class="flexrow placeholder">
+                    <h4 class="item-name" style="font-family: Souvenir-Medium;">[Carried]</h4>
+                  </li>
+    
+                  {{#each actor.items as |item id|}}
+                    {{#ifeq item.data.equip "Hands"}}
+                      <li class="item flexrow" data-item-id="{{item._id}}">
+                          <div class="item-image"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></div>
+                          <h4 class="item-name" style="font-family: Souvenir-Medium;">{{item.name}}</h4>
+                          <div style="margin: auto;">
+                            <img src="../systems/torchbearer/assets/icons/cracked-helm.png" style="height: 20px; width: auto; border: none;">
+                          </div>
+                          <div class="item-controls">
+                            <a class="item-control item-edit" title="Edit Item" style="margin-right: 5px;"><i class="fas fa-edit"></i></a>
+                            <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+                          </div>
+                      </li>
+                    {{/ifeq}}
+                  {{/each}}
+                </ol>
+                <ol id="torsoSlot" class="items-list col" style="margin: 0 3px 0 3px;">
+                  <li class="item flexrow item-header" id="torsoSlotHeader">
+                    <div class="item-image"></div>
+                    <div class="item-name" style="font-family: Souvenir-Demi;">Torso</div>
+                    <div class="item-controls">
+                      <a class="item-control item-create" title="Create item" data-type="item" type="Torso"><i class="fas fa-plus"></i></a>
+                    </div>
+                  </li>
+    
+                  <!-- Placeholder <li> -->
+                  <div id="torsoPlaceholder">
+                    <li class="flexrow placeholder">
+                      <h4 class="item-name" style="font-family: Souvenir-Medium;">[Worn]</h4>
+                      </li>
+                      <li class="flexrow placeholder">
+                      <h4 class="item-name" style="font-family: Souvenir-Medium;">[Worn]</h4>
+                      </li>
+                      <li class="flexrow placeholder">
+                      <h4 class="item-name" style="font-family: Souvenir-Medium;">[Worn]</h4>
+                    </li>
+                  </div>
+    
+                  {{#each actor.items as |item id|}}
+                    {{#ifeq item.data.equip "Torso"}}
+                      <script>
+                        // console.log(document.getElementById('pocketPlaceholder'));
+                        if ({{item.data.slots}} > 3) {
+                          console.log('ERROR: Player tried to add an item with a higher "weight" than slots available.');
+                        } else if (document.getElementById('torsoPlaceholder') != null) {
+                          // console.log(document.getElementById("pocketSlot").firstElementChild.nextElementSibling);
+                          document.getElementById('torsoSlotHeader').insertAdjacentHTML("afterend", '<li class="item flexrow" data-item-id="{{item._id}}"><div class="item-image"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></div><h4 class="item-name" style="font-family: Souvenir-Medium;">{{item.name}}</h4><div class="item-controls"><a class="item-control item-edit" title="Edit Item" style="margin-right: 5px;"><i class="fas fa-edit"></i></a><a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a></div></li>');
+                          //document.getElementById('torsoPlaceholder').remove();
+                        } else {
+                          console.log('ERROR: Player tried to add more items than slots available.');
+                        }
+                      </script>
+                      <!-- <li class="item flexrow" data-item-id="{{item._id}}">
+                          <div class="item-image"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></div>
+                          <h4 class="item-name" style="font-family: Souvenir-Medium;">{{item.name}}</h4>
+                          <div style="margin: auto;">
+                            <img src="../systems/torchbearer/assets/icons/cracked-helm.png" style="height: 20px; width: auto; border: none;">
+                          </div>
+                          <div class="item-controls">
+                            <a class="item-control item-edit" title="Edit Item" style="margin-right: 5px;"><i class="fas fa-edit"></i></a>
+                            <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+                          </div>
+                      </li> -->
+                    {{/ifeq}}
+                  {{/each}}
+                </ol>
+                <ol id="pocketSlot" class="items-list col" style="margin: 0 3px 0 3px;">
+                  <li class="item flexrow item-header" id="pocketSlotHeader">
+                    <div class="item-image"></div>
+                    <div class="item-name" style="font-family: Souvenir-Demi;">Pocket</div>
+                    <div class="item-controls">
+                      <a class="item-control item-create" title="Create item" data-type="item" type="Pocket"><i class="fas fa-plus"></i></a>
+                    </div>
+                  </li>
+    
+                  <!-- Placeholder Div -->
+                  <div id="pocketPlaceholder">
+                    <li class="flexrow placeholder">
+                      <h4 class="item-name" style="font-family: Souvenir-Medium;">[Trinkets]</h4>
+                    </li>
+                  </div>
+    
+                  {{#each actor.items as |item id|}}
+                    {{#ifeq item.data.equip "Pocket"}}
+                      <script>
+                        // console.log(document.getElementById('pocketPlaceholder'));
+                        
+                        if ({{item.data.slots}} > 1) {
+                          console.log('ERROR: Player tried to add an item with a higher "weight" than slots available.');
+                        } else if (document.getElementById('pocketPlaceholder') != null) {
+                          // console.log(document.getElementById("pocketSlot").firstElementChild.nextElementSibling);
+                          document.getElementById('pocketSlotHeader').insertAdjacentHTML("afterend", '<li class="item flexrow" data-item-id="{{item._id}}"><div class="item-image"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></div><h4 class="item-name" style="font-family: Souvenir-Medium;">{{item.name}}</h4><div class="item-controls"><a class="item-control item-edit" title="Edit Item" style="margin-right: 5px;"><i class="fas fa-edit"></i></a><a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a></div></li>');
+                          document.getElementById('pocketPlaceholder').remove();
+                        } else {
+                          document.getElementById('pocketSlotHeader').insertAdjacentHTML("afterend", '<li class="item flexrow" data-item-id="{{item._id}}"><div class="item-image"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></div><h4 class="item-name" style="font-family: Souvenir-Medium;">{{item.name}}</h4><div class="item-controls"><a class="item-control item-edit" title="Edit Item" style="margin-right: 5px;"><i class="fas fa-edit"></i></a><a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a></div></li>');
+                        }
+                      </script>
+                      <!-- <li class="item flexrow" data-item-id="{{item._id}}">
+                          <div class="item-image"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></div>
+                          <h4 class="item-name" style="font-family: Souvenir-Medium;">{{item.name}}</h4>
+                          <div style="margin: auto;">
+                            <img src="../systems/torchbearer/assets/icons/cracked-helm.png" style="height: 20px; width: auto; border: none;">
+                          </div>
+                          <div class="item-controls">
+                            <a class="item-control item-edit" title="Edit Item" style="margin-right: 5px;"><i class="fas fa-edit"></i></a>
+                            <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+                          </div>
+                      </li> -->
+                    {{/ifeq}}
+                  {{/each}}
+                </ol>
+              </div>
+              <div class="col">
+                <ol id="neckSlot" class="items-list col" style="margin: 0 3px 0 3px;">
+                  <li class="item flexrow item-header" id="neckSlotHeader">
+                    <div class="item-image"></div>
+                    <div class="item-name" style="font-family: Souvenir-Demi;">Neck</div>
+                    <div class="item-controls">
+                      <a class="item-control item-create" title="Create item" data-type="item" type="Neck"><i class="fas fa-plus"></i></a>
+                    </div>
+                  </li>
+    
+                  <!-- Placeholder Div -->
+                  <div id="neckPlaceholder">
+                    <li class="flexrow placeholder">
+                      <h4 class="item-name" style="font-family: Souvenir-Medium;">[Worn]</h4>
+                    </li>
+                  </div>
+
+                  {{#each actor.items as |item id|}}
+                    {{#ifeq item.data.equip "Neck"}}
+                      <script>
+                        // console.log(document.getElementById('pocketPlaceholder'));
+                        
+                        if ({{item.data.slots}} > 1) {
+                          console.log('ERROR: Player tried to add an item with a higher "weight" than slots available.');
+                        } else if (document.getElementById('neckPlaceholder') != null) {
+                          // console.log(document.getElementById("pocketSlot").firstElementChild.nextElementSibling);
+                          document.getElementById('neckSlotHeader').insertAdjacentHTML("afterend", '<li class="item flexrow" data-item-id="{{item._id}}"><div class="item-image"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></div><h4 class="item-name" style="font-family: Souvenir-Medium;">{{item.name}}</h4><div class="item-controls"><a class="item-control item-edit" title="Edit Item" style="margin-right: 5px;"><i class="fas fa-edit"></i></a><a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a></div></li>');
+                          document.getElementById('neckPlaceholder').remove();
+                        } else {
+                          console.log('ERROR: Player tried to add more items than slots available.');
+                        }
+                      </script>
+                      <!-- <li class="item flexrow" data-item-id="{{item._id}}">
+                          <div class="item-image"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></div>
+                          <h4 class="item-name" style="font-family: Souvenir-Medium;">{{item.name}}</h4>
+                          <div style="margin: auto;">
+                            <img src="../systems/torchbearer/assets/icons/cracked-helm.png" style="height: 20px; width: auto; border: none;">
+                          </div>
+                          <div class="item-controls">
+                            <a class="item-control item-edit" title="Edit Item" style="margin-right: 5px;"><i class="fas fa-edit"></i></a>
+                            <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+                          </div>
+                      </li> -->
+                    {{/ifeq}}
+                  {{/each}}
+                </ol>
+                <ol id="feetSlot" class="items-list col" style="margin: 0 3px 0 3px;">
+                  <li class="item flexrow item-header" id="feetSlotHeader">
+                    <div class="item-image"></div>
+                    <div class="item-name" style="font-family: Souvenir-Demi;">Feet</div>
+                    <div class="item-controls">
+                      <a class="item-control item-create" title="Create item" data-type="item" type="Feet"><i class="fas fa-plus"></i></a>
+                    </div>
+                  </li>
+    
+                  <!-- Placeholder Div -->
+                  <div id="feetPlaceholder">
+                    <li class="flexrow placeholder">
+                      <h4 class="item-name" style="font-family: Souvenir-Medium;">[Worn]</h4>
+                    </li>
+                  </div>
+    
+                  {{#each actor.items as |item id|}}
+                    {{#ifeq item.data.equip "Feet"}}
+                      <script>
+                        // console.log(document.getElementById('pocketPlaceholder'));
+                        
+                        if ({{item.data.slots}} > 1) {
+                          console.log('ERROR: Player tried to add an item with a higher "weight" than slots available.');
+                        } else if (document.getElementById('feetPlaceholder') != null) {
+                          // console.log(document.getElementById("pocketSlot").firstElementChild.nextElementSibling);
+                          document.getElementById('feetSlotHeader').insertAdjacentHTML("afterend", '<li class="item flexrow" data-item-id="{{item._id}}"><div class="item-image"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></div><h4 class="item-name" style="font-family: Souvenir-Medium;">{{item.name}}</h4><div class="item-controls"><a class="item-control item-edit" title="Edit Item" style="margin-right: 5px;"><i class="fas fa-edit"></i></a><a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a></div></li>');
+                          document.getElementById('feetPlaceholder').remove();
+                        } else {
+                          console.log('ERROR: Player tried to add more items than slots available.');
+                        }
+                      </script> 
+                      <!-- <li class="item flexrow" data-item-id="{{item._id}}">
+                          <div class="item-image"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></div>
+                          <h4 class="item-name" style="font-family: Souvenir-Medium;">{{item.name}}</h4>
+                          <div style="margin: auto;">
+                            <img src="../systems/torchbearer/assets/icons/cracked-helm.png" style="height: 20px; width: auto; border: none;">
+                          </div>
+                          <div class="item-controls">
+                            <a class="item-control item-edit" title="Edit Item" style="margin-right: 5px;"><i class="fas fa-edit"></i></a>
+                            <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+                          </div>
+                      </li> -->
+                    {{/ifeq}}
+                  {{/each}}
+                </ol>
+                <ol id="beltSlot" class="items-list col" style="margin: 0 3px 0 3px;">
+                  <li class="item flexrow item-header">
+                    <div class="item-image"></div>
+                    <div class="item-name" style="font-family: Souvenir-Demi;">Belt</div>
+                    <div class="item-controls">
+                      <a class="item-control item-create" title="Create item" data-type="item" type="Belt"><i class="fas fa-plus"></i></a>
+                    </div>
+                  </li>
+    
+                  <!-- Placeholder <li> -->
+                  <li class="flexrow placeholder">
+                    <h4 class="item-name" style="font-family: Souvenir-Medium;">[1]</h4>
+                  </li>
+                  <li class="flexrow placeholder">
+                    <h4 class="item-name" style="font-family: Souvenir-Medium;">[2]</h4>
+                  </li>
+                  <li class="flexrow placeholder">
+                    <h4 class="item-name" style="font-family: Souvenir-Medium;">[3]</h4>
+                  </li>
+    
+                  {{#each actor.items as |item id|}}
+                    {{#ifeq item.data.equip "Belt"}}
+                      <li class="item flexrow" data-item-id="{{item._id}}">
+                          <div class="item-image"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></div>
+                          <h4 class="item-name" style="font-family: Souvenir-Medium;">{{item.name}}</h4>
+                          <div style="margin: auto;">
+                            <img src="../systems/torchbearer/assets/icons/cracked-helm.png" style="height: 20px; width: auto; border: none;">
+                          </div>
+                          <div class="item-controls">
+                            <a class="item-control item-edit" title="Edit Item" style="margin-right: 5px;"><i class="fas fa-edit"></i></a>
+                            <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+                          </div>
+                      </li>
+                    {{/ifeq}}
+                  {{/each}}
+                </ol>
+                <ol id="packSlot" class="items-list col" style="margin: 0 3px 0 3px;">
+                  <li class="item flexrow item-header" style="flex-wrap: nowrap;">
+                    <div class="item-image"></div>
+                    <div class="item-name row pack-selector" style="font-family: Souvenir-Demi;">
+                      {{#ifeq data.Pack.packSatchel false}}
+                        <span id="backpack" style="color: black">Backpack</span>
+                      {{/ifeq}}
+                      {{#ifeq data.Pack.packSatchel true}}
+                        <span id="backpack" style="color: #ccc">Backpack</span>
+                      {{/ifeq}}
+                      <label class="switch">
+                        <input type="checkbox" name="data.pack.packSatchel" id="packType" data-dtype="Boolean" {{checked data.pack.packSatchel}}>
+                        <span class="slider round"></span>
+                      </label>
+                      {{#ifeq data.Pack.packSatchel true}}
+                      <span id="satchel" style="color: black">Satchel</span>
+                      {{/ifeq}}
+                      {{#ifeq data.Pack.packSatchel false}}
+                      <span id="satchel" style="color: #ccc">Satchel</span>
+                      {{/ifeq}}
+                    </div>
+                    <div class="item-controls" style="flex: 0 0 14px;">
+                      <a class="item-control item-create" title="Create item" data-type="item" type="Pack"><i class="fas fa-plus"></i></a>
+                    </div>
+                  </li>
+    
+                  <!-- Placeholder <li> -->
+                  <li class="flexrow placeholder">
+                    <h4 class="item-name" style="font-family: Souvenir-Medium;">[1]</h4>
+                  </li>
+                  <li class="flexrow placeholder">
+                    <h4 class="item-name" style="font-family: Souvenir-Medium;">[2]</h4>
+                  </li>
+                  <li class="flexrow placeholder">
+                    <h4 class="item-name" style="font-family: Souvenir-Medium;">[3]</h4>
+                  </li>
+                  
+                  <!-- Backpack -->
+                  {{#ifeq data.pack.packSatchel false}}  
+                    <li class="flexrow placeholder">
+                      <h4 class="item-name" style="font-family: Souvenir-Medium;">[4]</h4>
+                    </li>
+                    <li class="flexrow placeholder">
+                      <h4 class="item-name" style="font-family: Souvenir-Medium;">[5]</h4>
+                    </li>
+                    <li class="flexrow placeholder">
+                      <h4 class="item-name" style="font-family: Souvenir-Medium;">[6]</h4>
+                    </li>
+                  {{/ifeq}}
+    
+                  {{#each actor.items as |item id|}}
+                    {{#ifeq item.data.equip "Pack"}}
+                      <li class="item flexrow" data-item-id="{{item._id}}">
+                          <div class="item-image"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></div>
+                          <h4 class="item-name" style="font-family: Souvenir-Medium;">{{item.name}}</h4>
+                          <div style="margin: auto;">
+                            <img src="../systems/torchbearer/assets/icons/cracked-helm.png" style="height: 20px; width: auto; border: none;">
+                          </div>
+                          <div class="item-controls">
+                            <a class="item-control item-edit" title="Edit Item" style="margin-right: 5px;"><i class="fas fa-edit"></i></a>
+                            <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+                          </div>
+                      </li>
+                    {{/ifeq}}
+                  {{/each}}
+                </ol>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {{!-- Magic Tab --}}
+        <div class="tab items" data-group="primary" data-tab="magic">
+            
+            <ol class="items-list">
+                <li class="item flexrow item-header">
+                  <div class="item-image"></div>
+                  <div class="item-name">Name</div>
+                  <div class="item-controls">
+                    <a class="item-control item-create" title="Create item" data-type="item"><i class="fas fa-plus"></i> Add item</a>
+                  </div>
+                </li>
+
+            {{#each actor.items as |item id|}}
+                <li class="item flexrow" data-item-id="{{item._id}}">
+                    <div class="item-image"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></div>
+                    <h4 class="item-name">{{item.name}}</h4>
+                    <div class="item-controls">
+                        <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+                        <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+                    </div>
+                </li>
+            {{/each}}
+            </ol>
+
+        </div>
+
+        {{!-- Notes Tab --}}
+        <div class="tab items" data-group="primary" data-tab="notes">
             
             <ol class="items-list">
                 <li class="item flexrow item-header">

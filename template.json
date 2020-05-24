@@ -6,15 +6,12 @@
 				"name": "",
 				"parents": "",
 				"stock": "",
-				"mentor": "",
+				"charMentor": "",
 				"class": "",
 				"friend": "",
 				"age": "",
 				"enemy": "",
 				"home": "",
-				"level": {
-					"value": 1
-				},
 				"raiment": ""
 			},
 			"purpose": {
@@ -28,24 +25,72 @@
 					"name": "",
 					"level": {
 						"value": 1
+					},
+					"uses": {
+						"level1": {
+							"use1": false
+						},
+						"level2": {
+							"use1": false,
+							"use2": false
+						}
+					},
+					"checks": {
+						"checksEarned": 0
 					}
 				},
 				"trait2": {
 					"name": "",
 					"level": {
 						"value": 1
+					},
+					"uses": {
+						"level1": {
+							"use1": false
+						},
+						"level2": {
+							"use1": false,
+							"use2": false
+						}
+					},
+					"checks": {
+						"checksEarned": 0
 					}
 				},
 				"trait3": {
 					"name": "",
 					"level": {
 						"value": 1
+					},
+					"uses": {
+						"level1": {
+							"use1": false
+						},
+						"level2": {
+							"use1": false,
+							"use2": false
+						}
+					},
+					"checks": {
+						"checksEarned": 0
 					}
 				},
 				"trait4": {
 					"name": "",
 					"level": {
 						"value": 1
+					},
+					"uses": {
+						"level1": {
+							"use1": false
+						},
+						"level2": {
+							"use1": false,
+							"use2": false
+						}
+					},
+					"checks": {
+						"checksEarned": 0
 					}
 				}
       },
@@ -70,28 +115,39 @@
 				"exhausted": false,
 				"injured": false,
 				"sick": false,
-				"dead": false
+				"dead": false,
+				"conditionProgress": 0
 			},
 			"abilities": {
 				"will": {
 					"value": 0,
-					"max": 10
+					"max": 10,
+					"pass": 0,
+					"fail": 0
 				},
 				"health": {
 					"value": 0,
-					"max": 10
+					"max": 10,
+					"pass": 0,
+					"fail": 0
 				},
 				"nature": {
 					"value": 0,
-					"max": 10
+					"max": 7,
+					"pass": 0,
+					"fail": 0
 				},
 				"resources": {
 					"value": 0,
-					"max": 10
+					"max": 10,
+					"pass": 0,
+					"fail": 0
 				},
 				"circles": {
 					"value": 0,
-					"max": 10
+					"max": 10,
+					"pass": 0,
+					"fail": 0
 				},
 				"precedence": {
 					"value": 0,
@@ -114,106 +170,264 @@
 					"max": 10
 				}
 			},
-			"skills": {
-				"alchemist": {
-					"value": 0,
-					"max": 10
-				},
-				"arcanist": {
-					"value": 0,
-					"max": 10
-				},
-				"armorer": {
-					"value": 0,
-					"max": 10
-				},
-				"cartographer": {
-					"value": 0,
-					"max": 10
-				},
-				"commander": {
-					"value": 0,
-					"max": 10
-				},
-				"cook": {
-					"value": 0,
-					"max": 10
-				},
-				"criminal": {
-					"value": 0,
-					"max": 10
-				},
-				"dungeoneer": {
-					"value": 0,
-					"max": 10
-				},
-				"fighter": {
-					"value": 0,
-					"max": 10
-				},
-				"haggler": {
-					"value": 0,
-					"max": 10
-				},
-				"healer": {
-					"value": 0,
-					"max": 10
-				},
-				"hunter": {
-					"value": 0,
-					"max": 10
-				},
-				"loremaster": {
-					"value": 0,
-					"max": 10
-				},
-				"manipulator": {
-					"value": 0,
-					"max": 10
-				},
-				"mentor": {
-					"value": 0,
-					"max": 10
-				},
-				"orator": {
-					"value": 0,
-					"max": 10
-				},
-				"pathfinder": {
-					"value": 0,
-					"max": 10
-				},
-				"persuader": {
-					"value": 0,
-					"max": 10
-				},
-				"rider": {
-					"value": 0,
-					"max": 10
-				},
-				"ritualist": {
-					"value": 0,
-					"max": 10
-				},
-				"scavenger": {
-					"value": 0,
-					"max": 10
-				},
-				"scholar": {
-					"value": 0,
-					"max": 10
-				},
-				"scout": {
-					"value": 0,
-					"max": 10
-				},
-				"survivalist": {
-					"value": 0,
-					"max": 10
-				},
-				"theologian": {
-					"value": 0,
-					"max": 10
+			"common": {
+				"skills": {
+					"Alchemist": {
+						"rating": 0,
+						"max": 10,
+						"pass": 0,
+						"fail": 0,
+						"help": "Lore Master, Laborer",
+						"bl": "W"
+					},
+					"Arcanist": {
+						"rating": 0,
+						"max": 10,
+						"pass": 0,
+						"fail": 0,
+						"help": "Lore Master",
+						"bl": "W"
+					},
+					"Armorer": {
+						"rating": 0,
+						"max": 10,
+						"pass": 0,
+						"fail": 0,
+						"help": "Alchemist, Smith, Laborer",
+						"bl": "H"
+					},
+					"Carpenter": {
+						"rating": 0,
+						"max": 10,
+						"pass": 0,
+						"fail": 0,
+						"help": "Laborer, Alchemist",
+						"bl": "H"
+					},
+					"Cartographer": {
+						"rating": 0,
+						"max": 10,
+						"pass": 0,
+						"fail": 0,
+						"help": "Scholar, Pathfinder",
+						"bl": "W"
+					},
+					"Commander": {
+						"rating": 0,
+						"max": 10,
+						"pass": 0,
+						"fail": 0,
+						"help": "Steward",
+						"bl": "W"
+					},
+					"Cook": {
+						"rating": 0,
+						"max": 10,
+						"pass": 0,
+						"fail": 0,
+						"help": "Alchemist, Laborer",
+						"bl": "W"
+					},
+					"Criminal": {
+						"rating": 0,
+						"max": 10,
+						"pass": 0,
+						"fail": 0,
+						"help": "Scout, Scholar",
+						"bl": "H"
+					},
+					"Dungeoneer": {
+						"rating": 0,
+						"max": 10,
+						"pass": 0,
+						"fail": 0,
+						"help": "Criminal, Laborer, Scout, Survivalist",
+						"bl": "H"
+					},
+					"Fighter": {
+						"rating": 0,
+						"max": 10,
+						"pass": 0,
+						"fail": 0,
+						"help": "Fighter",
+						"bl": "H"
+					},
+					"Haggler": {
+						"rating": 0,
+						"max": 10,
+						"pass": 0,
+						"fail": 0,
+						"help": "Persuader, Manipulator",
+						"bl": "W"
+					},
+					"Healer": {
+						"rating": 0,
+						"max": 10,
+						"pass": 0,
+						"fail": 0,
+						"help": "Alchemist, Laborer",
+						"bl": "W"
+					},
+					"Hunter": {
+						"rating": 0,
+						"max": 10,
+						"pass": 0,
+						"fail": 0,
+						"help": "Survivalist, Laborer",
+						"bl": "H"
+					},
+					"Laborer": {
+						"rating": 0,
+						"max": 10,
+						"pass": 0,
+						"fail": 0,
+						"help": "Laborer",
+						"bl": "H"
+					},
+					"Loremaster": {
+						"rating": 0,
+						"max": 10,
+						"pass": 0,
+						"fail": 0,
+						"help": "Scholar",
+						"bl": "W"
+					},
+					"Manipulator": {
+						"rating": 0,
+						"max": 10,
+						"pass": 0,
+						"fail": 0,
+						"help": "Persuader",
+						"bl": "W"
+					},
+					"Mentor": {
+						"rating": 0,
+						"max": 10,
+						"pass": 0,
+						"fail": 0,
+						"help": "Skill taught",
+						"bl": "W"
+					},
+					"Orator": {
+						"rating": 0,
+						"max": 10,
+						"pass": 0,
+						"fail": 0,
+						"help": "Manipulator",
+						"bl": "W"
+					},
+					"Pathfinder": {
+						"rating": 0,
+						"max": 10,
+						"pass": 0,
+						"fail": 0,
+						"help": "Scout, Hunter",
+						"bl": "H"
+					},
+					"Peasant": {
+						"rating": 0,
+						"max": 10,
+						"pass": 0,
+						"fail": 0,
+						"help": "Laborer, Survivalist",
+						"bl": "H"
+					},
+					"Persuader": {
+						"rating": 0,
+						"max": 10,
+						"pass": 0,
+						"fail": 0,
+						"help": "Manipulator",
+						"bl": "W"
+					},
+					"Rider": {
+						"rating": 0,
+						"max": 10,
+						"pass": 0,
+						"fail": 0,
+						"help": "Peasant",
+						"bl": "H"
+					},
+					"Ritualist": {
+						"rating": 0,
+						"max": 10,
+						"pass": 0,
+						"fail": 0,
+						"help": "Ritualist",
+						"bl": "W"
+					},
+					"Sailor": {
+						"rating": 0,
+						"max": 10,
+						"pass": 0,
+						"fail": 0,
+						"help": "Laborer, Pathfinder, Survivalist",
+						"bl": "H"
+					},
+					"Scavenger": {
+						"rating": 0,
+						"max": 10,
+						"pass": 0,
+						"fail": 0,
+						"help": "Scavenger, Scout",
+						"bl": "H"
+					},
+					"Scholar": {
+						"rating": 0,
+						"max": 10,
+						"pass": 0,
+						"fail": 0,
+						"help": "Lore Master, Steward",
+						"bl": "W"
+					},
+					"Scout": {
+						"rating": 0,
+						"max": 10,
+						"pass": 0,
+						"fail": 0,
+						"help": "Pathfinder, Hunter",
+						"bl": "W"
+					},
+					"Steward": {
+						"rating": 0,
+						"max": 10,
+						"pass": 0,
+						"fail": 0,
+						"help": "Scholar, Orator, Theologian",
+						"bl": "W"
+					},
+					"Stonemason": {
+						"rating": 0,
+						"max": 10,
+						"pass": 0,
+						"fail": 0,
+						"help": "Laborer",
+						"bl": "H"
+					},
+					"Survivalist": {
+						"rating": 0,
+						"max": 10,
+						"pass": 0,
+						"fail": 0,
+						"help": "Hunter, Laborer",
+						"bl": "H"
+					},
+					"Theologian": {
+						"rating": 0,
+						"max": 10,
+						"pass": 0,
+						"fail": 0,
+						"help": "Scholar",
+						"bl": "W"
+					},
+					"Weaver": {
+						"rating": 0,
+						"max": 10,
+						"pass": 0,
+						"fail": 0,
+						"help": "Weaver, Laborer",
+						"bl": "W"
+					}
 				}
 			},
 			"wises": {
@@ -247,72 +461,53 @@
 				}
 			},
 			"inventory": {
-				"head": {
-					"headWorn": "",
+				"Head": {
+					"wornSlotsTotal": 1,
+					"wornSlotsAvailable": 1,
 					"damaged": false
 				},
-				"neck": {
-					"neckWorn": ""
+				"Neck": {
+					"wornSlotsTotal": 1,
+					"wornSlotsAvailable": 1
 				},
-				"hands": {
-					"handsWorn1": "",
-					"handsWorn2": "",
-					"handsCarried1": "",
-					"handsCarried2": ""
+				"Hands": {
+					"wornSlotsTotal": 2,
+					"wornSlotsAvailable": 2,
+					"carriedSlotsTotal": 2,
+					"carriedSlotsAvailable": 2
 				},
-				"feet": {
-					"feetWorn": ""
+				"Feet": {
+					"wornSlotsTotal": 1,
+					"wornSlotsAvailable": 1
 				},
-				"torso": {
-					"torsoWorn1": "",
-					"torsoWorn2": "",
-					"torsoWorn3": "",
+				"Torso": {
+					"wornSlotsTotal": 3,
+					"wornSlotsAvailable": 3,
 					"damaged": false
 				},
-				"belt": {
-					"beltCarried1": "",
-					"beltCarried2": "",
-					"beltCarried3": ""
+				"Belt": {
+					"packSlotsTotal": 3,
+					"packSlotsAvailable": 3
 				},
-				"pocket": {
+				"Pocket": {
 					"pocketCarried1": "",
 					"pocketCarried2": "",
 					"pocketCarried3": ""
 				},
-				"satchelBackpack": {
-					"satchelBackpackCarried1": "",
-					"satchelBackpackCarried2": "",
-					"satchelBackpackCarried3": "",
-					"satchelBackpackCarried4": "",
-					"satchelBackpackCarried5": "",
-					"satchelBackpackCarried6": "",
-					"satchelBackpackDropped": false,
-					"satchelBackpackLost": false
-				},
-				"smallSack1": {
-					"smallSack1Carried1": "",
-					"smallSack1Carried2": "",
-					"smallSack1Carried": false,
-					"smallSack1Dropped": false,
-					"smallSack1Lost": false
-				},
-				"smallSack2": {
-					"smallSack2Carried1": "",
-					"smallSack2Carried2": "",
-					"smallSack2Carried": false,
-					"smallSack2Dropped": false,
-					"smallSack2Lost": false
-				},
-				"largeSack": {
-					"largeSackCarried1": "",
-					"largeSackCarried2": "",
-					"largeSackCarried3": "",
-					"largeSackCarried4": "",
-					"largeSackCarried5": "",
-					"largeSackCarried6": "",
-					"largeSackCarried": false,
-					"largeSackDropped": false,
-					"largeSackLost": false
+				"Pack": {
+					"packCarried1": "",
+					"packCarried2": "",
+					"packCarried3": "",
+					"packCarried4": "",
+					"packCarried5": "",
+					"packCarried6": "",
+					"packSlotsTotalSatchel": 3,
+					"packSlotsAvailableSatchel": 3,
+					"packSlotsTotalBackpack": 3,
+					"packSlotsAvailableBackpack": 3,
+					"packDropped": false,
+					"packLost": false,
+					"packSatchel": false
 				},
 				"cache": {
 					"cacheSlot1": "",
@@ -326,7 +521,9 @@
 					"cacheSlot9": "",
 					"cacheSlot10": "",
 					"cacheSlot11": "",
-					"cacheSlot12": ""
+					"cacheSlot12": "",
+					"packSlotsTotal": 12,
+					"packSlotsAvailable": 12
 				}
 			},
 			"allies": {
@@ -455,7 +652,7 @@
 			}
     },
     "Character": {
-			"templates": ["background", "purpose", "traits", "rewards", "conditions", "abilities", "skills", "wises", "inventory", "allies", "enemies"],
+			"templates": ["background", "purpose", "traits", "rewards", "conditions", "abilities", "skills", "wises", "inventory", "allies", "enemies", "common"],
 			"class": {
 				"outcast": {
 					"value": "Dwarven Outcast"
@@ -475,6 +672,9 @@
 				"warrior": {
 					"value": "Human Warrior"
 				}
+			},
+			"level": {
+				"value": 1
 			}
     },
     "NPC": {
@@ -494,7 +694,8 @@
     "item": {
       "templates": ["base"],
       "quantity": 1,
-      "weight": 0
+			"equip": "",
+			"slots": 1
     },
     "relic": {
       "name": "",

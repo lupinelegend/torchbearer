@@ -27,8 +27,175 @@
   src: url('../assets/fonts/Souvenir-MediumItalic.otf');
 }
 
+ /* The switch - the box around the slider */
+ .switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 24px;
+  margin: 0 8px 0 8px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 4px;
+  bottom: 4px;
+  background-color: black;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+/* input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+} */
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(16px);
+  -ms-transform: translateX(16px);
+  transform: translateX(16px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.testBar {
+  /* Reset the default appearance */
+  -webkit-appearance: none;
+  appearance: none;
+  flex: none;
+  
+  /* -webkit-progress-bar styles the container, -webkit-progress-value styles the interior */
+
+  margin-bottom: 5px;
+  width: 100%;
+  height: 20px;
+}
+
+.testBar::-webkit-progress-bar {
+  background-color: #eee;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.25) inset;
+}
+
+.testBar::-webkit-progress-value {
+  background-image:
+    -webkit-linear-gradient(-45deg, transparent 33%, rgba(0,0,0,0.1) 33%, rgba(0,0,0,0.1) 66%, transparent 66%),
+    -webkit-linear-gradient(top, rgba(255,255,255,0.25), rgba(0,0,0,0.25)),
+    -webkit-linear-gradient(left, #09c, #f44);
+  
+  border-radius: 5px;
+  background-size: 35px 20px, 100% 100%, 100% 100%;
+}
+
+.container {
+  height: 488px;
+  width: 100%;
+}
+
+.scroll {
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 0 4px;
+}
+
+.col {
+  flex: 33%;
+  padding: 0 4px;
+}
+
+.tbtable {
+  background: none;
+  border: none;
+}
+
+.theader {
+  background: none;
+  color: #000;
+  text-shadow: none;
+}
+
 .window-app {
   font-family: "Roboto", sans-serif;
+}
+
+.tooltip {
+  position: relative;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 5px 5px 5px;
+  border-radius: 6px;
+  opacity: 0.65;
+ 
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  z-index: 1;
+  /* top: -5px; */
+  left: 12%; 
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+.tooltip .tooltiptext::after {
+  content: " ";
+  position: absolute;
+  top: 50%;
+  right: 100%;
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent black transparent transparent;
+}
+
+/* Adds a custom background image to the actor sheet */
+.actor .window-content {
+  background: url('../assets/background/TB CharSheet Border 612x810.png');
+  background-size: cover;
 }
 
 .rollable:hover, .rollable:focus {
@@ -148,8 +315,9 @@
 
 .torchbearer .sheet-header {
   -webkit-box-flex: 0;
-  -ms-flex: 0 0 210px;
-  flex: 0 0 210px;
+  -ms-flex: 0 0 200px;
+  flex: 0 0 200px;
+  flex: none;
   overflow: hidden;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -163,7 +331,7 @@
   -webkit-box-pack: start;
   -ms-flex-pack: start;
   justify-content: flex-start;
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
 }
 
 .torchbearer .sheet-header .profile-img {
@@ -250,6 +418,17 @@
   line-height: 24px;
   padding: 3px 0;
   border-bottom: 1px solid #BBB;
+}
+
+.torchbearer .items-list .placeholder {
+  height: 30px;
+  line-height: 24px;
+  padding: 3px 0;
+  border-bottom: 1px solid #BBB;
+  background-color: silver;
+  opacity: 0.65;
+  margin-top: 2px;
+  text-align: center;
 }
 
 .torchbearer .items-list .item .item-image {
