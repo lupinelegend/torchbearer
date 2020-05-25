@@ -503,8 +503,8 @@
 					"packCarried6": "",
 					"packSlotsTotalSatchel": 3,
 					"packSlotsAvailableSatchel": 3,
-					"packSlotsTotalBackpack": 3,
-					"packSlotsAvailableBackpack": 3,
+					"packSlotsTotalBackpack": 6,
+					"packSlotsAvailableBackpack": 6,
 					"packDropped": false,
 					"packLost": false,
 					"packSatchel": false

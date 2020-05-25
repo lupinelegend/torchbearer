@@ -27,6 +27,14 @@
   src: url('../assets/fonts/Souvenir-MediumItalic.otf');
 }
 
+.activePack {
+  color: black;
+}
+
+.passivePack {
+  color: #ccc;
+}
+
  /* The switch - the box around the slider */
  .switch {
   position: relative;
