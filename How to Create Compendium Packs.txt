@@ -1,0 +1,28 @@
+( async () => {
+  const pack = game.packs.find(p => p.collection === 'torchbearer.armor');
+  const response = await fetch('systems/torchbearer/armor.json');
+  const content = await response.json();
+  const items = await Item.create(content, {temporary: true});
+  for ( let i of items ) {
+    await pack.importEntity(i);
+    console.log(`Imported Item ${i.name} into Compendium pack ${pack.collection}`);
+  }
+})
+
+
+
+
+
+
+var items = [
+    {name: "Item Name", type:"My Item", data: {color:"green"}},
+    {name: "Item Name 2", type:"My Item", data: {color:"blue"}},
+    {name: "Item Name 3", type:"My Item", data: {color:"green"}}
+];
+var c = game.packs.get("packName");
+items.forEach((i) => {
+    Item.create(i).then((x) => {
+        c.importEntity(ItemDirectory.collection.get(x._id));
+        Item.delete(x._id);
+    });
+});

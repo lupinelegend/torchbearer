@@ -1,0 +1,59 @@
+// Helpful Links
+
+https://discordapp.com/channels/170995199584108546/670336275496042502/713743898937393173
+
+Looks like the methods you'll need to override start at line 17301 in foundry.js. You should just be able to copy those into your class and call the super version of them at the top of their call. You might not need the super call if you want to override it entirely. Here's a quick example:
+
+/** @override */
+  async _onDrop(event) {
+    super._onDrop(event);
+
+    // Try to extract the data
+    let data;
+    try {
+      data = JSON.parse(event.dataTransfer.getData('text/plain'));
+      if (data.type !== "Item") return;
+    } catch (err) {
+      return false;
+    }
+
+    // Case 1 - Import from a Compendium pack
+    const actor = this.actor;
+    if (data.pack) {
+      return actor.importItemFromCollection(data.pack, data.id);
+    }
+
+    // Case 2 - Data explicitly provided
+    else if (data.data) {
+      let sameActor = data.actorId === actor._id;
+      if (sameActor && actor.isToken) sameActor = data.tokenId === actor.token.id;
+      if (sameActor) return this._onSortItem(event, data.data); // Sort existing items
+      else return actor.createEmbeddedEntity("OwnedItem", duplicate(data.data));  // Create a new Item
+    }
+
+    // Case 3 - Import from World entity
+    else {
+      let item = game.items.get(data.id);
+      if (!item) return;
+      return actor.createEmbeddedEntity("OwnedItem", duplicate(item.data));
+    }
+  }
+
+
+
+
+  <li class="item flexrow" data-item-id="{{item._id}}"  data-item-type="{{item.equip}}">
+    <div class="item-image">
+      <img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/>
+    </div>
+      <h4 class="item-name" style="font-family: Souvenir-Medium;">{{item.name}}</h4>
+    <div class="item-controls">
+      <a class="item-control item-edit" title="Edit Item" style="margin-right: 5px;"><i class="fas fa-edit"></i></a>
+      <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+    </div>
+  </li>
+
+
+
+
+  Alright, so I created a `.db` file with some items in it and added that files location to the `"packs"` section of the system's `system.json`. I'm not seeing the items in Foundry when I start it up though.  Is there something else I have to do to import?

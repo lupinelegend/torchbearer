@@ -685,24 +685,61 @@
     }
   },
   "Item": {
-    "types": ["item", "relic", "spell", "class", "feature"],
+    "types": ["Item", "Relic", "Spell", "Class", "Feature"],
     "templates": {
       "base": {
         "description": ""
       }
     },
-    "item": {
-      "templates": ["base"],
-      "quantity": 1,
+    "Item": {
+			"name": "",
 			"equip": "",
-			"slots": 1
+			"carried": "",
+			"slots": 1,
+			"cost": "",
+			"description": "",
+			"quantity": 1,
+			"equipOptions": {
+				"option1": {
+					"value": ""
+				},
+				"option2": {
+					"value": ""
+				},
+				"option3": {
+					"value": ""
+				}
+			},
+			"carryOptions": {
+				"option1": {
+					"value": ""
+				},
+				"option2": {
+					"value": ""
+				},
+				"option3": {
+					"value": ""
+				}
+			},
+			"slotOptions": {
+				"option1": {
+					"value": ""
+				},
+				"option2": {
+					"value": ""
+				},
+				"option3": {
+					"value": ""
+				}
+			},
+			"notes": ""
     },
-    "relic": {
+    "Relic": {
       "name": "",
 	  	"inventoryslot": "",
 	  	"invocationpatroncircle": ""
     },
-    "spell": {
+    "Spell": {
       "name": "",
 			"ob": 0,
 			"known": false,
@@ -713,10 +750,10 @@
 			"supplies": false,
 			"effect": ""
     },
-    "class": {
+    "Class": {
 			"types": ["Dwarven Outcast", "Elf Ranger", "Halfling Burglar", "Human Theurge", "Human Magician", "Human Warrior"]
 		},
-    "feature": {
+    "Feature": {
       "outcast": {
 				"level1": "You may wear any armor and wield any weapon except great swords and lances."
 			},

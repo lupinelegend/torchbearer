@@ -10,7 +10,22 @@
   "esmodules": ["module/torchbearer.js"],
   "styles": ["css/torchbearer.css"],
   "scripts": [],
-  "packs": [],
+  "packs": [
+    {
+      "name": "armor",
+      "label": "Torchbearer Armor",
+      "system": "torchbearer",
+      "path": "./packs/armor.db",
+      "entity": "Item"
+    },
+    {
+      "name": "weapons",
+      "label": "Torchbearer Weapons",
+      "system": "torchbearer",
+      "path": "./packs/weapons.db",
+      "entity": "Item"
+    }
+  ],
   "languages": [
     {
       "lang": "en",
