@@ -31,15 +31,19 @@ export class TorchbearerItemSheet extends ItemSheet {
   getData() {
     const data = super.getData();
 
-    if (this.item.data.data.equip === this.item.data.data.equipOptions.option1.value) { 
-      this.item.update({'data.carried': this.item.data.data.carryOptions.option1.value});
-      this.item.update({'data.slots': this.item.data.data.slotOptions.option1.value});
-    } else if (this.item.data.data.equip === this.item.data.data.equipOptions.option2.value) {
-      this.item.update({'data.carried': this.item.data.data.carryOptions.option2.value});
-      this.item.update({'data.slots': this.item.data.data.slotOptions.option2.value});
-    } else if(this.item.data.data.equip === this.item.data.data.equipOptions.option3.value) {
-      this.item.update({'data.carried': this.item.data.data.carryOptions.option3.value});
-      this.item.update({'data.slots': this.item.data.data.slotOptions.option3.value});
+    switch (this.item.data.data.equip) {
+      case this.item.data.data.equipOptions.option1.value:
+        this.item.update({'data.carried': this.item.data.data.carryOptions.option1.value});
+        this.item.update({'data.slots': this.item.data.data.slotOptions.option1.value});
+        break;
+      case this.item.data.data.equipOptions.option2.value:
+        this.item.update({'data.carried': this.item.data.data.carryOptions.option2.value});
+        this.item.update({'data.slots': this.item.data.data.slotOptions.option2.value});
+        break;
+      case this.item.data.data.equipOptions.option3.value:
+        this.item.update({'data.carried': this.item.data.data.carryOptions.option3.value});
+        this.item.update({'data.slots': this.item.data.data.slotOptions.option3.value});
+        break;
     }
 
     return data;
