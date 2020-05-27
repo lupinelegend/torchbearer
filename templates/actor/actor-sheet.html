@@ -242,7 +242,7 @@
               </div>
               <!-- Will -->
               <div class="grid grid-3col" style="margin-right: 10px;">
-                <div>
+                <div style="align-self: center;">
                   <h4 style="font-family: Souvenir-Medium; margin: 0 0 0 0rem !important;">Will</h4>
                 </div>
                 <div style="display: flex; flex-direction: row;">
@@ -257,7 +257,7 @@
               </div>
               <!-- Health -->
               <div class="grid grid-3col" style="margin-right: 10px;">
-                <h4 style="font-family: Souvenir-Medium; margin: 0 0 0 0rem !important;">Health</h4>
+                <h4 style="font-family: Souvenir-Medium; margin: 0 0 0 0rem !important; align-self: center;">Health</h4>
                 <div style="display: flex; flex-direction: row;">
                   <input type="text" name="data.health.value" value="{{data.health.value}}" data-dtype="Number" style="padding: 5px; margin: 0 10px 0 10px; width: 30px"/>
                   <img src="../systems/torchbearer/assets/icons/d6.png" style="height: 24px; width: 24; border: none;">
@@ -270,7 +270,7 @@
               </div>
               <!-- Nature -->
               <div class="grid grid-3col" style="margin-right: 10px;">
-                <h4 style="font-family: Souvenir-Medium; margin: 0 0 0 0rem !important;">Nature</h4>
+                <h4 style="font-family: Souvenir-Medium; margin: 0 0 0 0rem !important; align-self: center;">Nature</h4>
                 <div style="display: flex; flex-direction: row; align-items: center;">
                   <input type="text" name="data.nature.value" value="{{data.nature.value}}" data-dtype="Number" style="padding: 5px; width: 10px"/>
                   <span> / </span>
@@ -285,7 +285,7 @@
               </div>
               <!-- Resources -->
               <div class="grid grid-3col" style="margin-right: 10px;">
-                <h4 style="font-family: Souvenir-Medium; margin: 0 0 0 0rem !important;">Resources</h4>
+                <h4 style="font-family: Souvenir-Medium; margin: 0 0 0 0rem !important; align-self: center;">Resources</h4>
                 <div style="display: flex; flex-direction: row;">
                   <input type="text" name="data.resources.value" value="{{data.resources.value}}" data-dtype="Number" style="padding: 5px; margin: 0 10px 0 10px; width: 30px"/>
                   <img src="../systems/torchbearer/assets/icons/d6.png" style="height: 24px; width: 24; border: none;">
@@ -298,7 +298,7 @@
               </div>
               <!-- Circles -->
               <div class="grid grid-3col" style="margin-right: 10px;">
-                <h4 style="font-family: Souvenir-Medium; margin: 0 0 0 0rem !important;">Circles</h4>
+                <h4 style="font-family: Souvenir-Medium; margin: 0 0 0 0rem !important; align-self: center;">Circles</h4>
                 <div style="display: flex; flex-direction: row;">
                   <input type="text" name="data.circles.value" value="{{data.circles.value}}" data-dtype="Number" style="padding: 5px; margin: 0 10px 0 10px; width: 30px"/>
                   <img src="../systems/torchbearer/assets/icons/d6.png" style="height: 24px; width: 24; border: none;">
@@ -313,12 +313,12 @@
               <div style="display: flex; flex-direction: row;">
                 <!-- Precedence -->
                 <div style="display: flex; flex-direction: row;">
-                  <h4 style="font-family: Souvenir-Medium; width: 81.66px; margin: 0 10px 0 0 !important;">Precedence</h4>
+                  <h4 style="font-family: Souvenir-Medium; width: 81.66px; margin: 0 10px 0 0 !important; align-self: center;">Precedence</h4>
                   <input type="text" name="data.precedence.value" value="{{data.precedence.value}}" data-dtype="Number" style="margin: 0 0 0 10px; width: 30px !important; justify-self: end;"/>
                 </div>
                 <!-- Might -->
                 <div style="display: flex; flex-direction: row;">
-                  <h4 style="font-family: Souvenir-Medium; margin: 0 20px 0 46px !important;">Might</h4>
+                  <h4 style="font-family: Souvenir-Medium; margin: 0 20px 0 46px !important; align-self: center;">Might</h4>
                   <input type="text" name="data.might.value" value="{{data.might.value}}" data-dtype="Number" style="width: 30px !important; justify-self: end;"/>
                 </div>
               </div>
@@ -327,75 +327,75 @@
             <div id="wises">
               <h2 style="font-family: Souvenir-Demi; border: none; margin: 0 0 0 0rem !important; text-align: center;">Wises</h2>
               <div id="wise1">
-                <div style="padding: 0 10px 0 10px;">
+                <div style="padding: 0 0 0 10px;">
                   <input style="margin-top: 10px;" type="text" name="data.wise1.name" value="{{data.wise1.name}}" data-dtype="String"/>
                 </div>
-                <div class="flexrow" style="align-items: center; padding: 0 10px 0 10px;">
+                <div class="row flex-between" style="align-items: center; padding: 0 0 0 10px;">
                   <label for="data.wise1.pass" style="font-family: Souvenir-Medium;">Pass</label>
-                  <input type="checkbox" name="data.wise1.pass" id="wise1pass" {{checked data.wise1.pass}}>
+                  <input type="checkbox" name="data.wise1.pass" id="wise1pass" style="margin: 3px 0 3px 0;" {{checked data.wise1.pass}}>
                   <span> | </span>
                   <label for="data.wise1.fail" style="font-family: Souvenir-Medium;">Fail</label>
-                  <input type="checkbox" name="data.wise1.fail" id="wise1fail" {{checked data.wise1.fail}}>
+                  <input type="checkbox" name="data.wise1.fail" id="wise1fail" style="margin: 3px 0 3px 0;" {{checked data.wise1.fail}}>
                   <span> | </span>
                   <label for="data.wise1.fate" style="font-family: Souvenir-Medium;">Fate</label>
-                  <input type="checkbox" name="data.wise1.fate" id="wise1fate" {{checked data.wise1.fate}}>
+                  <input type="checkbox" name="data.wise1.fate" id="wise1fate" style="margin: 3px 0 3px 0;" {{checked data.wise1.fate}}>
                   <span> | </span>
                   <label for="data.wise1.persona" style="font-family: Souvenir-Medium;">Persona</label>
-                  <input type="checkbox" name="data.wise1.persona" id="wise1persona" {{checked data.wise1.persona}}>
+                  <input type="checkbox" name="data.wise1.persona" id="wise1persona" style="margin: 3px 0 3px 0;" {{checked data.wise1.persona}}>
                 </div>
               </div>
               <div id="wise2">
-                <div style="padding: 0 10px 0 10px;">
+                <div style="padding: 0 0 0 10px;">
                   <input style="margin-top: 10px;" type="text" name="data.wise2.name" value="{{data.wise2.name}}" data-dtype="String"/>
                 </div>
-                <div class="flexrow" style="align-items: center; padding: 0 10px 0 10px;">
+                <div class="row flex-between" style="align-items: center; padding: 0 0 0 10px;">
                   <label for="data.wise2.pass" style="font-family: Souvenir-Medium;">Pass</label>
-                  <input type="checkbox" name="data.wise2.pass" id="wise2pass" {{checked data.wise2.pass}}>
+                  <input type="checkbox" name="data.wise2.pass" id="wise2pass" style="margin: 3px 0 3px 0;" {{checked data.wise2.pass}}>
                   <span> | </span>
                   <label for="data.wise2.fail" style="font-family: Souvenir-Medium;">Fail</label>
-                  <input type="checkbox" name="data.wise2.fail" id="wise2fail" {{checked data.wise2.fail}}>
+                  <input type="checkbox" name="data.wise2.fail" id="wise2fail" style="margin: 3px 0 3px 0;" {{checked data.wise2.fail}}>
                   <span> | </span>
                   <label for="data.wise2.fate" style="font-family: Souvenir-Medium;">Fate</label>
-                  <input type="checkbox" name="data.wise2.fate" id="wise2fate" {{checked data.wise2.fate}}>
+                  <input type="checkbox" name="data.wise2.fate" id="wise2fate" style="margin: 3px 0 3px 0;" {{checked data.wise2.fate}}>
                   <span> | </span>
                   <label for="data.wise2.persona" style="font-family: Souvenir-Medium;">Persona</label>
-                  <input type="checkbox" name="data.wise2.persona" id="wise2persona" {{checked data.wise2.persona}}>
+                  <input type="checkbox" name="data.wise2.persona" id="wise2persona" style="margin: 3px 0 3px 0;" {{checked data.wise2.persona}}>
                 </div>
               </div>
               <div id="wise3">
-                <div style="padding: 0 10px 0 10px;">
+                <div style="padding: 0 0 0 10px;">
                   <input style="margin-top: 10px;" type="text" name="data.wise3.name" value="{{data.wise3.name}}" data-dtype="String"/>
                 </div>
-                <div class="flexrow" style="align-items: center; padding: 0 10px 0 10px;">
+                <div class="row flex-between" style="align-items: center; padding: 0 0 0 10px;">
                   <label for="data.wise3.pass" style="font-family: Souvenir-Medium;">Pass</label>
-                  <input type="checkbox" name="data.wise3.pass" id="wise3pass" {{checked data.wise3.pass}}>
+                  <input type="checkbox" name="data.wise3.pass" id="wise3pass" style="margin: 3px 0 3px 0;" {{checked data.wise3.pass}}>
                   <span> | </span>
                   <label for="data.wise3.fail" style="font-family: Souvenir-Medium;">Fail</label>
-                  <input type="checkbox" name="data.wise3.fail" id="wise3fail" {{checked data.wise3.fail}}>
+                  <input type="checkbox" name="data.wise3.fail" id="wise3fail" style="margin: 3px 0 3px 0;" {{checked data.wise3.fail}}>
                   <span> | </span>
                   <label for="data.wise3.fate" style="font-family: Souvenir-Medium;">Fate</label>
-                  <input type="checkbox" name="data.wise3.fate" id="wise3fate" {{checked data.wise3.fate}}>
+                  <input type="checkbox" name="data.wise3.fate" id="wise3fate" style="margin: 3px 0 3px 0;" {{checked data.wise3.fate}}>
                   <span> | </span>
                   <label for="data.wise3.persona" style="font-family: Souvenir-Medium;">Persona</label>
-                  <input type="checkbox" name="data.wise3.persona" id="wise3persona" {{checked data.wise3.persona}}>
+                  <input type="checkbox" name="data.wise3.persona" id="wise3persona" style="margin: 3px 0 3px 0;" {{checked data.wise3.persona}}>
                 </div>
               </div>
               <div id="wise4">
-                <div style="padding: 0 10px 0 10px;">
+                <div style="padding: 0 0 0 10px;">
                   <input style="margin-top: 10px;" type="text" name="data.wise4.name" value="{{data.wise4.name}}" data-dtype="String"/>
                 </div>
-                <div class="flexrow" style="align-items: center; padding: 0 10px 0 10px;">
+                <div class="row flex-between" style="align-items: center; padding: 0 0 0 10px;">
                   <label for="data.wise4.pass" style="font-family: Souvenir-Medium;">Pass</label>
-                  <input type="checkbox" name="data.wise4.pass" id="wise4pass" {{checked data.wise4.pass}}>
+                  <input type="checkbox" name="data.wise4.pass" id="wise4pass" style="margin: 3px 0 3px 0;" {{checked data.wise4.pass}}>
                   <span> | </span>
                   <label for="data.wise4.fail" style="font-family: Souvenir-Medium;">Fail</label>
-                  <input type="checkbox" name="data.wise4.fail" id="wise4fail" {{checked data.wise4.fail}}>
+                  <input type="checkbox" name="data.wise4.fail" id="wise4fail" style="margin: 3px 0 3px 0;" {{checked data.wise4.fail}}>
                   <span> | </span>
                   <label for="data.wise4.fate" style="font-family: Souvenir-Medium;">Fate</label>
-                  <input type="checkbox" name="data.wise4.fate" id="wise4fate" {{checked data.wise4.fate}}>
+                  <input type="checkbox" name="data.wise4.fate" id="wise4fate" style="margin: 3px 0 3px 0;" {{checked data.wise4.fate}}>
                   <span> | </span>
                   <label for="data.wise4.persona" style="font-family: Souvenir-Medium;">Persona</label>
-                  <input type="checkbox" name="data.wise4.persona" id="wise4persona" {{checked data.wise4.persona}}>
+                  <input type="checkbox" name="data.wise4.persona" id="wise4persona" style="margin: 3px 0 3px 0;" {{checked data.wise4.persona}}>
                 </div>
               </div>
             </div>
@@ -429,7 +429,7 @@
                 <input type="checkbox" name="data.trait1.uses.level1.use1" id="trait1Level1Used" {{checked data.trait1.uses.level1.use1}}>
                 <label for="data.trait1.uses.level1.use1" style="font-family: Souvenir-Medium;">+1D per session</label>
               </div>
-              <div id="trait1Checks" style="margin: auto;">
+              <div id="trait1Checks" style="margin: auto; text-align: center;">
                 <input type="text" name="data.trait1.checks.checksEarned" value="{{data.trait1.checks.checksEarned}}" id="trait1ChecksEarned" style="width: 30px">
               </div>
             </div>
@@ -451,7 +451,7 @@
                 <input type="checkbox" name="data.trait2.uses.level1.use1" id="trait2Level1Used" {{checked data.trait2.uses.level1.use1}}>
                 <label for="data.trait2.uses.level1.use1" style="font-family: Souvenir-Medium;">+1D per session</label>
               </div>
-              <div id="trait2Checks" style="margin: auto;">
+              <div id="trait2Checks" style="margin: auto; text-align: center;">
                 <input type="text" name="data.trait2.checks.checksEarned" value="{{data.trait2.checks.checksEarned}}" id="trait2ChecksEarned" style="width: 30px">
               </div>
             </div>
@@ -473,7 +473,7 @@
                 <input type="checkbox" name="data.trait3.uses.level1.use1" id="trait3Level1Used" {{checked data.trait3.uses.level1.use1}}>
                 <label for="data.trait3.uses.level1.use1" style="font-family: Souvenir-Medium;">+1D per session</label>
               </div>
-              <div id="trait3Checks" style="margin: auto;">
+              <div id="trait3Checks" style="margin: auto; text-align: center;">
                 <input type="text" name="data.trait3.checks.checksEarned" value="{{data.trait3.checks.checksEarned}}" id="trait3ChecksEarned" style="width: 30px">
               </div>
             </div>
@@ -495,7 +495,7 @@
                 <input type="checkbox" name="data.trait4.uses.level1.use1" id="trait4Level1Used" {{checked data.trait4.uses.level1.use1}}>
                 <label for="data.trait4.uses.level1.use1" style="font-family: Souvenir-Medium;">+1D per session</label>
               </div>
-              <div id="trait4Checks" style="margin: auto;">
+              <div id="trait4Checks" style="margin: auto; text-align: center;">
                 <input type="text" name="data.trait4.checks.checksEarned" value="{{data.trait4.checks.checksEarned}}" id="trait4ChecksEarned" style="width: 30px">
               </div>
             </div>
@@ -965,11 +965,11 @@
           </div>
 
           <!-- Allies & Enemies -->
-          <div>
+          <div class="container scroll">
             <div style="display: flex; flex-direction: row; align-items: baseline;">
               <h2 style="font-family: Souvenir-Demi; border: none; margin: 0 0 0 0rem !important;">Allies & Enemies</h2>
             </div>
-            <div class="row" style="flex-wrap: nowrap;">
+            <div class="row" style="flex-wrap: nowrap; font-family: Souvenir-Demi;">
               <div class="col">
                 Enemy?
               </div>

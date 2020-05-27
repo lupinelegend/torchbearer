@@ -9,8 +9,8 @@ export class TorchbearerActorSheet extends ActorSheet {
     return mergeObject(super.defaultOptions, {
       classes: ["torchbearer", "sheet", "actor"],
       template: "systems/torchbearer/templates/actor/actor-sheet.html",
-      width: 612,
-      height: 840,
+      width: 617,
+      height: 848,
       tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description" }]
     });
   }
