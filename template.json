@@ -434,73 +434,73 @@
 					}
 				},
 				"alliesEnemies": {
-					"1": {
+					"ally1": {
+						"name": "test",
+						"location": "",
+						"notes": "",
+						"enemy": false
+					},
+					"ally2": {
 						"name": "",
 						"location": "",
 						"notes": "",
 						"enemy": false
 					},
-					"2": {
+					"ally3": {
 						"name": "",
 						"location": "",
 						"notes": "",
 						"enemy": false
 					},
-					"3": {
+					"ally4": {
 						"name": "",
 						"location": "",
 						"notes": "",
 						"enemy": false
 					},
-					"4": {
+					"ally5": {
 						"name": "",
 						"location": "",
 						"notes": "",
 						"enemy": false
 					},
-					"5": {
+					"ally6": {
 						"name": "",
 						"location": "",
 						"notes": "",
 						"enemy": false
 					},
-					"6": {
+					"ally7": {
 						"name": "",
 						"location": "",
 						"notes": "",
 						"enemy": false
 					},
-					"7": {
+					"ally8": {
 						"name": "",
 						"location": "",
 						"notes": "",
 						"enemy": false
 					},
-					"8": {
+					"ally9": {
 						"name": "",
 						"location": "",
 						"notes": "",
 						"enemy": false
 					},
-					"9": {
+					"ally10": {
 						"name": "",
 						"location": "",
 						"notes": "",
 						"enemy": false
 					},
-					"10": {
+					"ally11": {
 						"name": "",
 						"location": "",
 						"notes": "",
 						"enemy": false
 					},
-					"11": {
-						"name": "",
-						"location": "",
-						"notes": "",
-						"enemy": false
-					},
-					"12": {
+					"ally12": {
 						"name": "",
 						"location": "",
 						"notes": "",

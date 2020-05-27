@@ -941,58 +941,62 @@
 
         {{!-- Notes Tab --}}
         <div class="tab items" data-group="primary" data-tab="notes" style="margin-top: 5px;">
-            
-          <!-- 
-            Idea for taking the sheet to the next level: Characterization page. This would be for recording thoughts about a character's dramatic conflicts and arc, etc. So, the sheet would ask the player what themes they're exploring with the character, what Beliefs the character might have and how they might be challenged, acting cues for the character (tics, accent, emotional triggers, etc.), feelings about other characters, desires and goals, etc. Obviously, the implementation and specific functionality would need to be worked out, but I feel like this would be valuable tool. Characterization is a core part of TB, and it can be difficult to remember that and to consistently pursue character-driven play session-to-session.
-           -->
-
-           <!-- Roleplay Cues -->
-          <div>
-            <div style="display: flex; flex-direction: row; align-items: baseline;">
-              <h2 style="font-family: Souvenir-Demi; border: none; margin: 0 0 0 0rem !important;">Roleplay Cues</h2>
-              <h5 style="font-family: Souvenir-MediumItalic; margin: 0 0 0 0rem !important; text-align: right; flex-grow: 3;">Tics, accent, emotional triggers, etc.</h5>
-            </div>
-            <textarea type="text" name="data.roleplay" value="{{data.roleplay}}" style="font-family: Souvenir-Medium" rows="1" placeholder="I sneeze when I'm scared."></textarea>
-          </div>
-
-          <!-- Dramatic Arc -->
-          <div>
-            <div style="display: flex; flex-direction: row; align-items: baseline;">
-              <h2 style="font-family: Souvenir-Demi; border: none; margin: 0 0 0 0rem !important;">Dramatic Arc</h2>
-              <h5 style="font-family: Souvenir-MediumItalic; margin: 0 0 0 0rem !important; text-align: right; flex-grow: 3;">Themes and character arc.</h5>
-            </div>
-            <textarea type="text" name="data.arc" value="{{data.arc}}" style="font-family: Souvenir-Medium" rows="1" placeholder="What themes are being explored with this character? What are their dramatic conflicts and arc?"></textarea>
-          </div>
-
-          <!-- Allies & Enemies -->
           <div class="container scroll">
-            <div style="display: flex; flex-direction: row; align-items: baseline;">
-              <h2 style="font-family: Souvenir-Demi; border: none; margin: 0 0 0 0rem !important;">Allies & Enemies</h2>
+            <!-- Roleplay Cues -->
+            <div>
+              <div style="display: flex; flex-direction: row; align-items: baseline;">
+                <h2 style="font-family: Souvenir-Demi; border: none; margin: 0 0 0 0rem !important;">Roleplay Cues</h2>
+                <h5 style="font-family: Souvenir-MediumItalic; margin: 0 0 0 0rem !important; text-align: right; flex-grow: 3;">Tics, accent, emotional triggers, etc.</h5>
+              </div>
+              <textarea type="text" name="data.roleplay" value="{{data.roleplay}}" style="font-family: Souvenir-Medium" rows="1" placeholder="I sneeze when I'm scared."></textarea>
             </div>
-            <div class="row" style="flex-wrap: nowrap; font-family: Souvenir-Demi;">
-              <div class="col">
-                Enemy?
-              </div>
-              <div class="col">Name</div>
-              <div class="col">Location</div>
-              <div class="col">Notes</div>
-            </div>
-            {{#each data.alliesEnemies as |character key|}}
-            <div class="row" style="flex-wrap: nowrap;">
-              <div class="col">Enemy?</div>
-              <div class="col">
-                <input type="text" name="data.alliesEnemies.{{key}}.name" value="{{character.name}}">
-              </div>
-              <div class="col">
-                <input type="text" name="data.alliesEnemies.{{key}}.location" value="{{character.location}}">
-              </div>
-              <div class="col">
-                <input type="text" name="data.alliesEnemies.{{key}}.notes" value="{{character.notes}}">
-              </div>
-            </div>
-            {{/each}}
-          </div>
 
+            <!-- Dramatic Arc -->
+            <div>
+              <div style="display: flex; flex-direction: row; align-items: baseline;">
+                <h2 style="font-family: Souvenir-Demi; border: none; margin: 0 0 0 0rem !important;">Dramatic Arc</h2>
+                <h5 style="font-family: Souvenir-MediumItalic; margin: 0 0 0 0rem !important; text-align: right; flex-grow: 3;">Themes and character arc.</h5>
+              </div>
+              <textarea type="text" name="data.arc" value="{{data.arc}}" style="font-family: Souvenir-Medium" rows="1" placeholder="What themes are being explored with this character? What are their dramatic conflicts and arc?"></textarea>
+            </div>
+
+            <!-- Allies & Enemies -->
+            <div class="container scroll">
+              <div style="display: flex; flex-direction: row; align-items: baseline;">
+                <h2 style="font-family: Souvenir-Demi; border: none; margin: 0 0 0 0rem !important;">Allies & Enemies</h2>
+              </div>
+              <div class="row" style="flex-wrap: nowrap; font-family: Souvenir-Demi;">
+                <div class="col" style="flex-grow: 0; flex-shrink: 0; flex-basis: 52px;">Status</div>
+                <div class="col" style="flex-grow: 1; flex-shrink: 1; flex-basis: 100px;">Name</div>
+                <div class="col" style="flex-grow: 1; flex-shrink: 1; flex-basis: 100px;">Location</div>
+                <div class="col">Notes</div>
+              </div>
+              {{#each data.alliesEnemies as |character key|}}
+              <div class="row" style="flex-wrap: nowrap;">
+                <div class="col" style="flex-grow: 0; flex-shrink: 0; flex-basis: 52px; text-align: center;">
+                  <label for="data.alliesEnemies.{{key}}.enemy">
+                    {{#ifeq character.enemy false}}
+                    <img class="ally" id="{{key}}" src="../systems/torchbearer/assets/icons/ally.png" style="height: auto; width: 24px; border: none;">
+                    {{/ifeq}}
+                    {{#ifeq character.enemy true}}
+                    <img class="ally" id="{{key}}" src="../systems/torchbearer/assets/icons/enemy.png" style="height: auto; width: 24px; border: none;">
+                    {{/ifeq}}
+                  </label>
+                  <input type="checkbox" name="data.alliesEnemies.{{key}}.enemy" id="data.alliesEnemies.{{key}}.enemy" hidden {{checked character.enemy}}>
+                </div>
+                <div class="col" style="flex-grow: 1; flex-shrink: 1; flex-basis: 100px;">
+                  <input type="text" name="data.alliesEnemies.{{key}}.name" value="{{character.name}}">
+                </div>
+                <div class="col" style="flex-grow: 1; flex-shrink: 1; flex-basis: 100px;">
+                  <input type="text" name="data.alliesEnemies.{{key}}.location" value="{{character.location}}">
+                </div>
+                <div class="col">
+                  <input type="text" name="data.alliesEnemies.{{key}}.notes" value="{{character.notes}}">
+                </div>
+              </div>
+              {{/each}}
+            </div>
+          </div>
         </div>
 
     </section>
