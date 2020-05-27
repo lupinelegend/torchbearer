@@ -10,7 +10,9 @@
                         <select name="data.equip" id="itemCarriedDropdown" style="font-family: Souvenir-Medium;">
                             {{#select data.equip}}
                                 {{#each data.equipOptions as |option key|}}
+                                    {{#if option.value}}
                                 <option name="data.equipOptions.{{key}}.value" value="{{option.value}}">{{option.value}}</option>
+                                    {{/if}}
                                 {{/each}}
                             {{/select}}
                         </select>
