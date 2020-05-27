@@ -177,8 +177,8 @@
                 <select name="data.class.value" id="classDropdown">
                   {{#select data.class.value}}
                   <option value="default" selected disabled hidden>Choose a class...</option>
-                  {{#each data.class as |charClass key|}}
-                  <option name="data.class.{{key}}.value" value="{{charClass.value}}">{{charClass.value}}</option>
+                  {{#each data.classes as |charClass key|}}
+                  <option name="data.classes.{{key}}.value" value="{{charClass.value}}">{{charClass.value}}</option>
                   {{/each}}
                   {{/select}}
                 </select>
