@@ -1,0 +1,451 @@
+[
+  {
+    "name": "Backpack",
+    "type": "Item",
+    "data": {
+      "name": "Backpack",
+      "equip": "Torso",
+      "carried": "Worn",
+      "slots": 2,
+      "cost": "Ob 1",
+      "description": "Backpacks have six slots. Wearing a backpack counts as a factor in Fighter and Dungeoneer tests.",
+      "quantity": 1,
+      "capacity": 6,
+      "bundleSize": 1,
+      "resizes": false,
+      "equipOptions": {
+        "option1": {
+          "value": "Torso"
+        },
+        "option2": {
+          "value": ""
+        },
+        "option3": {
+          "value": ""
+        }
+      },
+      "carryOptions": {
+        "option1": {
+          "value": "Worn"
+        },
+        "option2": {
+          "value": ""
+        },
+        "option3": {
+          "value": ""
+        }
+      },
+      "slotOptions": {
+        "option1": {
+          "value": 0
+        },
+        "option2": {
+          "value": 0
+        },
+        "option3": {
+          "value": 0
+        }
+      },
+      "notes": ""
+    }
+  },
+  {
+    "name": "Small Sack",
+    "type": "Item",
+    "data": {
+      "name": "Small Sack",
+      "equip": "Pack",
+      "carried": "",
+      "slots": 1,
+      "cost": "Ob 1",
+      "description": "Small sacks have two slots. Small sacks come in pairs and two sacks can be packed into one slot.",
+      "quantity": 2,
+      "capacity": 2,
+      "bundleSize": 2,
+      "resizes": true,
+      "equipOptions": {
+        "option1": {
+          "value": "Hands"
+        },
+        "option2": {
+          "value": "Pack"
+        },
+        "option3": {
+          "value": ""
+        }
+      },
+      "carryOptions": {
+        "option1": {
+          "value": "Carry"
+        },
+        "option2": {
+          "value": ""
+        },
+        "option3": {
+          "value": ""
+        }
+      },
+      "slotOptions": {
+        "option1": {
+          "value": 1
+        },
+        "option2": {
+          "value": 1
+        },
+        "option3": {
+          "value": 0
+        }
+      },
+      "notes": ""    }
+  },
+  {
+    "name": "Large Sack",
+    "type": "Item",
+    "data": {
+      "name": "Large Sack",
+      "equip": "Pack",
+      "carried": "",
+      "slots": 1,
+      "cost": "Ob 1",
+      "description": "Large sacks have six inventory slots, but require two hands to carry. If packed empty, it takes up one slot.",
+      "quantity": 1,
+      "capacity": 6,
+      "bundleSize": 1,
+      "resizes": true,
+      "equipOptions": {
+        "option1": {
+          "value": "Hands"
+        },
+        "option2": {
+          "value": "Pack"
+        },
+        "option3": {
+          "value": ""
+        }
+      },
+      "carryOptions": {
+        "option1": {
+          "value": "Carry"
+        },
+        "option2": {
+          "value": ""
+        },
+        "option3": {
+          "value": ""
+        }
+      },
+      "slotOptions": {
+        "option1": {
+          "value": 2
+        },
+        "option2": {
+          "value": 1
+        },
+        "option3": {
+          "value": 0
+        }
+      },
+      "notes": ""
+    }
+  },
+  {
+    "name": "Bottle",
+    "type": "Item",
+    "data": {
+      "name": "Bottle",
+      "equip": "Pack",
+      "carried": "",
+      "slots": 2,
+      "cost": "Ob 1",
+      "description": "A bottle is a container for two draughts of water or wine.",
+      "quantity": 1,
+      "capacity": 2,
+      "bundleSize": 1,
+      "resizes": false,
+      "equipOptions": {
+        "option1": {
+          "value": "Pack"
+        },
+        "option2": {
+          "value": ""
+        },
+        "option3": {
+          "value": ""
+        }
+      },
+      "carryOptions": {
+        "option1": {
+          "value": ""
+        },
+        "option2": {
+          "value": ""
+        },
+        "option3": {
+          "value": ""
+        }
+      },
+      "slotOptions": {
+        "option1": {
+          "value": 2
+        },
+        "option2": {
+          "value": 0
+        },
+        "option3": {
+          "value": 0
+        }
+      },
+      "notes": ""
+    }
+  },
+  {
+    "name": "Jug",
+    "type": "Item",
+    "data": {
+      "name": "Jug",
+      "equip": "Pack",
+      "carried": "",
+      "slots": 3,
+      "cost": "Ob 1",
+      "description": "A jug holds three draughts of water or wine.",
+      "quantity": 1,
+      "capacity": 3,
+      "bundleSize": 1,
+      "resizes": false,
+      "equipOptions": {
+        "option1": {
+          "value": "Pack"
+        },
+        "option2": {
+          "value": ""
+        },
+        "option3": {
+          "value": ""
+        }
+      },
+      "carryOptions": {
+        "option1": {
+          "value": ""
+        },
+        "option2": {
+          "value": ""
+        },
+        "option3": {
+          "value": ""
+        }
+      },
+      "slotOptions": {
+        "option1": {
+          "value": 3
+        },
+        "option2": {
+          "value": 0
+        },
+        "option3": {
+          "value": 0
+        }
+      },
+      "notes": ""
+    }
+  },
+  {
+    "name": "Quiver",
+    "type": "Item",
+    "data": {
+      "name": "Quiver",
+      "equip": "Torso",
+      "carried": "Worn",
+      "slots": 1,
+      "cost": "Ob 2",
+      "description": "A quiver holds arrows or bolts, or two items. Quivers can also hold your bow, but not your crossbow.",
+      "quantity": 1,
+      "capacity": 2,
+      "bundleSize": 1,
+      "resizes": false,
+      "equipOptions": {
+        "option1": {
+          "value": "Torso"
+        },
+        "option2": {
+          "value": "Belt"
+        },
+        "option3": {
+          "value": ""
+        }
+      },
+      "carryOptions": {
+        "option1": {
+          "value": "Worn"
+        },
+        "option2": {
+          "value": "Weapon"
+        },
+        "option3": {
+          "value": ""
+        }
+      },
+      "slotOptions": {
+        "option1": {
+          "value": 1
+        },
+        "option2": {
+          "value": 1
+        },
+        "option3": {
+          "value": 0
+        }
+      },
+      "notes": ""
+    }
+  },
+  {
+    "name": "Pouch",
+    "type": "Item",
+    "data": {
+      "name": "Pouch",
+      "equip": "Belt",
+      "carried": "Worn",
+      "slots": 1,
+      "cost": "Ob 1",
+      "description": "It holds one item.",
+      "quantity": 1,
+      "capacity": 1,
+      "bundleSize": 1,
+      "resizes": false,
+      "equipOptions": {
+        "option1": {
+          "value": "Belt"
+        },
+        "option2": {
+          "value": ""
+        },
+        "option3": {
+          "value": ""
+        }
+      },
+      "carryOptions": {
+        "option1": {
+          "value": "Worn"
+        },
+        "option2": {
+          "value": ""
+        },
+        "option3": {
+          "value": ""
+        }
+      },
+      "slotOptions": {
+        "option1": {
+          "value": 1
+        },
+        "option2": {
+          "value": 0
+        },
+        "option3": {
+          "value": 0
+        }
+      },
+      "notes": ""
+    }
+  },
+  {
+    "name": "Satchel",
+    "type": "Item",
+    "data": {
+      "name": "Satchel",
+      "equip": "Torso",
+      "carried": "Worn",
+      "slots": 1,
+      "cost": "Ob 1",
+      "description": "A satchel holds three items and is worn over the shoulder.",
+      "quantity": 1,
+      "capacity": 3,
+      "bundleSize": 1,
+      "resizes": false,
+      "equipOptions": {
+        "option1": {
+          "value": "Torso"
+        },
+        "option2": {
+          "value": ""
+        },
+        "option3": {
+          "value": ""
+        }
+      },
+      "carryOptions": {
+        "option1": {
+          "value": "Worn"
+        },
+        "option2": {
+          "value": ""
+        },
+        "option3": {
+          "value": ""
+        }
+      },
+      "slotOptions": {
+        "option1": {
+          "value": 1
+        },
+        "option2": {
+          "value": 0
+        },
+        "option3": {
+          "value": 0
+        }
+      },
+      "notes": ""
+    }
+  },
+  {
+    "name": "Waterskin",
+    "type": "Item",
+    "data": {
+      "name": "Waterskin",
+      "equip": "Belt",
+      "carried": "Worn",
+      "slots": 1,
+      "cost": "Ob 1",
+      "description": "A waterskin holds one draught of water or wine.",
+      "quantity": 1,
+      "capacity": 1,
+      "bundleSize": 1,
+      "resizes": false,
+      "equipOptions": {
+        "option1": {
+          "value": "Belt"
+        },
+        "option2": {
+          "value": ""
+        },
+        "option3": {
+          "value": ""
+        }
+      },
+      "carryOptions": {
+        "option1": {
+          "value": "Worn"
+        },
+        "option2": {
+          "value": ""
+        },
+        "option3": {
+          "value": ""
+        }
+      },
+      "slotOptions": {
+        "option1": {
+          "value": 1
+        },
+        "option2": {
+          "value": 0
+        },
+        "option3": {
+          "value": 0
+        }
+      },
+      "notes": ""
+    }
+  }
+]
