@@ -1,6 +1,6 @@
 ( async () => {
   const pack = game.packs.find(p => p.collection === 'torchbearer.armor');
-  const response = await fetch('systems/torchbearer/armor.json');
+  const response = await fetch('systems/torchbearer/Compendium jsons/armor.json');
   const content = await response.json();
   const items = await Item.create(content, {temporary: true});
   for ( let i of items ) {
