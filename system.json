@@ -32,6 +32,13 @@
       "path": "./packs/containers.db",
       "entity": "Item"
     }
+    {
+      "name": "equipment",
+      "label": "Torchbearer Equipment",
+      "system": "torchbearer",
+      "path": "./packs/equipment.db",
+      "entity": "Item"
+    }
   ],
   "languages": [
     {
