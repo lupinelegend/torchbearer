@@ -699,6 +699,9 @@
 			"cost": "",
 			"description": "",
 			"quantity": 1,
+			"capacity": 0,
+			"bundleSize": 1,
+			"resizes": false,
 			"equipOptions": {
 				"option1": {
 					"value": ""
@@ -723,13 +726,13 @@
 			},
 			"slotOptions": {
 				"option1": {
-					"value": ""
+					"value": 0
 				},
 				"option2": {
-					"value": ""
+					"value": 0
 				},
 				"option3": {
-					"value": ""
+					"value": 0
 				}
 			},
 			"notes": "",

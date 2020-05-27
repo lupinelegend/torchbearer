@@ -24,6 +24,13 @@
       "system": "torchbearer",
       "path": "./packs/weapons.db",
       "entity": "Item"
+    },
+    {
+      "name": "containers",
+      "label": "Torchbearer Containers",
+      "system": "torchbearer",
+      "path": "./packs/containers.db",
+      "entity": "Item"
     }
   ],
   "languages": [
