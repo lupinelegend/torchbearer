@@ -608,6 +608,9 @@
     "Character": {
 			"templates": ["background", "purpose", "traits", "rewards", "conditions", "abilities", "skills", "wises", "inventory", "allies", "enemies", "common", "notes"],
 			"class": {
+				"value": ""
+			},
+			"classes": {
 				"outcast": {
 					"value": "Dwarven Outcast"
 				},
