@@ -11,7 +11,6 @@
 				"parents": "",
 				"stock": "",
 				"charMentor": "",
-				"class": "",
 				"friend": "",
 				"age": "",
 				"enemy": "",
@@ -100,11 +99,11 @@
       },
       "rewards": {
 				"fate": {
-					"value": 3,
+					"value": 0,
 					"spent": 0
 				},
 				"persona": {
-					"value": 2,
+					"value": 0,
 					"spent": 0
 				},
 				"checks": {
@@ -608,11 +607,18 @@
     "Character": {
 			"templates": ["background", "purpose", "traits", "rewards", "conditions", "abilities", "skills", "wises", "inventory", "allies", "enemies", "common", "notes"],
 			"class": {
-				"value": ""
+				"name": "",
+				"startingWill": 0,
+				"startingHealth": 0,
+				"startingSkills": {},
+				"startingTrait": "",
+				"allowedWeapons": [],
+				"restrictedWeapons": [],
+				"allowedArmor": []
 			},
 			"classes": {
 				"outcast": {
-					"value": "Dwarven Outcast"
+					"value": "Dwarf Adventurer"
 				},
 				"ranger": {
 					"value": "Elf Ranger"
@@ -638,7 +644,7 @@
       "templates": ["purpose", "traits", "rewards", "abilities", "skills", "wises"]
     },
     "GMPC": {
-      "templates": ["background", "purpose", "traits", "rewards", "conditions", "abilities", "skills", "wises", "inventory", "allies", "enemies"]
+      "templates": ["background", "purpose", "traits", "rewards", "conditions", "abilities", "skills", "wises", "inventory", "allies", "enemies", "common", "notes"]
     }
   },
   "Item": {
@@ -712,7 +718,14 @@
 			"effect": ""
     },
     "Class": {
-			"types": ["Dwarven Outcast", "Elf Ranger", "Halfling Burglar", "Human Theurge", "Human Magician", "Human Warrior"]
+			"name": "",
+      "startingWill": 0,
+      "startingHealth": 0,
+      "startingSkills": {},
+      "startingTrait": "",
+      "allowedWeapons": [],
+      "restrictedWeapons": [],
+      "allowedArmor": []
 		},
     "Feature": {
       "outcast": {

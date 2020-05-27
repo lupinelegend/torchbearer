@@ -20,7 +20,7 @@ export class TorchbearerActorSheet extends ActorSheet {
   /** @override */
   getData() {
     const data = super.getData();
-    
+
     // Condition checkboxes
     const conditionStates = [data.data.hungryandthirsty, data.data.angry, data.data.afraid, data.data.exhausted, data.data.injured, data.data.sick, data.data.dead];
     const inc = (100 / 7);
@@ -103,10 +103,25 @@ export class TorchbearerActorSheet extends ActorSheet {
 
     // Rollable abilities.
     html.find('.rollable').click(this._onRoll.bind(this));
+
+    // Class changes
+    html.find('#classDropdown').change(ev => {
+      let className = ev.currentTarget.selectedOptions[0].value;
+      const classPack = game.packs.get("torchbearer.classes");
+      let entry;
+      classPack.getIndex().then(index => classPack.index.find(e => e.name === className)).then(f => {
+        entry = f;
+        classPack.getEntity(entry._id).then(cl => {
+          console.log(cl);
+          // I can access compendium classes from here.
+        });
+      });
+    });
+
   }
 
   /* -------------------------------------------- */
-
+  
   /**
    * Handle creating a new Owned Item for the actor using initial data defined in the HTML dataset
    * @param {Event} event   The originating click event

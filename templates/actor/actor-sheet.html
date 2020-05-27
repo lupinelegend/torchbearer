@@ -174,8 +174,8 @@
             <div class="grid grid-2col">
               <div class="resource flexrow flex-group-center">
                 <label style="font-family: Souvenir-Demi; font-size: 16px;" for="data.class.value">Class</label>
-                <select name="data.class.value" id="classDropdown">
-                  {{#select data.class.value}}
+                <select name="data.class.name" id="classDropdown">
+                  {{#select data.class.name}}
                   <option value="default" selected disabled hidden>Choose a class...</option>
                   {{#each data.classes as |charClass key|}}
                   <option name="data.classes.{{key}}.value" value="{{charClass.value}}">{{charClass.value}}</option>

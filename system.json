@@ -38,6 +38,13 @@
       "system": "torchbearer",
       "path": "./packs/equipment.db",
       "entity": "Item"
+    },
+    {
+      "name": "classes",
+      "label": "Torchbearer Classes",
+      "system": "torchbearer",
+      "path": "./packs/classes.db",
+      "entity": "Item"
     }
   ],
   "languages": [

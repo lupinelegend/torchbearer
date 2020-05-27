@@ -1,0 +1,125 @@
+[
+  {
+    "name": "Dwarf Adventurer",
+    "type": "Class",
+    "data": {
+      "name": "Dwarf Adventurer",
+      "startingWill": 3,
+      "startingHealth": 5,
+      "startingSkills": {
+        "Fighter": 4,
+        "Dungeoneer": 3,
+        "Armorer": 2,
+        "Laborer": 2,
+        "Orator": 2,
+        "Scout": 2
+      },
+      "startingTrait": "Born of Earth and Stone",
+      "allowedWeapons": ["Except"],
+      "restrictedWeapons": ["Two-Handed Sword", "Bow", "Lance"],
+      "allowedArmor": ["Any"]
+    }
+  },
+  {
+    "name": "Elf Ranger",
+    "type": "Class",
+    "data": {
+      "name": "Elf Ranger",
+      "startingWill": 4,
+      "startingHealth": 4,
+      "startingSkills": {
+        "Fighter": 3,
+        "Arcanist": 3,
+        "Lore Master": 3,
+        "Scholar": 2,
+        "Scout": 2,
+        "Survivalist": 2
+      },
+      "startingTrait": "First Born",
+      "allowedWeapons": ["Bow", "Sword", "Dagger"],
+      "restrictedWeapons": [],
+      "allowedArmor": ["Leather", "Chainmail Armor"]
+    }
+  },
+  {
+    "name": "Halfling Burglar",
+    "type": "Class",
+    "data": {
+      "name": "Halfling Burglar",
+      "startingWill": 5,
+      "startingHealth": 3,
+      "startingSkills": {
+        "Cook": 3,
+        "Criminal": 3,
+        "Fighter": 3,
+        "Hunter": 2,
+        "Scout": 2,
+        "Scavenger": 2
+      },
+      "startingTrait": "Hidden Depths",
+      "allowedWeapons": ["Except"],
+      "restrictedWeapons": ["Crossbow", "Two-Handed Sword", "Halberd", "Polearm", "Lance"],
+      "allowedArmor": ["Leather Armor", "Chainmail Armor", "Helmet", "Shield"]
+    }
+  },
+  {
+    "name": "Human Cleric",
+    "type": "Class",
+    "data": {
+      "name": "Human Cleric",
+      "startingWill": 0,
+      "startingHealth": 0,
+      "startingSkills": {
+        "Ritualist": 4,
+        "Theologian": 3,
+        "Fighter": 2,
+        "Healer": 2,
+        "Scholar": 2
+      },
+      "startingTrait": "Touched by the Gods",
+      "allowedWeapons": ["Mace", "Flail", "Sling"],
+      "restrictedWeapons": [],
+      "allowedArmor": ["Any"]
+    }
+  },
+  {
+    "name": "Human Magician",
+    "type": "Class",
+    "data": {
+      "name": "Human Magician",
+      "startingWill": 0,
+      "startingHealth": 0,
+      "startingSkills": {
+        "Arcanist": 4,
+        "Lore Master": 3,
+        "Alchemist": 2,
+        "Cartographer": 2,
+        "Scholar": 2
+      },
+      "startingTrait": "Wizard's Sight",
+      "allowedWeapons": ["Dagger"],
+      "restrictedWeapons": [],
+      "allowedArmor": ["None"]
+    }
+  },
+  {
+    "name": "Human Warrior",
+    "type": "Class",
+    "data": {
+      "name": "Human Warrior",
+      "startingWill": 0,
+      "startingHealth": 0,
+      "startingSkills": {
+        "Fighter": 4,
+        "Hunter": 3,
+        "Commander": 2,
+        "Mentor": 2,
+        "Rider": 2
+      },
+      "startingTrait": "Heart of Battle",
+      "allowedWeapons": ["Any"],
+      "restrictedWeapons": [],
+      "allowedArmor": ["Any"]
+    }
+  }
+]
