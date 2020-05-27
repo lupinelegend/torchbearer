@@ -50,7 +50,7 @@ export class TorchbearerActorSheet extends ActorSheet {
     html.find('.item-edit').click(ev => {
       const li = $(ev.currentTarget).parents(".item");
       const item = this.actor.getOwnedItem(li.data("itemId"));
-      const equip = item.data.data.equip;
+      // const equip = item.data.data.equip;
       item.sheet.render(true);
     });
 
