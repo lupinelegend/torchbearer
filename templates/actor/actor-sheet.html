@@ -10,14 +10,6 @@
         <h1 style="font-family: Souvenir-Demi;" class="charname">
           <input name="name" type="text" value="{{actor.name}}" placeholder="Name"/>
         </h1>
-      
-        <!-- <div class="classAndLevel grid grid-2col">
-          Class dropdown was here
-          <div class="resource flexrow flex-group-center">
-            <label style="font-family: Souvenir-Demi; font-size: 16px;" for="data.level">Level</label>
-            <input type="text" name="data.level.value" value="{{data.level.value}}" data-dtype="Number"/>
-          </div>
-        </div> -->
 
         <!-- Fate, Persona, and Checks -->
         <div class="rewards grid grid-3col">
@@ -948,28 +940,58 @@
         </div>
 
         {{!-- Notes Tab --}}
-        <div class="tab items" data-group="primary" data-tab="notes">
+        <div class="tab items" data-group="primary" data-tab="notes" style="margin-top: 5px;">
             
-            <ol class="items-list">
-                <li class="item flexrow item-header">
-                  <div class="item-image"></div>
-                  <div class="item-name">Name</div>
-                  <div class="item-controls">
-                    <a class="item-control item-create" title="Create item" data-type="item"><i class="fas fa-plus"></i> Add item</a>
-                  </div>
-                </li>
+          <!-- 
+            Idea for taking the sheet to the next level: Characterization page. This would be for recording thoughts about a character's dramatic conflicts and arc, etc. So, the sheet would ask the player what themes they're exploring with the character, what Beliefs the character might have and how they might be challenged, acting cues for the character (tics, accent, emotional triggers, etc.), feelings about other characters, desires and goals, etc. Obviously, the implementation and specific functionality would need to be worked out, but I feel like this would be valuable tool. Characterization is a core part of TB, and it can be difficult to remember that and to consistently pursue character-driven play session-to-session.
+           -->
 
-            {{#each actor.items as |item id|}}
-                <li class="item flexrow" data-item-id="{{item._id}}">
-                    <div class="item-image"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></div>
-                    <h4 class="item-name">{{item.name}}</h4>
-                    <div class="item-controls">
-                        <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-                        <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
-                    </div>
-                </li>
+           <!-- Roleplay Cues -->
+          <div>
+            <div style="display: flex; flex-direction: row; align-items: baseline;">
+              <h2 style="font-family: Souvenir-Demi; border: none; margin: 0 0 0 0rem !important;">Roleplay Cues</h2>
+              <h5 style="font-family: Souvenir-MediumItalic; margin: 0 0 0 0rem !important; text-align: right; flex-grow: 3;">Tics, accent, emotional triggers, etc.</h5>
+            </div>
+            <textarea type="text" name="data.roleplay" value="{{data.roleplay}}" style="font-family: Souvenir-Medium" rows="1" placeholder="I sneeze when I'm scared."></textarea>
+          </div>
+
+          <!-- Dramatic Arc -->
+          <div>
+            <div style="display: flex; flex-direction: row; align-items: baseline;">
+              <h2 style="font-family: Souvenir-Demi; border: none; margin: 0 0 0 0rem !important;">Dramatic Arc</h2>
+              <h5 style="font-family: Souvenir-MediumItalic; margin: 0 0 0 0rem !important; text-align: right; flex-grow: 3;">Themes and character arc.</h5>
+            </div>
+            <textarea type="text" name="data.arc" value="{{data.arc}}" style="font-family: Souvenir-Medium" rows="1" placeholder="What themes are being explored with this character? What are their dramatic conflicts and arc?"></textarea>
+          </div>
+
+          <!-- Allies & Enemies -->
+          <div>
+            <div style="display: flex; flex-direction: row; align-items: baseline;">
+              <h2 style="font-family: Souvenir-Demi; border: none; margin: 0 0 0 0rem !important;">Allies & Enemies</h2>
+            </div>
+            <div class="row" style="flex-wrap: nowrap;">
+              <div class="col">
+                Enemy?
+              </div>
+              <div class="col">Name</div>
+              <div class="col">Location</div>
+              <div class="col">Notes</div>
+            </div>
+            {{#each data.alliesEnemies as |character key|}}
+            <div class="row" style="flex-wrap: nowrap;">
+              <div class="col">Enemy?</div>
+              <div class="col">
+                <input type="text" name="data.alliesEnemies.{{key}}.name" value="{{character.name}}">
+              </div>
+              <div class="col">
+                <input type="text" name="data.alliesEnemies.{{key}}.location" value="{{character.location}}">
+              </div>
+              <div class="col">
+                <input type="text" name="data.alliesEnemies.{{key}}.notes" value="{{character.notes}}">
+              </div>
+            </div>
             {{/each}}
-            </ol>
+          </div>
 
         </div>
 

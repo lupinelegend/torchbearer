@@ -2,7 +2,11 @@
   "Actor": {
     "types": ["Character", "NPC", "GMPC"],
     "templates": {
-      "background": {
+			"notes": {
+				"roleplay": "",
+				"arc": ""
+			},
+			"background": {
 				"name": "",
 				"parents": "",
 				"stock": "",
@@ -428,6 +432,80 @@
 						"help": "Weaver, Laborer",
 						"bl": "W"
 					}
+				},
+				"alliesEnemies": {
+					"1": {
+						"name": "",
+						"location": "",
+						"notes": "",
+						"enemy": false
+					},
+					"2": {
+						"name": "",
+						"location": "",
+						"notes": "",
+						"enemy": false
+					},
+					"3": {
+						"name": "",
+						"location": "",
+						"notes": "",
+						"enemy": false
+					},
+					"4": {
+						"name": "",
+						"location": "",
+						"notes": "",
+						"enemy": false
+					},
+					"5": {
+						"name": "",
+						"location": "",
+						"notes": "",
+						"enemy": false
+					},
+					"6": {
+						"name": "",
+						"location": "",
+						"notes": "",
+						"enemy": false
+					},
+					"7": {
+						"name": "",
+						"location": "",
+						"notes": "",
+						"enemy": false
+					},
+					"8": {
+						"name": "",
+						"location": "",
+						"notes": "",
+						"enemy": false
+					},
+					"9": {
+						"name": "",
+						"location": "",
+						"notes": "",
+						"enemy": false
+					},
+					"10": {
+						"name": "",
+						"location": "",
+						"notes": "",
+						"enemy": false
+					},
+					"11": {
+						"name": "",
+						"location": "",
+						"notes": "",
+						"enemy": false
+					},
+					"12": {
+						"name": "",
+						"location": "",
+						"notes": "",
+						"enemy": false
+					}
 				}
 			},
 			"wises": {
@@ -525,134 +603,10 @@
 					"packSlotsTotal": 12,
 					"packSlotsAvailable": 12
 				}
-			},
-			"allies": {
-				"ally1": {
-					"name": "",
-					"location": "",
-					"status": ""
-				},
-				"ally2": {
-					"name": "",
-					"location": "",
-					"status": ""
-				},
-				"ally3": {
-					"name": "",
-					"location": "",
-					"status": ""
-				},
-				"ally4": {
-					"name": "",
-					"location": "",
-					"status": ""
-				},
-				"ally5": {
-					"name": "",
-					"location": "",
-					"status": ""
-				},
-				"ally6": {
-					"name": "",
-					"location": "",
-					"status": ""
-				},
-				"ally7": {
-					"name": "",
-					"location": "",
-					"status": ""
-				},
-				"ally8": {
-					"name": "",
-					"location": "",
-					"status": ""
-				},
-				"ally9": {
-					"name": "",
-					"location": "",
-					"status": ""
-				},
-				"ally10": {
-					"name": "",
-					"location": "",
-					"status": ""
-				},
-				"ally11": {
-					"name": "",
-					"location": "",
-					"status": ""
-				},
-				"ally12": {
-					"name": "",
-					"location": "",
-					"status": ""
-				}
-			},
-			"enemies": {
-				"enemy1": {
-					"name": "",
-					"location": "",
-					"status": ""
-				},
-				"enemy2": {
-					"name": "",
-					"location": "",
-					"status": ""
-				},
-				"enemy3": {
-					"name": "",
-					"location": "",
-					"status": ""
-				},
-				"enemy4": {
-					"name": "",
-					"location": "",
-					"status": ""
-				},
-				"enemy5": {
-					"name": "",
-					"location": "",
-					"status": ""
-				},
-				"enemy6": {
-					"name": "",
-					"location": "",
-					"status": ""
-				},
-				"enemy7": {
-					"name": "",
-					"location": "",
-					"status": ""
-				},
-				"enemy8": {
-					"name": "",
-					"location": "",
-					"status": ""
-				},
-				"enemy9": {
-					"name": "",
-					"location": "",
-					"status": ""
-				},
-				"enemy10": {
-					"name": "",
-					"location": "",
-					"status": ""
-				},
-				"enemy11": {
-					"name": "",
-					"location": "",
-					"status": ""
-				},
-				"enemy12": {
-					"name": "",
-					"location": "",
-					"status": ""
-				}
 			}
     },
     "Character": {
-			"templates": ["background", "purpose", "traits", "rewards", "conditions", "abilities", "skills", "wises", "inventory", "allies", "enemies", "common"],
+			"templates": ["background", "purpose", "traits", "rewards", "conditions", "abilities", "skills", "wises", "inventory", "allies", "enemies", "common", "notes"],
 			"class": {
 				"outcast": {
 					"value": "Dwarven Outcast"

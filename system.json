@@ -4,7 +4,7 @@
   "description": "The Torchbearer system for FoundryVTT!",
   "version": "1.0.0",
   "minimumCoreVersion": "0.5.5",
-  "compatibleCoreVersion": "0.5.5",
+  "compatibleCoreVersion": "0.6.0",
   "templateVersion": 2,
   "author": "yougotnick",
   "esmodules": ["module/torchbearer.js"],
@@ -31,7 +31,7 @@
       "system": "torchbearer",
       "path": "./packs/containers.db",
       "entity": "Item"
-    }
+    },
     {
       "name": "equipment",
       "label": "Torchbearer Equipment",
@@ -51,8 +51,8 @@
   "gridUnits": "ft",
   "primaryTokenAttribute": "health",
   "secondaryTokenAttribute": "power",
-  "url": "",
-  "manifest": "",
-  "download": "",
+  "url": "https://github.com/lupinelegend/torchbearer",
+  "manifest": "https://raw.githubusercontent.com/lupinelegend/torchbearer/master/system.json",
+  "download": "https://github.com/lupinelegend/torchbearer/archive/master.zip",
   "license": "LICENSE.txt"
 }
