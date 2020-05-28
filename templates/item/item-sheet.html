@@ -28,11 +28,6 @@
                     <input type="text" name="data.cost" value="{{data.cost}}" data-dtype="String" style="width: 50px; height: 25px; font-family: Souvenir-Medium;"/>
                 </div>
             </div>
-            <div class="row" style="flex-basis: auto;">
-                <div class="col" style="flex: 1 1 auto;">
-                    <span style="font-family: Souvenir-Demi">Held in <input type="text" name="data.containerId" value="{{data.containerId}}" data-dtype="String" style="width: 200px; height: 25px; font-family: Souvenir-Medium;"/></span>
-                </div>
-            </div>
         </div>
     </header>
 
@@ -54,14 +49,6 @@
         {{!-- Inventory Tab --}}
         <div class="tab" data-group="primary" data-tab="inventory" style="font-family: Souvenir-Medium;">
             <ol id="itemSlot" class="items-list col" style="margin: 0 3px 0 3px;">
-                <li class="item flexrow item-header" id="itemSlotHeader">
-                    <div class="item-image"></div>
-                    <div class="item-name" style="font-family: Souvenir-Demi;">Container</div>
-                    <div class="item-controls">
-                        <a class="item-control item-create" title="Create item" data-type="item" type="Container"><i class="fas fa-plus"></i></a>
-                    </div>
-                </li>
-
                 <!-- Placeholder <li> -->
                 <div id="itemPlaceholder">
                     {{#times data.capacity}}
@@ -74,16 +61,12 @@
                 {{#each data.inventory as |item|}}
                     <script>
                         if (document.getElementById('itemPlaceholder') != null) {
-                            if ({{item.data.slots}} === 1) {
-                                document.getElementById('itemSlotHeader').insertAdjacentHTML("afterend", '<li class="item flexrow" data-item-id="{{item._id}}" data-item-type="{{item.equip}}"><div class="item-image"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></div><h4 class="item-name" style="font-family: Souvenir-Medium;">{{item.name}}</h4><div class="item-controls"><a class="item-control item-edit" title="Edit Item" style="margin-right: 5px;"><i class="fas fa-edit"></i></a><a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a></div></li>');
+                            document.getElementById('itemPlaceholder').insertAdjacentHTML("beforebegin", '<li class="item flexrow" data-item-id="{{item._id}}" data-item-type="{{item.equip}}"><div class="item-image"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></div><h4 class="item-name" style="font-family: Souvenir-Medium;">{{item.name}}</h4><div class="item-controls"><a class="item-control item-edit" title="Edit Item" style="margin-right: 5px;"><i class="fas fa-edit"></i></a><a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a></div></li>');
+                            for (i = 0; i < {{item.data.slots}}; i++) {
                                 document.getElementById('itemPlaceholder').firstElementChild.remove();
                             }
-                        else {
-                                document.getElementById('itemSlotHeader').insertAdjacentHTML("afterend", '<li class="item flexrow" data-item-id="{{item._id}}" data-item-type="{{item.equip}}"><div class="item-image"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></div><h4 class="item-name" style="font-family: Souvenir-Medium;">{{item.name}}</h4><div class="item-controls"><a class="item-control item-edit" title="Edit Item" style="margin-right: 5px;"><i class="fas fa-edit"></i></a><a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a></div></li>');
-                                for (i = 0; i < {{item.data.slots}}; i++) {
-                                    document.getElementById('itemPlaceholder').firstElementChild.remove();
-                                }
-                            }
+                        } else {
+                            console.log("No room in {{data.name}} for {{item.data.name}}");
                         }
                     </script>
                 {{/each}}
@@ -101,6 +84,16 @@
 
         {{!-- Attributes Tab --}}
         <div class="tab attributes" data-group="primary" data-tab="attributes" style="margin: 5px 5px 0 5px;">
+            <div class="row" style="flex-basis: auto;">
+                <div class="col" style="flex: 1 1 auto;">
+                    <span style="font-family: Souvenir-Demi">Id: <input type="text" name="item._id" disabled value="{{item._id}}" data-dtype="String" style="width: 200px; height: 25px; font-family: Souvenir-Medium;"/></span>
+                </div>
+            </div>
+            <div class="row" style="flex-basis: auto;">
+                <div class="col" style="flex: 1 1 auto;">
+                    <span style="font-family: Souvenir-Demi">Held in <input type="text" name="data.containerId" value="{{data.containerId}}" data-dtype="String" style="width: 200px; height: 25px; font-family: Souvenir-Medium;"/></span>
+                </div>
+            </div>
             <label for="data.equipOptions.option1.value" style="font-family: Souvenir-Medium;">How can this item be carried?</label>
             <!-- Option 1 -->
             <div class="row" style="flex-wrap: nowrap; align-items: center; padding-left: 0px; margin: 3px 0 3px 0;">

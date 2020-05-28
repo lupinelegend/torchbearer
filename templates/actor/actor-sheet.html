@@ -842,6 +842,22 @@
                     {{/ifeq}}
                   {{/each}}
                 </ol>
+
+                <ol id="groundSlot" class="items-list col" style="margin: 0 3px 0 3px;">
+                  <li class="item flexrow item-header" id="groundSlotHeader">
+                    <div class="item-image"></div>
+                    <div class="item-name" style="font-family: Souvenir-Demi;">On Ground</div>
+                    <div class="item-controls">
+                      <a class="item-control item-create" title="Create item" data-type="item" type="On Ground"><i class="fas fa-plus"></i></a>
+                    </div>
+                  </li>
+
+                  {{#each data.computed.inventory.[On Ground].slots as |item|}}
+                      <script>
+                        document.getElementById('groundSlotHeader').insertAdjacentHTML("afterend", '<li class="item flexrow" data-item-id="{{item._id}}" data-item-type="{{item.equip}}"><div class="item-image"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></div><h4 class="item-name" style="font-family: Souvenir-Medium;">{{item.name}}</h4><div class="item-controls"><a class="item-control item-edit" title="Edit Item" style="margin-right: 5px;"><i class="fas fa-edit"></i></a><a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a></div></li>');
+                      </script>
+                  {{/each}}
+                </ol>
               </div>
             </div>
           </div>
