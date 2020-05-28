@@ -1,3 +1,13 @@
+Hooks.on('renderTorchbearerItemSheet', (sheet, el, item) => {
+  if(item.data.capacity) {
+    sheet.options.tabs[0].initial = "inventory";
+    sheet._tabs[0].active = "inventory";
+  } else {
+    sheet.options.tabs[0].initial = "description";
+    sheet._tabs[0].active = "description";
+  }
+});
+
 /**
  * Extend the basic ItemSheet with some very simple modifications
  * @extends {ItemSheet}
@@ -12,6 +22,10 @@ export class TorchbearerItemSheet extends ItemSheet {
       height: 400,
       tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description" }]
     });
+  }
+
+  activateInventoryTab() {
+    this._tabs[0].activate('inventory');
   }
 
   /** @override */
@@ -44,6 +58,15 @@ export class TorchbearerItemSheet extends ItemSheet {
         this.item.update({'data.carried': this.item.data.data.carryOptions.option3.value});
         this.item.update({'data.slots': this.item.data.data.slotOptions.option3.value});
         break;
+    }
+
+    if(data.data.capacity) {
+      data.data.inventory = [];
+      if(this.item.actor !== null) {
+        if(this.item.actor.data.data.computed.inventory[this.item._id]) {
+          data.data.inventory = [].concat(this.item.actor.data.data.computed.inventory[this.item._id].slots);
+        }
+      }
     }
 
     return data;
