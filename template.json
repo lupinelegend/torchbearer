@@ -434,7 +434,7 @@
 				},
 				"alliesEnemies": {
 					"ally1": {
-						"name": "test",
+						"name": "",
 						"location": "",
 						"notes": "",
 						"enemy": false
