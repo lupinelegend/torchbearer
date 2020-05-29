@@ -113,6 +113,14 @@ export class TorchbearerActor extends Actor {
         inventory["On Ground"].slots.push(item);
       }
     });
+    Object.keys(inventory).forEach((k) => {
+      if(inventory[k].name === "Unknown") {
+        inventory[k].slots.forEach((i) => {
+          inventory["On Ground"].slots.push(i);
+        });
+        delete inventory[k];
+      }
+    });
     return inventory;
   }
   
