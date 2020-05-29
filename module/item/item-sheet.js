@@ -1,3 +1,11 @@
+Hooks.on('renderTorchbearerItemSheet', (sheet, el, item) => {
+  if(item.data.capacity) {
+    sheet._tabs[0].active = "inventory";
+  } else {
+    sheet._tabs[0].active = "description";
+  }
+});
+
 /**
  * Extend the basic ItemSheet with some very simple modifications
  * @extends {ItemSheet}
@@ -46,6 +54,15 @@ export class TorchbearerItemSheet extends ItemSheet {
         break;
     }
 
+    if(data.data.capacity) {
+      data.data.inventory = [];
+      if(this.item.actor !== null) {
+        if(this.item.actor.data.data.computed.inventory[this.item._id]) {
+          data.data.inventory = [].concat(this.item.actor.data.data.computed.inventory[this.item._id].slots);
+        }
+      }
+    }
+
     return data;
   }
 
@@ -70,7 +87,21 @@ export class TorchbearerItemSheet extends ItemSheet {
     if (!this.options.editable) return;
 
     // Roll handlers, click handlers, etc. would go here.
-    
+    html.find('.item-edit').click(ev => {
+      const li = $(ev.currentTarget).parents(".item");
+      const item = this.actor.getOwnedItem(li.data("itemId"));
+      item.sheet.render(true);
+    });
+
+    html.find('.item-delete').click(ev => {
+      const li = $(ev.currentTarget).parents(".item");
+
+      if(this.item.actor) {
+        this.item.actor.removeItemFromInventory(li.data("itemId"));
+      }
+    });
+
+
     html.find('#itemCarriedDropdown').click(ev => {
       this.item.update({'data.prevEquip': this.item.data.data.equip});
     });
@@ -90,11 +121,6 @@ export class TorchbearerItemSheet extends ItemSheet {
         newSlots = this.item.data.data.slotOptions.option3.value;
       }
       
-      console.log('Old: ' + this.item.data.data.equip + ' ' + oldSlots);
-      console.log('New: ' + newEquip + " " + newSlots);
-
-      console.log(this.actor);
-
       if (this.actor != null) {
         // Remove the slots being used from slotsAvailable
         switch (newEquip) {
