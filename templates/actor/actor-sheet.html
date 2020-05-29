@@ -243,11 +243,13 @@
               <!-- Will -->
               <div class="grid grid-3col" style="margin-right: 10px;">
                 <div style="align-self: center;">
-                  <h4 style="font-family: Souvenir-Medium; margin: 0 0 0 0rem !important;">Will</h4>
+                  <span class="rollable" data-roll="">
+                    <h4 style="font-family: Souvenir-Medium; margin: 0 0 0 0rem !important;">Will</h4>
+                  </span>
                 </div>
                 <div style="display: flex; flex-direction: row;">
                   <input type="text" name="data.will.value" value="{{data.will.value}}" data-dtype="Number" style="padding: 5px; margin: 0 10px 0 10px; width: 30px"/>
-                  <img src="../systems/torchbearer/assets/icons/d6.png" style="height: 24px; width: 24; border: none;">
+                  <img src="../systems/torchbearer/assets/icons/d6.png" style="height: 24px; width: 24; border: none;" class="rollable" data-label="will">
                 </div>
                 <div class="resource-content flexrow flex-center flex-between">
                   <input id="willPass" type="text" name="data.will.pass" value="{{data.will.pass}}" data-dtype="Number"/>

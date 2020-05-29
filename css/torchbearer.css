@@ -27,6 +27,31 @@
   src: url('../assets/fonts/Souvenir-MediumItalic.otf');
 }
 
+.dice-rolls {
+  list-style: none;
+  margin: 5px 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.dice-rolls .roll {
+  width: 24px;
+  line-height: 24px;
+  float: left;
+  margin-right: 1px;
+  background-image: url("../assets/icons/d6-grey.svg");
+  background-repeat: no-repeat;
+  background-size: 24px 24px;
+  font-size: 16px;
+  color: #000;
+  font-weight: bold;
+  text-align: center;
+}
+
+.dice-rolls .roll.d6 {
+  background-image: url("../assets/icons/d6-grey.svg");
+}
+
 .activePack {
   color: black;
 }

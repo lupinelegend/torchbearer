@@ -101,22 +101,22 @@ export class TorchbearerActorSheet extends ActorSheet {
       li.slideUp(200, () => this.render(false));
     });
 
-    // Rollable abilities.
+    // Rollable abilities
     html.find('.rollable').click(this._onRoll.bind(this));
 
     // Class changes
-    html.find('#classDropdown').change(ev => {
-      let className = ev.currentTarget.selectedOptions[0].value;
-      const classPack = game.packs.get("torchbearer.classes");
-      let entry;
-      classPack.getIndex().then(index => classPack.index.find(e => e.name === className)).then(f => {
-        entry = f;
-        classPack.getEntity(entry._id).then(cl => {
-          console.log(cl);
-          // I can access compendium classes from here.
-        });
-      });
-    });
+    // html.find('#classDropdown').change(ev => {
+    //   let className = ev.currentTarget.selectedOptions[0].value;
+    //   const classPack = game.packs.get("torchbearer.classes");
+    //   let entry;
+    //   classPack.getIndex().then(index => classPack.index.find(e => e.name === className)).then(f => {
+    //     entry = f;
+    //     classPack.getEntity(entry._id).then(cl => {
+    //       console.log(cl);
+    //       // I can access compendium classes from here.
+    //     });
+    //   });
+    // });
 
   }
 
@@ -219,19 +219,115 @@ export class TorchbearerActorSheet extends ActorSheet {
     event.preventDefault();
     const element = event.currentTarget;
     const dataset = element.dataset;
+    
+    // Determine attribute/skill to roll
+    let rollTarget = dataset.label;
+    let title = rollTarget.charAt(0).toUpperCase() + rollTarget.slice(1);
 
-    if (dataset.roll) {
-      let roll = new Roll(dataset.roll, this.actor.data.data);
-      let label = dataset.label ? `Rolling ${dataset.label}` : '';
-      roll.roll().toMessage({
-        speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-        flavor: label
+    // Determine number of dice to roll
+    let diceToRoll = this.actor.data.data[rollTarget].value;
+
+    // Build the formula
+    let formula = `${diceToRoll}d6`;
+
+    // Render the roll
+    let template = 'systems/torchbearer/templates/torchbearer-roll.html';
+
+    // GM rolls
+    let chatData = {
+      user: game.user._id,
+      speaker: ChatMessage.getSpeaker({ actor: this.actor })
+    };
+    let templateData = {
+      title: title,
+      flavor: 'This is a dice roll!',
+      roll: {}
+    };
+
+    // Handle roll visibility. Blind doesn't work; you'll need a render hook to hide it
+    let rollMode = game.settings.get("core", "rollMode");
+    if (["gmroll", "blindroll"].includes(rollMode)) chatData["whisper"] = ChatMessage.getWhisperRecipients("GM");
+    if (rollMode === "selfroll") chatData["whisper"] = [game.user._id];
+    if (rollMode === "blindroll") chatData["blind"] = true;
+
+    // Do the roll
+    let roll = new Roll(formula);
+    
+    // Render the roll for the results button that Foundry provides
+    roll.render().then(r => {
+      
+      //Create an array of the roll results
+      let rollResult = [];
+      roll.parts[0].rolls.forEach(key => {
+        rollResult.push(key.roll);
       });
-    }
+
+      // Count successes
+      let rolledSuccesses = 0;
+      rollResult.forEach((index) => {
+        if (index > 3) {
+          rolledSuccesses++;
+        }
+      });
+
+      renderTemplate('systems/torchbearer/templates/roll-template.html', {results: rollResult, dice: diceToRoll, success: rolledSuccesses}).then(t => {
+        
+        console.log(t);
+
+        // Add the dice roll to the template
+        templateData.roll = t,
+        chatData.roll = JSON.stringify(r);
+
+        // Render the roll template
+        renderTemplate(template, templateData).then(content => {
+          // Update the message content
+          chatData.content = content;
+
+          // Hook into Dice So Nice!
+          if (game.dice3d) {
+            game.dice3d.showForRoll(roll, chatData.whisper, chatData.blind).then(displayed => {
+              ChatMessage.create(chatData)
+            });
+          }
+          // Roll normally, add a dice sound
+          else {
+            chatData.sound = CONFIG.sounds.dice;
+            ChatMessage.create(chatData);
+          }
+        });
+      });     
+    });
+
+    // console.log(roll);
+
+    // --- Using Roll() ---
+    // let dicePool = new Roll(`${diceToRoll}d6`,{});
+    // let label = rollTarget ? `Rolling ${rollTarget}` : '';
+    // dicePool.roll().toMessage({
+    //   speaker: ChatMessage.getSpeaker({actor: this.actor}),
+    //   flavor: label,
+    //   type: CONST.CHAT_MESSAGE_TYPES.OOC
+    // });
+    // let rolls = dicePool.parts[0].rolls;
+
+    // // Sort rolls from lowest to highest. Also creates an array of numbers from an array of objects
+    // let sorted_rolls = rolls.map(i => i.roll).sort();
+    // console.log(sorted_rolls);
+
+    // // Count successes
+    // let rolledSuccesses = 0;
+    // sorted_rolls.forEach((index) => {
+    //   if (index > 3) {
+    //     rolledSuccesses++;
+    //   }
+    // });
+
+    // console.log(rolledSuccesses);
   }
 
   /** @override */
   async _onDrop(event) {
+    console.log(event);
     let data;
     try {
       data = JSON.parse(event.dataTransfer.getData('text/plain'));
