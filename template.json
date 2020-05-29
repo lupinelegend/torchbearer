@@ -665,6 +665,7 @@
 			"capacity": 0,
 			"bundleSize": 1,
 			"resizes": false,
+			"containerId": "",
 			"equipOptions": {
 				"option1": {
 					"value": ""

@@ -558,19 +558,19 @@
                       <h4 class="item-name" style="font-family: Souvenir-Medium;">[Worn]</h4>
                     </li>
                   </div>
-    
-                  {{#each actor.items as |item id|}}
-                    {{#ifeq item.data.equip "Head"}}
-                      <script>
-                        // console.log(document.getElementById('pocketPlaceholder'));
-                        if (document.getElementById('headPlaceholder') != null) {
-                          // console.log(document.getElementById("pocketSlot").firstElementChild.nextElementSibling);
-                          document.getElementById('headSlotHeader').insertAdjacentHTML("afterend", '<li class="item flexrow" data-item-id="{{item._id}}" data-item-type="{{item.equip}}"><div class="item-image"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></div><h4 class="item-name" style="font-family: Souvenir-Medium;">{{item.name}}</h4><div class="item-controls"><a class="item-control item-edit" title="Edit Item" style="margin-right: 5px;"><i class="fas fa-edit"></i></a><a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a></div></li>');
-                          document.getElementById('headPlaceholder').remove();
-                        }
-                      </script>
-                    {{/ifeq}}
-                  {{/each}}
+
+                    {{#each data.computed.inventory.[Head].slots as |item|}}
+                        <script>
+                            if (document.getElementById('headPlaceholder') != null) {
+                                document.getElementById('headPlaceholder').insertAdjacentHTML("beforebegin", '<li class="item flexrow" data-item-id="{{item._id}}" data-item-type="{{item.equip}}"><div class="item-image"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></div><h4 class="item-name" style="font-family: Souvenir-Medium;">{{item.name}}</h4><div class="item-controls"><a class="item-control item-edit" title="Edit Item" style="margin-right: 5px;"><i class="fas fa-edit"></i></a><a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a></div></li>');
+                                for (i = 0; i < {{item.data.slots}}; i++) {
+                                    document.getElementById('headPlaceholder').firstElementChild.remove();
+                                }
+                            } else {
+                                console.log("No room in Head for {{item.data.name}}");
+                            }
+                        </script>
+                    {{/each}}
                 </ol>
                 <ol id="handsWornSlot" class="items-list col" style="margin: 0 3px 0 3px;">
                   <li class="item flexrow item-header" id="handsWornSlotHeader">
@@ -583,29 +583,25 @@
     
                   <!-- Placeholder <li> -->
                   <div id="handsWornPlaceholder">
-                    <li class="flexrow placeholder">
-                      <h4 class="item-name" style="font-family: Souvenir-Medium;">[Worn]</h4>
-                    </li>
-                    <li class="flexrow placeholder">
-                      <h4 class="item-name" style="font-family: Souvenir-Medium;">[Worn]</h4>
-                    </li>
+                      {{#times 2}}
+                          <li class="flexrow placeholder">
+                              <h4 class="item-name" style="font-family: Souvenir-Medium;">[Worn]</h4>
+                          </li>
+                      {{/times}}
                   </div>
-    
-                  {{#each actor.items as |item id|}}
-                    {{#ifeq item.data.equip "Hands (Worn)"}}
-                      <script>
-                        if (document.getElementById('handsWornPlaceholder') != null) {
-                          if ({{item.data.slots}} === 1) {
-                            document.getElementById('handsWornSlotHeader').insertAdjacentHTML("afterend", '<li class="item flexrow" data-item-id="{{item._id}}" data-item-type="{{item.equip}}"><div class="item-image"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></div><h4 class="item-name" style="font-family: Souvenir-Medium;">{{item.name}}</h4><div class="item-controls"><a class="item-control item-edit" title="Edit Item" style="margin-right: 5px;"><i class="fas fa-edit"></i></a><a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a></div></li>');
-                            document.getElementById('handsWornPlaceholder').firstElementChild.remove();
-                          } else {
-                            document.getElementById('handsWornSlotHeader').insertAdjacentHTML("afterend", '<li class="item flexrow" data-item-id="{{item._id}}" data-item-type="{{item.equip}}"><div class="item-image"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></div><h4 class="item-name" style="font-family: Souvenir-Medium;">{{item.name}}</h4><div class="item-controls"><a class="item-control item-edit" title="Edit Item" style="margin-right: 5px;"><i class="fas fa-edit"></i></a><a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a></div></li>');
-                            document.getElementById('handsWornPlaceholder').remove();
-                          }
-                        }
-                      </script>  
-                    {{/ifeq}}
-                  {{/each}}
+
+                    {{#each data.computed.inventory.[Hands (Worn)].slots as |item|}}
+                        <script>
+                            if (document.getElementById('handsWornPlaceholder') != null) {
+                                document.getElementById('handsWornPlaceholder').insertAdjacentHTML("beforebegin", '<li class="item flexrow" data-item-id="{{item._id}}" data-item-type="{{item.equip}}"><div class="item-image"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></div><h4 class="item-name" style="font-family: Souvenir-Medium;">{{item.name}}</h4><div class="item-controls"><a class="item-control item-edit" title="Edit Item" style="margin-right: 5px;"><i class="fas fa-edit"></i></a><a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a></div></li>');
+                                for (i = 0; i < {{item.data.slots}}; i++) {
+                                    document.getElementById('handsWornPlaceholder').firstElementChild.remove();
+                                }
+                            } else {
+                                console.log("No room in Hands (Worn) for {{item.data.name}}");
+                            }
+                        </script>
+                    {{/each}}
                 </ol>
                 <ol id="handsCarriedSlot" class="items-list col" style="margin: 0 3px 0 3px;">
                   <li class="item flexrow item-header" id="handsCarriedSlotHeader">
@@ -618,29 +614,25 @@
     
                   <!-- Placeholder <li> -->
                   <div id="handsCarriedPlaceholder">
-                    <li class="flexrow placeholder">
-                      <h4 class="item-name" style="font-family: Souvenir-Medium;">[Carried]</h4>
-                    </li>
-                    <li class="flexrow placeholder">
-                      <h4 class="item-name" style="font-family: Souvenir-Medium;">[Carried]</h4>
-                    </li>
+                      {{#times 2}}
+                          <li class="flexrow placeholder">
+                              <h4 class="item-name" style="font-family: Souvenir-Medium;">[Carried]</h4>
+                          </li>
+                      {{/times}}
                   </div>
-    
-                  {{#each actor.items as |item id|}}
-                    {{#ifeq item.data.equip "Hands (Carried)"}}
-                      <script>
-                        if (document.getElementById('handsCarriedPlaceholder') != null) {
-                          if ({{item.data.slots}} === 1) {
-                            document.getElementById('handsCarriedSlotHeader').insertAdjacentHTML("afterend", '<li class="item flexrow" data-item-id="{{item._id}}" data-item-type="{{item.equip}}"><div class="item-image"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></div><h4 class="item-name" style="font-family: Souvenir-Medium;">{{item.name}}</h4><div class="item-controls"><a class="item-control item-edit" title="Edit Item" style="margin-right: 5px;"><i class="fas fa-edit"></i></a><a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a></div></li>');
-                            document.getElementById('handsCarriedPlaceholder').firstElementChild.remove();
-                          } else {
-                            document.getElementById('handsCarriedSlotHeader').insertAdjacentHTML("afterend", '<li class="item flexrow" data-item-id="{{item._id}}" data-item-type="{{item.equip}}"><div class="item-image"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></div><h4 class="item-name" style="font-family: Souvenir-Medium;">{{item.name}}</h4><div class="item-controls"><a class="item-control item-edit" title="Edit Item" style="margin-right: 5px;"><i class="fas fa-edit"></i></a><a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a></div></li>');
-                            document.getElementById('handsCarriedPlaceholder').remove();
-                          }
-                        }
-                      </script>
-                    {{/ifeq}}
-                  {{/each}}
+
+                    {{#each data.computed.inventory.[Hands (Carried)].slots as |item|}}
+                        <script>
+                            if (document.getElementById('handsCarriedPlaceholder') != null) {
+                                document.getElementById('handsCarriedPlaceholder').insertAdjacentHTML("beforebegin", '<li class="item flexrow" data-item-id="{{item._id}}" data-item-type="{{item.equip}}"><div class="item-image"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></div><h4 class="item-name" style="font-family: Souvenir-Medium;">{{item.name}}</h4><div class="item-controls"><a class="item-control item-edit" title="Edit Item" style="margin-right: 5px;"><i class="fas fa-edit"></i></a><a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a></div></li>');
+                                for (i = 0; i < {{item.data.slots}}; i++) {
+                                    document.getElementById('handsCarriedPlaceholder').firstElementChild.remove();
+                                }
+                            } else {
+                                console.log("No room in Hands (Carried) for {{item.data.name}}");
+                            }
+                        </script>
+                    {{/each}}
                 </ol>
                 <ol id="torsoSlot" class="items-list col" style="margin: 0 3px 0 3px;">
                   <li class="item flexrow item-header" id="torsoSlotHeader">
@@ -653,35 +645,25 @@
     
                   <!-- Placeholder <li> -->
                   <div id="torsoPlaceholder">
-                    <li class="flexrow placeholder">
-                      <h4 class="item-name" style="font-family: Souvenir-Medium;">[Worn]</h4>
-                      </li>
-                      <li class="flexrow placeholder">
-                      <h4 class="item-name" style="font-family: Souvenir-Medium;">[Worn]</h4>
-                      </li>
-                      <li class="flexrow placeholder">
-                      <h4 class="item-name" style="font-family: Souvenir-Medium;">[Worn]</h4>
-                    </li>
+                      {{#times 3}}
+                          <li class="flexrow placeholder">
+                              <h4 class="item-name" style="font-family: Souvenir-Medium;">[Worn]</h4>
+                          </li>
+                      {{/times}}
                   </div>
-    
-                  {{#each actor.items as |item id|}}
-                    {{#ifeq item.data.equip "Torso"}}
-                      <script>
-                        if (document.getElementById('torsoPlaceholder') != null) {
-                          if ({{item.data.slots}} === 1) {
-                            document.getElementById('torsoSlotHeader').insertAdjacentHTML("afterend", '<li class="item flexrow" data-item-id="{{item._id}}" data-item-type="{{item.equip}}"><div class="item-image"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></div><h4 class="item-name" style="font-family: Souvenir-Medium;">{{item.name}}</h4><div class="item-controls"><a class="item-control item-edit" title="Edit Item" style="margin-right: 5px;"><i class="fas fa-edit"></i></a><a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a></div></li>');
-                            document.getElementById('torsoPlaceholder').firstElementChild.remove();
-                          } 
-                          else {
-                            document.getElementById('torsoSlotHeader').insertAdjacentHTML("afterend", '<li class="item flexrow" data-item-id="{{item._id}}" data-item-type="{{item.equip}}"><div class="item-image"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></div><h4 class="item-name" style="font-family: Souvenir-Medium;">{{item.name}}</h4><div class="item-controls"><a class="item-control item-edit" title="Edit Item" style="margin-right: 5px;"><i class="fas fa-edit"></i></a><a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a></div></li>');
-                            for (i = 0; i < {{item.data.slots}}; i++) {
-                              document.getElementById('torsoPlaceholder').firstElementChild.remove();
+
+                    {{#each data.computed.inventory.[Torso].slots as |item|}}
+                        <script>
+                            if (document.getElementById('torsoPlaceholder') != null) {
+                                document.getElementById('torsoPlaceholder').insertAdjacentHTML("beforebegin", '<li class="item flexrow" data-item-id="{{item._id}}" data-item-type="{{item.equip}}"><div class="item-image"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></div><h4 class="item-name" style="font-family: Souvenir-Medium;">{{item.name}}</h4><div class="item-controls"><a class="item-control item-edit" title="Edit Item" style="margin-right: 5px;"><i class="fas fa-edit"></i></a><a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a></div></li>');
+                                for (i = 0; i < {{item.data.slots}}; i++) {
+                                    document.getElementById('torsoPlaceholder').firstElementChild.remove();
+                                }
+                            } else {
+                                console.log("No room in Torso for {{item.data.name}}");
                             }
-                          }
-                        }
-                      </script>
-                    {{/ifeq}}
-                  {{/each}}
+                        </script>
+                    {{/each}}
                 </ol>
                 <ol id="pocketSlot" class="items-list col" style="margin: 0 3px 0 3px;">
                   <li class="item flexrow item-header" id="pocketSlotHeader">
@@ -698,35 +680,19 @@
                       <h4 class="item-name" style="font-family: Souvenir-Medium;">[Trinkets]</h4>
                     </li>
                   </div>
-    
-                  {{#each actor.items as |item id|}}
-                    {{#ifeq item.data.equip "Pocket"}}
-                      <script>
-                        // console.log(document.getElementById('pocketPlaceholder'));
-                        
-                        if ({{item.data.slots}} > 1) {
-                          console.log('ERROR: Player tried to add an item with a higher "weight" than slots available.');
-                        } else if (document.getElementById('pocketPlaceholder') != null) {
-                          // console.log(document.getElementById("pocketSlot").firstElementChild.nextElementSibling);
-                          document.getElementById('pocketSlotHeader').insertAdjacentHTML("afterend", '<li class="item flexrow" data-item-id="{{item._id}}"><div class="item-image"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></div><h4 class="item-name" style="font-family: Souvenir-Medium;">{{item.name}}</h4><div class="item-controls"><a class="item-control item-edit" title="Edit Item" style="margin-right: 5px;"><i class="fas fa-edit"></i></a><a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a></div></li>');
-                          document.getElementById('pocketPlaceholder').remove();
-                        } else {
-                          document.getElementById('pocketSlotHeader').insertAdjacentHTML("afterend", '<li class="item flexrow" data-item-id="{{item._id}}"><div class="item-image"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></div><h4 class="item-name" style="font-family: Souvenir-Medium;">{{item.name}}</h4><div class="item-controls"><a class="item-control item-edit" title="Edit Item" style="margin-right: 5px;"><i class="fas fa-edit"></i></a><a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a></div></li>');
-                        }
-                      </script>
-                      <!-- <li class="item flexrow" data-item-id="{{item._id}}">
-                          <div class="item-image"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></div>
-                          <h4 class="item-name" style="font-family: Souvenir-Medium;">{{item.name}}</h4>
-                          <div style="margin: auto;">
-                            <img src="../systems/torchbearer/assets/icons/cracked-helm.png" style="height: 20px; width: auto; border: none;">
-                          </div>
-                          <div class="item-controls">
-                            <a class="item-control item-edit" title="Edit Item" style="margin-right: 5px;"><i class="fas fa-edit"></i></a>
-                            <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
-                          </div>
-                      </li> -->
-                    {{/ifeq}}
-                  {{/each}}
+
+                    {{#each data.computed.inventory.[Pocket].slots as |item|}}
+                        <script>
+                            if (document.getElementById('pocketPlaceholder') != null) {
+                                document.getElementById('pocketPlaceholder').insertAdjacentHTML("beforebegin", '<li class="item flexrow" data-item-id="{{item._id}}" data-item-type="{{item.equip}}"><div class="item-image"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></div><h4 class="item-name" style="font-family: Souvenir-Medium;">{{item.name}}</h4><div class="item-controls"><a class="item-control item-edit" title="Edit Item" style="margin-right: 5px;"><i class="fas fa-edit"></i></a><a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a></div></li>');
+                                for (i = 0; i < {{item.data.slots}}; i++) {
+                                    document.getElementById('pocketPlaceholder').firstElementChild.remove();
+                                }
+                            } else {
+                                console.log("No room in Pocket for {{item.data.name}}");
+                            }
+                        </script>
+                    {{/each}}
                 </ol>
               </div>
               <div class="col">
@@ -746,30 +712,18 @@
                     </li>
                   </div>
 
-                  {{#each actor.items as |item id|}}
-                    {{#ifeq item.data.equip "Neck"}}
-                      <script>
-                        // console.log(document.getElementById('pocketPlaceholder'));
-                        
-                        if (document.getElementById('neckPlaceholder') != null) {
-                          // console.log(document.getElementById("pocketSlot").firstElementChild.nextElementSibling);
-                          document.getElementById('neckSlotHeader').insertAdjacentHTML("afterend", '<li class="item flexrow" data-item-id="{{item._id}}"><div class="item-image"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></div><h4 class="item-name" style="font-family: Souvenir-Medium;">{{item.name}}</h4><div class="item-controls"><a class="item-control item-edit" title="Edit Item" style="margin-right: 5px;"><i class="fas fa-edit"></i></a><a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a></div></li>');
-                          document.getElementById('neckPlaceholder').remove();
-                        }
-                      </script>
-                      <!-- <li class="item flexrow" data-item-id="{{item._id}}">
-                          <div class="item-image"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></div>
-                          <h4 class="item-name" style="font-family: Souvenir-Medium;">{{item.name}}</h4>
-                          <div style="margin: auto;">
-                            <img src="../systems/torchbearer/assets/icons/cracked-helm.png" style="height: 20px; width: auto; border: none;">
-                          </div>
-                          <div class="item-controls">
-                            <a class="item-control item-edit" title="Edit Item" style="margin-right: 5px;"><i class="fas fa-edit"></i></a>
-                            <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
-                          </div>
-                      </li> -->
-                    {{/ifeq}}
-                  {{/each}}
+                    {{#each data.computed.inventory.[Neck].slots as |item|}}
+                        <script>
+                            if (document.getElementById('neckPlaceholder') != null) {
+                                document.getElementById('neckPlaceholder').insertAdjacentHTML("beforebegin", '<li class="item flexrow" data-item-id="{{item._id}}" data-item-type="{{item.equip}}"><div class="item-image"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></div><h4 class="item-name" style="font-family: Souvenir-Medium;">{{item.name}}</h4><div class="item-controls"><a class="item-control item-edit" title="Edit Item" style="margin-right: 5px;"><i class="fas fa-edit"></i></a><a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a></div></li>');
+                                for (i = 0; i < {{item.data.slots}}; i++) {
+                                    document.getElementById('neckPlaceholder').firstElementChild.remove();
+                                }
+                            } else {
+                                console.log("No room in Neck for {{item.data.name}}");
+                            }
+                        </script>
+                    {{/each}}
                 </ol>
                 <ol id="feetSlot" class="items-list col" style="margin: 0 3px 0 3px;">
                   <li class="item flexrow item-header" id="feetSlotHeader">
@@ -786,19 +740,17 @@
                       <h4 class="item-name" style="font-family: Souvenir-Medium;">[Worn]</h4>
                     </li>
                   </div>
-    
-                  {{#each actor.items as |item id|}}
-                    {{#ifeq item.data.equip "Feet"}}
+                  {{#each data.computed.inventory.[Feet].slots as |item|}}
                       <script>
-                        // console.log(document.getElementById('pocketPlaceholder'));
-                        
                         if (document.getElementById('feetPlaceholder') != null) {
-                          // console.log(document.getElementById("pocketSlot").firstElementChild.nextElementSibling);
-                          document.getElementById('feetSlotHeader').insertAdjacentHTML("afterend", '<li class="item flexrow" data-item-id="{{item._id}}"><div class="item-image"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></div><h4 class="item-name" style="font-family: Souvenir-Medium;">{{item.name}}</h4><div class="item-controls"><a class="item-control item-edit" title="Edit Item" style="margin-right: 5px;"><i class="fas fa-edit"></i></a><a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a></div></li>');
-                          document.getElementById('feetPlaceholder').remove();
+                            document.getElementById('feetPlaceholder').insertAdjacentHTML("beforebegin", '<li class="item flexrow" data-item-id="{{item._id}}" data-item-type="{{item.equip}}"><div class="item-image"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></div><h4 class="item-name" style="font-family: Souvenir-Medium;">{{item.name}}</h4><div class="item-controls"><a class="item-control item-edit" title="Edit Item" style="margin-right: 5px;"><i class="fas fa-edit"></i></a><a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a></div></li>');
+                            for (i = 0; i < {{item.data.slots}}; i++) {
+                                document.getElementById('feetPlaceholder').firstElementChild.remove();
+                            }
+                        } else {
+                            console.log("No room in Feet for {{item.data.name}}");
                         }
-                      </script> 
-                    {{/ifeq}}
+                      </script>
                   {{/each}}
                 </ol>
                 <ol id="beltSlot" class="items-list col" style="margin: 0 3px 0 3px;">
@@ -812,100 +764,40 @@
     
                   <!-- Placeholder <li> -->
                   <div id="beltPlaceholder">
-                    <li class="flexrow placeholder">
-                      <h4 class="item-name" style="font-family: Souvenir-Medium;">[1]</h4>
-                    </li>
-                    <li class="flexrow placeholder">
-                      <h4 class="item-name" style="font-family: Souvenir-Medium;">[2]</h4>
-                    </li>
-                    <li class="flexrow placeholder">
-                      <h4 class="item-name" style="font-family: Souvenir-Medium;">[3]</h4>
-                    </li>
+                      {{#times 3}}
+                          <li class="flexrow placeholder">
+                              <h4 class="item-name" style="font-family: Souvenir-Medium;">[Belt]</h4>
+                          </li>
+                      {{/times}}
                   </div>
-    
-                  {{#each actor.items as |item id|}}
-                    {{#ifeq item.data.equip "Belt"}}
-                      <script>
-                        if (document.getElementById('beltPlaceholder') != null) {
-                          if ({{item.data.slots}} === 1) {
-                            document.getElementById('beltSlotHeader').insertAdjacentHTML("afterend", '<li class="item flexrow" data-item-id="{{item._id}}" data-item-type="{{item.equip}}"><div class="item-image"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></div><h4 class="item-name" style="font-family: Souvenir-Medium;">{{item.name}}</h4><div class="item-controls"><a class="item-control item-edit" title="Edit Item" style="margin-right: 5px;"><i class="fas fa-edit"></i></a><a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a></div></li>');
-                            document.getElementById('beltPlaceholder').firstElementChild.remove();
-                          } 
-                          else {
-                            document.getElementById('beltSlotHeader').insertAdjacentHTML("afterend", '<li class="item flexrow" data-item-id="{{item._id}}" data-item-type="{{item.equip}}"><div class="item-image"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></div><h4 class="item-name" style="font-family: Souvenir-Medium;">{{item.name}}</h4><div class="item-controls"><a class="item-control item-edit" title="Edit Item" style="margin-right: 5px;"><i class="fas fa-edit"></i></a><a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a></div></li>');
-                            for (i = 0; i < {{item.data.slots}}; i++) {
-                              document.getElementById('beltPlaceholder').firstElementChild.remove();
+
+                    {{#each data.computed.inventory.[Belt].slots as |item|}}
+                        <script>
+                            if (document.getElementById('beltPlaceholder') != null) {
+                                document.getElementById('beltPlaceholder').insertAdjacentHTML("beforebegin", '<li class="item flexrow" data-item-id="{{item._id}}" data-item-type="{{item.equip}}"><div class="item-image"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></div><h4 class="item-name" style="font-family: Souvenir-Medium;">{{item.name}}</h4><div class="item-controls"><a class="item-control item-edit" title="Edit Item" style="margin-right: 5px;"><i class="fas fa-edit"></i></a><a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a></div></li>');
+                                for (i = 0; i < {{item.data.slots}}; i++) {
+                                    document.getElementById('beltPlaceholder').firstElementChild.remove();
+                                }
+                            } else {
+                                console.log("No room in Belt for {{item.data.name}}");
                             }
-                          }
-                        }
-                      </script>
-                    {{/ifeq}}
-                  {{/each}}
+                        </script>
+                    {{/each}}
                 </ol>
-                <ol id="packSlot" class="items-list col" style="margin: 0 3px 0 3px;">
-                  <li class="item flexrow item-header" style="flex-wrap: nowrap;">
+
+                <ol id="groundSlot" class="items-list col" style="margin: 0 3px 0 3px;">
+                  <li class="item flexrow item-header" id="groundSlotHeader">
                     <div class="item-image"></div>
-                    <div class="item-name row pack-selector" style="font-family: Souvenir-Demi;">
-                      {{#ifeq data.Pack.packSatchel false}}
-                        <span id="backpack" class="activePack">Backpack</span>
-                      {{/ifeq}}
-                      {{#ifeq data.Pack.packSatchel true}}
-                        <span id="backpack" class="passivePack">Backpack</span>
-                      {{/ifeq}}
-                      <label class="switch">
-                        <input type="checkbox" name="data.Pack.packSatchel" id="packType" data-dtype="Boolean" {{checked data.Pack.packSatchel}}>
-                        <span class="slider round"></span>
-                      </label>
-                      {{#ifeq data.Pack.packSatchel true}}
-                      <span id="satchel" class="activePack">Satchel</span>
-                      {{/ifeq}}
-                      {{#ifeq data.Pack.packSatchel false}}
-                      <span id="satchel" class="passivePack">Satchel</span>
-                      {{/ifeq}}
-                    </div>
-                    <div class="item-controls" style="flex: 0 0 14px;">
-                      <a class="item-control item-create" title="Create item" data-type="item" type="Pack"><i class="fas fa-plus"></i></a>
+                    <div class="item-name" style="font-family: Souvenir-Demi;">On Ground</div>
+                    <div class="item-controls">
+                      <a class="item-control item-create" title="Create item" data-type="item" type="On Ground"><i class="fas fa-plus"></i></a>
                     </div>
                   </li>
-    
-                  <!-- Placeholder <li> -->
-                  <li class="flexrow placeholder">
-                    <h4 class="item-name" style="font-family: Souvenir-Medium;">[1]</h4>
-                  </li>
-                  <li class="flexrow placeholder">
-                    <h4 class="item-name" style="font-family: Souvenir-Medium;">[2]</h4>
-                  </li>
-                  <li class="flexrow placeholder">
-                    <h4 class="item-name" style="font-family: Souvenir-Medium;">[3]</h4>
-                  </li>
-                  
-                  <!-- Backpack -->
-                  {{#ifeq data.Pack.packSatchel false}}
-                    <li class="flexrow placeholder">
-                      <h4 class="item-name" style="font-family: Souvenir-Medium;">[4]</h4>
-                    </li>
-                    <li class="flexrow placeholder">
-                      <h4 class="item-name" style="font-family: Souvenir-Medium;">[5]</h4>
-                    </li>
-                    <li class="flexrow placeholder">
-                      <h4 class="item-name" style="font-family: Souvenir-Medium;">[6]</h4>
-                    </li>
-                  {{/ifeq}}
-    
-                  {{#each actor.items as |item id|}}
-                    {{#ifeq item.data.equip "Pack"}}
-                      <li class="item flexrow" data-item-id="{{item._id}}">
-                          <div class="item-image"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></div>
-                          <h4 class="item-name" style="font-family: Souvenir-Medium;">{{item.name}}</h4>
-                          <div style="margin: auto;">
-                            <img src="../systems/torchbearer/assets/icons/cracked-helm.png" style="height: 20px; width: auto; border: none;">
-                          </div>
-                          <div class="item-controls">
-                            <a class="item-control item-edit" title="Edit Item" style="margin-right: 5px;"><i class="fas fa-edit"></i></a>
-                            <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
-                          </div>
-                      </li>
-                    {{/ifeq}}
+
+                  {{#each data.computed.inventory.[On Ground].slots as |item|}}
+                      <script>
+                        document.getElementById('groundSlotHeader').insertAdjacentHTML("afterend", '<li class="item flexrow" data-item-id="{{item._id}}" data-item-type="{{item.equip}}"><div class="item-image"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></div><h4 class="item-name" style="font-family: Souvenir-Medium;">{{item.name}}</h4><div class="item-controls"><a class="item-control item-edit" title="Edit Item" style="margin-right: 5px;"><i class="fas fa-edit"></i></a><a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a></div></li>');
+                      </script>
                   {{/each}}
                 </ol>
               </div>

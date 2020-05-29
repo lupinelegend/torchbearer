@@ -58,46 +58,9 @@ export class TorchbearerActorSheet extends ActorSheet {
     html.find('.item-delete').click(ev => {
       const li = $(ev.currentTarget).parents(".item");
 
+      this.actor.removeItemFromInventory(li.data("itemId"));
+
       // Get the equipment slot of the item being deleted
-      const equip = this.actor.getOwnedItem(li.data("itemId")).data.data.equip;
-      const slotsVacated = this.actor.getOwnedItem(li.data("itemId")).data.data.slots;
-      
-      // Add the slots being vacated back to slotsAvailable
-      switch (equip) {
-        case "Head":
-          this.actor.update({'data.Head.wornSlotsAvailable': this.actor.data.data.Head.wornSlotsAvailable + slotsVacated});
-          break;
-        case "Neck":
-          this.actor.update({'data.Neck.wornSlotsAvailable': this.actor.data.data.Neck.wornSlotsAvailable + slotsVacated});
-          break;
-        case "Hands (Worn)":
-          this.actor.update({'data.Hands.wornSlotsAvailable': this.actor.data.data.Hands.wornSlotsAvailable + slotsVacated});
-          break;
-        case "Hands (Carried)":
-          this.actor.update({'data.Hands.carriedSlotsAvailable': this.actor.data.data.Hands.carriedSlotsAvailable + slotsVacated});
-          break;
-        case "Feet":
-          this.actor.update({'data.Feet.wornSlotsAvailable': this.actor.data.data.Feet.wornSlotsAvailable + slotsVacated});
-          break;
-        case "Torso":
-          this.actor.update({'data.Torso.wornSlotsAvailable': this.actor.data.data.Torso.wornSlotsAvailable + slotsVacated});
-          break;
-        case "Belt":
-          this.actor.update({'data.Belt.packSlotsAvailable': this.actor.data.data.Belt.packSlotsAvailable + slotsVacated});
-          break;
-        // case "Pack":
-        //   if (this.actor.data.data.Pack.packSatchel === true) {
-        //     // The Actor has a satchel equipped
-        //     this.actor.update({'data.Pack.packSlotsAvailableSatchel': this.actor.data.data.Pack.packSlotsAvailableSatchel + slotsVacated});
-        //   } else {
-        //     // The Actor has a backpack equipped and has 6 total slots
-        //     this.actor.update({'data.Pack.packSlotsAvailableBackpack': this.actor.data.data.Pack.packSlotsAvailableBackpack + slotsVacated});
-        //   }
-        //   break; 
-      }
-      
-      // Delete the item
-      this.actor.deleteOwnedItem(li.data("itemId"));
       li.slideUp(200, () => this.render(false));
     });
 
@@ -321,6 +284,9 @@ export class TorchbearerActorSheet extends ActorSheet {
             this.actor.update({'data.Belt.packSlotsAvailable': this.actor.data.data.Belt.packSlotsAvailable - slots});
           }
           break;
+        case "Quiver":
+
+        case "Pack":
         // case "Pack":
         //   console.log(this.actor.data.data.Pack.packSatchel);
         //   if (this.actor.data.data.Pack.packSatchel === true) {

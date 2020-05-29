@@ -50,4 +50,11 @@ Hooks.once('init', async function() {
       return options.fn(this);
     }
   });
+
+  Handlebars.registerHelper('times', function(n, options) {
+    var accum = '';
+    for(var i = 0; i < n; ++i)
+      accum += options.fn(i);
+    return accum;
+  });
 });
