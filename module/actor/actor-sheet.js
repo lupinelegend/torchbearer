@@ -284,6 +284,9 @@ export class TorchbearerActorSheet extends ActorSheet {
             this.actor.update({'data.Belt.packSlotsAvailable': this.actor.data.data.Belt.packSlotsAvailable - slots});
           }
           break;
+        case "Quiver":
+
+        case "Pack":
         // case "Pack":
         //   console.log(this.actor.data.data.Pack.packSatchel);
         //   if (this.actor.data.data.Pack.packSatchel === true) {

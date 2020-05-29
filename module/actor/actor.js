@@ -82,11 +82,11 @@ export class TorchbearerActor extends Actor {
     };
 
     items.forEach((item) => {
-      if(item.data.equip === "Pack") {
-        if(!item.data.containerId) {
+      if(item.data.equip === "Pack" || item.data.equip === "Quiver") {
+        if (!item.data.containerId) {
           inventory["On Ground"].slots.push(item);
         } else {
-          if(!inventory[item.data.containerId]) {
+          if (!inventory[item.data.containerId]) {
             inventory[item.data.containerId] = {
               name: "Unknown",
               container: null,
