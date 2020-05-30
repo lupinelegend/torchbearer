@@ -1,6 +1,6 @@
 <div class="dice-roll">
     <div class="dice-result">
-        <div class="dice-formula">{{dice}}D</div>
+        <!-- <div class="dice-formula">{{dice}}D</div> -->
             <div class="dice">
                 <ol class="dice-rolls">
                     {{#each this.results}}
@@ -8,6 +8,6 @@
                     {{/each}}
                 </ol>
             </div>
-        <h4 class="dice-total">{{success}} Successes</h4>
+        <h4 class="dice-total">{{dice}}D - {{success}} Successes</h4>
     </div>
 </div>

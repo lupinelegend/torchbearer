@@ -243,9 +243,7 @@
               <!-- Will -->
               <div class="grid grid-3col" style="margin-right: 10px;">
                 <div style="align-self: center;">
-                  <span class="rollable" data-roll="">
-                    <h4 style="font-family: Souvenir-Medium; margin: 0 0 0 0rem !important;">Will</h4>
-                  </span>
+                  <h4 style="font-family: Souvenir-Medium; margin: 0 0 0 0rem !important;">Will</h4>
                 </div>
                 <div style="display: flex; flex-direction: row;">
                   <input type="text" name="data.will.value" value="{{data.will.value}}" data-dtype="Number" style="padding: 5px; margin: 0 10px 0 10px; width: 30px"/>
@@ -262,7 +260,7 @@
                 <h4 style="font-family: Souvenir-Medium; margin: 0 0 0 0rem !important; align-self: center;">Health</h4>
                 <div style="display: flex; flex-direction: row;">
                   <input type="text" name="data.health.value" value="{{data.health.value}}" data-dtype="Number" style="padding: 5px; margin: 0 10px 0 10px; width: 30px"/>
-                  <img src="../systems/torchbearer/assets/icons/d6.png" style="height: 24px; width: 24; border: none;">
+                  <img src="../systems/torchbearer/assets/icons/d6.png" style="height: 24px; width: 24; border: none;" class="rollable" data-label="health">
                 </div>
                 <div class="resource-content flexrow flex-center flex-between">
                   <input id="healthPass" type="text" name="data.health.pass" value="{{data.health.pass}}" data-dtype="Number"/>
@@ -277,7 +275,7 @@
                   <input type="text" name="data.nature.value" value="{{data.nature.value}}" data-dtype="Number" style="padding: 5px; width: 10px"/>
                   <span> / </span>
                   <input type="text" name="data.nature.max" value="{{data.nature.max}}" data-dtype="Number" style="padding: 5px; margin-right: 5px; width: 10px"/>
-                  <img src="../systems/torchbearer/assets/icons/d6.png" style="height: 24px; width: 24; border: none;">
+                  <img src="../systems/torchbearer/assets/icons/d6.png" style="height: 24px; width: 24; border: none;" class="rollable" data-label="nature">
                 </div>
                 <div class="resource-content flexrow flex-center flex-between">
                   <input id="naturePass" type="text" name="data.nature.pass" value="{{data.nature.pass}}" data-dtype="Number"/>
@@ -290,7 +288,7 @@
                 <h4 style="font-family: Souvenir-Medium; margin: 0 0 0 0rem !important; align-self: center;">Resources</h4>
                 <div style="display: flex; flex-direction: row;">
                   <input type="text" name="data.resources.value" value="{{data.resources.value}}" data-dtype="Number" style="padding: 5px; margin: 0 10px 0 10px; width: 30px"/>
-                  <img src="../systems/torchbearer/assets/icons/d6.png" style="height: 24px; width: 24; border: none;">
+                  <img src="../systems/torchbearer/assets/icons/d6.png" style="height: 24px; width: 24; border: none;" class="rollable" data-label="resources">
                 </div>
                 <div class="resource-content flexrow flex-center flex-between">
                   <input id="resourcesPass" type="text" name="data.resources.pass" value="{{data.resources.pass}}" data-dtype="Number"/>
@@ -303,7 +301,7 @@
                 <h4 style="font-family: Souvenir-Medium; margin: 0 0 0 0rem !important; align-self: center;">Circles</h4>
                 <div style="display: flex; flex-direction: row;">
                   <input type="text" name="data.circles.value" value="{{data.circles.value}}" data-dtype="Number" style="padding: 5px; margin: 0 10px 0 10px; width: 30px"/>
-                  <img src="../systems/torchbearer/assets/icons/d6.png" style="height: 24px; width: 24; border: none;">
+                  <img src="../systems/torchbearer/assets/icons/d6.png" style="height: 24px; width: 24; border: none;" class="rollable" data-label="circles">
                 </div>
                 <div class="resource-content flexrow flex-center flex-between">
                   <input id="circlesPass" type="text" name="data.circles.pass" value="{{data.circles.pass}}" data-dtype="Number"/>
