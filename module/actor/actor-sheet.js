@@ -215,50 +215,46 @@ export class TorchbearerActorSheet extends ActorSheet {
 
     // Do the roll
     let roll = new Roll(formula);
-    
-    // Render the roll for the results button that Foundry provides
-    roll.render().then(r => {
-      
-      //Create an array of the roll results
-      let rollResult = [];
-      roll.parts[0].rolls.forEach(key => {
-        rollResult.push(key.roll);
-      });
+    roll.roll();
+    //Create an array of the roll results
+    let rollResult = [];
+    roll.parts[0].rolls.forEach(key => {
+      rollResult.push(key.roll);
+    });
 
-      // Count successes
-      let rolledSuccesses = 0;
-      rollResult.forEach((index) => {
-        if (index > 3) {
-          rolledSuccesses++;
+    // Count successes
+    let rolledSuccesses = 0;
+    rollResult.forEach((index) => {
+      if (index > 3) {
+        rolledSuccesses++;
+      }
+    });
+
+    renderTemplate('systems/torchbearer/templates/roll-template.html', {results: rollResult, dice: diceToRoll, success: rolledSuccesses}).then(t => {
+
+      console.log(t);
+
+      // Add the dice roll to the template
+      templateData.roll = t,
+      chatData.roll = JSON.stringify(roll);
+
+      // Render the roll template
+      renderTemplate(template, templateData).then(content => {
+        // Update the message content
+        chatData.content = content;
+
+        // Hook into Dice So Nice!
+        if (game.dice3d) {
+          game.dice3d.showForRoll(roll, chatData.whisper, chatData.blind).then(displayed => {
+            ChatMessage.create(chatData)
+          });
+        }
+        // Roll normally, add a dice sound
+        else {
+          chatData.sound = CONFIG.sounds.dice;
+          ChatMessage.create(chatData);
         }
       });
-
-      renderTemplate('systems/torchbearer/templates/roll-template.html', {results: rollResult, dice: diceToRoll, success: rolledSuccesses}).then(t => {
-        
-        console.log(t);
-
-        // Add the dice roll to the template
-        templateData.roll = t,
-        chatData.roll = JSON.stringify(r);
-
-        // Render the roll template
-        renderTemplate(template, templateData).then(content => {
-          // Update the message content
-          chatData.content = content;
-
-          // Hook into Dice So Nice!
-          if (game.dice3d) {
-            game.dice3d.showForRoll(roll, chatData.whisper, chatData.blind).then(displayed => {
-              ChatMessage.create(chatData)
-            });
-          }
-          // Roll normally, add a dice sound
-          else {
-            chatData.sound = CONFIG.sounds.dice;
-            ChatMessage.create(chatData);
-          }
-        });
-      });     
     });
 
     // console.log(roll);
