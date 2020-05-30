@@ -210,7 +210,14 @@ export class TorchbearerActorSheet extends ActorSheet {
             callback: (html) => {
               let flavor = html.find('#flavorText')[0].value;
               let help = html.find('#helpingDice')[0].value;
-              this.tbRoll(rollTarget, flavor, header, help);
+              let ob = html.find('#ob')[0].value;
+              let nature = html.find('#natureYes')[0].checked;
+              let trait = {
+                name: html.find('#traitDropdown')[0].value,
+                usedFor: html.find('#traitFor')[0].checked,
+                usedAgainst: html.find('#traitAgainst')[0].checked
+              };
+              this.tbRoll(rollTarget, flavor, header, help, ob, trait, nature);
             }
           },
           no: {
@@ -223,14 +230,30 @@ export class TorchbearerActorSheet extends ActorSheet {
     });
   }
 
-  tbRoll(rollTarget, flavor, header, help) {
+  tbRoll(rollTarget, flavor, header, help, ob, trait, nature) {
+    // Determine if and how a Trait is being used
+    let traitMod = 0;
+    if (trait.name != "") {
+      if (trait.usedFor === true) {
+        traitMod = 1;
+      } else if (trait.usedAgainst === true) {
+        traitMod = -1;
+      }
+    }
+
+    // Determine if Nature has been tapped
+    let natureMod = 0;
+    if (nature === true) {
+      natureMod = this.actor.data.data.nature.value;
+    }
+    
     // Determine number of dice to roll. isNaN makes sure the roll goes through if the
     // help field is left blank.
     let diceToRoll;
     if (isNaN(parseInt(help))) {
-      diceToRoll = this.actor.data.data[rollTarget].value;
+      diceToRoll = this.actor.data.data[rollTarget].value + traitMod + natureMod;
     } else{
-      diceToRoll = this.actor.data.data[rollTarget].value + parseInt(help);
+      diceToRoll = this.actor.data.data[rollTarget].value + traitMod + natureMod + parseInt(help);
     }
 
     // Build the formula
@@ -247,6 +270,7 @@ export class TorchbearerActorSheet extends ActorSheet {
     let templateData = {
       title: header,
       flavorText: flavor,
+      rollDetails: `${diceToRoll}D vs. Ob ${ob}`,
       roll: {}
     };
 
@@ -277,13 +301,24 @@ export class TorchbearerActorSheet extends ActorSheet {
 
     // Count successes
     let rolledSuccesses = 0;
+    let displaySuccesses;
     rollResult.forEach((index) => {
       if (index.result > 3) {
         rolledSuccesses++;
       }
     });
+    if (rolledSuccesses === 1) {
+      displaySuccesses = `${rolledSuccesses} Success`;
+    } else {
+      displaySuccesses = `${rolledSuccesses} Successes`;
+    }
 
-    renderTemplate('systems/torchbearer/templates/roll-template.html', {title: header, results: rollResult, dice: diceToRoll, success: rolledSuccesses, flavorText: flavor}).then(t => {
+    let passFail = 'Fail!';
+    if (rolledSuccesses >= ob) {
+      passFail = 'Pass!'
+    }
+
+    renderTemplate('systems/torchbearer/templates/roll-template.html', {title: header, results: rollResult, dice: diceToRoll, success: displaySuccesses, flavorText: flavor, outcome: passFail}).then(t => {
 
       // Add the dice roll to the template
       templateData.roll = t,
