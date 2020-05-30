@@ -217,8 +217,15 @@ export class TorchbearerActorSheet extends ActorSheet {
   }
 
   tbRoll(rollTarget, flavor, header, help) {
-    // Determine number of dice to roll
-    let diceToRoll = this.actor.data.data[rollTarget].value + parseInt(help);
+    // Determine number of dice to roll. isNaN makes sure the roll goes through if the
+    // help field is left blank.
+    let diceToRoll;
+    if (isNaN(parseInt(help))) {
+      diceToRoll = this.actor.data.data[rollTarget].value;
+    } else{
+      diceToRoll = this.actor.data.data[rollTarget].value + parseInt(help);
+    }
+    
     console.log(diceToRoll);
 
     // Build the formula
