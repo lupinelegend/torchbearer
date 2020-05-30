@@ -23,80 +23,6 @@
 				"goal": "",
 				"instinct": ""
 			},
-			"traits": {
-				"trait1": {
-					"name": "",
-					"level": {
-						"value": 1
-					},
-					"uses": {
-						"level1": {
-							"use1": false
-						},
-						"level2": {
-							"use1": false,
-							"use2": false
-						}
-					},
-					"checks": {
-						"checksEarned": 0
-					}
-				},
-				"trait2": {
-					"name": "",
-					"level": {
-						"value": 1
-					},
-					"uses": {
-						"level1": {
-							"use1": false
-						},
-						"level2": {
-							"use1": false,
-							"use2": false
-						}
-					},
-					"checks": {
-						"checksEarned": 0
-					}
-				},
-				"trait3": {
-					"name": "",
-					"level": {
-						"value": 1
-					},
-					"uses": {
-						"level1": {
-							"use1": false
-						},
-						"level2": {
-							"use1": false,
-							"use2": false
-						}
-					},
-					"checks": {
-						"checksEarned": 0
-					}
-				},
-				"trait4": {
-					"name": "",
-					"level": {
-						"value": 1
-					},
-					"uses": {
-						"level1": {
-							"use1": false
-						},
-						"level2": {
-							"use1": false,
-							"use2": false
-						}
-					},
-					"checks": {
-						"checksEarned": 0
-					}
-				}
-      },
       "rewards": {
 				"fate": {
 					"value": 0,
@@ -430,6 +356,80 @@
 						"fail": 0,
 						"help": "Weaver, Laborer",
 						"bl": "W"
+					}
+				},
+				"traits": {
+					"trait1": {
+						"name": "",
+						"level": {
+							"value": 1
+						},
+						"uses": {
+							"level1": {
+								"use1": false
+							},
+							"level2": {
+								"use1": false,
+								"use2": false
+							}
+						},
+						"checks": {
+							"checksEarned": 0
+						}
+					},
+					"trait2": {
+						"name": "",
+						"level": {
+							"value": 1
+						},
+						"uses": {
+							"level1": {
+								"use1": false
+							},
+							"level2": {
+								"use1": false,
+								"use2": false
+							}
+						},
+						"checks": {
+							"checksEarned": 0
+						}
+					},
+					"trait3": {
+						"name": "",
+						"level": {
+							"value": 1
+						},
+						"uses": {
+							"level1": {
+								"use1": false
+							},
+							"level2": {
+								"use1": false,
+								"use2": false
+							}
+						},
+						"checks": {
+							"checksEarned": 0
+						}
+					},
+					"trait4": {
+						"name": "",
+						"level": {
+							"value": 1
+						},
+						"uses": {
+							"level1": {
+								"use1": false
+							},
+							"level2": {
+								"use1": false,
+								"use2": false
+							}
+						},
+						"checks": {
+							"checksEarned": 0
+						}
 					}
 				},
 				"alliesEnemies": {

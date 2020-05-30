@@ -13,7 +13,15 @@
     </div>
     <div class="row" style="align-items: center; margin: 8px 0 8px 0;">
       <label for="trait">Use Trait</label>
-      <input type="text" name="trait" id="trait" data-dtype="Number" style="width: 80px; margin-left: 5px;">
+      <!-- <input type="text" name="trait" id="trait" data-dtype="Number" style="width: 80px; margin-left: 5px;"> -->
+      <select name="data.traits" id="traitDropdown" style="margin-left: 5px;">
+        {{#select data.traits}}
+        <option value="default" selected disabled hidden>Choose a trait...</option>
+        {{#each data.traits as |trait key|}}
+        <option name="data.traits.{{key}}.name" value="{{trait.name}}">{{trait.name}}</option>
+        {{/each}}
+        {{/select}}
+      </select>
       <label for="trait" style="margin: 0 0 0 8px;">For</label>
       <input type="radio" name="trait" id="traitFor">
       <label for="trait" style="margin: 0 0 0 4px;">Against</label>
