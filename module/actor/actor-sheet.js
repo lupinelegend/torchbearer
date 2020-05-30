@@ -185,15 +185,42 @@ export class TorchbearerActorSheet extends ActorSheet {
     
     // Determine attribute/skill to roll
     let rollTarget = dataset.label;
-    let title = rollTarget.charAt(0).toUpperCase() + rollTarget.slice(1);
+    let header = rollTarget.charAt(0).toUpperCase() + rollTarget.slice(1);
 
+    let dialogContent = 'systems/torchbearer/templates/roll-dialog-content.html';
+    renderTemplate(dialogContent, {attribute: header}).then(template => {
+      new Dialog({
+        title: `Test`,
+        content: template,
+        buttons: {
+          yes: {
+            icon: "<i class='fas fa-check'></i>",
+            label: `Roll`,
+            callback: (html) => {
+              let flavor = html.find('#flavorText')[0].value;
+              console.log(flavor);
+              // Call roll from here
+              this.tbRoll(rollTarget, flavor, header);
+            }
+          },
+          no: {
+            icon: "<i class='fas fa-times'></i>",
+            label: `Cancel`
+          }
+        },
+        default: 'yes'
+      }).render(true);
+    });
+  }
+
+  tbRoll(rollTarget, flavor, header) {
     // Determine number of dice to roll
     let diceToRoll = this.actor.data.data[rollTarget].value;
 
     // Build the formula
     let formula = `${diceToRoll}d6`;
 
-    // Render the roll
+    // Prep the roll template
     let template = 'systems/torchbearer/templates/torchbearer-roll.html';
 
     // GM rolls
@@ -202,12 +229,12 @@ export class TorchbearerActorSheet extends ActorSheet {
       speaker: ChatMessage.getSpeaker({ actor: this.actor })
     };
     let templateData = {
-      title: title,
-      flavor: 'This is a dice roll!',
+      title: header,
+      flavorText: flavor,
       roll: {}
     };
 
-    // Handle roll visibility. Blind doesn't work; you'll need a render hook to hide it
+    // Handle roll visibility. Blind doesn't work; you'll need a render hook to hide it.
     let rollMode = game.settings.get("core", "rollMode");
     if (["gmroll", "blindroll"].includes(rollMode)) chatData["whisper"] = ChatMessage.getWhisperRecipients("GM");
     if (rollMode === "selfroll") chatData["whisper"] = [game.user._id];
@@ -232,8 +259,6 @@ export class TorchbearerActorSheet extends ActorSheet {
       }
     });
 
-    console.log(rollResult);
-
     // Count successes
     let rolledSuccesses = 0;
     rollResult.forEach((index) => {
@@ -242,9 +267,7 @@ export class TorchbearerActorSheet extends ActorSheet {
       }
     });
 
-    renderTemplate('systems/torchbearer/templates/roll-template.html', {results: rollResult, dice: diceToRoll, success: rolledSuccesses}).then(t => {
-
-      console.log(t);
+    renderTemplate('systems/torchbearer/templates/roll-template.html', {title: header, results: rollResult, dice: diceToRoll, success: rolledSuccesses, flavorText: flavor}).then(t => {
 
       // Add the dice roll to the template
       templateData.roll = t,
@@ -252,6 +275,7 @@ export class TorchbearerActorSheet extends ActorSheet {
 
       // Render the roll template
       renderTemplate(template, templateData).then(content => {
+        
         // Update the message content
         chatData.content = content;
 
@@ -268,33 +292,9 @@ export class TorchbearerActorSheet extends ActorSheet {
         }
       });
     });
-
-    // console.log(roll);
-
-    // --- Using Roll() ---
-    // let dicePool = new Roll(`${diceToRoll}d6`,{});
-    // let label = rollTarget ? `Rolling ${rollTarget}` : '';
-    // dicePool.roll().toMessage({
-    //   speaker: ChatMessage.getSpeaker({actor: this.actor}),
-    //   flavor: label,
-    //   type: CONST.CHAT_MESSAGE_TYPES.OOC
-    // });
-    // let rolls = dicePool.parts[0].rolls;
-
-    // // Sort rolls from lowest to highest. Also creates an array of numbers from an array of objects
-    // let sorted_rolls = rolls.map(i => i.roll).sort();
-    // console.log(sorted_rolls);
-
-    // // Count successes
-    // let rolledSuccesses = 0;
-    // sorted_rolls.forEach((index) => {
-    //   if (index > 3) {
-    //     rolledSuccesses++;
-    //   }
-    // });
-
-    // console.log(rolledSuccesses);
   }
+
+
 
   /** @override */
   async _onDrop(event) {

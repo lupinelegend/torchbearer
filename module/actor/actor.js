@@ -156,4 +156,32 @@ export class TorchbearerActor extends Actor {
     // Delete the item
     this.deleteOwnedItem(itemId);
   }
+
+  // rollDialog(attribute) {
+  //   new Dialog({
+  //     title: `Roll ${attribute}`,
+  //     content: `
+  //       <h2>Roll ${attribute}</h2>
+  //       <form>
+  //         <div>
+  //           <label>Modifiers:</label>
+  //         </div>
+  //       </form>`,
+  //     buttons: {
+  //       yes: {
+  //         icon: "<i class='fas fa-check'></i>",
+  //         label: `Roll`,
+  //         callback: (html) => {
+  //           console.log(attribute);
+  //           // Call roll from here
+  //         }
+  //       },
+  //       no: {
+  //         icon: "<i class='fas fa-times'></i>",
+  //         label: `Cancel`
+  //       }
+  //     },
+  //     default: 'yes'
+  //   }).render(true);
+  // }
 }
