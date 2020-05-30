@@ -185,9 +185,13 @@ export class TorchbearerActorSheet extends ActorSheet {
     
     // Determine attribute/skill to roll
     let rollTarget = dataset.label;
+
+    // Capitalize first letter for later use in the roll template
     let header = rollTarget.charAt(0).toUpperCase() + rollTarget.slice(1);
 
+    // Dialog box for roll customization
     let dialogContent = 'systems/torchbearer/templates/roll-dialog-content.html';
+    
     renderTemplate(dialogContent, {attribute: header}).then(template => {
       new Dialog({
         title: `Test`,
@@ -198,9 +202,8 @@ export class TorchbearerActorSheet extends ActorSheet {
             label: `Roll`,
             callback: (html) => {
               let flavor = html.find('#flavorText')[0].value;
-              console.log(flavor);
-              // Call roll from here
-              this.tbRoll(rollTarget, flavor, header);
+              let help = html.find('#helpingDice')[0].value;
+              this.tbRoll(rollTarget, flavor, header, help);
             }
           },
           no: {
@@ -213,9 +216,10 @@ export class TorchbearerActorSheet extends ActorSheet {
     });
   }
 
-  tbRoll(rollTarget, flavor, header) {
+  tbRoll(rollTarget, flavor, header, help) {
     // Determine number of dice to roll
-    let diceToRoll = this.actor.data.data[rollTarget].value;
+    let diceToRoll = this.actor.data.data[rollTarget].value + parseInt(help);
+    console.log(diceToRoll);
 
     // Build the formula
     let formula = `${diceToRoll}d6`;
