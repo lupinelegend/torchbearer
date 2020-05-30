@@ -14,11 +14,11 @@
     <div class="row" style="align-items: center; margin: 8px 0 8px 0;">
       <label for="trait">Use Trait</label>
       <!-- <input type="text" name="trait" id="trait" data-dtype="Number" style="width: 80px; margin-left: 5px;"> -->
-      <select name="data.traits" id="traitDropdown" style="margin-left: 5px;">
-        {{#select data.traits}}
+      <select name="traitList" id="traitDropdown" style="margin-left: 5px;">
+        {{#select traitList}}
         <option value="default" selected disabled hidden>Choose a trait...</option>
-        {{#each data.traits as |trait key|}}
-        <option name="data.traits.{{key}}.name" value="{{trait.name}}">{{trait.name}}</option>
+        {{#each traitList}}
+        <option name="{{this}}" value="{{this}}">{{this}}</option>
         {{/each}}
         {{/select}}
       </select>

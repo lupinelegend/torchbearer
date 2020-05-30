@@ -192,7 +192,14 @@ export class TorchbearerActorSheet extends ActorSheet {
     // Dialog box for roll customization
     let dialogContent = 'systems/torchbearer/templates/roll-dialog-content.html';
     
-    renderTemplate(dialogContent, {attribute: header}).then(template => {
+    // Build an actor trait list to be passed to the dialog box
+    let traits = [];
+    const traitList = this.actor.data.data.traits;
+    Object.keys(traitList).forEach(key => {
+      traits.push(traitList[key].name);
+    });
+
+    renderTemplate(dialogContent, {attribute: header, traitList: traits}).then(template => {
       new Dialog({
         title: `Test`,
         content: template,
@@ -225,8 +232,6 @@ export class TorchbearerActorSheet extends ActorSheet {
     } else{
       diceToRoll = this.actor.data.data[rollTarget].value + parseInt(help);
     }
-    
-    console.log(diceToRoll);
 
     // Build the formula
     let formula = `${diceToRoll}d6`;
