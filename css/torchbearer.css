@@ -52,6 +52,11 @@
   background-image: url("../assets/icons/d6-grey.svg");
 }
 
+.dice-rolls .roll.max {
+  color: #18520b;
+  filter: sepia(0.5) hue-rotate(60deg);
+}
+
 .activePack {
   color: black;
 }

@@ -216,16 +216,28 @@ export class TorchbearerActorSheet extends ActorSheet {
     // Do the roll
     let roll = new Roll(formula);
     roll.roll();
+
     //Create an array of the roll results
     let rollResult = [];
     roll.parts[0].rolls.forEach(key => {
-      rollResult.push(key.roll);
+      if (key.roll === 6) {
+        rollResult.push({
+          result: key.roll,
+          style: 'max'
+        });
+      } else {
+        rollResult.push({
+          result: key.roll,
+        });
+      }
     });
+
+    console.log(rollResult);
 
     // Count successes
     let rolledSuccesses = 0;
     rollResult.forEach((index) => {
-      if (index > 3) {
+      if (index.result > 3) {
         rolledSuccesses++;
       }
     });
