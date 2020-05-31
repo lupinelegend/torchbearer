@@ -553,10 +553,24 @@
 
         {{!-- Inventory Tab --}}
         <div class="tab items" data-group="primary" data-tab="inventory">
+            <script type="text/javascript">
+                function drawInventory(placeholderName, item) {
+                    var parentElement = document.getElementById(placeholderName + 'Placeholder');
+                    if (parentElement != null) {
+                        parentElement.insertAdjacentHTML("beforebegin",
+                                `<li class="item flexrow" data-item-id="${item._id}" data-item-type="${item.data.equip}"><div class="item-image"><img src="${item.img}" title="${item.name}" width="24" height="24"/></div><h4 class="item-name" style="font-family: Souvenir-Medium;">${item.name}</h4><div class="item-controls"><a class="item-control item-edit" title="Edit Item" style="margin-right: 5px;"><i class="fas fa-edit"></i></a><a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a></div></li>`);
+                        for (i = 0; i < item.data.slots; i++) {
+                            parentElement.firstElementChild.remove();
+                        }
+                    } else {
+                        console.log(`No room in ${placeholderName} for ${item.data.name}`);
+                    }
+                }
+            </script>
           <div class="container scroll">
             <div class="row">
               <div class="col">
-                <ol id="headSlot" class="items-list col" style="margin: 0 3px 0 3px;">
+                <ol id="headSlot" class="items-list inventory col" style="margin: 0 3px 0 3px;">
                   <!-- Section header -->
                   <li class="item flexrow item-header" id="headSlotHeader">
                     <div class="item-image"></div>
@@ -575,18 +589,11 @@
 
                     {{#each data.computed.inventory.[Head].slots as |item|}}
                         <script>
-                            if (document.getElementById('headPlaceholder') != null) {
-                                document.getElementById('headPlaceholder').insertAdjacentHTML("beforebegin", '<li class="item flexrow" data-item-id="{{item._id}}" data-item-type="{{item.equip}}"><div class="item-image"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></div><h4 class="item-name" style="font-family: Souvenir-Medium;">{{item.name}}</h4><div class="item-controls"><a class="item-control item-edit" title="Edit Item" style="margin-right: 5px;"><i class="fas fa-edit"></i></a><a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a></div></li>');
-                                for (i = 0; i < {{item.data.slots}}; i++) {
-                                    document.getElementById('headPlaceholder').firstElementChild.remove();
-                                }
-                            } else {
-                                console.log("No room in Head for {{item.data.name}}");
-                            }
+                            drawInventory('head', {{{json item}}});
                         </script>
                     {{/each}}
                 </ol>
-                <ol id="handsWornSlot" class="items-list col" style="margin: 0 3px 0 3px;">
+                <ol id="handsWornSlot" class="items-list inventory col" style="margin: 0 3px 0 3px;">
                   <li class="item flexrow item-header" id="handsWornSlotHeader">
                     <div class="item-image"></div>
                     <div class="item-name" style="font-family: Souvenir-Demi;">Hands (Worn)</div>
@@ -606,18 +613,11 @@
 
                     {{#each data.computed.inventory.[Hands (Worn)].slots as |item|}}
                         <script>
-                            if (document.getElementById('handsWornPlaceholder') != null) {
-                                document.getElementById('handsWornPlaceholder').insertAdjacentHTML("beforebegin", '<li class="item flexrow" data-item-id="{{item._id}}" data-item-type="{{item.equip}}"><div class="item-image"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></div><h4 class="item-name" style="font-family: Souvenir-Medium;">{{item.name}}</h4><div class="item-controls"><a class="item-control item-edit" title="Edit Item" style="margin-right: 5px;"><i class="fas fa-edit"></i></a><a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a></div></li>');
-                                for (i = 0; i < {{item.data.slots}}; i++) {
-                                    document.getElementById('handsWornPlaceholder').firstElementChild.remove();
-                                }
-                            } else {
-                                console.log("No room in Hands (Worn) for {{item.data.name}}");
-                            }
+                            drawInventory('handsWorn', {{{json item}}});
                         </script>
                     {{/each}}
                 </ol>
-                <ol id="handsCarriedSlot" class="items-list col" style="margin: 0 3px 0 3px;">
+                <ol id="handsCarriedSlot" class="items-list inventory col" style="margin: 0 3px 0 3px;">
                   <li class="item flexrow item-header" id="handsCarriedSlotHeader">
                     <div class="item-image"></div>
                     <div class="item-name" style="font-family: Souvenir-Demi;">Hands (Carried)</div>
@@ -637,18 +637,11 @@
 
                     {{#each data.computed.inventory.[Hands (Carried)].slots as |item|}}
                         <script>
-                            if (document.getElementById('handsCarriedPlaceholder') != null) {
-                                document.getElementById('handsCarriedPlaceholder').insertAdjacentHTML("beforebegin", '<li class="item flexrow" data-item-id="{{item._id}}" data-item-type="{{item.equip}}"><div class="item-image"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></div><h4 class="item-name" style="font-family: Souvenir-Medium;">{{item.name}}</h4><div class="item-controls"><a class="item-control item-edit" title="Edit Item" style="margin-right: 5px;"><i class="fas fa-edit"></i></a><a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a></div></li>');
-                                for (i = 0; i < {{item.data.slots}}; i++) {
-                                    document.getElementById('handsCarriedPlaceholder').firstElementChild.remove();
-                                }
-                            } else {
-                                console.log("No room in Hands (Carried) for {{item.data.name}}");
-                            }
+                            drawInventory('handsCarried', {{{json item}}});
                         </script>
                     {{/each}}
                 </ol>
-                <ol id="torsoSlot" class="items-list col" style="margin: 0 3px 0 3px;">
+                <ol id="torsoSlot" class="items-list inventory col" style="margin: 0 3px 0 3px;">
                   <li class="item flexrow item-header" id="torsoSlotHeader">
                     <div class="item-image"></div>
                     <div class="item-name" style="font-family: Souvenir-Demi;">Torso</div>
@@ -668,18 +661,11 @@
 
                     {{#each data.computed.inventory.[Torso].slots as |item|}}
                         <script>
-                            if (document.getElementById('torsoPlaceholder') != null) {
-                                document.getElementById('torsoPlaceholder').insertAdjacentHTML("beforebegin", '<li class="item flexrow" data-item-id="{{item._id}}" data-item-type="{{item.equip}}"><div class="item-image"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></div><h4 class="item-name" style="font-family: Souvenir-Medium;">{{item.name}}</h4><div class="item-controls"><a class="item-control item-edit" title="Edit Item" style="margin-right: 5px;"><i class="fas fa-edit"></i></a><a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a></div></li>');
-                                for (i = 0; i < {{item.data.slots}}; i++) {
-                                    document.getElementById('torsoPlaceholder').firstElementChild.remove();
-                                }
-                            } else {
-                                console.log("No room in Torso for {{item.data.name}}");
-                            }
+                            drawInventory('torso', {{{json item}}});
                         </script>
                     {{/each}}
                 </ol>
-                <ol id="pocketSlot" class="items-list col" style="margin: 0 3px 0 3px;">
+                <ol id="pocketSlot" class="items-list inventory col" style="margin: 0 3px 0 3px;">
                   <li class="item flexrow item-header" id="pocketSlotHeader">
                     <div class="item-image"></div>
                     <div class="item-name" style="font-family: Souvenir-Demi;">Pocket</div>
@@ -697,20 +683,13 @@
 
                     {{#each data.computed.inventory.[Pocket].slots as |item|}}
                         <script>
-                            if (document.getElementById('pocketPlaceholder') != null) {
-                                document.getElementById('pocketPlaceholder').insertAdjacentHTML("beforebegin", '<li class="item flexrow" data-item-id="{{item._id}}" data-item-type="{{item.equip}}"><div class="item-image"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></div><h4 class="item-name" style="font-family: Souvenir-Medium;">{{item.name}}</h4><div class="item-controls"><a class="item-control item-edit" title="Edit Item" style="margin-right: 5px;"><i class="fas fa-edit"></i></a><a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a></div></li>');
-                                for (i = 0; i < {{item.data.slots}}; i++) {
-                                    document.getElementById('pocketPlaceholder').firstElementChild.remove();
-                                }
-                            } else {
-                                console.log("No room in Pocket for {{item.data.name}}");
-                            }
+                            drawInventory('pocket', {{{json item}}});
                         </script>
                     {{/each}}
                 </ol>
               </div>
               <div class="col">
-                <ol id="neckSlot" class="items-list col" style="margin: 0 3px 0 3px;">
+                <ol id="neckSlot" class="items-list inventory col" style="margin: 0 3px 0 3px;">
                   <li class="item flexrow item-header" id="neckSlotHeader">
                     <div class="item-image"></div>
                     <div class="item-name" style="font-family: Souvenir-Demi;">Neck</div>
@@ -728,18 +707,11 @@
 
                     {{#each data.computed.inventory.[Neck].slots as |item|}}
                         <script>
-                            if (document.getElementById('neckPlaceholder') != null) {
-                                document.getElementById('neckPlaceholder').insertAdjacentHTML("beforebegin", '<li class="item flexrow" data-item-id="{{item._id}}" data-item-type="{{item.equip}}"><div class="item-image"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></div><h4 class="item-name" style="font-family: Souvenir-Medium;">{{item.name}}</h4><div class="item-controls"><a class="item-control item-edit" title="Edit Item" style="margin-right: 5px;"><i class="fas fa-edit"></i></a><a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a></div></li>');
-                                for (i = 0; i < {{item.data.slots}}; i++) {
-                                    document.getElementById('neckPlaceholder').firstElementChild.remove();
-                                }
-                            } else {
-                                console.log("No room in Neck for {{item.data.name}}");
-                            }
+                            drawInventory('neck', {{{json item}}});
                         </script>
                     {{/each}}
                 </ol>
-                <ol id="feetSlot" class="items-list col" style="margin: 0 3px 0 3px;">
+                <ol id="feetSlot" class="items-list inventory col" style="margin: 0 3px 0 3px;">
                   <li class="item flexrow item-header" id="feetSlotHeader">
                     <div class="item-image"></div>
                     <div class="item-name" style="font-family: Souvenir-Demi;">Feet</div>
@@ -756,18 +728,11 @@
                   </div>
                   {{#each data.computed.inventory.[Feet].slots as |item|}}
                       <script>
-                        if (document.getElementById('feetPlaceholder') != null) {
-                            document.getElementById('feetPlaceholder').insertAdjacentHTML("beforebegin", '<li class="item flexrow" data-item-id="{{item._id}}" data-item-type="{{item.equip}}"><div class="item-image"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></div><h4 class="item-name" style="font-family: Souvenir-Medium;">{{item.name}}</h4><div class="item-controls"><a class="item-control item-edit" title="Edit Item" style="margin-right: 5px;"><i class="fas fa-edit"></i></a><a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a></div></li>');
-                            for (i = 0; i < {{item.data.slots}}; i++) {
-                                document.getElementById('feetPlaceholder').firstElementChild.remove();
-                            }
-                        } else {
-                            console.log("No room in Feet for {{item.data.name}}");
-                        }
+                          drawInventory('feet', {{{json item}}});
                       </script>
                   {{/each}}
                 </ol>
-                <ol id="beltSlot" class="items-list col" style="margin: 0 3px 0 3px;">
+                <ol id="beltSlot" class="items-list inventory col" style="margin: 0 3px 0 3px;">
                   <li class="item flexrow item-header" id="beltSlotHeader">
                     <div class="item-image"></div>
                     <div class="item-name" style="font-family: Souvenir-Demi;">Belt</div>
@@ -787,14 +752,7 @@
 
                     {{#each data.computed.inventory.[Belt].slots as |item|}}
                         <script>
-                            if (document.getElementById('beltPlaceholder') != null) {
-                                document.getElementById('beltPlaceholder').insertAdjacentHTML("beforebegin", '<li class="item flexrow" data-item-id="{{item._id}}" data-item-type="{{item.equip}}"><div class="item-image"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></div><h4 class="item-name" style="font-family: Souvenir-Medium;">{{item.name}}</h4><div class="item-controls"><a class="item-control item-edit" title="Edit Item" style="margin-right: 5px;"><i class="fas fa-edit"></i></a><a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a></div></li>');
-                                for (i = 0; i < {{item.data.slots}}; i++) {
-                                    document.getElementById('beltPlaceholder').firstElementChild.remove();
-                                }
-                            } else {
-                                console.log("No room in Belt for {{item.data.name}}");
-                            }
+                            drawInventory('belt', {{{json item}}});
                         </script>
                     {{/each}}
                 </ol>

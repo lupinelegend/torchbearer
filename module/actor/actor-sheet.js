@@ -345,7 +345,24 @@ export class TorchbearerActorSheet extends ActorSheet {
     });
   }
 
-
+  subtractAvailableSlots(location, howCarried, slots) {
+    console.log("Slots ", slots);
+    console.log("Total ", this.actor.data.data[location][howCarried + "SlotsTotal"]);
+    console.log("Available ", this.actor.data.data[location][howCarried + "SlotsAvailable"]);
+    if (slots > this.actor.data.data[location][howCarried + "SlotsTotal"]) {
+      ui.notifications.error('ERROR: Item too large to be ' + howCarried + ' on your ' + location + '.');
+      return false;
+    } else if (slots > this.actor.data.data[location][howCarried + "SlotsAvailable"]) {
+      ui.notifications.error('ERROR: Not enough ' + location + ' inventory slots available.');
+      return false;
+    } else {
+      const update = {};
+      update['data.' + location + '.' + howCarried + 'SlotsAvailable'] = this.actor.data.data[location][howCarried + "SlotsAvailable"] - slots;
+      console.log("Update ", JSON.stringify(update));
+      this.actor.update(update);
+      return true;
+    }
+  }
 
   /** @override */
   async _onDrop(event) {
@@ -363,80 +380,38 @@ export class TorchbearerActorSheet extends ActorSheet {
 
       switch (equip) {
         case "Head":
-          if (slots > this.actor.data.data.Head.wornSlotsTotal) {
-            ui.notifications.error('ERROR: Item too large to be worn on your head.');
+          if(!this.subtractAvailableSlots("Head", "worn", slots)) {
             return;
-          } else if (slots > this.actor.data.data.Head.wornSlotsAvailable) {
-            ui.notifications.error('ERROR: Not enough Head inventory slots available.');
-            return;
-          } else {
-            this.actor.update({'data.Head.wornSlotsAvailable': this.actor.data.data.Head.wornSlotsAvailable - slots});
           }
           break;
         case "Neck":
-          if (slots > this.actor.data.data.Neck.wornSlotsTotal) {
-            ui.notifications.error('ERROR: Item too large to be worn around your neck.');
+          if(!this.subtractAvailableSlots("Neck", "worn", slots)) {
             return;
-          } else if (slots > this.actor.data.data.Neck.wornSlotsAvailable) {
-            ui.notifications.error('ERROR: Not enough Neck inventory slots available.');
-            return;
-          } else {
-            this.actor.update({'data.Neck.wornSlotsAvailable': this.actor.data.data.Neck.wornSlotsAvailable - slots});
           }
           break;
         case "Hands (Worn)":
-          if (slots > this.actor.data.data.Hands.wornSlotsTotal) {
-            ui.notifications.error('ERROR: Item too large to be worn on your hands.');
+          if(!this.subtractAvailableSlots("Hands", "worn", slots)) {
             return;
-          } else if (slots > this.actor.data.data.Hands.wornSlotsAvailable) {
-            ui.notifications.error('ERROR: Not enough Hands (Worn) inventory slots available.');
-            return;
-          } else {
-            this.actor.update({'data.Hands.wornSlotsAvailable': this.actor.data.data.Hands.wornSlotsAvailable - slots});
           }
           break;
         case "Hands (Carried)":
-          if (slots > this.actor.data.data.Hands.carriedSlotsTotal) {
-            ui.notifications.error('ERROR: Item too large to be worn on your hands.');
+          if(!this.subtractAvailableSlots("Hands", "carried", slots)) {
             return;
-          } else if (slots > this.actor.data.data.Hands.carriedSlotsAvailable) {
-            ui.notifications.error('ERROR: Not enough Hands (Carried) inventory slots available.');
-            return;
-          } else {
-            this.actor.update({'data.Hands.carriedSlotsAvailable': this.actor.data.data.Hands.carriedSlotsAvailable - slots});
           }
           break;
         case "Feet":
-          if (slots > this.actor.data.data.Feet.wornSlotsTotal) {
-            ui.notifications.error('ERROR: Item too large to be worn on your feet.');
+          if(!this.subtractAvailableSlots("Feet", "worn", slots)) {
             return;
-          } else if (slots > this.actor.data.data.Feet.wornSlotsAvailable) {
-            ui.notifications.error('ERROR: Not enough feet inventory slots available.');
-            return;
-          } else {
-            this.actor.update({'data.Feet.wornSlotsAvailable': this.actor.data.data.Feet.wornSlotsAvailable - slots});
           }
           break;
         case "Torso":
-          if (slots > this.actor.data.data.Torso.wornSlotsTotal) {
-            ui.notifications.error('ERROR: Item too large to be worn on your torso.');
+          if(!this.subtractAvailableSlots("Torso", "worn", slots)) {
             return;
-          } else if (slots > this.actor.data.data.Torso.wornSlotsAvailable) {
-            ui.notifications.error('ERROR: Not enough Torso inventory slots available.');
-            return;
-          } else {
-            this.actor.update({'data.Torso.wornSlotsAvailable': this.actor.data.data.Torso.wornSlotsAvailable - slots});
           }
           break;
         case "Belt":
-          if (slots > this.actor.data.data.Belt.packSlotsTotal) {
-            ui.notifications.error('ERROR: Item too large to be worn on your belt.');
+          if(!this.subtractAvailableSlots("Belt", "pack", slots)) {
             return;
-          } else if (slots > this.actor.data.data.Belt.packSlotsAvailable) {
-            ui.notifications.error('ERROR: Not enough Belt inventory slots available.');
-            return;
-          } else {
-            this.actor.update({'data.Belt.packSlotsAvailable': this.actor.data.data.Belt.packSlotsAvailable - slots});
           }
           break;
         case "Quiver":
