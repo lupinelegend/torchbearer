@@ -2,13 +2,13 @@
 <form style="font-family: Souvenir-Medium;">
   <!-- Obstacle (Need to make a required field) -->
   <div class="row" style="align-items: center; margin: 0 0 8px 0;">
-    <label for="ob">Obstacle</label>
+    <label for="ob">Obstacle:</label>
     <input type="text" name="ob" id="ob" data-dtype="Number" style="width: 30px; margin-left: 5px;">
   </div>
 
   <!-- Action description -->
   <div class="row" style="align-items: center; flex-wrap: nowrap;">
-    <label for="ob">Description</label>
+    <label for="ob">Description:</label>
     <input type="text" name="flavorText" id="flavorText" placeholder="What are you trying to do?" style="margin-left: 5px;" required="true">
   </div>
   
@@ -18,13 +18,17 @@
     <!-- Helping dice -->
     <div class="row" style="align-items: center;">
       <label for="helpingDice">Helping Dice:</label>
+      <!-- <label for="helpingDice" style="margin: 0 0 0 8px;">Help</label> -->
       <input type="text" name="helpingDice" id="helpingDice" data-dtype="Number" style="width: 30px; margin-left: 5px;">
+      <!-- <span style="margin: 0 0 0 8px;"> / </span>
+      <label for="wiseHelp" style="margin: 0 0 0 8px;">Help from wise</label>
+      <input type="text" name="wiseHelp" id="wiseHelp" data-dtype="Number" style="width: 30px; margin-left: 5px;"> -->
     </div>
 
     <!-- Tap Nature (Should this be hidden when rolling Resources and Circles?) -->
     <div class="row" style="align-items: center; margin: 8px 0 8px 0;">
       <label for="nature">Tap Nature:</label>
-      <label for="nature" style="margin: 0 0 0 8px;">Yes</label>
+      <label for="nature" style="margin: 0 0 0 8px;">Yes (1 persona)</label>
       <input type="radio" name="nature" id="natureYes" value="natureYes">
       <span> / </span>
       <label for="nature" style="margin: 0 0 0 4px;">No</label>
@@ -32,7 +36,7 @@
     </div>
 
     <!-- Use Trait -->
-    <div class="row" style="align-items: center; margin: 8px 0 8px 0; padding-right: 0px; flex-basis: 70%">
+    <div class="row" style="align-items: center; margin: 8px 0 8px 0; padding-right: 0px;">
       <div class="col">
         <label for="trait">Use Trait:</label>
         <!-- <input type="text" name="trait" id="trait" data-dtype="Number" style="width: 80px; margin-left: 5px;"> -->
@@ -45,16 +49,19 @@
         {{/select}}
         </select>
       </div>
+    </div>
       <!-- If a trait is chosen from the <select>, these needs to be required fields. -->
-      <div class="col" style="flex: 0 0 155px">
-        <input type="radio" name="trait" id="traitFor" value="for">
-        <label for="for" style="margin: 0 0 0 0;">Help (+1D)</label>
-        <br>
-        <input type="radio" name="trait" id="traitAgainst" value="against">
-        <label for="against" style="margin: 0 0 0 0;">Hinder (-1D)</label>
-        <br>
-        <input type="radio" name="trait" id="traitAgainstExtra" value="againstExtra">
-        <label for="againstExtra" style="margin: 0 0 0 0;">Help Enemy (+2D)</label>
+    <div class="row" style="align-items: center; margin: 8px 0 8px 0; padding-right: 0px;">
+      <div class="col" style="flex: 0 0 65px"></div>
+      <div class="col">
+      <input type="radio" name="trait" id="traitFor" value="for">
+      <label for="for" style="margin: 0 0 0 0;">Help (+1D)</label>
+      <br>
+      <input type="radio" name="trait" id="traitAgainst" value="against">
+      <label for="against" style="margin: 0 0 0 0;">Hinder (-1D, 1 Check)</label>
+      <br>
+      <input type="radio" name="trait" id="traitAgainstExtra" value="againstExtra">
+      <label for="againstExtra" style="margin: 0 0 0 0;">Help Enemy (+2D, 2 Checks)</label>
       </div>
     </div>
   </div>

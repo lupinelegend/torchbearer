@@ -161,7 +161,7 @@
             <input type="text" name="data.goal" value="{{data.goal}}" id="goal">
           </div>
 
-            <!-- Instinct -->
+          <!-- Instinct -->
           <div>
             <div style="display: flex; flex-direction: row; align-items: baseline;">
               <h2 style="font-family: Souvenir-Demi; border: none; margin: 0 0 0 0rem !important;">Instinct</h2>
@@ -170,8 +170,17 @@
             <input type="text" name="data.instinct" value="{{data.instinct}}" id="instinct">
           </div>
 
-          <div id="characterDetails">
-            <div class="grid grid-2col">
+          <!-- Nature Descriptors -->
+          <div>
+            <div style="display: flex; flex-direction: row; align-items: baseline;">
+              <h2 style="font-family: Souvenir-Demi; border: none; margin: 0 0 0 0rem !important;">Nature Descriptors</h2> 
+              <h5 style="font-family: Souvenir-MediumItalic; margin: 0 0 0 0rem !important; text-align: right; flex-grow: 3;">How your Nature is used in play</h5>
+            </div>
+            <input type="text" name="data.instinct" value="{{data.instinct}}" id="instinct">
+          </div>
+
+          <div id="characterDetails" style="margin-top: 5px;">
+            <div class="grid grid-2col" style="gap: 5px; margin: 5px 0;">
               <div class="resource flexrow flex-group-center">
                 <label style="font-family: Souvenir-Demi; font-size: 16px;" for="data.class.value">Class</label>
                 <select name="data.class.name" id="classDropdown">
@@ -188,7 +197,7 @@
                 <input type="text" name="data.level.value" value="{{data.level.value}}" data-dtype="Number"/>
               </div>
             </div>
-            <div class="grid grid-2col">
+            <div class="grid grid-2col" style="gap: 5px; margin: 5px 0;">
               <div class="resource flexrow flex-group-center">
                 <label style="font-family: Souvenir-Demi; font-size: 16px;" for="data.age">Age</label>
                 <input type="text" name="data.age" value="{{data.age}}" data-dtype="Number"/>
@@ -198,7 +207,7 @@
                 <input type="text" name="data.home" value="{{data.home}}" data-dtype="String"/>
               </div>
             </div>
-            <div class="grid grid-2col">
+            <div class="grid grid-2col" style="gap: 5px; margin: 5px 0;">
               <div class="resource flexrow flex-group-center">
                 <label style="font-family: Souvenir-Demi; font-size: 16px;" for="data.parents">Parents</label>
                 <input type="text" name="data.parents" value="{{data.parents}}" data-dtype="String"/>
@@ -208,7 +217,7 @@
                 <input type="text" name="data.charMentor" value="{{data.charMentor}}" data-dtype="String"/>
               </div>
             </div>
-            <div class="grid grid-2col">
+            <div class="grid grid-2col" style="gap: 5px; margin: 5px 0;">
               <div class="resource flexrow flex-group-center">
                 <label style="font-family: Souvenir-Demi; font-size: 16px;" for="data.friend">Friend</label>
                 <input type="text" name="data.friend" value="{{data.friend}}" data-dtype="String"/>
@@ -218,7 +227,7 @@
                 <input type="text" name="data.enemy" value="{{data.enemy}}" data-dtype="String"/>
               </div>
             </div>
-            <div class="grid grid-2col">
+            <div class="grid grid-2col" style="gap: 5px; margin: 5px 0;">
               <div class="resource flexrow flex-group-center">
                 <label style="font-family: Souvenir-Demi; font-size: 16px;" for="data.raiment">Raiment</label>
                 <input type="text" name="data.raiment" value="{{data.raiment}}" data-dtype="String"/>
