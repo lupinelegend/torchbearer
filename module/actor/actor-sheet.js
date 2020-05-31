@@ -370,6 +370,9 @@ export class TorchbearerActorSheet extends ActorSheet {
     let data;
     try {
       data = JSON.parse(event.dataTransfer.getData('text/plain'));
+      console.log("bye");
+      console.log(event);
+      console.log($(event.target).closest(""));
       if (data.type !== "Item") return;
       const id = data.id;
       const item = game.items.get(id);

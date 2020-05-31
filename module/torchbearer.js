@@ -57,4 +57,8 @@ Hooks.once('init', async function() {
       accum += options.fn(i);
     return accum;
   });
+
+  Handlebars.registerHelper('json', function(context) {
+    return JSON.stringify(context);
+  });
 });
