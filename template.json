@@ -21,7 +21,8 @@
 				"belief": "",
 				"creed": "",
 				"goal": "",
-				"instinct": ""
+				"instinct": "",
+				"natureDescriptors": ""
 			},
       "rewards": {
 				"fate": {

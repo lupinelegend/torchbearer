@@ -235,16 +235,99 @@ export class TorchbearerActorSheet extends ActorSheet {
     let traitMod = 0;
     if (trait.name != "") {
       if (trait.usedFor === true) {
-        traitMod = 1;
+        // Make sure the Trait is able to be used beneficially
+        let traitFinder = this.actor.data.data.traits;
+        console.log(Object.keys(traitFinder));
+        Object.keys(traitFinder).forEach((key, index) => {
+          if (trait.name === traitFinder[key].name) {
+            if (traitFinder[key].level.value === "1") {
+              // Return if the trait has already been used this session, else check it off
+              if (traitFinder[key].uses.level1.use1 === true) {
+                ui.notifications.error(`ERROR: You've already used ${trait.name} this session.`);
+                return;
+              } else {
+                let temp = `trait${index+1}`;
+                switch (temp) {
+                  case 'trait1':
+                    traitMod = 1;
+                    this.actor.update({'data.traits.trait1.uses.level1.use1': true});
+                    break;
+                  case 'trait2':
+                    traitMod = 1;
+                    this.actor.update({'data.traits.trait2.uses.level1.use1': true});
+                    break;
+                  case 'trait3':
+                    traitMod = 1;
+                    this.actor.update({'data.traits.trait3.uses.level1.use1': true});
+                    break;
+                  case 'trait4':
+                  traitMod = 1;
+                  this.actor.update({'data.traits.trait4.uses.level1.use1': true});
+                  break;
+                }
+              }
+            } else if (traitFinder[key].level.value === "2") {
+              if (traitFinder[key].uses.level1.use1 === true && traitFinder[key].uses.level2.use2 === true) {
+                ui.notifications.error(`ERROR: You've already used ${trait.name} this session.`);
+                return;
+              } else if (traitFinder[key].uses.level1.use1 === false) {
+                let temp = `trait${index+1}`;
+                switch (temp) {
+                  case 'trait1':
+                    traitMod = 1;
+                    this.actor.update({'data.traits.trait1.uses.level1.use1': true});
+                    break;
+                  case 'trait2':
+                    traitMod = 1;
+                    this.actor.update({'data.traits.trait2.uses.level1.use1': true});
+                    break;
+                  case 'trait3':
+                    traitMod = 1;
+                    this.actor.update({'data.traits.trait3.uses.level1.use1': true});
+                    break;
+                  case 'trait4':
+                  traitMod = 1;
+                  this.actor.update({'data.traits.trait4.uses.level1.use1': true});
+                  break;
+                }
+              } else if (traitFinder[key].uses.level2.use2 === false) {
+                let temp = `trait${index+1}`;
+                switch (temp) {
+                  case 'trait1':
+                    traitMod = 1;
+                    this.actor.update({'data.traits.trait1.uses.level2.use2': true});
+                    break;
+                  case 'trait2':
+                    traitMod = 1;
+                    this.actor.update({'data.traits.trait2.uses.level2.use2': true});
+                    break;
+                  case 'trait3':
+                    traitMod = 1;
+                    this.actor.update({'data.traits.trait3.uses.level2.use2': true});
+                    break;
+                  case 'trait4':
+                  traitMod = 1;
+                  this.actor.update({'data.traits.trait4.uses.level2.use2': true});
+                  break;
+                }
+              }
+            }
+          } 
+        });
       } else if (trait.usedAgainst === true) {
         traitMod = -1;
       }
     }
 
-    // Determine if Nature has been tapped
+    // Determine if Nature has been tapped. If so, add Nature to roll and deduce 1 persona point.
     let natureMod = 0;
-    if (nature === true) {
+    if (nature === true && this.actor.data.data.persona.value < 1) {
+      ui.notifications.error("ERROR: You don't have any persona to spend.");
+      return;
+    } else if (nature === true && this.actor.data.data.persona.value >= 1) {
       natureMod = this.actor.data.data.nature.value;
+      this.actor.update({'data.persona.value': this.actor.data.data.persona.value - 1});
+      this.actor.update({'data.persona.spent': this.actor.data.data.persona.spent + 1});
     }
     
     // Determine number of dice to roll. isNaN makes sure the roll goes through if the

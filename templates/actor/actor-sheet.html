@@ -176,7 +176,7 @@
               <h2 style="font-family: Souvenir-Demi; border: none; margin: 0 0 0 0rem !important;">Nature Descriptors</h2> 
               <h5 style="font-family: Souvenir-MediumItalic; margin: 0 0 0 0rem !important; text-align: right; flex-grow: 3;">How your Nature is used in play</h5>
             </div>
-            <input type="text" name="data.instinct" value="{{data.instinct}}" id="instinct">
+            <input type="text" name="data.natureDescriptors" value="{{data.natureDescriptors}}" id="natureDescriptors">
           </div>
 
           <div id="characterDetails" style="margin-top: 5px;">
@@ -428,7 +428,7 @@
                 <input type="text" name="data.traits.trait1.name" value="{{data.traits.trait1.name}}" id="trait1Name">
               </div>
               <div id="trait1Data" style="justify-self: center;">
-                <select name="data.traits.trait1.level.value" id="trait1LevelDropdown">
+                <select name="data.traits.trait1.level.value" id="trait1LevelDropdown" title="trait1">
                   {{#select data.traits.trait1.level.value}}
                   <option value="1">1</option>
                   <option value="2">2</option>
@@ -436,10 +436,24 @@
                   {{/select}}
                 </select>
               </div>
+              {{#ifeq data.traits.trait1.level.value "1"}}
               <div id="trait1Uses" style="display: flex; flex-direction: row; align-items: center;">
                 <input type="checkbox" name="data.traits.trait1.uses.level1.use1" id="trait1Level1Used" {{checked data.traits.trait1.uses.level1.use1}}>
-                <label for="data.traits.trait1.uses.level1.use1" style="font-family: Souvenir-Medium;">+1D per session</label>
+                <label for="data.traits.trait1.uses.level1.use1" style="font-family: Souvenir-Medium;" id="trait1UseLabel">+1D per session</label>
               </div>
+              {{/ifeq}}
+              {{#ifeq data.traits.trait1.level.value "2"}}
+              <div id="trait1Uses" style="display: flex; flex-direction: row; align-items: center;">
+                <input type="checkbox" name="data.traits.trait1.uses.level1.use1"   id="trait1Level1Used" {{checked data.traits.trait1.uses.level1.use1}}>  
+                <input type="checkbox" name="data.traits.trait1.uses.level2.use2" id="trait1Level2Used" {{checked data.traits.trait1.uses.level2.use2}}>
+                <label for="data.traits.trait1.uses.level1.use1" style="font-family: Souvenir-Medium;" id="trait1UseLabel">+1D</label>
+              </div>
+              {{/ifeq}}
+              {{#ifeq data.traits.trait1.level.value "3"}}
+              <div id="trait1Uses" style="display: flex; flex-direction: row; align-self: center;">
+                <label style="font-family: Souvenir-Medium; align-self: center;" id="trait1UseLabel">All appropriate tests</label>
+              </div>
+              {{/ifeq}}
               <div id="trait1Checks" style="margin: auto; text-align: center;">
                 <input type="text" name="data.traits.trait1.checks.checksEarned" value="{{data.traits.trait1.checks.checksEarned}}" id="trait1ChecksEarned" style="width: 30px">
               </div>
@@ -459,10 +473,24 @@
                   {{/select}}
                 </select>
               </div>
+              {{#ifeq data.traits.trait2.level.value "1"}}
               <div id="trait2Uses" style="display: flex; flex-direction: row; align-items: center;">
                 <input type="checkbox" name="data.traits.trait2.uses.level1.use1" id="trait2Level1Used" {{checked data.traits.trait2.uses.level1.use1}}>
-                <label for="data.traits.trait2.uses.level1.use1" style="font-family: Souvenir-Medium;">+1D per session</label>
+                <label for="data.traits.trait2.uses.level1.use1" style="font-family: Souvenir-Medium;" id="trait2UseLabel">+1D per session</label>
               </div>
+              {{/ifeq}}
+              {{#ifeq data.traits.trait2.level.value "2"}}
+              <div id="trait2Uses" style="display: flex; flex-direction: row; align-items: center;">
+                <input type="checkbox" name="data.traits.trait2.uses.level1.use1"   id="trait2Level1Used" {{checked data.traits.trait2.uses.level1.use1}}>  
+                <input type="checkbox" name="data.traits.trait2.uses.level2.use2" id="trait2Level2Used" {{checked data.traits.trait2.uses.level2.use2}}>
+                <label for="data.traits.trait2.uses.level1.use1" style="font-family: Souvenir-Medium;" id="trait2UseLabel">+1D</label>
+              </div>
+              {{/ifeq}}
+              {{#ifeq data.traits.trait2.level.value "3"}}
+              <div id="trait2Uses" style="display: flex; flex-direction: row; align-self: center;">
+                <label style="font-family: Souvenir-Medium; align-self: center;" id="trait2UseLabel">All appropriate tests</label>
+              </div>
+              {{/ifeq}}
               <div id="trait2Checks" style="margin: auto; text-align: center;">
                 <input type="text" name="data.traits.trait2.checks.checksEarned" value="{{data.traits.trait2.checks.checksEarned}}" id="trait2ChecksEarned" style="width: 30px">
               </div>
@@ -482,10 +510,24 @@
                   {{/select}}
                 </select>
               </div>
+              {{#ifeq data.traits.trait3.level.value "1"}}
               <div id="trait3Uses" style="display: flex; flex-direction: row; align-items: center;">
                 <input type="checkbox" name="data.traits.trait3.uses.level1.use1" id="trait3Level1Used" {{checked data.traits.trait3.uses.level1.use1}}>
-                <label for="data.traits.trait3.uses.level1.use1" style="font-family: Souvenir-Medium;">+1D per session</label>
+                <label for="data.traits.trait3.uses.level1.use1" style="font-family: Souvenir-Medium;" id="trait3UseLabel">+1D per session</label>
               </div>
+              {{/ifeq}}
+              {{#ifeq data.traits.trait3.level.value "2"}}
+              <div id="trait3Uses" style="display: flex; flex-direction: row; align-items: center;">
+                <input type="checkbox" name="data.traits.trait3.uses.level1.use1"   id="trait3Level1Used" {{checked data.traits.trait3.uses.level1.use1}}>  
+                <input type="checkbox" name="data.traits.trait3.uses.level2.use2" id="trait3Level2Used" {{checked data.traits.trait3.uses.level2.use2}}>
+                <label for="data.traits.trait3.uses.level1.use1" style="font-family: Souvenir-Medium;" id="trait3UseLabel">+1D</label>
+              </div>
+              {{/ifeq}}
+              {{#ifeq data.traits.trait3.level.value "3"}}
+              <div id="trait3Uses" style="display: flex; flex-direction: row; align-self: center;">
+                <label style="font-family: Souvenir-Medium; align-self: center;" id="trait3UseLabel">All appropriate tests</label>
+              </div>
+              {{/ifeq}}
               <div id="trait3Checks" style="margin: auto; text-align: center;">
                 <input type="text" name="data.traits.trait3.checks.checksEarned" value="{{data.traits.trait3.checks.checksEarned}}" id="trait3ChecksEarned" style="width: 30px">
               </div>
@@ -505,10 +547,24 @@
                   {{/select}}
                 </select>
               </div>
+              {{#ifeq data.traits.trait4.level.value "1"}}
               <div id="trait4Uses" style="display: flex; flex-direction: row; align-items: center;">
                 <input type="checkbox" name="data.traits.trait4.uses.level1.use1" id="trait4Level1Used" {{checked data.traits.trait4.uses.level1.use1}}>
-                <label for="data.traits.trait4.uses.level1.use1" style="font-family: Souvenir-Medium;">+1D per session</label>
+                <label for="data.traits.trait4.uses.level1.use1" style="font-family: Souvenir-Medium;" id="trait4UseLabel">+1D per session</label>
               </div>
+              {{/ifeq}}
+              {{#ifeq data.traits.trait4.level.value "2"}}
+              <div id="trait4Uses" style="display: flex; flex-direction: row; align-items: center;">
+                <input type="checkbox" name="data.traits.trait4.uses.level1.use1"   id="trait4Level1Used" {{checked data.traits.trait4.uses.level1.use1}}>  
+                <input type="checkbox" name="data.traits.trait4.uses.level2.use2" id="trait4Level2Used" {{checked data.traits.trait4.uses.level2.use2}}>
+                <label for="data.traits.trait4.uses.level1.use1" style="font-family: Souvenir-Medium;" id="trait4UseLabel">+1D</label>
+              </div>
+              {{/ifeq}}
+              {{#ifeq data.traits.trait4.level.value "3"}}
+              <div id="trait4Uses" style="display: flex; flex-direction: row; align-self: center;">
+                <label style="font-family: Souvenir-Medium; align-self: center;" id="trait4UseLabel">All appropriate tests</label>
+              </div>
+              {{/ifeq}}
               <div id="trait4Checks" style="margin: auto; text-align: center;">
                 <input type="text" name="data.traits.trait4.checks.checksEarned" value="{{data.traits.trait4.checks.checksEarned}}" id="trait4ChecksEarned" style="width: 30px">
               </div>
