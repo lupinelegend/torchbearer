@@ -68,18 +68,18 @@ export class TorchbearerActorSheet extends ActorSheet {
     html.find('.rollable').click(this._onRoll.bind(this));
 
     // Class changes
-    // html.find('#classDropdown').change(ev => {
-    //   let className = ev.currentTarget.selectedOptions[0].value;
-    //   const classPack = game.packs.get("torchbearer.classes");
-    //   let entry;
-    //   classPack.getIndex().then(index => classPack.index.find(e => e.name === className)).then(f => {
-    //     entry = f;
-    //     classPack.getEntity(entry._id).then(cl => {
-    //       console.log(cl);
-    //       // I can access compendium classes from here.
-    //     });
-    //   });
-    // });
+    html.find('#classDropdown').change(ev => {
+      let className = ev.currentTarget.selectedOptions[0].value;
+      const classPack = game.packs.get("torchbearer.classes");
+      let entry;
+      classPack.getIndex().then(index => classPack.index.find(e => e.name === className)).then(f => {
+        entry = f;
+        classPack.getEntity(entry._id).then(cl => {
+          console.log(cl);
+          // I can access compendium classes from here.
+        });
+      });
+    });
 
   }
 
@@ -182,170 +182,35 @@ export class TorchbearerActorSheet extends ActorSheet {
     event.preventDefault();
     const element = event.currentTarget;
     const dataset = element.dataset;
-    
-    // Determine attribute/skill to roll
-    let rollTarget = dataset.label;
 
-    // Capitalize first letter for later use in the roll template
-    let header = rollTarget.charAt(0).toUpperCase() + rollTarget.slice(1);
-
-    // Dialog box for roll customization
-    let dialogContent = 'systems/torchbearer/templates/roll-dialog-content.html';
-    
-    // Build an actor trait list to be passed to the dialog box
-    let traits = [];
-    const traitList = this.actor.data.data.traits;
-    Object.keys(traitList).forEach(key => {
-      traits.push(traitList[key].name);
-    });
-
-    renderTemplate(dialogContent, {attribute: header, traitList: traits}).then(template => {
-      new Dialog({
-        title: `Test`,
-        content: template,
-        buttons: {
-          yes: {
-            icon: "<i class='fas fa-check'></i>",
-            label: `Roll`,
-            callback: (html) => {
-              let flavor = html.find('#flavorText')[0].value;
-              let help = html.find('#helpingDice')[0].value;
-              let ob = html.find('#ob')[0].value;
-              let nature = html.find('#natureYes')[0].checked;
-              let trait = {
-                name: html.find('#traitDropdown')[0].value,
-                usedFor: html.find('#traitFor')[0].checked,
-                usedAgainst: html.find('#traitAgainst')[0].checked
-              };
-              this.tbRoll(rollTarget, flavor, header, help, ob, trait, nature);
-            }
-          },
-          no: {
-            icon: "<i class='fas fa-times'></i>",
-            label: `Cancel`
-          }
-        },
-        default: 'yes'
-      }).render(true);
-    });
-  }
-
-  tbRoll(rollTarget, flavor, header, help, ob, trait, nature) {
-    // Determine if and how a Trait is being used
-    let traitMod = 0;
-    if (trait.name != "") {
-      if (trait.usedFor === true) {
-        traitMod = 1;
-      } else if (trait.usedAgainst === true) {
-        traitMod = -1;
-      }
-    }
-
-    // Determine if Nature has been tapped
-    let natureMod = 0;
-    if (nature === true) {
-      natureMod = this.actor.data.data.nature.value;
-    }
-    
-    // Determine number of dice to roll. isNaN makes sure the roll goes through if the
-    // help field is left blank.
-    let diceToRoll;
-    if (isNaN(parseInt(help))) {
-      diceToRoll = this.actor.data.data[rollTarget].value + traitMod + natureMod;
-    } else{
-      diceToRoll = this.actor.data.data[rollTarget].value + traitMod + natureMod + parseInt(help);
-    }
-
-    // Build the formula
-    let formula = `${diceToRoll}d6`;
-
-    // Prep the roll template
-    let template = 'systems/torchbearer/templates/torchbearer-roll.html';
-
-    // GM rolls
-    let chatData = {
-      user: game.user._id,
-      speaker: ChatMessage.getSpeaker({ actor: this.actor })
-    };
-    let templateData = {
-      title: header,
-      flavorText: flavor,
-      rollDetails: `${diceToRoll}D vs. Ob ${ob}`,
-      roll: {}
-    };
-
-    // Handle roll visibility. Blind doesn't work; you'll need a render hook to hide it.
-    let rollMode = game.settings.get("core", "rollMode");
-    if (["gmroll", "blindroll"].includes(rollMode)) chatData["whisper"] = ChatMessage.getWhisperRecipients("GM");
-    if (rollMode === "selfroll") chatData["whisper"] = [game.user._id];
-    if (rollMode === "blindroll") chatData["blind"] = true;
-
-    // Do the roll
-    let roll = new Roll(formula);
-    roll.roll();
-
-    //Create an array of the roll results
-    let rollResult = [];
-    roll.parts[0].rolls.forEach(key => {
-      if (key.roll === 6) {
-        rollResult.push({
-          result: key.roll,
-          style: 'max'
-        });
-      } else {
-        rollResult.push({
-          result: key.roll,
-        });
-      }
-    });
-
-    // Count successes
-    let rolledSuccesses = 0;
-    let displaySuccesses;
-    rollResult.forEach((index) => {
-      if (index.result > 3) {
-        rolledSuccesses++;
-      }
-    });
-    if (rolledSuccesses === 1) {
-      displaySuccesses = `${rolledSuccesses} Success`;
-    } else {
-      displaySuccesses = `${rolledSuccesses} Successes`;
-    }
-
-    let passFail = 'Fail!';
-    if (rolledSuccesses >= ob) {
-      passFail = 'Pass!'
-    }
-
-    renderTemplate('systems/torchbearer/templates/roll-template.html', {title: header, results: rollResult, dice: diceToRoll, success: displaySuccesses, flavorText: flavor, outcome: passFail}).then(t => {
-
-      // Add the dice roll to the template
-      templateData.roll = t,
-      chatData.roll = JSON.stringify(roll);
-
-      // Render the roll template
-      renderTemplate(template, templateData).then(content => {
-        
-        // Update the message content
-        chatData.content = content;
-
-        // Hook into Dice So Nice!
-        if (game.dice3d) {
-          game.dice3d.showForRoll(roll, chatData.whisper, chatData.blind).then(displayed => {
-            ChatMessage.create(chatData)
-          });
-        }
-        // Roll normally, add a dice sound
-        else {
-          chatData.sound = CONFIG.sounds.dice;
-          ChatMessage.create(chatData);
-        }
+    if (dataset.roll) {
+      let roll = new Roll(dataset.roll, this.actor.data.data);
+      let label = dataset.label ? `Rolling ${dataset.label}` : '';
+      roll.roll().toMessage({
+        speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+        flavor: label
       });
-    });
+    }
   }
 
-
+  subtractAvailableSlots(location, howCarried, slots) {
+    console.log("Slots ", slots);
+    console.log("Total ", this.actor.data.data[location][howCarried + "SlotsTotal"]);
+    console.log("Available ", this.actor.data.data[location][howCarried + "SlotsAvailable"]);
+    if (slots > this.actor.data.data[location][howCarried + "SlotsTotal"]) {
+      ui.notifications.error('ERROR: Item too large to be ' + howCarried + ' on your ' + location + '.');
+      return false;
+    } else if (slots > this.actor.data.data[location][howCarried + "SlotsAvailable"]) {
+      ui.notifications.error('ERROR: Not enough ' + location + ' inventory slots available.');
+      return false;
+    } else {
+      const update = {};
+      update['data.' + location + '.' + howCarried + 'SlotsAvailable'] = this.actor.data.data[location][howCarried + "SlotsAvailable"] - slots;
+      console.log("Update ", JSON.stringify(update));
+      this.actor.update(update);
+      return true;
+    }
+  }
 
   /** @override */
   async _onDrop(event) {
@@ -363,80 +228,38 @@ export class TorchbearerActorSheet extends ActorSheet {
 
       switch (equip) {
         case "Head":
-          if (slots > this.actor.data.data.Head.wornSlotsTotal) {
-            ui.notifications.error('ERROR: Item too large to be worn on your head.');
+          if(!this.subtractAvailableSlots("Head", "worn", slots)) {
             return;
-          } else if (slots > this.actor.data.data.Head.wornSlotsAvailable) {
-            ui.notifications.error('ERROR: Not enough Head inventory slots available.');
-            return;
-          } else {
-            this.actor.update({'data.Head.wornSlotsAvailable': this.actor.data.data.Head.wornSlotsAvailable - slots});
           }
           break;
         case "Neck":
-          if (slots > this.actor.data.data.Neck.wornSlotsTotal) {
-            ui.notifications.error('ERROR: Item too large to be worn around your neck.');
+          if(!this.subtractAvailableSlots("Neck", "worn", slots)) {
             return;
-          } else if (slots > this.actor.data.data.Neck.wornSlotsAvailable) {
-            ui.notifications.error('ERROR: Not enough Neck inventory slots available.');
-            return;
-          } else {
-            this.actor.update({'data.Neck.wornSlotsAvailable': this.actor.data.data.Neck.wornSlotsAvailable - slots});
           }
           break;
         case "Hands (Worn)":
-          if (slots > this.actor.data.data.Hands.wornSlotsTotal) {
-            ui.notifications.error('ERROR: Item too large to be worn on your hands.');
+          if(!this.subtractAvailableSlots("Hands", "worn", slots)) {
             return;
-          } else if (slots > this.actor.data.data.Hands.wornSlotsAvailable) {
-            ui.notifications.error('ERROR: Not enough Hands (Worn) inventory slots available.');
-            return;
-          } else {
-            this.actor.update({'data.Hands.wornSlotsAvailable': this.actor.data.data.Hands.wornSlotsAvailable - slots});
           }
           break;
         case "Hands (Carried)":
-          if (slots > this.actor.data.data.Hands.carriedSlotsTotal) {
-            ui.notifications.error('ERROR: Item too large to be worn on your hands.');
+          if(!this.subtractAvailableSlots("Hands", "carried", slots)) {
             return;
-          } else if (slots > this.actor.data.data.Hands.carriedSlotsAvailable) {
-            ui.notifications.error('ERROR: Not enough Hands (Carried) inventory slots available.');
-            return;
-          } else {
-            this.actor.update({'data.Hands.carriedSlotsAvailable': this.actor.data.data.Hands.carriedSlotsAvailable - slots});
           }
           break;
         case "Feet":
-          if (slots > this.actor.data.data.Feet.wornSlotsTotal) {
-            ui.notifications.error('ERROR: Item too large to be worn on your feet.');
+          if(!this.subtractAvailableSlots("Feet", "worn", slots)) {
             return;
-          } else if (slots > this.actor.data.data.Feet.wornSlotsAvailable) {
-            ui.notifications.error('ERROR: Not enough feet inventory slots available.');
-            return;
-          } else {
-            this.actor.update({'data.Feet.wornSlotsAvailable': this.actor.data.data.Feet.wornSlotsAvailable - slots});
           }
           break;
         case "Torso":
-          if (slots > this.actor.data.data.Torso.wornSlotsTotal) {
-            ui.notifications.error('ERROR: Item too large to be worn on your torso.');
+          if(!this.subtractAvailableSlots("Torso", "worn", slots)) {
             return;
-          } else if (slots > this.actor.data.data.Torso.wornSlotsAvailable) {
-            ui.notifications.error('ERROR: Not enough Torso inventory slots available.');
-            return;
-          } else {
-            this.actor.update({'data.Torso.wornSlotsAvailable': this.actor.data.data.Torso.wornSlotsAvailable - slots});
           }
           break;
         case "Belt":
-          if (slots > this.actor.data.data.Belt.packSlotsTotal) {
-            ui.notifications.error('ERROR: Item too large to be worn on your belt.');
+          if(!this.subtractAvailableSlots("Belt", "pack", slots)) {
             return;
-          } else if (slots > this.actor.data.data.Belt.packSlotsAvailable) {
-            ui.notifications.error('ERROR: Not enough Belt inventory slots available.');
-            return;
-          } else {
-            this.actor.update({'data.Belt.packSlotsAvailable': this.actor.data.data.Belt.packSlotsAvailable - slots});
           }
           break;
         case "Quiver":
