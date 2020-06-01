@@ -49,27 +49,7 @@
         {{!-- Inventory Tab --}}
         <div class="tab" data-group="primary" data-tab="inventory" style="font-family: Souvenir-Medium;">
             <ol id="itemSlot" class="items-list col" style="margin: 0 3px 0 3px;">
-                <!-- Placeholder <li> -->
-                <div id="itemPlaceholder">
-                    {{#times data.capacity}}
-                    <li class="flexrow placeholder">
-                        <h4 class="item-name" style="font-family: Souvenir-Medium;">[Pack]</h4>
-                    </li>
-                    {{/times}}
-                </div>
-
-                {{#each data.inventory as |item|}}
-                    <script>
-                        if (document.getElementById('itemPlaceholder') != null) {
-                            document.getElementById('itemPlaceholder').insertAdjacentHTML("beforebegin", '<li class="item flexrow" data-item-id="{{item._id}}" data-item-type="{{item.equip}}"><div class="item-image"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></div><h4 class="item-name" style="font-family: Souvenir-Medium;">{{item.name}}</h4><div class="item-controls"><a class="item-control item-edit" title="Edit Item" style="margin-right: 5px;"><i class="fas fa-edit"></i></a><a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a></div></li>');
-                            for (i = 0; i < {{item.data.slots}}; i++) {
-                                document.getElementById('itemPlaceholder').firstElementChild.remove();
-                            }
-                        } else {
-                            console.log("No room in {{data.name}} for {{item.data.name}}");
-                        }
-                    </script>
-                {{/each}}
+                {{{renderInventory data.capacity data.computed.inventory 'Pack'}}}
             </ol>
         </div>
         {{/if}}

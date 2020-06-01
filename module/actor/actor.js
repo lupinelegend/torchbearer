@@ -1,7 +1,5 @@
-/**
- * Extend the base Actor entity by defining a custom roll data structure which is ideal for the Simple system.
- * @extends {Actor}
- */
+import {arrangeInventory} from "./inventory/inventory.js";
+
 export class TorchbearerActor extends Actor {
 
   /**
@@ -29,101 +27,9 @@ export class TorchbearerActor extends Actor {
 
     // Make a new Object that holds computed data and keeps it separate from anything else
     data.computed = {};
-    data.computed.inventory = this.arrangeInventory(actorData.items);
+    data.computed.inventory = arrangeInventory(actorData.items);
   }
 
-  arrangeInventory(items) {
-    const inventory = {
-      Head: {
-        name: "Head",
-        container: null,
-        slots: [],
-      },
-      "Hands (Worn)": {
-        name: "Hands (Worn)",
-        container: null,
-        slots: [],
-      },
-      "Hands (Carried)": {
-        name: "Hands (Carried)",
-        container: null,
-        slots: [],
-      },
-      Torso: {
-        name: "Torso",
-        container: null,
-        slots: [],
-      },
-      Pocket: {
-        name: "Pocket",
-        container: null,
-        slots: [],
-      },
-      Neck: {
-        name: "Neck",
-        container: null,
-        slots: [],
-      },
-      Feet: {
-        name: "Feet",
-        container: null,
-        slots: [],
-      },
-      Belt: {
-        name: "Belt",
-        container: null,
-        slots: [],
-      },
-      "On Ground": {
-        name: "On Ground",
-        container: null,
-        slots: [],
-      }
-    };
-
-    items.forEach((item) => {
-      if(item.data.equip === "Pack" || item.data.equip === "Quiver") {
-        if (!item.data.containerId) {
-          inventory["On Ground"].slots.push(item);
-        } else {
-          if (!inventory[item.data.containerId]) {
-            inventory[item.data.containerId] = {
-              name: "Unknown",
-              container: null,
-              slots: [],
-            }
-          }
-          inventory[item.data.containerId].slots.push(item);
-        }
-      } else if(inventory[item.data.equip]) {
-        inventory[item.data.equip].slots.push(item);
-        if(item.data.capacity) {
-          if(inventory[item._id]) {
-            inventory[item._id].name = item.data.name;
-            inventory[item._id].container = item;
-          } else {
-            inventory[item._id] = {
-              name: item.data.name,
-              container: item,
-              slots: [],
-            }
-          }
-        }
-      } else {
-        inventory["On Ground"].slots.push(item);
-      }
-    });
-    Object.keys(inventory).forEach((k) => {
-      if(inventory[k].name === "Unknown") {
-        inventory[k].slots.forEach((i) => {
-          inventory["On Ground"].slots.push(i);
-        });
-        delete inventory[k];
-      }
-    });
-    return inventory;
-  }
-  
   removeItemFromInventory(itemId) {
     const equip = this.getOwnedItem(itemId).data.data.equip;
     const slotsVacated = this.getOwnedItem(itemId).data.data.slots;

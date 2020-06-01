@@ -61,4 +61,38 @@ Hooks.once('init', async function() {
   Handlebars.registerHelper('json', function(context) {
     return JSON.stringify(context);
   });
+
+  Handlebars.registerHelper('renderInventory', function(capacity, inventory, placeholder) {
+    let html = "";
+    let consumed = 0;
+    inventory.slots.forEach((item) => {
+      consumed += item.data.slots;
+      for (let i = 0; i < item.data.slots; i++) {
+        if(i === 0) {
+          html +=
+              `<li class="item flexrow" data-item-id="${item._id}" data-item-type="${item.data.equip}">
+                  <div class="item-image"><img src="${item.img}" title="${item.name}" alt="${item.name}" width="24" height="24"/></div>
+                  <h4 class="item-name" style="font-family: Souvenir-Medium;">${item.name}</h4>
+                  <div class="item-controls">
+                      <a class="item-control item-edit" title="Edit Item" style="margin-right: 5px;"><i class="fas fa-edit"></i></a>
+                      <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+                  </div>
+              </li>`;
+        } else {
+          html +=
+              `<li class="item flexrow secondary-slot-consumed">
+                  <div class="item-image" style="width:24px;height:24px"></div>
+                  <h4 class="item-name" style="font-family: Souvenir-Medium;">${item.name}</h4>
+              </li>`;
+        }
+      }
+    });
+    for(let i = consumed; i < capacity; i++) {
+      html +=
+          `<li class="flexrow placeholder">
+              <h4 class="item-name" style="font-family: Souvenir-Medium;">[${placeholder}]</h4>
+          </li>`;
+    }
+    return html;
+  });
 });

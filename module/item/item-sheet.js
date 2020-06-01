@@ -1,3 +1,5 @@
+import {cloneInventory, newItemInventory} from "../actor/inventory/inventory.js";
+
 Hooks.on('renderTorchbearerItemSheet', (sheet, el, item) => {
   if(item.data.capacity) {
     sheet._tabs[0].active = "inventory";
@@ -52,15 +54,6 @@ export class TorchbearerItemSheet extends ItemSheet {
         this.item.update({'data.carried': this.item.data.data.carryOptions.option3.value});
         this.item.update({'data.slots': this.item.data.data.slotOptions.option3.value});
         break;
-    }
-
-    if(data.data.capacity) {
-      data.data.inventory = [];
-      if(this.item.actor !== null) {
-        if(this.item.actor.data.data.computed.inventory[this.item._id]) {
-          data.data.inventory = [].concat(this.item.actor.data.data.computed.inventory[this.item._id].slots);
-        }
-      }
     }
 
     return data;
