@@ -103,6 +103,7 @@
 			"common": {
 				"skills": {
 					"Alchemist": {
+						"name": "Alchemist",
 						"rating": 0,
 						"max": 10,
 						"pass": 0,
@@ -111,6 +112,7 @@
 						"bl": "W"
 					},
 					"Arcanist": {
+						"name": "Arcanist",
 						"rating": 0,
 						"max": 10,
 						"pass": 0,
@@ -119,6 +121,7 @@
 						"bl": "W"
 					},
 					"Armorer": {
+						"name": "Armorer",
 						"rating": 0,
 						"max": 10,
 						"pass": 0,
@@ -127,6 +130,7 @@
 						"bl": "H"
 					},
 					"Carpenter": {
+						"name": "Carpenter",
 						"rating": 0,
 						"max": 10,
 						"pass": 0,
@@ -135,6 +139,7 @@
 						"bl": "H"
 					},
 					"Cartographer": {
+						"name": "Cartographer",
 						"rating": 0,
 						"max": 10,
 						"pass": 0,
@@ -143,6 +148,7 @@
 						"bl": "W"
 					},
 					"Commander": {
+						"name": "Commander",
 						"rating": 0,
 						"max": 10,
 						"pass": 0,
@@ -151,6 +157,7 @@
 						"bl": "W"
 					},
 					"Cook": {
+						"name": "Cook",
 						"rating": 0,
 						"max": 10,
 						"pass": 0,
@@ -159,6 +166,7 @@
 						"bl": "W"
 					},
 					"Criminal": {
+						"name": "Criminal",
 						"rating": 0,
 						"max": 10,
 						"pass": 0,
@@ -167,6 +175,7 @@
 						"bl": "H"
 					},
 					"Dungeoneer": {
+						"name": "Dungeoneer",
 						"rating": 0,
 						"max": 10,
 						"pass": 0,
@@ -175,6 +184,7 @@
 						"bl": "H"
 					},
 					"Fighter": {
+						"name": "Fighter",
 						"rating": 0,
 						"max": 10,
 						"pass": 0,
@@ -183,6 +193,7 @@
 						"bl": "H"
 					},
 					"Haggler": {
+						"name": "Haggler",
 						"rating": 0,
 						"max": 10,
 						"pass": 0,
@@ -191,6 +202,7 @@
 						"bl": "W"
 					},
 					"Healer": {
+						"name": "Healer",
 						"rating": 0,
 						"max": 10,
 						"pass": 0,
@@ -199,6 +211,7 @@
 						"bl": "W"
 					},
 					"Hunter": {
+						"name": "Hunter",
 						"rating": 0,
 						"max": 10,
 						"pass": 0,
@@ -207,6 +220,7 @@
 						"bl": "H"
 					},
 					"Laborer": {
+						"name": "Laborer",
 						"rating": 0,
 						"max": 10,
 						"pass": 0,
@@ -215,6 +229,7 @@
 						"bl": "H"
 					},
 					"Loremaster": {
+						"name": "Loremaster",
 						"rating": 0,
 						"max": 10,
 						"pass": 0,
@@ -223,6 +238,7 @@
 						"bl": "W"
 					},
 					"Manipulator": {
+						"name": "Manipulator",
 						"rating": 0,
 						"max": 10,
 						"pass": 0,
@@ -231,6 +247,7 @@
 						"bl": "W"
 					},
 					"Mentor": {
+						"name": "Mentor",
 						"rating": 0,
 						"max": 10,
 						"pass": 0,
@@ -239,6 +256,7 @@
 						"bl": "W"
 					},
 					"Orator": {
+						"name": "Orator",
 						"rating": 0,
 						"max": 10,
 						"pass": 0,
@@ -247,6 +265,7 @@
 						"bl": "W"
 					},
 					"Pathfinder": {
+						"name": "Pathfinder",
 						"rating": 0,
 						"max": 10,
 						"pass": 0,
@@ -255,6 +274,7 @@
 						"bl": "H"
 					},
 					"Peasant": {
+						"name": "Peasant",
 						"rating": 0,
 						"max": 10,
 						"pass": 0,
@@ -263,6 +283,7 @@
 						"bl": "H"
 					},
 					"Persuader": {
+						"name": "Persuader",
 						"rating": 0,
 						"max": 10,
 						"pass": 0,
@@ -271,6 +292,7 @@
 						"bl": "W"
 					},
 					"Rider": {
+						"name": "Rider",
 						"rating": 0,
 						"max": 10,
 						"pass": 0,
@@ -279,6 +301,7 @@
 						"bl": "H"
 					},
 					"Ritualist": {
+						"name": "Ritualist",
 						"rating": 0,
 						"max": 10,
 						"pass": 0,
@@ -287,6 +310,7 @@
 						"bl": "W"
 					},
 					"Sailor": {
+						"name": "Sailor",
 						"rating": 0,
 						"max": 10,
 						"pass": 0,
@@ -295,6 +319,7 @@
 						"bl": "H"
 					},
 					"Scavenger": {
+						"name": "Scavenger",
 						"rating": 0,
 						"max": 10,
 						"pass": 0,
@@ -303,6 +328,7 @@
 						"bl": "H"
 					},
 					"Scholar": {
+						"name": "Scholar",
 						"rating": 0,
 						"max": 10,
 						"pass": 0,
@@ -311,6 +337,7 @@
 						"bl": "W"
 					},
 					"Scout": {
+						"name": "Scout",
 						"rating": 0,
 						"max": 10,
 						"pass": 0,
@@ -319,6 +346,7 @@
 						"bl": "W"
 					},
 					"Steward": {
+						"name": "Steward",
 						"rating": 0,
 						"max": 10,
 						"pass": 0,
@@ -327,6 +355,7 @@
 						"bl": "W"
 					},
 					"Stonemason": {
+						"name": "Stonemason",
 						"rating": 0,
 						"max": 10,
 						"pass": 0,
@@ -335,6 +364,7 @@
 						"bl": "H"
 					},
 					"Survivalist": {
+						"name": "Survivalist",
 						"rating": 0,
 						"max": 10,
 						"pass": 0,
@@ -343,6 +373,7 @@
 						"bl": "H"
 					},
 					"Theologian": {
+						"name": "Theologian",
 						"rating": 0,
 						"max": 10,
 						"pass": 0,
@@ -351,6 +382,7 @@
 						"bl": "W"
 					},
 					"Weaver": {
+						"name": "Weaver",
 						"rating": 0,
 						"max": 10,
 						"pass": 0,

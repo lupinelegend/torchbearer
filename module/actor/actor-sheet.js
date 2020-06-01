@@ -189,6 +189,11 @@ export class TorchbearerActorSheet extends ActorSheet {
     // Capitalize first letter for later use in the roll template
     let header = rollTarget.charAt(0).toUpperCase() + rollTarget.slice(1);
 
+    let freshCheck = "";
+    if (this.actor.data.data.fresh === true) {
+      freshCheck = "checked";
+    }
+
     // Dialog box for roll customization
     let dialogContent = 'systems/torchbearer/templates/roll-dialog-content.html';
     
@@ -199,7 +204,7 @@ export class TorchbearerActorSheet extends ActorSheet {
       traits.push(traitList[key].name);
     });
 
-    renderTemplate(dialogContent, {attribute: header, traitList: traits}).then(template => {
+    renderTemplate(dialogContent, {attribute: header, traitList: traits, fresh: freshCheck}).then(template => {
       new Dialog({
         title: `Test`,
         content: template,
@@ -212,12 +217,13 @@ export class TorchbearerActorSheet extends ActorSheet {
               let help = html.find('#helpingDice')[0].value;
               let ob = html.find('#ob')[0].value;
               let nature = html.find('#natureYes')[0].checked;
+              let supplies = html.find('#supplies')[0].value;
               let trait = {
                 name: html.find('#traitDropdown')[0].value,
                 usedFor: html.find('#traitFor')[0].checked,
                 usedAgainst: html.find('#traitAgainst')[0].checked
               };
-              this.tbRoll(rollTarget, flavor, header, help, ob, trait, nature);
+              this.tbRoll(rollTarget, flavor, header, help, ob, trait, nature, freshCheck, supplies);
             }
           },
           no: {
@@ -230,7 +236,29 @@ export class TorchbearerActorSheet extends ActorSheet {
     });
   }
 
-  tbRoll(rollTarget, flavor, header, help, ob, trait, nature) {
+  tbRoll(rollTarget, flavor, header, help, ob, trait, nature, freshCheck, supplies) {
+    // Check to see if the Fresh bonus should be applied
+    let freshMod = 0;
+    if (freshCheck === "checked") {
+      freshMod = 1;
+    }
+    
+    // Set supplies to zero if it's NaN
+    let suppliesMod;
+    if (isNaN(parseInt(supplies))) {
+      suppliesMod = 0;
+    } else {
+      suppliesMod = parseInt(supplies);
+    }
+
+    // Set help to zero if it's NaN
+    let helpMod;
+    if (isNaN(parseInt(help))) {
+      helpMod = 0;
+    } else {
+      helpMod = parseInt(help);
+    }
+
     // Determine if and how a Trait is being used
     let traitMod = 0;
     if (trait.name != "") {
@@ -330,13 +358,51 @@ export class TorchbearerActorSheet extends ActorSheet {
       this.actor.update({'data.persona.spent': this.actor.data.data.persona.spent + 1});
     }
     
-    // Determine number of dice to roll. isNaN makes sure the roll goes through if the
-    // help field is left blank.
+    // Create an array of skills for the if check below
+    let skills = [];
+    const skillList = this.actor.data.data.skills;
+    Object.keys(skillList).forEach(key => {
+      skills.push(skillList[key].name);
+    });
+
+    // Determine number of dice to roll. 
     let diceToRoll;
-    if (isNaN(parseInt(help))) {
-      diceToRoll = this.actor.data.data[rollTarget].value + traitMod + natureMod;
-    } else{
-      diceToRoll = this.actor.data.data[rollTarget].value + traitMod + natureMod + parseInt(help);
+    let beginnersLuck = "";
+    
+    // Is the thing being rolled a skill?
+    skills.forEach(key => {
+      if (rollTarget === key) {
+        // Check for Beginner's Luck
+        if (this.actor.data.data.skills[rollTarget].rating === 0) {
+          let blAbility = this.actor.data.data.skills[rollTarget].bl;
+          if (blAbility === "W") {
+            beginnersLuck = " BL(W)";
+            // If Will is not zero, roll Beginner's Luck as normal
+            if (this.actor.data.data.will.value != 0) {
+              diceToRoll = Math.ceil((this.actor.data.data.will.value + suppliesMod + helpMod)/2) + traitMod + natureMod + freshMod;
+            } else if (this.actor.data.data.will.value === 0) {
+              // If Will is zero, use Nature instead
+              diceToRoll = Math.ceil((this.actor.data.data.nature.value + suppliesMod + helpMod)/2) + traitMod + natureMod + freshMod;
+            }
+          } else if (blAbility === "H") {
+            beginnersLuck = " BL(H)";
+            // If Health is not zero, roll Beginner's Luck as normal
+            if (this.actor.data.data.health.value != 0) {
+              diceToRoll = Math.ceil((this.actor.data.data.health.value + suppliesMod + helpMod)/2) + traitMod + natureMod + freshMod;
+            } else if (this.actor.data.data.will.value === 0) {
+              // If Health is zero, use Nature instead
+              diceToRoll = Math.ceil((this.actor.data.data.nature.value + suppliesMod + helpMod)/2) + traitMod + natureMod + freshMod;
+            }
+          }
+        } else {
+          diceToRoll = this.actor.data.data.skills[rollTarget].rating + traitMod + natureMod + freshMod + suppliesMod + helpMod;
+        }
+      }
+    });
+
+    // Otherwise it's an ability
+    if (diceToRoll === undefined) {
+      diceToRoll = this.actor.data.data[rollTarget].value + traitMod + natureMod + freshMod + suppliesMod + helpMod;
     }
 
     // Build the formula
@@ -354,6 +420,7 @@ export class TorchbearerActorSheet extends ActorSheet {
       title: header,
       flavorText: flavor,
       rollDetails: `${diceToRoll}D vs. Ob ${ob}`,
+      bL: beginnersLuck,
       roll: {}
     };
 
@@ -402,7 +469,6 @@ export class TorchbearerActorSheet extends ActorSheet {
     }
 
     renderTemplate('systems/torchbearer/templates/roll-template.html', {title: header, results: rollResult, dice: diceToRoll, success: displaySuccesses, flavorText: flavor, outcome: passFail}).then(t => {
-
       // Add the dice roll to the template
       templateData.roll = t,
       chatData.roll = JSON.stringify(roll);
