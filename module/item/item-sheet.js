@@ -1,5 +1,3 @@
-import {cloneInventory, newItemInventory} from "../actor/inventory/inventory.js";
-
 Hooks.on('renderTorchbearerItemSheet', (sheet, el, item) => {
   if(item.data.capacity) {
     sheet._tabs[0].active = "inventory";
