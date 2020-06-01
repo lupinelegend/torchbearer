@@ -54,15 +54,6 @@ export class TorchbearerItemSheet extends ItemSheet {
         break;
     }
 
-    if(data.data.capacity) {
-      data.data.inventory = [];
-      if(this.item.actor !== null) {
-        if(this.item.actor.data.data.computed.inventory[this.item._id]) {
-          data.data.inventory = [].concat(this.item.actor.data.data.computed.inventory[this.item._id].slots);
-        }
-      }
-    }
-
     return data;
   }
 

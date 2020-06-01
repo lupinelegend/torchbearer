@@ -520,6 +520,8 @@ export class TorchbearerActorSheet extends ActorSheet {
     try {
       data = JSON.parse(event.dataTransfer.getData('text/plain'));
       if (data.type !== "Item") return;
+      console.log(event);
+      console.log($(event.target).closest(".inventory"));
       const id = data.id;
       const item = game.items.get(id);
       const equip = item.data.data.equip;
