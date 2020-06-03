@@ -30,7 +30,7 @@ export class TorchbearerActor extends Actor {
     data.computed.inventory = arrangeInventory(actorData.items);
   }
 
-  removeItemFromInventory(itemId) {
-    this.deleteOwnedItem(itemId);
+  async removeItemFromInventory(itemId) {
+    await this.deleteOwnedItem(itemId);
   }
 }

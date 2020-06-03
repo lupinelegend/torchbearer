@@ -58,10 +58,10 @@ export class TorchbearerActorSheet extends ActorSheet {
     html.find('.item-delete').click(ev => {
       const li = $(ev.currentTarget).parents(".item");
 
-      this.actor.removeItemFromInventory(li.data("itemId"));
-
-      // Get the equipment slot of the item being deleted
-      li.slideUp(200, () => this.render(false));
+      this.actor.removeItemFromInventory(li.data("itemId")).then(() => {
+        // Get the equipment slot of the item being deleted
+        li.slideUp(200, () => this.render(false));
+      });
     });
 
     // Rollable abilities

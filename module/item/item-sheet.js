@@ -30,7 +30,6 @@ export class TorchbearerItemSheet extends ItemSheet {
   /** @override */
   getData() {
     const data = super.getData();
-    console.log(this.item);
     switch (this.item.data.data.equip) {
       case this.item.data.data.equipOptions.option1.value:
         this.item.update({'data.carried': this.item.data.data.carryOptions.option1.value});
@@ -80,7 +79,11 @@ export class TorchbearerItemSheet extends ItemSheet {
       const li = $(ev.currentTarget).parents(".item");
 
       if(this.item.actor) {
-        this.item.actor.removeItemFromInventory(li.data("itemId"));
+        this.item.actor.removeItemFromInventory(li.data("itemId")).then(() => {
+          setTimeout(() => {
+            this.item._onUpdate();
+          }, 0);
+        });
       }
     });
 
