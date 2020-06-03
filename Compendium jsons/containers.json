@@ -159,9 +159,12 @@
       "cost": "Ob 1",
       "description": "A bottle is a container for two draughts of water or wine.",
       "quantity": 1,
-      "capacity": 2,
+      "capacity": 0,
       "bundleSize": 1,
       "resizes": false,
+      "maxDraughts": 2,
+      "draughts": 2,
+      "liquid": "Water",
       "equipOptions": {
         "option1": {
           "value": "Pack"
@@ -209,9 +212,12 @@
       "cost": "Ob 1",
       "description": "A jug holds three draughts of water or wine.",
       "quantity": 1,
-      "capacity": 3,
+      "capacity": 0,
       "bundleSize": 1,
       "resizes": false,
+      "maxDraughts": 3,
+      "draughts": 3,
+      "liquid": "Water",
       "equipOptions": {
         "option1": {
           "value": "Pack"
@@ -409,9 +415,12 @@
       "cost": "Ob 1",
       "description": "A waterskin holds one draught of water or wine.",
       "quantity": 1,
-      "capacity": 1,
+      "capacity": 0,
       "bundleSize": 1,
       "resizes": false,
+      "maxDraughts": 1,
+      "draughts": 1,
+      "liquid": "Water",
       "equipOptions": {
         "option1": {
           "value": "Belt"

@@ -95,7 +95,9 @@ export class TorchbearerActorSheet extends ActorSheet {
     
     //console.log(this.html.find('#headPlaceholder'));
     const header = event.currentTarget;
-    
+    console.log("onItemCreate");
+    console.log($(event.currentTarget));
+
     // Get the type of item to create.
     const type = header.dataset.type;
     
@@ -515,7 +517,6 @@ export class TorchbearerActorSheet extends ActorSheet {
 
   /** @override */
   async _onDrop(event) {
-    console.log(event);
     let data;
     try {
       data = JSON.parse(event.dataTransfer.getData('text/plain'));

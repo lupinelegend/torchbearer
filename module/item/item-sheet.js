@@ -1,11 +1,3 @@
-Hooks.on('renderTorchbearerItemSheet', (sheet, el, item) => {
-  if(item.data.capacity) {
-    sheet._tabs[0].active = "inventory";
-  } else {
-    sheet._tabs[0].active = "description";
-  }
-});
-
 /**
  * Extend the basic ItemSheet with some very simple modifications
  * @extends {ItemSheet}
@@ -17,7 +9,7 @@ export class TorchbearerItemSheet extends ItemSheet {
     return mergeObject(super.defaultOptions, {
       classes: ["torchbearer", "sheet", "item"],
       width: 450,
-      height: 400,
+      height: 450,
       tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description" }]
     });
   }
@@ -38,7 +30,7 @@ export class TorchbearerItemSheet extends ItemSheet {
   /** @override */
   getData() {
     const data = super.getData();
-
+    console.log(this.item);
     switch (this.item.data.data.equip) {
       case this.item.data.data.equipOptions.option1.value:
         this.item.update({'data.carried': this.item.data.data.carryOptions.option1.value});

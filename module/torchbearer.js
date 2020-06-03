@@ -58,6 +58,10 @@ Hooks.once('init', async function() {
     return accum;
   });
 
+  Handlebars.registerHelper('add', function(a1, a2) {
+    return a1 + a2;
+  });
+
   Handlebars.registerHelper('json', function(context) {
     return JSON.stringify(context);
   });

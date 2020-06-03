@@ -699,6 +699,9 @@
 			"bundleSize": 1,
 			"resizes": false,
 			"containerId": "",
+			"maxDraughts": 0,
+			"draughts": 0,
+			"liquid": "",
 			"equipOptions": {
 				"option1": {
 					"value": ""

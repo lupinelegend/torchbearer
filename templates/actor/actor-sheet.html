@@ -612,7 +612,7 @@
           <div class="container scroll">
             <div class="row">
               <div class="col">
-                <ol id="headSlot" class="items-list inventory col" style="margin: 0 3px 0 3px;">
+                <ol id="headSlot" class="items-list inventory-container col" data-container-type="Head" style="margin: 0 3px 0 3px;">
                   <!-- Section header -->
                   <li class="item flexrow item-header" id="headSlotHeader">
                     <div class="item-image"></div>
@@ -624,7 +624,7 @@
                     {{{renderInventory 1 data.computed.inventory.[Head] 'Worn'}}}
                 </ol>
 
-                <ol id="handsWornSlot" class="items-list inventory col" style="margin: 0 3px 0 3px;">
+                <ol id="handsWornSlot" class="items-list inventory-container col" data-container-type="Hands (Worn)" style="margin: 0 3px 0 3px;">
                   <li class="item flexrow item-header" id="handsWornSlotHeader">
                     <div class="item-image"></div>
                     <div class="item-name" style="font-family: Souvenir-Demi;">Hands (Worn)</div>
@@ -635,7 +635,7 @@
                     {{{renderInventory 2 data.computed.inventory.[Hands (Worn)] 'Worn'}}}
                 </ol>
 
-                <ol id="handsCarriedSlot" class="items-list inventory col" style="margin: 0 3px 0 3px;">
+                <ol id="handsCarriedSlot" class="items-list inventory-container col" data-container-type="Hands (Carried)" style="margin: 0 3px 0 3px;">
                   <li class="item flexrow item-header" id="handsCarriedSlotHeader">
                     <div class="item-image"></div>
                     <div class="item-name" style="font-family: Souvenir-Demi;">Hands (Carried)</div>
@@ -646,7 +646,7 @@
 
                     {{{renderInventory 2 data.computed.inventory.[Hands (Carried)] 'Carried'}}}
                 </ol>
-                <ol id="torsoSlot" class="items-list inventory col" style="margin: 0 3px 0 3px;">
+                <ol id="torsoSlot" class="items-list inventory-container col" data-container-type="Torso" style="margin: 0 3px 0 3px;">
                   <li class="item flexrow item-header" id="torsoSlotHeader">
                     <div class="item-image"></div>
                     <div class="item-name" style="font-family: Souvenir-Demi;">Torso</div>
@@ -657,7 +657,7 @@
 
                     {{{renderInventory 3 data.computed.inventory.[Torso] 'Worn'}}}
                 </ol>
-                <ol id="pocketSlot" class="items-list inventory col" style="margin: 0 3px 0 3px;">
+                <ol id="pocketSlot" class="items-list inventory-container col" data-container-type="Pocket" style="margin: 0 3px 0 3px;">
                   <li class="item flexrow item-header" id="pocketSlotHeader">
                     <div class="item-image"></div>
                     <div class="item-name" style="font-family: Souvenir-Demi;">Pocket</div>
@@ -670,7 +670,7 @@
                 </ol>
               </div>
               <div class="col">
-                <ol id="neckSlot" class="items-list inventory col" style="margin: 0 3px 0 3px;">
+                <ol id="neckSlot" class="items-list inventory-container col" data-container-type="Neck" style="margin: 0 3px 0 3px;">
                   <li class="item flexrow item-header" id="neckSlotHeader">
                     <div class="item-image"></div>
                     <div class="item-name" style="font-family: Souvenir-Demi;">Neck</div>
@@ -681,7 +681,7 @@
     
                     {{{renderInventory 1 data.computed.inventory.[Neck] 'Worn'}}}
                 </ol>
-                <ol id="feetSlot" class="items-list inventory col" style="margin: 0 3px 0 3px;">
+                <ol id="feetSlot" class="items-list inventory-container col" data-container-type="Feet" style="margin: 0 3px 0 3px;">
                   <li class="item flexrow item-header" id="feetSlotHeader">
                     <div class="item-image"></div>
                     <div class="item-name" style="font-family: Souvenir-Demi;">Feet</div>
@@ -692,7 +692,7 @@
     
                     {{{renderInventory 1 data.computed.inventory.[Feet] 'Worn'}}}
                 </ol>
-                <ol id="beltSlot" class="items-list inventory col" style="margin: 0 3px 0 3px;">
+                <ol id="beltSlot" class="items-list inventory-container col" data-container-type="Belt" style="margin: 0 3px 0 3px;">
                   <li class="item flexrow item-header" id="beltSlotHeader">
                     <div class="item-image"></div>
                     <div class="item-name" style="font-family: Souvenir-Demi;">Belt</div>
@@ -704,7 +704,7 @@
                     {{{renderInventory 3 data.computed.inventory.[Belt] 'Worn'}}}
                 </ol>
 
-                <ol id="groundSlot" class="items-list col" style="margin: 0 3px 0 3px;">
+                <ol id="groundSlot" class="items-list inventory-container col" data-container-type="On Ground" style="margin: 0 3px 0 3px;">
                   <li class="item flexrow item-header" id="groundSlotHeader">
                     <div class="item-image"></div>
                     <div class="item-name" style="font-family: Souvenir-Demi;">On Ground</div>
