@@ -72,9 +72,15 @@ Hooks.once('init', async function() {
     inventory.slots.forEach((item) => {
       consumed += item.data.slots;
       for (let i = 0; i < item.data.slots; i++) {
+        let inventoryContainerClass = '';
+        let containerType = '';
+        if(item.data.capacity) {
+          inventoryContainerClass = 'inventory-container';
+          containerType = 'Pack';
+        }
         if(i === 0) {
           html +=
-              `<li class="item flexrow" data-item-id="${item._id}" data-item-type="${item.data.equip}">
+              `<li class="item flexrow ${inventoryContainerClass}" data-item-id="${item._id}" data-container-type="${containerType}">
                   <div class="item-image"><img src="${item.img}" title="${item.name}" alt="${item.name}" width="24" height="24"/></div>
                   <h4 class="item-name" style="font-family: Souvenir-Medium;">${item.name}</h4>
                   <div class="item-controls">
@@ -84,7 +90,7 @@ Hooks.once('init', async function() {
               </li>`;
         } else {
           html +=
-              `<li class="item flexrow secondary-slot-consumed">
+              `<li class="item flexrow secondary-slot-consumed ${inventoryContainerClass}" data-item-id="${item._id}" data-container-type="${containerType}">
                   <div class="item-image" style="width:24px;height:24px"></div>
                   <h4 class="item-name" style="font-family: Souvenir-Medium;">${item.name}</h4>
               </li>`;
