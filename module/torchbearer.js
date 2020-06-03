@@ -80,7 +80,7 @@ Hooks.once('init', async function() {
         }
         if(i === 0) {
           html +=
-              `<li class="item flexrow ${inventoryContainerClass}" data-item-id="${item._id}" data-container-type="${containerType}">
+              `<li class="item flexrow primary-slot-consumed ${inventoryContainerClass}" data-item-id="${item._id}" data-container-type="${containerType}">
                   <div class="item-image"><img src="${item.img}" title="${item.name}" alt="${item.name}" width="24" height="24"/></div>
                   <h4 class="item-name" style="font-family: Souvenir-Medium;">${item.name}</h4>
                   <div class="item-controls">
@@ -92,7 +92,7 @@ Hooks.once('init', async function() {
           html +=
               `<li class="item flexrow secondary-slot-consumed ${inventoryContainerClass}" data-item-id="${item._id}" data-container-type="${containerType}">
                   <div class="item-image" style="width:24px;height:24px"></div>
-                  <h4 class="item-name" style="font-family: Souvenir-Medium;">${item.name}</h4>
+                  <h4 class="item-name" style="font-family: Souvenir-Medium;"></h4>
               </li>`;
         }
       }

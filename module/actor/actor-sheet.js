@@ -462,7 +462,7 @@ export class TorchbearerActorSheet extends ActorSheet {
         containerId,
       };
     } else {
-      return this.closestCompatibleContainer(item, $closestContainer[0]);
+      return this.closestCompatibleContainer(item, $closestContainer.parent());
     }
   }
 
