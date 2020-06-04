@@ -2,6 +2,7 @@
 
 Inventory
 - 
+- Drop from Items directory onto Item (e.g. Backpack) sheet
 - Drag and Drop within Actor sheet sections
 - Drag and Drop between sheets
 - Cascading to different default equip options
