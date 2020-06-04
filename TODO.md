@@ -13,6 +13,11 @@ Inventory
 - Cached items (from 2nd ed sheet; maybe need a sub-tab for this)
 - Lost items (from 2nd ed sheet; maybe on same sub-tab as cached items)
 
+Dice Rolls
+- 
+- Add buttons to spend fate and persona after the roll
+- Add visualization to indicate die source
+
 Magic
 - 
 
