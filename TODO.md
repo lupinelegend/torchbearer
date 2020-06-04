@@ -18,6 +18,9 @@ Magic
 Combat
 -
 
+Light
+-
+
 UI
 -
 - Drag things from sheet to Macrobar?
