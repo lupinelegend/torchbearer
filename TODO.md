@@ -2,7 +2,6 @@
 
 Inventory
 - 
-- Make On Ground items not take extra visual slots
 - Dynamic sizing for bags within bags
 - Make Line Item rendering for containers indicate that they have contents somehow
 - Cascading to different default equip options
