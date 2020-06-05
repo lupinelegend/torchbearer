@@ -2,6 +2,8 @@
  * Extend the basic ActorSheet with some very simple modifications
  * @extends {ActorSheet}
  */
+import {isCompatibleContainer} from "../inventory/inventory.js";
+
 export class TorchbearerActorSheet extends ActorSheet {
 
   /** @override */
@@ -441,14 +443,6 @@ export class TorchbearerActorSheet extends ActorSheet {
     });
   }
 
-  isCompatibleContainer(item, containerType) {
-    return [
-        item.data.data.equipOptions.option1.value,
-        item.data.data.equipOptions.option2.value,
-        item.data.data.equipOptions.option3.value,
-    ].includes(containerType);
-  }
-
   closestCompatibleContainer(item, target) {
     let $closestContainer = $(target).closest('.inventory-container');
     if(!$closestContainer.length) {
@@ -456,7 +450,7 @@ export class TorchbearerActorSheet extends ActorSheet {
     }
     const containerType = $closestContainer.data('containerType');
     const containerId = $closestContainer.data('itemId');
-    if(this.isCompatibleContainer(item, containerType)) {
+    if(isCompatibleContainer(item, containerType)) {
       return {
         containerType,
         containerId,
