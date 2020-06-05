@@ -98,22 +98,32 @@ export class TorchbearerItemSheet extends ItemSheet {
   }
 
   /** @override */
-  _canDragDrop(selector) {
-    console.log("is._canDragDrop");
-    return true;
+  _canDragStart(selector) {
+    return this.options.editable && this.item.actor.owner;
   }
 
+  /* -------------------------------------------- */
+
   /** @override */
-  _canDragStart(selector) {
-    console.log("is._canDragStart");
-    return true;
+  _canDragDrop(selector) {
+    return this.options.editable && this.item.actor.owner;
   }
 
   /* -------------------------------------------- */
 
   /** @override */
   _onDragStart(event) {
-    console.log("is._onDragStart");
+    const li = event.currentTarget;
+    const item = this.item.actor.getOwnedItem(li.dataset.itemId);
+    const dragData = {
+      type: "Item",
+      actorId: this.item.actor.id,
+      data: item.data
+    };
+    console.log("onDragStart");
+    console.log(dragData);
+    if (this.item.actor.isToken) dragData.tokenId = this.item.actor.token.id;
+    event.dataTransfer.setData("text/plain", JSON.stringify(dragData));
   }
 
   /* -------------------------------------------- */
