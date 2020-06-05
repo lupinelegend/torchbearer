@@ -81,6 +81,7 @@ export function arrangeInventory(items) {
     validateContainers(inventory);
 
     Object.keys(inventory).forEach((k) => {
+        const sizeCache = {};
         let container = inventory[k];
         if (container.name === "Unknown") {
             container.slots.forEach((i) => {
@@ -91,7 +92,7 @@ export function arrangeInventory(items) {
             let consumed = 0;
             const removed = [];
             container.slots.forEach((i) => {
-                const size = calculateSize(i);
+                const size = calculateSize(i, inventory, sizeCache);
                 if ((consumed + size) > container.capacity) {
                     removed.push(i);
                     inventory["On Ground"].slots.push(i);
@@ -109,13 +110,19 @@ export function arrangeInventory(items) {
     return inventory;
 }
 
-function calculateSize(item) {
-    if(!item.data.resizes) {
-        return item.data.slots;
-    } else {
-        //TODO handle resizes
-        return item.data.slots;
+function calculateSize(item, inventory, sizeCache) {
+    if(item.data.resizes && inventory[item._id] && item.data.equip === 'Pack') {
+        if(sizeCache[item._id]) {
+            return sizeCache[item._id];
+        }
+        let computedSlots = item.data.slots;
+        inventory[item._id].slots.forEach((containedItem) => {
+            computedSlots += calculateSize(containedItem, inventory, sizeCache);
+        });
+        item.data.computed.consumedSlots = computedSlots;
+        sizeCache[item._id] = computedSlots;
     }
+    return item.data.computed.consumedSlots;
 }
 
 export function cloneInventory(inventory) {
@@ -135,8 +142,8 @@ Handlebars.registerHelper('renderInventory', function(capacity, inventory, place
     let html = "";
     let consumed = 0;
     inventory.slots.forEach((item) => {
-        consumed += item.data.slots;
-        for (let i = 0; i < item.data.slots; i++) {
+        consumed += item.data.computed.consumedSlots;
+        for (let i = 0; i < item.data.computed.consumedSlots; i++) {
             let inventoryContainerClass = '';
             let containerType = '';
             let lastSlotTakenClass = '';
@@ -144,7 +151,7 @@ Handlebars.registerHelper('renderInventory', function(capacity, inventory, place
                 inventoryContainerClass = 'inventory-container';
                 containerType = 'Pack';
             }
-            if(multiSlot === false || i === item.data.slots - 1) {
+            if(multiSlot === false || i === item.data.computed.consumedSlots - 1) {
                 lastSlotTakenClass = 'last-slot-taken';
             }
             if(i === 0) {
