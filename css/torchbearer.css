@@ -447,6 +447,9 @@ input:checked + .slider:before {
   height: 30px;
   line-height: 24px;
   padding: 3px 0;
+}
+
+.torchbearer .items-list .item.last-slot-taken {
   border-bottom: 1px solid #BBB;
 }
 
