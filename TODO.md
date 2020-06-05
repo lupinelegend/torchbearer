@@ -3,6 +3,7 @@
 Inventory
 - 
 - Dynamic sizing for bags within bags
+- Bundled Objects like torches, arrows
 - Make Line Item rendering for containers indicate that they have contents somehow
 - Cascading to different default equip options
 - Show damaged status in item attributes and on list
