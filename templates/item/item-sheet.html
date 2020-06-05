@@ -1,4 +1,4 @@
-<form class="{{cssClass}}" autocomplete="off">
+<form class="{{cssClass}} {{inventoryContainerClass}}" data-item-id="{{item._id}}" data-container-type="{{containerType}}" autocomplete="off">
     <header class="sheet-header">
         <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
         <div class="header-fields" style="margin-bottom: 5px">
@@ -33,9 +33,6 @@
 
     {{!-- Sheet Tab Navigation --}}
     <nav class="sheet-tabs tabs" data-group="primary">
-        {{#if data.capacity}}
-        <a class="item" data-tab="inventory" style="font-family: Souvenir-Demi;">Inventory</a>
-        {{/if}}
         <a class="item" data-tab="description" style="font-family: Souvenir-Demi;">Description</a>
         <a class="item" data-tab="attributes" style="font-family: Souvenir-Demi;">Attributes</a>
         <a class="item" data-tab="notes" style="font-family: Souvenir-Demi;">Notes</a>
@@ -45,41 +42,84 @@
     <section class="sheet-body">
         <!-- <hr style="border-top: 1px solid #AAA; border-bottom: none;"> -->
 
-        {{#if data.capacity}}
-        {{!-- Inventory Tab --}}
-        <div class="tab" data-group="primary" data-tab="inventory" style="font-family: Souvenir-Medium;">
-            <ol id="itemSlot" class="items-list col" style="margin: 0 3px 0 3px;">
-                <!-- Placeholder <li> -->
-                <div id="itemPlaceholder">
-                    {{#times data.capacity}}
-                    <li class="flexrow placeholder">
-                        <h4 class="item-name" style="font-family: Souvenir-Medium;">[Pack]</h4>
-                    </li>
-                    {{/times}}
-                </div>
-
-                {{#each data.inventory as |item|}}
-                    <script>
-                        if (document.getElementById('itemPlaceholder') != null) {
-                            document.getElementById('itemPlaceholder').insertAdjacentHTML("beforebegin", '<li class="item flexrow" data-item-id="{{item._id}}" data-item-type="{{item.equip}}"><div class="item-image"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></div><h4 class="item-name" style="font-family: Souvenir-Medium;">{{item.name}}</h4><div class="item-controls"><a class="item-control item-edit" title="Edit Item" style="margin-right: 5px;"><i class="fas fa-edit"></i></a><a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a></div></li>');
-                            for (i = 0; i < {{item.data.slots}}; i++) {
-                                document.getElementById('itemPlaceholder').firstElementChild.remove();
-                            }
-                        } else {
-                            console.log("No room in {{data.name}} for {{item.data.name}}");
-                        }
-                    </script>
-                {{/each}}
-            </ol>
-        </div>
-        {{/if}}
-
         {{!-- Description Tab --}}
         <div class="tab" data-group="primary" data-tab="description" style="font-family: Souvenir-Medium;">
             <!-- <textarea name="data.description" value="{{data.description}}" data-dtype="String" style="font-family: Souvenir-Medium;" rows="12">{{data.description}}</textarea> -->
-            <div style="margin-top: 5px;">
-                {{editor content=data.description target="data.description" button=true owner=owner editable=editable}}
+            <div class="row" style="flex-basis: auto; margin-bottom: 8px;">
+                <div class="col" style="flex: 1 1 auto;">
+                    <div style="margin-top: 5px;">
+                        {{editor content=data.description target="data.description" button=true owner=owner editable=editable}}
+                    </div>
+                </div>
             </div>
+            {{#if data.capacity}}
+            {{!-- Inventory Tab --}}
+            <div class="row" style="flex-basis: auto;">
+                <div class="col" style="flex: 1 1 auto;">
+                    <span style="font-family: Souvenir-Demi">Inventory</span>
+                </div>
+            </div>
+            <div class="row" style="flex-basis: auto;">
+                <div class="col" style="flex: 1 1 auto;">
+                    <ol id="itemSlot" class="items-list col" style="margin: 0 3px 0 3px;">
+                        {{{renderInventory data.capacity data.computed.inventory 'Pack'}}}
+                    </ol>
+                </div>
+            </div>
+            {{/if}}
+            {{#if data.maxDraughts}}
+                <div class="row" style="flex-basis: auto; align-items:center; margin-bottom: 8px;">
+                    <label for="data.liquid" style="font-family: Souvenir-Demi; margin-right: 8px;">Holding: </label>
+                    <select name="data.liquid" style="font-family: Souvenir-Medium;">
+                    {{#select data.liquid}}
+                            <option value="Water">Water</option>
+                            <option value="Wine">Wine</option>
+                    {{/select}}
+                    </select>
+                </div>
+                <div class="row" style="flex-basis: auto; align-items:center; margin-bottom: 8px;">
+                    <label for="data.draughts" style="font-family: Souvenir-Demi; margin-right: 8px;">Draughts: </label>
+                    <select name="data.draughts" style="font-family: Souvenir-Medium;">
+                    {{#select data.draughts}}
+                        {{#times (add data.maxDraughts 1)}}
+                            <option value="{{this}}">{{this}}</option>
+                        {{/times}}
+                    {{/select}}
+                    </select>
+                </div>
+                {{#ifeq data.liquid "Water"}}
+                    <div class="row" style="flex-basis: auto; margin-bottom: 8px;">
+                        <div class="col" style="flex: 1 1 auto;">
+                            <div style="margin-top: 5px;">
+                                One draught of water alleviates the hungry and thirsty condition. Requires container like a skin or bottle.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="flex-basis: auto; margin-bottom: 8px;">
+                        <div class="col" style="flex: 1 1 auto;">
+                            <div style="margin-top: 5px;">
+                                Free Refills: When leaving town you may refill your skin, bottle or jug with water (unless otherwise prohibited by a town event) for free.
+                            </div>
+                        </div>
+                    </div>
+                {{/ifeq}}
+                {{#ifeq data.liquid "Wine"}}
+                    <div class="row" style="flex-basis: auto; margin-bottom: 8px;">
+                        <div class="col" style="flex: 1 1 auto;">
+                            <div style="margin-top: 5px;">
+                                When consumed, one draught of wine eliminates the hungry and thirsty condition or grants +1D to recover from angry or afraid. Requires a container like a skin or bottle.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="flex-basis: auto; margin-bottom: 8px;">
+                        <div class="col" style="flex: 1 1 auto;">
+                            <div style="margin-top: 5px;">
+                                Ob1 Resource
+                            </div>
+                        </div>
+                    </div>
+                {{/ifeq}}
+            {{/if}}
         </div>
 
         {{!-- Attributes Tab --}}

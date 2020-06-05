@@ -609,24 +609,10 @@
 
         {{!-- Inventory Tab --}}
         <div class="tab items" data-group="primary" data-tab="inventory">
-            <script type="text/javascript">
-                function drawInventory(placeholderName, item) {
-                    var parentElement = document.getElementById(placeholderName + 'Placeholder');
-                    if (parentElement != null) {
-                        parentElement.insertAdjacentHTML("beforebegin",
-                                `<li class="item flexrow" data-item-id="${item._id}" data-item-type="${item.data.equip}"><div class="item-image"><img src="${item.img}" title="${item.name}" width="24" height="24"/></div><h4 class="item-name" style="font-family: Souvenir-Medium;">${item.name}</h4><div class="item-controls"><a class="item-control item-edit" title="Edit Item" style="margin-right: 5px;"><i class="fas fa-edit"></i></a><a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a></div></li>`);
-                        for (i = 0; i < item.data.slots; i++) {
-                            parentElement.firstElementChild.remove();
-                        }
-                    } else {
-                        console.log(`No room in ${placeholderName} for ${item.data.name}`);
-                    }
-                }
-            </script>
           <div class="container scroll">
             <div class="row">
               <div class="col">
-                <ol id="headSlot" class="items-list inventory col" style="margin: 0 3px 0 3px;">
+                <ol id="headSlot" class="items-list inventory-container col" data-container-type="Head" style="margin: 0 3px 0 3px;">
                   <!-- Section header -->
                   <li class="item flexrow item-header" id="headSlotHeader">
                     <div class="item-image"></div>
@@ -635,21 +621,10 @@
                       <a class="item-control item-create" title="Create item" data-type="item" type="Head"><i class="fas fa-plus"></i></a>
                     </div>
                   </li>
-    
-                  <!-- Placeholder Div -->
-                  <div id="headPlaceholder">
-                    <li class="flexrow placeholder">
-                      <h4 class="item-name" style="font-family: Souvenir-Medium;">[Worn]</h4>
-                    </li>
-                  </div>
-
-                    {{#each data.computed.inventory.[Head].slots as |item|}}
-                        <script>
-                            drawInventory('head', {{{json item}}});
-                        </script>
-                    {{/each}}
+                    {{{renderInventory 1 data.computed.inventory.[Head] 'Worn'}}}
                 </ol>
-                <ol id="handsWornSlot" class="items-list inventory col" style="margin: 0 3px 0 3px;">
+
+                <ol id="handsWornSlot" class="items-list inventory-container col" data-container-type="Hands (Worn)" style="margin: 0 3px 0 3px;">
                   <li class="item flexrow item-header" id="handsWornSlotHeader">
                     <div class="item-image"></div>
                     <div class="item-name" style="font-family: Souvenir-Demi;">Hands (Worn)</div>
@@ -657,23 +632,10 @@
                       <a class="item-control item-create" title="Create item" data-type="item" type="Hands"><i class="fas fa-plus"></i></a>
                     </div>
                   </li>
-    
-                  <!-- Placeholder <li> -->
-                  <div id="handsWornPlaceholder">
-                      {{#times 2}}
-                          <li class="flexrow placeholder">
-                              <h4 class="item-name" style="font-family: Souvenir-Medium;">[Worn]</h4>
-                          </li>
-                      {{/times}}
-                  </div>
-
-                    {{#each data.computed.inventory.[Hands (Worn)].slots as |item|}}
-                        <script>
-                            drawInventory('handsWorn', {{{json item}}});
-                        </script>
-                    {{/each}}
+                    {{{renderInventory 2 data.computed.inventory.[Hands (Worn)] 'Worn'}}}
                 </ol>
-                <ol id="handsCarriedSlot" class="items-list inventory col" style="margin: 0 3px 0 3px;">
+
+                <ol id="handsCarriedSlot" class="items-list inventory-container col" data-container-type="Hands (Carried)" style="margin: 0 3px 0 3px;">
                   <li class="item flexrow item-header" id="handsCarriedSlotHeader">
                     <div class="item-image"></div>
                     <div class="item-name" style="font-family: Souvenir-Demi;">Hands (Carried)</div>
@@ -681,23 +643,10 @@
                       <a class="item-control item-create" title="Create item" data-type="item" type="Hands"><i class="fas fa-plus"></i></a>
                     </div>
                   </li>
-    
-                  <!-- Placeholder <li> -->
-                  <div id="handsCarriedPlaceholder">
-                      {{#times 2}}
-                          <li class="flexrow placeholder">
-                              <h4 class="item-name" style="font-family: Souvenir-Medium;">[Carried]</h4>
-                          </li>
-                      {{/times}}
-                  </div>
 
-                    {{#each data.computed.inventory.[Hands (Carried)].slots as |item|}}
-                        <script>
-                            drawInventory('handsCarried', {{{json item}}});
-                        </script>
-                    {{/each}}
+                    {{{renderInventory 2 data.computed.inventory.[Hands (Carried)] 'Carried'}}}
                 </ol>
-                <ol id="torsoSlot" class="items-list inventory col" style="margin: 0 3px 0 3px;">
+                <ol id="torsoSlot" class="items-list inventory-container col" data-container-type="Torso" style="margin: 0 3px 0 3px;">
                   <li class="item flexrow item-header" id="torsoSlotHeader">
                     <div class="item-image"></div>
                     <div class="item-name" style="font-family: Souvenir-Demi;">Torso</div>
@@ -705,23 +654,10 @@
                       <a class="item-control item-create" title="Create item" data-type="item" type="Torso"><i class="fas fa-plus"></i></a>
                     </div>
                   </li>
-    
-                  <!-- Placeholder <li> -->
-                  <div id="torsoPlaceholder">
-                      {{#times 3}}
-                          <li class="flexrow placeholder">
-                              <h4 class="item-name" style="font-family: Souvenir-Medium;">[Worn]</h4>
-                          </li>
-                      {{/times}}
-                  </div>
 
-                    {{#each data.computed.inventory.[Torso].slots as |item|}}
-                        <script>
-                            drawInventory('torso', {{{json item}}});
-                        </script>
-                    {{/each}}
+                    {{{renderInventory 3 data.computed.inventory.[Torso] 'Worn'}}}
                 </ol>
-                <ol id="pocketSlot" class="items-list inventory col" style="margin: 0 3px 0 3px;">
+                <ol id="pocketSlot" class="items-list inventory-container col" data-container-type="Pocket" style="margin: 0 3px 0 3px;">
                   <li class="item flexrow item-header" id="pocketSlotHeader">
                     <div class="item-image"></div>
                     <div class="item-name" style="font-family: Souvenir-Demi;">Pocket</div>
@@ -729,23 +665,12 @@
                       <a class="item-control item-create" title="Create item" data-type="item" type="Pocket"><i class="fas fa-plus"></i></a>
                     </div>
                   </li>
-    
-                  <!-- Placeholder Div -->
-                  <div id="pocketPlaceholder">
-                    <li class="flexrow placeholder">
-                      <h4 class="item-name" style="font-family: Souvenir-Medium;">[Trinkets]</h4>
-                    </li>
-                  </div>
 
-                    {{#each data.computed.inventory.[Pocket].slots as |item|}}
-                        <script>
-                            drawInventory('pocket', {{{json item}}});
-                        </script>
-                    {{/each}}
+                    {{{renderInventory 1 data.computed.inventory.[Pocket] 'Trinkets'}}}
                 </ol>
               </div>
               <div class="col">
-                <ol id="neckSlot" class="items-list inventory col" style="margin: 0 3px 0 3px;">
+                <ol id="neckSlot" class="items-list inventory-container col" data-container-type="Neck" style="margin: 0 3px 0 3px;">
                   <li class="item flexrow item-header" id="neckSlotHeader">
                     <div class="item-image"></div>
                     <div class="item-name" style="font-family: Souvenir-Demi;">Neck</div>
@@ -754,20 +679,9 @@
                     </div>
                   </li>
     
-                  <!-- Placeholder Div -->
-                  <div id="neckPlaceholder">
-                    <li class="flexrow placeholder">
-                      <h4 class="item-name" style="font-family: Souvenir-Medium;">[Worn]</h4>
-                    </li>
-                  </div>
-
-                    {{#each data.computed.inventory.[Neck].slots as |item|}}
-                        <script>
-                            drawInventory('neck', {{{json item}}});
-                        </script>
-                    {{/each}}
+                    {{{renderInventory 1 data.computed.inventory.[Neck] 'Worn'}}}
                 </ol>
-                <ol id="feetSlot" class="items-list inventory col" style="margin: 0 3px 0 3px;">
+                <ol id="feetSlot" class="items-list inventory-container col" data-container-type="Feet" style="margin: 0 3px 0 3px;">
                   <li class="item flexrow item-header" id="feetSlotHeader">
                     <div class="item-image"></div>
                     <div class="item-name" style="font-family: Souvenir-Demi;">Feet</div>
@@ -776,19 +690,9 @@
                     </div>
                   </li>
     
-                  <!-- Placeholder Div -->
-                  <div id="feetPlaceholder">
-                    <li class="flexrow placeholder">
-                      <h4 class="item-name" style="font-family: Souvenir-Medium;">[Worn]</h4>
-                    </li>
-                  </div>
-                  {{#each data.computed.inventory.[Feet].slots as |item|}}
-                      <script>
-                          drawInventory('feet', {{{json item}}});
-                      </script>
-                  {{/each}}
+                    {{{renderInventory 1 data.computed.inventory.[Feet] 'Worn'}}}
                 </ol>
-                <ol id="beltSlot" class="items-list inventory col" style="margin: 0 3px 0 3px;">
+                <ol id="beltSlot" class="items-list inventory-container col" data-container-type="Belt" style="margin: 0 3px 0 3px;">
                   <li class="item flexrow item-header" id="beltSlotHeader">
                     <div class="item-image"></div>
                     <div class="item-name" style="font-family: Souvenir-Demi;">Belt</div>
@@ -797,23 +701,10 @@
                     </div>
                   </li>
     
-                  <!-- Placeholder <li> -->
-                  <div id="beltPlaceholder">
-                      {{#times 3}}
-                          <li class="flexrow placeholder">
-                              <h4 class="item-name" style="font-family: Souvenir-Medium;">[Belt]</h4>
-                          </li>
-                      {{/times}}
-                  </div>
-
-                    {{#each data.computed.inventory.[Belt].slots as |item|}}
-                        <script>
-                            drawInventory('belt', {{{json item}}});
-                        </script>
-                    {{/each}}
+                    {{{renderInventory 3 data.computed.inventory.[Belt] 'Worn'}}}
                 </ol>
 
-                <ol id="groundSlot" class="items-list col" style="margin: 0 3px 0 3px;">
+                <ol id="groundSlot" class="items-list inventory-container col" data-container-type="On Ground" style="margin: 0 3px 0 3px;">
                   <li class="item flexrow item-header" id="groundSlotHeader">
                     <div class="item-image"></div>
                     <div class="item-name" style="font-family: Souvenir-Demi;">On Ground</div>
@@ -821,12 +712,7 @@
                       <a class="item-control item-create" title="Create item" data-type="item" type="On Ground"><i class="fas fa-plus"></i></a>
                     </div>
                   </li>
-
-                  {{#each data.computed.inventory.[On Ground].slots as |item|}}
-                      <script>
-                        document.getElementById('groundSlotHeader').insertAdjacentHTML("afterend", '<li class="item flexrow" data-item-id="{{item._id}}" data-item-type="{{item.equip}}"><div class="item-image"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></div><h4 class="item-name" style="font-family: Souvenir-Medium;">{{item.name}}</h4><div class="item-controls"><a class="item-control item-edit" title="Edit Item" style="margin-right: 5px;"><i class="fas fa-edit"></i></a><a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a></div></li>');
-                      </script>
-                  {{/each}}
+                    {{{renderInventory 0 data.computed.inventory.[On Ground] 'Ground'}}}
                 </ol>
               </div>
             </div>

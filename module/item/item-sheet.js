@@ -1,15 +1,9 @@
-Hooks.on('renderTorchbearerItemSheet', (sheet, el, item) => {
-  if(item.data.capacity) {
-    sheet._tabs[0].active = "inventory";
-  } else {
-    sheet._tabs[0].active = "description";
-  }
-});
-
 /**
  * Extend the basic ItemSheet with some very simple modifications
  * @extends {ItemSheet}
  */
+import {isCompatibleContainer} from "../inventory/inventory.js";
+
 export class TorchbearerItemSheet extends ItemSheet {
 
   /** @override */
@@ -17,8 +11,9 @@ export class TorchbearerItemSheet extends ItemSheet {
     return mergeObject(super.defaultOptions, {
       classes: ["torchbearer", "sheet", "item"],
       width: 450,
-      height: 400,
-      tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description" }]
+      height: 450,
+      tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description" }],
+      dragDrop: [{dragSelector: ".items-list .item", dropSelector: null}]
     });
   }
 
@@ -38,7 +33,6 @@ export class TorchbearerItemSheet extends ItemSheet {
   /** @override */
   getData() {
     const data = super.getData();
-
     switch (this.item.data.data.equip) {
       case this.item.data.data.equipOptions.option1.value:
         this.item.update({'data.carried': this.item.data.data.carryOptions.option1.value});
@@ -54,15 +48,12 @@ export class TorchbearerItemSheet extends ItemSheet {
         break;
     }
 
-    if(data.data.capacity) {
-      data.data.inventory = [];
-      if(this.item.actor !== null) {
-        if(this.item.actor.data.data.computed.inventory[this.item._id]) {
-          data.data.inventory = [].concat(this.item.actor.data.data.computed.inventory[this.item._id].slots);
-        }
-      }
+    data.inventoryContainerClass = '';
+    data.containerType = '';
+    if(this.item.data.data.capacity) {
+      data.inventoryContainerClass = 'inventory-container';
+      data.containerType = 'Pack';
     }
-
     return data;
   }
 
@@ -97,80 +88,53 @@ export class TorchbearerItemSheet extends ItemSheet {
       const li = $(ev.currentTarget).parents(".item");
 
       if(this.item.actor) {
-        this.item.actor.removeItemFromInventory(li.data("itemId"));
+        this.item.actor.removeItemFromInventory(li.data("itemId")).then(() => {
+          setTimeout(() => {
+            this.item._onUpdate();
+          }, 0);
+        });
       }
     });
+  }
 
+  /** @override */
+  _canDragStart(selector) {
+    return this.options.editable && this.item.actor && this.item.actor.owner;
+  }
 
-    html.find('#itemCarriedDropdown').click(ev => {
-      this.item.update({'data.prevEquip': this.item.data.data.equip});
-    });
+  /* -------------------------------------------- */
 
-    html.find('#itemCarriedDropdown').change(ev => {
-      const newEquip = ev.currentTarget.selectedOptions[0].value;
-      const oldEquip = this.item.data.data.prevEquip;
-      const oldSlots = this.item.data.data.slots;
-      const selectedValue = ev.currentTarget.selectedIndex;
-      const selectedTemplateName = ev.currentTarget.children[selectedValue].attributes[0].value;
-      let newSlots = 0;
-      if (selectedTemplateName === 'data.equipOptions.option1.value') {
-        newSlots = this.item.data.data.slotOptions.option1.value;
-      } else if (selectedTemplateName === 'data.equipOptions.option2.value') {
-        newSlots = this.item.data.data.slotOptions.option2.value;
-      } else if(selectedTemplateName === 'data.equipOptions.option3.value') {
-        newSlots = this.item.data.data.slotOptions.option3.value;
-      }
-      
-      if (this.actor != null) {
-        // Remove the slots being used from slotsAvailable
-        switch (newEquip) {
-          case "Head":
-            this.actor.update({'data.Head.wornSlotsAvailable': this.actor.data.data.Head.wornSlotsAvailable - newSlots});
-            break;
-          case "Neck":
-            this.actor.update({'data.Neck.wornSlotsAvailable': this.actor.data.data.Neck.wornSlotsAvailable - newSlots});
-            break;
-          case "Hands (Worn)":
-            this.actor.update({'data.Hands.wornSlotsAvailable': this.actor.data.data.Hands.wornSlotsAvailable - newSlots});
-            break;
-          case "Hands (Carried)":
-            this.actor.update({'data.Hands.carriedSlotsAvailable': this.actor.data.data.Hands.carriedSlotsAvailable - newSlots});
-            break;
-          case "Feet":
-            this.actor.update({'data.Feet.wornSlotsAvailable': this.actor.data.data.Feet.wornSlotsAvailable - newSlots});
-            break;
-          case "Torso":
-            this.actor.update({'data.Torso.wornSlotsAvailable': this.actor.data.data.Torso.wornSlotsAvailable - newSlots});
-            break;
-          case "Belt":
-            this.actor.update({'data.Belt.packSlotsAvailable': this.actor.data.data.Belt.packSlotsAvailable - newSlots});
-            break; 
-        }
-        // Add the slots being vacated back to slotsAvailable
-        switch (oldEquip) {
-          case "Head":
-            this.actor.update({'data.Head.wornSlotsAvailable': this.actor.data.data.Head.wornSlotsAvailable + oldSlots});
-            break;
-          case "Neck":
-            this.actor.update({'data.Neck.wornSlotsAvailable': this.actor.data.data.Neck.wornSlotsAvailable + oldSlots});
-            break;
-          case "Hands (Worn)":
-            this.actor.update({'data.Hands.wornSlotsAvailable': this.actor.data.data.Hands.wornSlotsAvailable + oldSlots});
-            break;
-          case "Hands (Carried)":
-            this.actor.update({'data.Hands.carriedSlotsAvailable': this.actor.data.data.Hands.carriedSlotsAvailable + oldSlots});
-            break;
-          case "Feet":
-            this.actor.update({'data.Feet.wornSlotsAvailable': this.actor.data.data.Feet.wornSlotsAvailable + oldSlots});
-            break;
-          case "Torso":
-            this.actor.update({'data.Torso.wornSlotsAvailable': this.actor.data.data.Torso.wornSlotsAvailable + oldSlots});
-            break;
-          case "Belt":
-            this.actor.update({'data.Belt.packSlotsAvailable': this.actor.data.data.Belt.packSlotsAvailable + oldSlots});
-            break; 
-        }
-      }
+  /** @override */
+  _canDragDrop(selector) {
+    return this.options.editable && this.item.actor && this.item.actor.owner;
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  _onDragStart(event) {
+    const li = event.currentTarget;
+    const item = this.item.actor.getOwnedItem(li.dataset.itemId);
+    const dragData = {
+      type: "Item",
+      actorId: this.item.actor.id,
+      data: item.data
+    };
+    if (this.item.actor.isToken) dragData.tokenId = this.item.actor.token.id;
+    event.dataTransfer.setData("text/plain", JSON.stringify(dragData));
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  async _onDrop(event) {
+    if(!this.item.actor) {
+      return;
+    }
+    this.item.actor.sheet._onDrop(event).then(() => {
+      setTimeout(() => {
+        this.item._onUpdate();
+      }, 0);
     });
   }
 }

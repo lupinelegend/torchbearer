@@ -2,6 +2,8 @@
  * Extend the basic ActorSheet with some very simple modifications
  * @extends {ActorSheet}
  */
+import {isCompatibleContainer} from "../inventory/inventory.js";
+
 export class TorchbearerActorSheet extends ActorSheet {
 
   /** @override */
@@ -11,7 +13,8 @@ export class TorchbearerActorSheet extends ActorSheet {
       template: "systems/torchbearer/templates/actor/actor-sheet.html",
       width: 617,
       height: 848,
-      tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description" }]
+      tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description" }],
+      dragDrop: [{dragSelector: ".items-list .item", dropSelector: null}]
     });
   }
 
@@ -65,10 +68,10 @@ export class TorchbearerActorSheet extends ActorSheet {
     html.find('.item-delete').click(ev => {
       const li = $(ev.currentTarget).parents(".item");
 
-      this.actor.removeItemFromInventory(li.data("itemId"));
-
-      // Get the equipment slot of the item being deleted
-      li.slideUp(200, () => this.render(false));
+      this.actor.removeItemFromInventory(li.data("itemId")).then(() => {
+        // Get the equipment slot of the item being deleted
+        li.slideUp(200, () => this.render(false));
+      });
     });
 
     // Rollable abilities
@@ -100,64 +103,11 @@ export class TorchbearerActorSheet extends ActorSheet {
   _onItemCreate(event) {
     event.preventDefault();
     
-    //console.log(this.html.find('#headPlaceholder'));
     const header = event.currentTarget;
-    
+
     // Get the type of item to create.
     const type = header.dataset.type;
     
-    // Prevent item creation if there are no inventory slots for it, else lower number of slots by 1
-    switch (header.type) {
-      case "Head":
-        if (this.actor.data.data.Head.wornSlotsAvailable < 1) {
-          ui.notifications.error('ERROR: No additional head inventory slots available.');
-          return;
-        } else {
-          this.actor.update({'data.Head.wornSlotsAvailable': this.actor.data.data.Head.wornSlotsAvailable - 1});
-        }
-        break;
-      case "Neck":
-        if (this.actor.data.data.Neck.wornSlotsAvailable < 1) {
-          ui.notifications.error('ERROR: No additional neck inventory slots available.');
-          return;
-        } else {
-          this.actor.update({'data.Neck.wornSlotsAvailable': this.actor.data.data.Neck.wornSlotsAvailable - 1});
-        }
-        break;
-      case "Hands":
-        break;
-      case "Feet":
-        break;
-      case "Torso":
-        if (this.actor.data.data.Torso.wornSlotsAvailable < 1) {
-          ui.notifications.error('ERROR: No additional torso inventory slots available.');
-          return;
-        } else {
-          this.actor.update({'data.Torso.wornSlotsAvailable': this.actor.data.data.Torso.wornSlotsAvailable - 1});
-        }
-        break;
-      case "Pack":
-        console.log(this.actor.data.data.Pack.packSatchel);
-        if (this.actor.data.data.Pack.packSatchel === true) {
-          // The Actor has a satchel equipped and has 3 total slots
-          if (this.actor.data.data.Pack.packSlotsAvailableSatchel < 1) {
-            ui.notifications.error('ERROR: No additional satchel inventory slots available.');
-            return;
-          } else {
-            this.actor.update({'data.Pack.packSlotsAvailableSatchel': this.actor.data.data.Pack.packSlotsAvailableSatchel - 1});
-          }
-        } else {
-          // The Actor has a backpack equipped and has 6 total slots
-          if (this.actor.data.data.Pack.packSlotsAvailableBackpack < 1) {
-            ui.notifications.error('ERROR: No additional backpack inventory slots available.');
-            return;
-          } else {
-            this.actor.update({'data.Pack.packSlotsAvailableBackpack': this.actor.data.data.Pack.packSlotsAvailableBackpack - 1});
-          }
-        }
-        break;         
-    }
-
     // Grab any data associated with this control.
     const equipSlot = header.type;
     const data = duplicate(header.dataset);
@@ -601,104 +551,50 @@ export class TorchbearerActorSheet extends ActorSheet {
     });
   }
 
-  subtractAvailableSlots(location, howCarried, slots) {
-    console.log("Slots ", slots);
-    console.log("Total ", this.actor.data.data[location][howCarried + "SlotsTotal"]);
-    console.log("Available ", this.actor.data.data[location][howCarried + "SlotsAvailable"]);
-    if (slots > this.actor.data.data[location][howCarried + "SlotsTotal"]) {
-      ui.notifications.error('ERROR: Item too large to be ' + howCarried + ' on your ' + location + '.');
-      return false;
-    } else if (slots > this.actor.data.data[location][howCarried + "SlotsAvailable"]) {
-      ui.notifications.error('ERROR: Not enough ' + location + ' inventory slots available.');
-      return false;
+  closestCompatibleContainer(item, target) {
+    let $closestContainer = $(target).closest('.inventory-container');
+    if(!$closestContainer.length) {
+      return {};
+    }
+    const containerType = $closestContainer.data('containerType');
+    const containerId = $closestContainer.data('itemId');
+    if(isCompatibleContainer(item, containerType)) {
+      return {
+        containerType,
+        containerId: containerId || '',
+      };
     } else {
-      const update = {};
-      update['data.' + location + '.' + howCarried + 'SlotsAvailable'] = this.actor.data.data[location][howCarried + "SlotsAvailable"] - slots;
-      console.log("Update ", JSON.stringify(update));
-      this.actor.update(update);
-      return true;
+      return this.closestCompatibleContainer(item, $closestContainer.parent());
     }
   }
 
   /** @override */
   async _onDrop(event) {
-    console.log(event);
-    let data;
-    try {
-      data = JSON.parse(event.dataTransfer.getData('text/plain'));
-      if (data.type !== "Item") return;
-      const id = data.id;
-      const item = game.items.get(id);
-      const equip = item.data.data.equip;
-      const slots = item.data.data.slots;
-      console.log('Equip location: ' + equip);
-      console.log('Slots: ' + slots);
-
-      switch (equip) {
-        case "Head":
-          if(!this.subtractAvailableSlots("Head", "worn", slots)) {
-            return;
-          }
-          break;
-        case "Neck":
-          if(!this.subtractAvailableSlots("Neck", "worn", slots)) {
-            return;
-          }
-          break;
-        case "Hands (Worn)":
-          if(!this.subtractAvailableSlots("Hands", "worn", slots)) {
-            return;
-          }
-          break;
-        case "Hands (Carried)":
-          if(!this.subtractAvailableSlots("Hands", "carried", slots)) {
-            return;
-          }
-          break;
-        case "Feet":
-          if(!this.subtractAvailableSlots("Feet", "worn", slots)) {
-            return;
-          }
-          break;
-        case "Torso":
-          if(!this.subtractAvailableSlots("Torso", "worn", slots)) {
-            return;
-          }
-          break;
-        case "Belt":
-          if(!this.subtractAvailableSlots("Belt", "pack", slots)) {
-            return;
-          }
-          break;
-        case "Quiver":
-
-        case "Pack":
-        // case "Pack":
-        //   console.log(this.actor.data.data.Pack.packSatchel);
-        //   if (this.actor.data.data.Pack.packSatchel === true) {
-        //     // The Actor has a satchel equipped and has 3 total slots
-        //     if (this.actor.data.data.Pack.packSlotsAvailableSatchel < 1) {
-        //       ui.notifications.error('ERROR: No additional satchel inventory slots available.');
-        //       return;
-        //     } else {
-        //       this.actor.update({'data.Pack.packSlotsAvailableSatchel': this.actor.data.data.Pack.packSlotsAvailableSatchel - 1});
-        //     }
-        //   } else {
-        //     // The Actor has a backpack equipped and has 6 total slots
-        //     if (this.actor.data.data.Pack.packSlotsAvailableBackpack < 1) {
-        //       ui.notifications.error('ERROR: No additional backpack inventory slots available.');
-        //       return;
-        //     } else {
-        //       this.actor.update({'data.Pack.packSlotsAvailableBackpack': this.actor.data.data.Pack.packSlotsAvailableBackpack - 1});
-        //     }
-        //   }
-        //   break;         
-      }
-    } catch (err) {
-      return false;
+    let item = await super._onDrop(event);
+    if(item._id) {
+      item = this.actor.items.get(item._id);
     }
-
-    super._onDrop(event);
+    if(item.data) {
+      let oldContainerId = item.data.data.containerId;
+      let {containerType, containerId} = this.closestCompatibleContainer(item, event.target);
+      if(containerType) {
+        await item.update({data: {equip: containerType, containerId: containerId}});
+        this.actor._onUpdate({items: true});
+        if(oldContainerId) {
+          let oldContainer = this.actor.items.get(oldContainerId);
+          setTimeout(() => {
+            oldContainer.sheet.render(false);
+          }, 0)
+        }
+      }
+    }
+    return item;
   }
 
+  /** @override */
+  _onSortItem(event, itemData) {
+    super._onSortItem(event, itemData);
+    let item = this.actor.items.get(itemData._id);
+    return item.data;
+  }
 }

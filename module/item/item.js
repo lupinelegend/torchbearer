@@ -1,3 +1,5 @@
+import {cloneInventory, newItemInventory} from "../inventory/inventory.js";
+
 /**
  * Extend the basic Item with some very simple modifications.
  * @extends {Item}
@@ -13,5 +15,14 @@ export class TorchbearerItem extends Item {
     const itemData = this.data;
     const actorData = this.actor ? this.actor.data : {};
     const data = itemData.data;
+
+    data.computed = {};
+    if(data.capacity) {
+      if(this.actor && actorData.data.computed.inventory[this._id]) {
+        data.computed.inventory = actorData.data.computed.inventory[this._id];
+      } else {
+        data.computed.inventory = newItemInventory(this);
+      }
+    }
   }
 }

@@ -569,72 +569,6 @@
 					"fate": false,
 					"persona": false
 				}
-			},
-			"inventory": {
-				"Head": {
-					"wornSlotsTotal": 1,
-					"wornSlotsAvailable": 1,
-					"damaged": false
-				},
-				"Neck": {
-					"wornSlotsTotal": 1,
-					"wornSlotsAvailable": 1
-				},
-				"Hands": {
-					"wornSlotsTotal": 2,
-					"wornSlotsAvailable": 2,
-					"carriedSlotsTotal": 2,
-					"carriedSlotsAvailable": 2
-				},
-				"Feet": {
-					"wornSlotsTotal": 1,
-					"wornSlotsAvailable": 1
-				},
-				"Torso": {
-					"wornSlotsTotal": 3,
-					"wornSlotsAvailable": 3,
-					"damaged": false
-				},
-				"Belt": {
-					"packSlotsTotal": 3,
-					"packSlotsAvailable": 3
-				},
-				"Pocket": {
-					"pocketCarried1": "",
-					"pocketCarried2": "",
-					"pocketCarried3": ""
-				},
-				"Pack": {
-					"packCarried1": "",
-					"packCarried2": "",
-					"packCarried3": "",
-					"packCarried4": "",
-					"packCarried5": "",
-					"packCarried6": "",
-					"packSlotsTotalSatchel": 3,
-					"packSlotsAvailableSatchel": 3,
-					"packSlotsTotalBackpack": 6,
-					"packSlotsAvailableBackpack": 6,
-					"packDropped": false,
-					"packLost": false,
-					"packSatchel": false
-				},
-				"cache": {
-					"cacheSlot1": "",
-					"cacheSlot2": "",
-					"cacheSlot3": "",
-					"cacheSlot4": "",
-					"cacheSlot5": "",
-					"cacheSlot6": "",
-					"cacheSlot7": "",
-					"cacheSlot8": "",
-					"cacheSlot9": "",
-					"cacheSlot10": "",
-					"cacheSlot11": "",
-					"cacheSlot12": "",
-					"packSlotsTotal": 12,
-					"packSlotsAvailable": 12
-				}
 			}
     },
     "Character": {
@@ -699,6 +633,10 @@
 			"bundleSize": 1,
 			"resizes": false,
 			"containerId": "",
+			"maxDraughts": 0,
+			"draughts": 0,
+			"liquid": "",
+			"damaged": false,
 			"equipOptions": {
 				"option1": {
 					"value": ""
