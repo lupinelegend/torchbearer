@@ -13,7 +13,8 @@ export class TorchbearerActorSheet extends ActorSheet {
       template: "systems/torchbearer/templates/actor/actor-sheet.html",
       width: 617,
       height: 848,
-      tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description" }]
+      tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description" }],
+      dragDrop: [{dragSelector: ".items-list .item", dropSelector: null}]
     });
   }
 
@@ -453,7 +454,7 @@ export class TorchbearerActorSheet extends ActorSheet {
     if(isCompatibleContainer(item, containerType)) {
       return {
         containerType,
-        containerId,
+        containerId: containerId || '',
       };
     } else {
       return this.closestCompatibleContainer(item, $closestContainer.parent());
@@ -463,11 +464,30 @@ export class TorchbearerActorSheet extends ActorSheet {
   /** @override */
   async _onDrop(event) {
     let item = await super._onDrop(event);
-    item = this.actor.items.get(item._id);
-    let {containerType, containerId} = this.closestCompatibleContainer(item, event.target);
-    if(containerType) {
-      await item.update({data: {equip: containerType, containerId: containerId}});
-      this.actor._onUpdate({items: true});
+    if(item._id) {
+      item = this.actor.items.get(item._id);
     }
+    if(item.data) {
+      let oldContainerId = item.data.data.containerId;
+      let {containerType, containerId} = this.closestCompatibleContainer(item, event.target);
+      if(containerType) {
+        await item.update({data: {equip: containerType, containerId: containerId}});
+        this.actor._onUpdate({items: true});
+        if(oldContainerId) {
+          let oldContainer = this.actor.items.get(oldContainerId);
+          setTimeout(() => {
+            oldContainer.sheet.render(false);
+          }, 0)
+        }
+      }
+    }
+    return item;
+  }
+
+  /** @override */
+  _onSortItem(event, itemData) {
+    super._onSortItem(event, itemData);
+    let item = this.actor.items.get(itemData._id);
+    return item.data;
   }
 }

@@ -2,9 +2,6 @@
 
 Inventory
 - 
-- Drop from Items directory onto Item (e.g. Backpack) sheet
-- Drag and Drop within Actor sheet sections
-- Drag and Drop between sheets
 - Make On Ground items not take extra visual slots
 - Dynamic sizing for bags within bags
 - Make Line Item rendering for containers indicate that they have contents somehow

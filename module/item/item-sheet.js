@@ -13,7 +13,7 @@ export class TorchbearerItemSheet extends ItemSheet {
       width: 450,
       height: 450,
       tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description" }],
-      dragDrop: [{dragSelector: ".item-list .item", dropSelector: null}]
+      dragDrop: [{dragSelector: ".items-list .item", dropSelector: null}]
     });
   }
 
@@ -99,14 +99,14 @@ export class TorchbearerItemSheet extends ItemSheet {
 
   /** @override */
   _canDragStart(selector) {
-    return this.options.editable && this.item.actor.owner;
+    return this.options.editable && this.item.actor && this.item.actor.owner;
   }
 
   /* -------------------------------------------- */
 
   /** @override */
   _canDragDrop(selector) {
-    return this.options.editable && this.item.actor.owner;
+    return this.options.editable && this.item.actor && this.item.actor.owner;
   }
 
   /* -------------------------------------------- */
@@ -120,8 +120,6 @@ export class TorchbearerItemSheet extends ItemSheet {
       actorId: this.item.actor.id,
       data: item.data
     };
-    console.log("onDragStart");
-    console.log(dragData);
     if (this.item.actor.isToken) dragData.tokenId = this.item.actor.token.id;
     event.dataTransfer.setData("text/plain", JSON.stringify(dragData));
   }
