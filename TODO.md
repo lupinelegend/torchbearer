@@ -5,6 +5,7 @@ Inventory
 - Drop from Items directory onto Item (e.g. Backpack) sheet
 - Drag and Drop within Actor sheet sections
 - Drag and Drop between sheets
+- Dynamic sizing for bags within bags
 - Cascading to different default equip options
 - Show damaged status in item attributes and on list
 - Special Equipping Rules (e.g. Quivers, only 1 of a Satchel or a Backpack, Belt rules etc)
