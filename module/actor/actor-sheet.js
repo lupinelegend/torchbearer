@@ -153,7 +153,7 @@ export class TorchbearerActorSheet extends ActorSheet {
     }
 
     // Capitalize first letter for later use in the roll template
-    let header = rollTarget.charAt(0).toUpperCase() + rollTarget.slice(1);
+    let header = 'Testing: ' + rollTarget.charAt(0).toUpperCase() + rollTarget.slice(1);
 
     let freshCheck = "";
     if (this.actor.data.data.fresh === true) {
@@ -520,9 +520,9 @@ export class TorchbearerActorSheet extends ActorSheet {
       displaySuccesses = `${rolledSuccesses} Successes`;
     }
 
-    let passFail = 'Fail!';
+    let passFail = ' - Fail!';
     if (rolledSuccesses >= ob) {
-      passFail = 'Pass!'
+      passFail = ' - Pass!'
     }
 
     renderTemplate('systems/torchbearer/templates/roll-template.html', {title: header, results: rollResult, dice: diceToRoll, success: displaySuccesses, flavorText: flavor, outcome: passFail}).then(t => {
