@@ -4,7 +4,7 @@
     <header class="sheet-header">
 
       <!-- Actor Image -->
-      <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/> 
+      <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"> 
       <div class="header-fields">
         <!-- Actor Name -->
         <h1 style="font-family: Souvenir-Demi;" class="charname">
@@ -38,10 +38,10 @@
 
           <div class="flex-group-center">
 
-            <label style="font-family: Souvenir-Demi; font-size: 16px;" for="data.checks.value">Checks</label>
+            <label style="font-family: Souvenir-Demi; font-size: 16px;" for="data.totalChecks.value">Checks</label>
             
             <div class="resource-content flexrow">
-              <input id="currentChecks" type="text" name="data.checks.value" value="{{data.checks.value}}" data-dtype="Number"/>
+              <input id="currentChecks" type="text" name="data.totalChecks.value" value="{{data.totalChecks.value}}" data-dtype="Number"/>
             </div>
 
           </div>
@@ -430,7 +430,7 @@
               <div id="trait1Data" style="justify-self: center;">
                 <select name="data.traits.trait1.level.value" id="trait1LevelDropdown" title="trait1">
                   {{#select data.traits.trait1.level.value}}
-                  <option value="1">1</option>
+                  <option value="1" selected>1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
                   {{/select}}

@@ -4,6 +4,9 @@ import { TorchbearerActorSheet } from "./actor/actor-sheet.js";
 import { TorchbearerItem } from "./item/item.js";
 import { TorchbearerItemSheet } from "./item/item-sheet.js";
 
+// Import Helpers
+import * as chat from "./chat.js";
+
 Hooks.once('init', async function() {
 
   game.torchbearer = {
@@ -19,6 +22,13 @@ Hooks.once('init', async function() {
     formula: "1d20",
     decimals: 2
   };
+
+  Hooks.on("renderChatMessage", (app, html, data) => {
+    html.find('#luckBtn').click(ev => {
+      chat.fateForLuck(ev);
+    });
+  });
+  
 
   // Define custom Entity classes
   CONFIG.Actor.entityClass = TorchbearerActor;

@@ -32,6 +32,13 @@ export class TorchbearerActorSheet extends ActorSheet {
     });
     data.data.conditionProgress = Math.round(conditionsTrue * inc);
 
+    // Update checks
+    let trait1Checks = parseInt(data.data.traits.trait1.checks.checksEarned);
+    let trait2Checks = parseInt(data.data.traits.trait2.checks.checksEarned);
+    let trait3Checks = parseInt(data.data.traits.trait3.checks.checksEarned);
+    let trait4Checks = parseInt(data.data.traits.trait4.checks.checksEarned);
+    data.data.totalChecks.value = trait1Checks + trait2Checks + trait3Checks + trait4Checks;
+
     return data;
   }
 
@@ -186,6 +193,15 @@ export class TorchbearerActorSheet extends ActorSheet {
     // Determine attribute/skill to roll
     let rollTarget = dataset.label;
 
+    // Determine if rollTarget is a skill
+    let skill = this.isSkill(rollTarget);
+
+    // Determine if double-tapping Nature is an option
+    let doubleTap = false;
+    if (skill.rating === 0) {
+      doubleTap = true;
+    }
+
     // Capitalize first letter for later use in the roll template
     let header = rollTarget.charAt(0).toUpperCase() + rollTarget.slice(1);
 
@@ -201,10 +217,12 @@ export class TorchbearerActorSheet extends ActorSheet {
     let traits = [];
     const traitList = this.actor.data.data.traits;
     Object.keys(traitList).forEach(key => {
-      traits.push(traitList[key].name);
+      if (traitList[key].name != "") {
+        traits.push(traitList[key].name);
+      }
     });
 
-    renderTemplate(dialogContent, {attribute: header, traitList: traits, fresh: freshCheck}).then(template => {
+    renderTemplate(dialogContent, {attribute: header, traitList: traits, fresh: freshCheck, natureDoubleTap: doubleTap}).then(template => {
       new Dialog({
         title: `Test`,
         content: template,
@@ -218,12 +236,14 @@ export class TorchbearerActorSheet extends ActorSheet {
               let ob = html.find('#ob')[0].value;
               let nature = html.find('#natureYes')[0].checked;
               let supplies = html.find('#supplies')[0].value;
+              let persona = html.find('#personaAdvantage')[0].value;
               let trait = {
                 name: html.find('#traitDropdown')[0].value,
                 usedFor: html.find('#traitFor')[0].checked,
-                usedAgainst: html.find('#traitAgainst')[0].checked
+                usedAgainst: html.find('#traitAgainst')[0].checked,
+                usedAgainstExtra: html.find('#traitAgainstExtra')[0].checked
               };
-              this.tbRoll(rollTarget, flavor, header, help, ob, trait, nature, freshCheck, supplies);
+              this.tbRoll(rollTarget, flavor, header, help, ob, trait, nature, freshCheck, supplies, persona);
             }
           },
           no: {
@@ -236,7 +256,48 @@ export class TorchbearerActorSheet extends ActorSheet {
     });
   }
 
-  tbRoll(rollTarget, flavor, header, help, ob, trait, nature, freshCheck, supplies) {
+  isSkill(rollTarget) {
+    // Create an array of skills for the if check below
+    let skills = [];
+    const skillList = this.actor.data.data.skills;
+    Object.keys(skillList).forEach(key => {
+      skills.push(skillList[key].name);
+    });
+
+    let skillInfo = {
+      "name": "",
+      "rating": 0,
+      "blAbility": ""
+    };
+
+    skills.forEach(key => {
+      if (rollTarget === key) {
+        skillInfo.name = rollTarget;
+        skillInfo.rating = this.actor.data.data.skills[rollTarget].rating;
+        skillInfo.blAbility = this.actor.data.data.skills[rollTarget].bl;
+      }
+    });
+
+    if (skillInfo.name === "") {
+      return false;
+    } else {
+      return skillInfo;
+    }
+  }
+
+  whichTrait(trait) {
+    let temp = '';
+    let traitFinder = this.actor.data.data.traits;
+    Object.keys(traitFinder).forEach((key, index) => {
+      if (trait.name === traitFinder[key].name) {
+        temp = `trait${index+1}`;
+      }
+    });
+    return temp;
+  }
+
+  tbRoll(rollTarget, flavor, header, help, ob, trait, nature, freshCheck, supplies, persona) {
+    
     // Check to see if the Fresh bonus should be applied
     let freshMod = 0;
     if (freshCheck === "checked") {
@@ -265,7 +326,6 @@ export class TorchbearerActorSheet extends ActorSheet {
       if (trait.usedFor === true) {
         // Make sure the Trait is able to be used beneficially
         let traitFinder = this.actor.data.data.traits;
-        console.log(Object.keys(traitFinder));
         Object.keys(traitFinder).forEach((key, index) => {
           if (trait.name === traitFinder[key].name) {
             if (traitFinder[key].level.value === "1") {
@@ -344,7 +404,52 @@ export class TorchbearerActorSheet extends ActorSheet {
         });
       } else if (trait.usedAgainst === true) {
         traitMod = -1;
+        // Add checks to the actor sheet
+        let traitNum = this.whichTrait(trait);
+        switch(traitNum) {
+          case 'trait1':
+            this.actor.update({'data.traits.trait1.checks.checksEarned': parseInt(this.actor.data.data.traits.trait1.checks.checksEarned + 1)});
+            break;
+          case 'trait2':
+            this.actor.update({'data.traits.trait2.checks.checksEarned': parseInt(this.actor.data.data.traits.trait3.checks.checksEarned + 1)});
+            break;
+          case 'trait3':
+            this.actor.update({'data.traits.trait3.checks.checksEarned': parseInt(this.actor.data.data.traits.trait3.checks.checksEarned + 1)});
+            break;
+          case 'trait4':
+            this.actor.update({'data.traits.trait4.checks.checksEarned': parseInt(this.actor.data.data.traits.trait4.checks.checksEarned + 1)});
+            break;
+        }
+      } else if (trait.usedAgainstExtra === true) {
+        traitMod = -2;
+        // Add a check to the actor sheet
+        let traitNum = this.whichTrait(trait);
+        switch(traitNum) {
+          case 'trait1':
+            this.actor.update({'data.traits.trait1.checks.checksEarned': parseInt(this.actor.data.data.traits.trait1.checks.checksEarned + 2)});
+            break;
+          case 'trait2':
+            this.actor.update({'data.traits.trait2.checks.checksEarned': parseInt(this.actor.data.data.traits.trait3.checks.checksEarned + 2)});
+            break;
+          case 'trait3':
+            this.actor.update({'data.traits.trait3.checks.checksEarned': parseInt(this.actor.data.data.traits.trait3.checks.checksEarned + 2)});
+            break;
+          case 'trait4':
+            this.actor.update({'data.traits.trait4.checks.checksEarned': parseInt(this.actor.data.data.traits.trait4.checks.checksEarned + 2)});
+            break;
+        }
       }
+    }
+
+    // Check to see if persona points are spent to add +XD
+    let personaMod = 0;
+    if (persona != "" && this.actor.data.data.persona.value >= parseInt(persona)) {
+      personaMod = parseInt(persona);
+      this.actor.update({'data.persona.value': this.actor.data.data.persona.value - personaMod});
+      this.actor.update({'data.persona.spent': this.actor.data.data.persona.spent + personaMod});
+    } else if (persona != "" && this.actor.data.data.persona.value < parseInt(persona)) {
+      ui.notifications.error("ERROR: You don't have enough persona to spend.");
+      return;
     }
 
     // Determine if Nature has been tapped. If so, add Nature to roll and deduce 1 persona point.
@@ -376,33 +481,35 @@ export class TorchbearerActorSheet extends ActorSheet {
         if (this.actor.data.data.skills[rollTarget].rating === 0) {
           let blAbility = this.actor.data.data.skills[rollTarget].bl;
           if (blAbility === "W") {
-            beginnersLuck = " BL(W)";
             // If Will is not zero, roll Beginner's Luck as normal
             if (this.actor.data.data.will.value != 0) {
-              diceToRoll = Math.ceil((this.actor.data.data.will.value + suppliesMod + helpMod)/2) + traitMod + natureMod + freshMod;
+              beginnersLuck = "(Beginner's Luck, Will)";
+              diceToRoll = Math.ceil((this.actor.data.data.will.value + suppliesMod + helpMod)/2) + traitMod + natureMod + freshMod + personaMod;
             } else if (this.actor.data.data.will.value === 0) {
               // If Will is zero, use Nature instead
-              diceToRoll = Math.ceil((this.actor.data.data.nature.value + suppliesMod + helpMod)/2) + traitMod + natureMod + freshMod;
+              beginnersLuck = "(Beginner's Luck, Nature)";
+              diceToRoll = Math.ceil((this.actor.data.data.nature.value + suppliesMod + helpMod)/2) + traitMod + natureMod + freshMod + personaMod;
             }
           } else if (blAbility === "H") {
-            beginnersLuck = " BL(H)";
             // If Health is not zero, roll Beginner's Luck as normal
             if (this.actor.data.data.health.value != 0) {
-              diceToRoll = Math.ceil((this.actor.data.data.health.value + suppliesMod + helpMod)/2) + traitMod + natureMod + freshMod;
+              beginnersLuck = "(Beginner's Luck, Health)";
+              diceToRoll = Math.ceil((this.actor.data.data.health.value + suppliesMod + helpMod)/2) + traitMod + natureMod + freshMod + personaMod;
             } else if (this.actor.data.data.will.value === 0) {
               // If Health is zero, use Nature instead
-              diceToRoll = Math.ceil((this.actor.data.data.nature.value + suppliesMod + helpMod)/2) + traitMod + natureMod + freshMod;
+              beginnersLuck = "(Beginner's Luck, Nature)";
+              diceToRoll = Math.ceil((this.actor.data.data.nature.value + suppliesMod + helpMod)/2) + traitMod + natureMod + freshMod + personaMod;
             }
           }
         } else {
-          diceToRoll = this.actor.data.data.skills[rollTarget].rating + traitMod + natureMod + freshMod + suppliesMod + helpMod;
+          diceToRoll = this.actor.data.data.skills[rollTarget].rating + traitMod + natureMod + freshMod + suppliesMod + helpMod + personaMod;
         }
       }
     });
 
     // Otherwise it's an ability
     if (diceToRoll === undefined) {
-      diceToRoll = this.actor.data.data[rollTarget].value + traitMod + natureMod + freshMod + suppliesMod + helpMod;
+      diceToRoll = this.actor.data.data[rollTarget].value + traitMod + natureMod + freshMod + suppliesMod + helpMod + personaMod;
     }
 
     // Build the formula
