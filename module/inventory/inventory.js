@@ -123,3 +123,11 @@ export function cloneInventory(inventory) {
     cloned.slots = [].concat(inventory.slots);
     return cloned;
 }
+
+export function isCompatibleContainer(item, containerType) {
+    return [
+        item.data.data.equipOptions.option1.value,
+        item.data.data.equipOptions.option2.value,
+        item.data.data.equipOptions.option3.value,
+    ].includes(containerType);
+}

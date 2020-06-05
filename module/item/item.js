@@ -1,4 +1,4 @@
-import {cloneInventory, newItemInventory} from "../actor/inventory/inventory.js";
+import {cloneInventory, newItemInventory} from "../inventory/inventory.js";
 
 /**
  * Extend the basic Item with some very simple modifications.

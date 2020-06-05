@@ -1,4 +1,4 @@
-import {arrangeInventory} from "./inventory/inventory.js";
+import {arrangeInventory} from "../inventory/inventory.js";
 
 export class TorchbearerActor extends Actor {
 
