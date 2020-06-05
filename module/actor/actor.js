@@ -27,6 +27,7 @@ export class TorchbearerActor extends Actor {
 
     // Make a new Object that holds computed data and keeps it separate from anything else
     data.computed = {};
+    console.log(actorData.items);
     data.computed.inventory = arrangeInventory(actorData.items);
   }
 
