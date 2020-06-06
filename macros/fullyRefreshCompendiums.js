@@ -13,6 +13,10 @@
         const kind = compendiums[i];
         const pack = game.packs.find(p => p.collection === `torchbearer.${kind}`);
         await pack.configure({locked: false});
+        const existingContent = await pack.getContent();
+        for(const entry of existingContent) {
+            await pack.deleteEntity(entry._id);
+        }
         const response = await fetch(`systems/torchbearer/Compendium jsons/${kind}.json`);
         const content = await response.json();
         const created = await Item.create(content, {temporary: true});
