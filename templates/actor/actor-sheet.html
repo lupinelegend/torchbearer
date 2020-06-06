@@ -256,7 +256,7 @@
                 </div>
                 <div style="display: flex; flex-direction: row; text-align: center;">
                   <input type="text" name="data.will.value" value="{{data.will.value}}" data-dtype="Number" style="padding: 5px; margin: 0 10px 0 10px; width: 30px"/>
-                  <img src="../systems/torchbearer/assets/icons/d6.png" style="height: 24px; width: 24; border: none;" class="rollable" data-label="will">
+                  <img src="../systems/torchbearer/assets/icons/d6.png" style="height: 24px; width: 24; border: none; margin-left: 7px;" class="rollable" data-label="will">
                 </div>
                 <div class="resource-content flexrow flex-center flex-between">
                   <input id="willPass" type="text" name="data.will.pass" value="{{data.will.pass}}" data-dtype="Number"/>
@@ -269,7 +269,7 @@
                 <h4 style="font-family: Souvenir-Medium; margin: 0 0 0 0rem !important; align-self: center;">Health</h4>
                 <div style="display: flex; flex-direction: row; text-align: center;">
                   <input type="text" name="data.health.value" value="{{data.health.value}}" data-dtype="Number" style="padding: 5px; margin: 0 10px 0 10px; width: 30px"/>
-                  <img src="../systems/torchbearer/assets/icons/d6.png" style="height: 24px; width: 24; border: none;" class="rollable" data-label="health">
+                  <img src="../systems/torchbearer/assets/icons/d6.png" style="height: 24px; width: 24; border: none; margin-left: 7px;" class="rollable" data-label="health">
                 </div>
                 <div class="resource-content flexrow flex-center flex-between">
                   <input id="healthPass" type="text" name="data.health.pass" value="{{data.health.pass}}" data-dtype="Number"/>
@@ -282,7 +282,7 @@
                 <h4 style="font-family: Souvenir-Medium; margin: 0 0 0 0rem !important; align-self: center;">Nature</h4>
                 <div style="display: flex; flex-direction: row; align-items: center;">
                   <input type="text" name="data.nature.value" value="{{data.nature.value}}" data-dtype="Number" style="padding: 5px; width: 10px"/>
-                  <span> / </span>
+                  <span>&nbsp/&nbsp</span>
                   <input type="text" name="data.nature.max" value="{{data.nature.max}}" data-dtype="Number" style="padding: 5px; margin-right: 5px; width: 10px"/>
                   <img src="../systems/torchbearer/assets/icons/d6.png" style="height: 24px; width: 24; border: none;" class="rollable" data-label="nature">
                 </div>
@@ -297,7 +297,7 @@
                 <h4 style="font-family: Souvenir-Medium; margin: 0 0 0 0rem !important; align-self: center;">Resources</h4>
                 <div style="display: flex; flex-direction: row; text-align: center;">
                   <input type="text" name="data.resources.value" value="{{data.resources.value}}" data-dtype="Number" style="padding: 5px; margin: 0 10px 0 10px; width: 30px"/>
-                  <img src="../systems/torchbearer/assets/icons/d6.png" style="height: 24px; width: 24; border: none;" class="rollable" data-label="resources">
+                  <img src="../systems/torchbearer/assets/icons/d6.png" style="height: 24px; width: 24; border: none; margin-left: 7px;" class="rollable" data-label="resources">
                 </div>
                 <div class="resource-content flexrow flex-center flex-between">
                   <input id="resourcesPass" type="text" name="data.resources.pass" value="{{data.resources.pass}}" data-dtype="Number"/>
@@ -310,7 +310,7 @@
                 <h4 style="font-family: Souvenir-Medium; margin: 0 0 0 0rem !important; align-self: center;">Circles</h4>
                 <div style="display: flex; flex-direction: row; text-align: center;">
                   <input type="text" name="data.circles.value" value="{{data.circles.value}}" data-dtype="Number" style="padding: 5px; margin: 0 10px 0 10px; width: 30px"/>
-                  <img src="../systems/torchbearer/assets/icons/d6.png" style="height: 24px; width: 24; border: none;" class="rollable" data-label="circles">
+                  <img src="../systems/torchbearer/assets/icons/d6.png" style="height: 24px; width: 24; border: none; margin-left: 7px;" class="rollable" data-label="circles">
                 </div>
                 <div class="resource-content flexrow flex-center flex-between">
                   <input id="circlesPass" type="text" name="data.circles.pass" value="{{data.circles.pass}}" data-dtype="Number"/>
@@ -323,11 +323,11 @@
                 <!-- Precedence -->
                 <div style="display: flex; flex-direction: row; text-align: center;">
                   <h4 style="font-family: Souvenir-Medium; width: 81.66px; margin: 0 10px 0 0 !important; align-self: center;">Precedence</h4>
-                  <input type="text" name="data.precedence.value" value="{{data.precedence.value}}" data-dtype="Number" style="margin: 0 0 0 10px; width: 30px !important; justify-self: end;"/>
+                  <input type="text" name="data.precedence.value" value="{{data.precedence.value}}" data-dtype="Number" style="margin: 0 0 0 11px; width: 30px !important; justify-self: end;"/>
                 </div>
                 <!-- Might -->
                 <div style="display: flex; flex-direction: row; text-align: center;">
-                  <h4 style="font-family: Souvenir-Medium; margin: 0 20px 0 46px !important; align-self: center;">Might</h4>
+                  <h4 style="font-family: Souvenir-Medium; margin: 0 20px 0 48px !important; align-self: center;">Might</h4>
                   <input type="text" name="data.might.value" value="{{data.might.value}}" data-dtype="Number" style="width: 30px !important; justify-self: end;"/>
                 </div>
               </div>
@@ -593,9 +593,9 @@
                   </td>
                   <td>
                     <div class="resource-content flexrow flex-center flex-between" style="padding-left: 20px;">
-                      <input type="text" name="data.skills.{{key}}.pass" value="{{skill.pass}}" data-dtype="Number" style="width: 30px;"/>
+                      <input type="text" name="data.skills.{{key}}.pass" value="{{skill.pass}}" data-dtype="Number" style="width: 30px; min-width: 30px;"/>
                       <span> / </span>
-                      <input type="text" name="data.skills.{{key}}.fail" value="{{skill.fail}}" data-dtype="Number" style="width: 30px;"/>
+                      <input type="text" name="data.skills.{{key}}.fail" value="{{skill.fail}}" data-dtype="Number" style="width: 30px; min-width: 30px;"/>
                     </div>
                   </td>
                   <td name="data.skills.{{key}}.bl" style="padding-left: 20px;">{{skill.bl}}</td>

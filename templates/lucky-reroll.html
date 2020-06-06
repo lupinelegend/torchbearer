@@ -1,0 +1,20 @@
+<section>
+  <div>
+    <h2 style="font-family: Souvenir-Demi;">{{title}}</h2>
+    {{#if rollDetails}}
+      <div class="row" style="font-family: Souvenir-Medium; margin: 0 0 5px 0;">
+        <strong>{{rollDetails}} {{bL}}</strong>
+      </div>
+    {{/if}}
+    
+    {{#if flavorText}}
+      <div class="row" style="font-family: Souvenir-MediumItalic;">
+        <em>{{flavorText}}</em>
+      </div>
+    {{/if}}
+
+    {{#if roll}}
+      <div class="roll">{{{roll}}}</div>
+    {{/if}}
+  </div>
+</section>

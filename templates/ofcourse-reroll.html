@@ -1,0 +1,28 @@
+<section>
+  <div>
+    <h2 style="font-family: Souvenir-Demi;">{{title}}</h2>
+    {{#if rollDetails}}
+      <div class="row" style="font-family: Souvenir-Medium; margin: 0 0 5px 0;">
+        <strong>{{rollDetails}} {{bL}}</strong>
+      </div>
+    {{/if}}
+    
+    {{#if flavorText}}
+      <div class="row" style="font-family: Souvenir-MediumItalic;">
+        <em>{{flavorText}}</em>
+      </div>
+    {{/if}}
+
+    {{#if roll}}
+      <div class="roll">{{{roll}}}</div>
+    {{/if}}
+  </div>
+  {{#if rerollsAvailable}}
+  <div class="row" style="flex-wrap: nowrap; padding: 0 0 0 0; margin-top: 2px;">
+    <button id="luckBtn" type="button" style="font-family: Souvenir-Medium; background: rgba(0, 0, 0, 0.1); border: 1px solid #999; border-radius: 3px; line-height: 24px;">
+      Luck
+      {{#if rerollsAvailable}} ({{rerollsAvailable}}D){{/if}}
+    </button>
+  </div>
+  {{/if}}
+</section>

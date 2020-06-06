@@ -26,16 +26,15 @@ Hooks.once('init', async function() {
   Hooks.on("renderChatMessage", (app, html, data) => {
     // Event listener for "Luck"
     html.find('#luckBtn').click(ev => {
-      // let actor = game.actors.get(data.message.speaker.actor);
       chat.fateForLuck(app, html, data);
     });
     // Event listener for "Of Course!"
     html.find('#ofCourseBtn').click(ev => {
-      // chat.fateForLuck(ev);
+      chat.ofCourse(app, html, data);
     });
      // Event listener for "Deeper Understanding"
      html.find('#deeperUnderstandingBtn').click(ev => {
-      // chat.fateForLuck(ev);
+      chat.deeperUnderstanding(app, html, data);
     });
   });
   

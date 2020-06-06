@@ -189,7 +189,12 @@ export class TorchbearerActorSheet extends ActorSheet {
               let help = html.find('#helpingDice')[0].value;
               let ob = html.find('#ob')[0].value;
               let nature = html.find('#natureYes')[0].checked;
-              let natureDoubleTap = html.find('#doubletapYes')[0].checked;
+              let natureDoubleTap;
+              if (html.find('#doubletapYes')[0] === undefined) {
+                natureDoubleTap = false;
+              } else {
+                natureDoubleTap = html.find('#doubletapYes')[0].checked;
+              }
               let supplies = html.find('#supplies')[0].value;
               let persona = html.find('#personaAdvantage')[0].value;
               let natureDescriptor = html.find('#natureDesc')[0].value;
@@ -522,11 +527,15 @@ export class TorchbearerActorSheet extends ActorSheet {
     //Create an array of the roll results
     let rollResult = [];
     let sixes = 0;
+    let scoundrels = 0;
     roll.parts[0].rolls.forEach((key, index) => {
       let tempObj = {result: key.roll, style: ''};
       if (key.roll === 6) {
         tempObj.style = ' max'
         sixes++;
+      }
+      if (key.roll < 4) {
+        scoundrels++;
       }
       if (helpMod != 0 && index >= (diceToRoll-helpMod-natureMod-personaMod)) {
         let temp = tempObj.style
@@ -546,6 +555,7 @@ export class TorchbearerActorSheet extends ActorSheet {
       rollResult.push(tempObj);
     });
     templateData.rerollsAvailable = sixes;
+    templateData.scoundrelsAvailable = scoundrels;
 
     // Count successes
     let rolledSuccesses = 0;
