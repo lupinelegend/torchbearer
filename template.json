@@ -628,7 +628,6 @@
 			"slots": 1,
 			"cost": "",
 			"description": "",
-			"quantity": 1,
 			"capacity": 0,
 			"bundleSize": 1,
 			"resizes": false,
@@ -637,6 +636,18 @@
 			"draughts": 0,
 			"liquid": "",
 			"damaged": false,
+		    "lightsource": {
+				"lasts": 0,
+				"remaining": 0,
+				"held": {
+					"characters": 0,
+					"dimCharacters": 0
+				},
+				"tossed": {
+					"characters": 0,
+					"dimCharacters": 0
+				}
+			},
 			"equipOptions": {
 				"option1": {
 					"value": ""
