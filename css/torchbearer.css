@@ -52,9 +52,28 @@
   background-image: url("../assets/icons/d6-grey.svg");
 }
 
-.dice-rolls .roll.max {
+.dice-rolls .roll.d6.max {
+  /* Green */
+  /* color: #18520b;
+  filter: sepia(0.5) hue-rotate(60deg); */
+}
+
+.dice-rolls .roll.help {
+  /* Blue */
+  color: #18520b;
+  filter: sepia(0.5) hue-rotate(135deg);
+}
+
+.dice-rolls .roll.nature {
+  /* Green */
   color: #18520b;
   filter: sepia(0.5) hue-rotate(60deg);
+}
+
+.dice-rolls .roll.persona {
+  /* Red */
+  color: #18520b;
+  filter: sepia(0.5) hue-rotate(275deg);
 }
 
 .activePack {

@@ -3,7 +3,7 @@
     <div class="dice">
       <ol class="dice-rolls">
           {{#each this.results as |index key|}}
-          <li class="roll die d6 {{index.style}}">{{index.result}}</li>
+          <li class="roll die d6{{index.style}}">{{index.result}}</li>
           {{/each}}
       </ol>
     </div>

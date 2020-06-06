@@ -37,9 +37,7 @@ function reRoll(formula, actor) {
   // Do the roll
   let roll = new Roll(formula);
   roll.roll();
-  console.log(roll);
   roll.parts[0].explode([6]);
-  console.log(roll);
 
   //Create an array of the roll results
   let rollResult = [];
@@ -47,7 +45,7 @@ function reRoll(formula, actor) {
     if (key.roll === 6) {
       rollResult.push({
         result: key.roll,
-        style: 'max'
+        style: ' max'
       });
     } else {
       rollResult.push({
