@@ -40,6 +40,13 @@
       "entity": "Item"
     },
     {
+      "name": "lights",
+      "label": "Torchbearer Lights",
+      "system": "torchbearer",
+      "path": "./packs/lights.db",
+      "entity": "Item"
+    },
+    {
       "name": "classes",
       "label": "Torchbearer Classes",
       "system": "torchbearer",
