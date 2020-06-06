@@ -155,6 +155,7 @@ export class TorchbearerActorSheet extends ActorSheet {
     // Capitalize first letter for later use in the roll template
     let header = 'Testing: ' + rollTarget.charAt(0).toUpperCase() + rollTarget.slice(1);
 
+    // Determine if the actor is Fresh
     let freshCheck = "";
     if (this.actor.data.data.fresh === true) {
       freshCheck = "checked";
@@ -277,6 +278,7 @@ export class TorchbearerActorSheet extends ActorSheet {
 
     // Determine if and how a Trait is being used
     let traitMod = 0;
+    let abort = false;
     if (trait.name != "") {
       if (trait.usedFor === true) {
         // Make sure the Trait is able to be used beneficially
@@ -286,9 +288,9 @@ export class TorchbearerActorSheet extends ActorSheet {
             if (traitFinder[key].level.value === "1") {
               // Return if the trait has already been used this session, else check it off
               if (traitFinder[key].uses.level1.use1 === true) {
-                console.log('TESTING123');
-                ui.notifications.error(`ERROR: You've already used ${trait.name} this session.`);
-                return;
+                abort = true;
+                // ui.notifications.error(`ERROR: You've already used ${trait.name} this session.`);
+                // return;
               } else {
                 let temp = `trait${index+1}`;
                 switch (temp) {
@@ -312,8 +314,9 @@ export class TorchbearerActorSheet extends ActorSheet {
               }
             } else if (traitFinder[key].level.value === "2") {
               if (traitFinder[key].uses.level1.use1 === true && traitFinder[key].uses.level2.use2 === true) {
-                ui.notifications.error(`ERROR: You've already used ${trait.name} this session.`);
-                return;
+                abort = true;
+                // ui.notifications.error(`ERROR: You've already used ${trait.name} this session.`);
+                // return;
               } else if (traitFinder[key].uses.level1.use1 === false) {
                 let temp = `trait${index+1}`;
                 switch (temp) {
@@ -395,6 +398,12 @@ export class TorchbearerActorSheet extends ActorSheet {
             break;
         }
       }
+    }
+
+    // Stop the roll if the user is trying to use a trait that's already been used this session
+    if (abort === true) {
+      ui.notifications.error(`ERROR: You've already used ${trait.name} this session.`);
+      return;
     }
 
     // Check to see if persona points are spent to add +XD
