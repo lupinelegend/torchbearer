@@ -175,6 +175,7 @@ export class TorchbearerActorSheet extends ActorSheet {
 
     // Build a Nature descriptor list to be passed to the dialog box
     let natureDesc = this.actor.data.data.natureDescriptors.split(', ');
+    natureDesc.push("Acting outside character's nature");
 
     renderTemplate(dialogContent, {attribute: header, traitList: traits, fresh: freshCheck, natureDoubleTap: doubleTap, natureDesc: natureDesc}).then(template => {
       new Dialog({
@@ -523,6 +524,7 @@ export class TorchbearerActorSheet extends ActorSheet {
     // Do the roll
     let roll = new Roll(formula);
     roll.roll();
+    roll.parts[0].options.ob = ob;
 
     //Create an array of the roll results
     let rollResult = [];

@@ -414,14 +414,14 @@
           <div>
             <!-- Traits Header -->
             <h2 style="font-family: Souvenir-Demi; border: none; margin: 0 0 0 0rem !important; text-align: center;">Traits</h2>
-            <div class="grid grid-4col" style="margin: 0 0 0 0 !important;">
+            <div class="grid grid-4col" style="gap: 5px; margin: 0 0 0 0 !important; grid-template-columns: 270px 70px 150px 50px;">
               <h4 style="font-family: Souvenir-Demi; margin: 0 0 0 0rem !important;"><u>Trait name</u></h4>
               <h4 style="font-family: Souvenir-Demi; margin: 0 0 0 0rem !important; justify-self: center;"><u>Trait level</u></h4>
-              <h4 style="font-family: Souvenir-Demi; margin: 0 0 0 0rem !important;"><u>Beneficial Uses</u></h4>
+              <h4 style="font-family: Souvenir-Demi; margin: 0 0 0 0rem !important; justify-self: center;"><u>Beneficial Uses</u></h4>
               <h4 style="font-family: Souvenir-Demi; margin: 0 0 0 0rem !important; justify-self: center;"><u>Checks</u></h4>
             </div>
             <!-- Trait 1 -->
-            <div class="grid grid-4col" style="gap: 5px; align-items: flex-end;">
+            <div class="grid grid-4col" style="gap: 5px; align-items: flex-end; grid-template-columns: auto 70px 150px 50px;">
               <div id="trait1Input">
                 <!-- Need a Traits comendium for this to work -->
                 <!-- <input type="text" id="trait1Dialog" class="clearPulldown" list="traitsList"> -->
@@ -451,7 +451,7 @@
               {{/ifeq}}
               {{#ifeq data.traits.trait1.level.value "3"}}
               <div id="trait1Uses" style="display: flex; flex-direction: row; align-self: center;">
-                <label style="font-family: Souvenir-Medium; align-self: center;" id="trait1UseLabel">All appropriate tests</label>
+                <label style="font-family: Souvenir-Medium; margin: auto;" id="trait1UseLabel">All appropriate tests</label>
               </div>
               {{/ifeq}}
               <div id="trait1Checks" style="margin: auto; text-align: center;">
@@ -459,7 +459,7 @@
               </div>
             </div>
             <!-- Trait 2 -->
-            <div class="grid grid-4col" style="gap: 5px; align-items: flex-end;">
+            <div class="grid grid-4col" style="gap: 5px; align-items: flex-end; grid-template-columns: auto 70px 150px 50px;">
               <div id="trait2Input">
                 <!-- <input type="text" id="trait2Dialog" class="clearPulldown" list="traitsList"> -->
                 <input type="text" name="data.traits.trait2.name" value="{{data.traits.trait2.name}}" id="trait2Name">
@@ -488,7 +488,7 @@
               {{/ifeq}}
               {{#ifeq data.traits.trait2.level.value "3"}}
               <div id="trait2Uses" style="display: flex; flex-direction: row; align-self: center;">
-                <label style="font-family: Souvenir-Medium; align-self: center;" id="trait2UseLabel">All appropriate tests</label>
+                <label style="font-family: Souvenir-Medium; margin: auto;" id="trait2UseLabel">All appropriate tests</label>
               </div>
               {{/ifeq}}
               <div id="trait2Checks" style="margin: auto; text-align: center;">
@@ -496,7 +496,7 @@
               </div>
             </div>
             <!-- Trait 3 -->
-            <div class="grid grid-4col" style="gap: 5px; align-items: flex-end;">
+            <div class="grid grid-4col" style="gap: 5px; align-items: flex-end; grid-template-columns: auto 70px 150px 50px;">
               <div id="trait3Input">
                 <!-- <input type="text" id="trait3Dialog" class="clearPulldown" list="traitsList"> -->
                 <input type="text" name="data.traits.trait3.name" value="{{data.traits.trait3.name}}" id="trait3Name">
@@ -525,7 +525,7 @@
               {{/ifeq}}
               {{#ifeq data.traits.trait3.level.value "3"}}
               <div id="trait3Uses" style="display: flex; flex-direction: row; align-self: center;">
-                <label style="font-family: Souvenir-Medium; align-self: center;" id="trait3UseLabel">All appropriate tests</label>
+                <label style="font-family: Souvenir-Medium; margin: auto;" id="trait3UseLabel">All appropriate tests</label>
               </div>
               {{/ifeq}}
               <div id="trait3Checks" style="margin: auto; text-align: center;">
@@ -533,7 +533,7 @@
               </div>
             </div>
             <!-- Trait 4 -->
-            <div class="grid grid-4col" style="gap: 5px; align-items: flex-end;">
+            <div class="grid grid-4col" style="gap: 5px; align-items: flex-end; grid-template-columns: auto 70px 150px 50px;">
               <div id="trait4Input">
                 <!-- <input type="text" id="trait4Dialog" class="clearPulldown" list="traitsList"> -->
                 <input type="text" name="data.traits.trait4.name" value="{{data.traits.trait4.name}}" id="trait4Name">
@@ -562,7 +562,7 @@
               {{/ifeq}}
               {{#ifeq data.traits.trait4.level.value "3"}}
               <div id="trait4Uses" style="display: flex; flex-direction: row; align-self: center;">
-                <label style="font-family: Souvenir-Medium; align-self: center;" id="trait4UseLabel">All appropriate tests</label>
+                <label style="font-family: Souvenir-Medium; margin: auto;" id="trait4UseLabel">All appropriate tests</label>
               </div>
               {{/ifeq}}
               <div id="trait4Checks" style="margin: auto; text-align: center;">

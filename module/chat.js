@@ -2,6 +2,8 @@ import { TorchbearerActor } from "./actor/actor.js";
 
 export const fateForLuck = function(app, html, data) {
   let actor = game.actors.get(data.message.speaker.actor);
+  let ob = app.roll.parts[0].options.ob;
+  console.log(`Ob passed in: ${ob}`);
 
   // Return if the actor doesn't have any fate points to spend
   if (actor.data.data.fate.value < 1) {
@@ -15,26 +17,34 @@ export const fateForLuck = function(app, html, data) {
   let diceRoll = app.roll;
   // Determine how many 6's were rolled
   let rerolls = 0;
+  let originalSuccesses = 0;
   diceRoll.parts[0].rolls.forEach(key => {
     if (key.roll === 6) {
       rerolls++;
     }
+    if (key.roll > 3) {
+      originalSuccesses++;
+    }
   });
+  if (app.roll.parts[0].options.currentSuccesses != undefined) {
+    originalSuccesses = app.roll.parts[0].options.currentSuccesses
+  }
+  console.log(`Original successes: ${originalSuccesses}`);
 
   // Return if there aren't any 6's to reroll
   if (rerolls === 0) {
     ui.notifications.error("There are no 6's to be rerolled");
     return;
   }
-
   let header = 'Lucky Reroll';
   let formula = `${rerolls}d6`;
   let explode = true;
-  reRoll(header, formula, explode, actor);
+  reRoll(header, formula, explode, actor, originalSuccesses, ob);
 }
 
 export const ofCourse = function(app, html, data) {
   let actor = game.actors.get(data.message.speaker.actor);
+  let ob = app.roll.parts[0].options.ob;
 
   // Return if the actor doesn't have any persona points to spend
   if (actor.data.data.persona.value < 1) {
@@ -48,9 +58,13 @@ export const ofCourse = function(app, html, data) {
   let diceRoll = app.roll;
   // Determine how many scoundrels were rolled
   let scoundrels = 0;
+  let originalSuccesses = 0;
   diceRoll.parts[0].rolls.forEach(key => {
     if (key.roll < 4) {
       scoundrels++;
+    }
+    if (key.roll > 3) {
+      originalSuccesses++;
     }
   });
 
@@ -63,7 +77,7 @@ export const ofCourse = function(app, html, data) {
   let header = 'Of Course!';
   let formula = `${scoundrels}d6`;
   let explode = false;
-  reRoll(header, formula, explode, actor);
+  reRoll(header, formula, explode, actor, originalSuccesses, ob);
 }
 
 export const deeperUnderstanding = function(app, html, data) {
@@ -99,7 +113,7 @@ export const deeperUnderstanding = function(app, html, data) {
   reRoll(header, formula, explode, actor);
 }
 
-function reRoll(header, formula, explode, actor) {
+function reRoll(header, formula, explode, actor, originalSuccesses, ob) {
   // Prep the roll template
   let template;
   if (header === 'Lucky Reroll' || header === 'Deeper Understanding') {
@@ -118,6 +132,7 @@ function reRoll(header, formula, explode, actor) {
   };
   let templateData = {
     title: header,
+    ob: ob,
     roll: {}
   };
 
@@ -160,10 +175,32 @@ function reRoll(header, formula, explode, actor) {
       rolledSuccesses++;
     }
   });
-  if (rolledSuccesses === 1) {
-    displaySuccesses = `${rolledSuccesses} Additional Success`;
+
+  let totalSuccesses;
+  if (roll.parts[0].options.currentSuccesses === undefined) {
+    totalSuccesses = originalSuccesses + rolledSuccesses;
   } else {
-    displaySuccesses = `${rolledSuccesses} Additional Successes`;
+    totalSuccesses = roll.parts[0].options.currentSuccesses + rolledSuccesses;
+  }
+
+  // Reassign the ob
+  roll.parts[0].options.ob = ob;
+  roll.parts[0].options.currentSuccesses = totalSuccesses;
+  console.log(`Post assignment: ${roll.parts[0].options.currentSuccesses}`);
+  console.log(roll);
+
+  if (totalSuccesses < ob) {
+    if (totalSuccesses === 1) {
+      displaySuccesses = `${originalSuccesses} + ${rolledSuccesses} = ${totalSuccesses} Success - Fail!`;
+    } else {
+      displaySuccesses = `${originalSuccesses} + ${rolledSuccesses} = ${totalSuccesses} Successes - Fail!`;
+    }
+  } else if (totalSuccesses >= ob) {
+    if (totalSuccesses === 1) {
+      displaySuccesses = `${originalSuccesses} + ${rolledSuccesses} = ${totalSuccesses} Success - Pass!`;
+    } else {
+      displaySuccesses = `${originalSuccesses} + ${rolledSuccesses} = ${totalSuccesses} Successes - Pass!`;
+    }
   }
 
   renderTemplate('systems/torchbearer/templates/roll-template.html', {title: header, results: rollResult, success: displaySuccesses}).then(t => {
