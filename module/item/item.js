@@ -16,8 +16,8 @@ export class TorchbearerItem extends Item {
     const actorData = this.actor ? this.actor.data : {};
     const data = itemData.data;
 
-    data.computed = {};
-    data.computed.consumedSlots = itemData.data.slots;
+    data.computed = data.computed || {};
+    data.computed.consumedSlots = data.computed.consumedSlots || itemData.data.slots;
     if(data.capacity) {
       if(this.actor && actorData.data.computed.inventory[this._id]) {
         data.computed.inventory = actorData.data.computed.inventory[this._id];

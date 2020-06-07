@@ -5,53 +5,71 @@ export function newItemInventory(item) {
         name: item.data.name,
         capacity: item.data.capacity,
         slots: [],
+        holdsBundles: true,
     };
 }
+
+let bundleableItem = function (item, container) {
+    //is the container bundleable, is the item bundleable,
+    // and is the item currently holding anything inside it?
+    return container.holdsBundles &&
+        item.data.bundleSize > 1 &&
+        item.data.slots === item.data.computed.consumedSlots;
+};
 
 export function arrangeInventory(items) {
     const inventory = {
         Head: {
             name: "Head",
             capacity: 1,
+            holdsBundles: false,
             slots: [],
         },
         "Hands (Worn)": {
             name: "Hands (Worn)",
             capacity: 2,
+            holdsBundles: false,
             slots: [],
         },
         "Hands (Carried)": {
             name: "Hands (Carried)",
             capacity: 2,
+            holdsBundles: false,
             slots: [],
         },
         Torso: {
             name: "Torso",
             capacity: 3,
+            holdsBundles: false,
             slots: [],
         },
         Pocket: {
             name: "Pocket",
             capacity: 1,
+            holdsBundles: false,
             slots: [],
         },
         Neck: {
             name: "Neck",
             capacity: 1,
+            holdsBundles: false,
             slots: [],
         },
         Feet: {
             name: "Feet",
             capacity: 1,
+            holdsBundles: false,
             slots: [],
         },
         Belt: {
             name: "Belt",
             capacity: 3,
+            holdsBundles: false,
             slots: [],
         },
         "On Ground": {
             name: "On Ground",
+            holdsBundles: false,
             slots: [],
         }
     };
@@ -80,6 +98,7 @@ export function arrangeInventory(items) {
     //Validate that no containers refer to each other as parents
     validateContainers(inventory);
 
+    //ensure capacity
     Object.keys(inventory).forEach((k) => {
         const sizeCache = {};
         let container = inventory[k];
@@ -89,15 +108,41 @@ export function arrangeInventory(items) {
             });
             delete inventory[k];
         } else {
+            const bundles = {};
             let consumed = 0;
             const removed = [];
             container.slots.forEach((i) => {
+                //first, can the item be bundled? if so, do that and exit the rest
+                // of the process
+                if(bundleableItem(i, container)) {
+                    i.data.computed.bundledWith = [];
+                    if(bundles[i.data.name]) {
+                        //Add this item to the bundle and queue it for removal from this inventory slot set
+                        bundles[i.data.name].data.computed.bundledWith.push(i);
+                        removed.push(i);
+                        //if the original item is now bundled with enough items to meet the size, it's
+                        // no longer an eligible bundle
+                        if(bundles[i.data.name].data.computed.bundledWith.length === i.data.bundleSize - 1) {
+                            delete bundles[i.data.name];
+                        }
+                        //once it's in a bundle we know there's nothing else to do here
+                        return;
+                    }
+                }
+                //last, can it be added to the container?
+                //if so, start the next bundle if possible
                 const size = calculateSize(i, inventory, sizeCache);
                 if ((consumed + size) > container.capacity) {
                     removed.push(i);
                     inventory["On Ground"].slots.push(i);
+                    if(bundles[i.data.name]) {
+                        delete bundle[i.data.name];
+                    }
                 } else {
                     consumed += size;
+                    if(bundleableItem(i, container)) {
+                        bundles[i.data.name] = i;
+                    }
                 }
             });
             if (removed.length) {
@@ -154,11 +199,15 @@ Handlebars.registerHelper('renderInventory', function(capacity, inventory, place
             if(multiSlot === false || i === item.data.computed.consumedSlots - 1) {
                 lastSlotTakenClass = 'last-slot-taken';
             }
+            let quantityExpression = '';
+            if(item.data.computed.bundledWith && item.data.computed.bundledWith.length > 0) {
+                quantityExpression = `(${item.data.computed.bundledWith.length + 1})`;
+            }
             if(i === 0) {
                 html +=
                     `<li class="item flexrow primary-slot-consumed ${inventoryContainerClass} ${lastSlotTakenClass}" data-item-id="${item._id}" data-container-type="${containerType}">
                   <div class="item-image"><img src="${item.img}" title="${item.name}" alt="${item.name}" width="24" height="24"/></div>
-                  <h4 class="item-name" style="font-family: Souvenir-Medium;">${item.name}</h4>
+                  <h4 class="item-name" style="font-family: Souvenir-Medium;">${item.name} ${quantityExpression}</h4>
                   <div class="item-controls">
                       <a class="item-control item-edit" title="Edit Item" style="margin-right: 5px;"><i class="fas fa-edit"></i></a>
                       <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
