@@ -1,6 +1,6 @@
 ( async () => {
     for(let item of game.items) {
-        game.items.remove(item._id);
+        await Item.delete(item._id);
     }
     game.items.directory.render();
     for(let actor of game.actors) {
