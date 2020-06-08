@@ -7,7 +7,7 @@ Inventory
 - Cascading to different default equip options
 - Show damaged status in item attributes and on list
 - Special Equipping Rules (e.g. Quivers, only 1 of a Satchel or a Backpack, Belt rules etc)
- - - Small sack bundling inventory consumption rules
+  - Small sack bundling inventory consumption rules
 - Filling out the equipment databases with base 1st ed content
 - Quick drop of item to ground, Quick pickup
 - Cached items (from 2nd ed sheet; maybe need a sub-tab for this)
@@ -26,6 +26,10 @@ Combat
 
 Light
 -
+- Allow users to indicate that held light sources are lit
+- Provide a global light tracker
+- GM advance light tracker and consume fuel on lit inventory items
+  - can specify which ones should be consumed (all by default)
 
 UI
 -
