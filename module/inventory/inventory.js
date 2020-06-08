@@ -18,6 +18,7 @@ let bundleableItem = function (item, container) {
 };
 
 export function arrangeInventory(items) {
+    console.log("arranging inventory");
     const inventory = {
         Head: {
             name: "Head",
@@ -114,8 +115,8 @@ export function arrangeInventory(items) {
             container.slots.forEach((i) => {
                 //first, can the item be bundled? if so, do that and exit the rest
                 // of the process
+                i.data.computed.bundledWith = [];
                 if(bundleableItem(i, container)) {
-                    i.data.computed.bundledWith = [];
                     if(bundles[i.data.name]) {
                         //Add this item to the bundle and queue it for removal from this inventory slot set
                         bundles[i.data.name].data.computed.bundledWith.push(i);
