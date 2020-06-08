@@ -4,49 +4,48 @@
     "type": "Item",
     "data": {
       "name": "Flask of oil",
-			"equip": "Hands (Carried)",
-			"carried": "Carried",
-			"slots": 1,
-			"cost": "Ob 2",
-			"description": "Lanterns use flasks of oil as fuel. Cost and inventory represents two ﬂasks of oil. A ﬂask of oil will fuel a lantern for three turns.",
-			"capacity": 0,
-			"bundleSize": 2,
-			"resizes": false,
-			"equipOptions": {
-				"option1": {
-					"value": "Hands (Carried)"
-				},
-				"option2": {
-					"value": "Pack"
-				},
-				"option3": {
-					"value": ""
-				}
-			},
-			"carryOptions": {
-				"option1": {
-					"value": "Carried"
-				},
-				"option2": {
-					"value": "Pack"
-				},
-				"option3": {
-					"value": ""
-				}
-			},
-			"slotOptions": {
-				"option1": {
-					"value": 1
-				},
-				"option2": {
-					"value": 1
-				},
-				"option3": {
-					"value": 0
-				}
-			},
-			"notes": "",
-			"prevEquip": ""
+      "equip": "Hands (Carried)",
+      "carried": "Carried",
+      "slots": 1,
+      "cost": "Ob 2",
+      "description": "Lanterns use flasks of oil as fuel. Cost and inventory represents two ﬂasks of oil. A ﬂask of oil will fuel a lantern for three turns.",
+      "capacity": 0,
+      "bundleSize": 2,
+      "resizes": false,
+      "equipOptions": {
+        "option1": {
+          "value": "Hands (Carried)"
+        },
+        "option2": {
+          "value": "Pack"
+        },
+        "option3": {
+          "value": ""
+        }
+      },
+      "carryOptions": {
+        "option1": {
+          "value": "Carried"
+        },
+        "option2": {
+          "value": "Pack"
+        },
+        "option3": {
+          "value": ""
+        }
+      },
+      "slotOptions": {
+        "option1": {
+          "value": 1
+        },
+        "option2": {
+          "value": 1
+        },
+        "option3": {
+          "value": 0
+        }
+      },
+      "notes": ""
     }
   },
   {
@@ -54,49 +53,48 @@
     "type": "Item",
     "data": {
       "name": "Garlic",
-			"equip": "Hands (Carried)",
-			"carried": "Carried",
-			"slots": 1,
-			"cost": "Ob 1",
-			"description": "Garlic grants +1D to tests involving driving off vampires or acts as supplies for cooking.",
-			"capacity": 0,
-			"bundleSize": 1,
-			"resizes": false,
-			"equipOptions": {
-				"option1": {
-					"value": "Hands (Carried)"
-				},
-				"option2": {
-					"value": "Neck"
-				},
-				"option3": {
-					"value": "Pack"
-				}
-			},
-			"carryOptions": {
-				"option1": {
-					"value": "Carried"
-				},
-				"option2": {
-					"value": "Worn"
-				},
-				"option3": {
-					"value": "Pack"
-				}
-			},
-			"slotOptions": {
-				"option1": {
-					"value": 1
-				},
-				"option2": {
-					"value": 1
-				},
-				"option3": {
-					"value": 1
-				}
-			},
-			"notes": "",
-			"prevEquip": ""
+      "equip": "Hands (Carried)",
+      "carried": "Carried",
+      "slots": 1,
+      "cost": "Ob 1",
+      "description": "Garlic grants +1D to tests involving driving off vampires or acts as supplies for cooking.",
+      "capacity": 0,
+      "bundleSize": 1,
+      "resizes": false,
+      "equipOptions": {
+        "option1": {
+          "value": "Hands (Carried)"
+        },
+        "option2": {
+          "value": "Neck"
+        },
+        "option3": {
+          "value": "Pack"
+        }
+      },
+      "carryOptions": {
+        "option1": {
+          "value": "Carried"
+        },
+        "option2": {
+          "value": "Worn"
+        },
+        "option3": {
+          "value": "Pack"
+        }
+      },
+      "slotOptions": {
+        "option1": {
+          "value": 1
+        },
+        "option2": {
+          "value": 1
+        },
+        "option3": {
+          "value": 1
+        }
+      },
+      "notes": ""
     }
   }
 ]  
