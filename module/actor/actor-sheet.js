@@ -532,6 +532,7 @@ export class TorchbearerActorSheet extends ActorSheet {
     let rollResult = [];
     let sixes = 0;
     let scoundrels = 0;
+    helpMod += suppliesMod;
     roll.parts[0].rolls.forEach((key, index) => {
       let tempObj = {result: key.roll, style: ''};
       if (key.roll === 6) {

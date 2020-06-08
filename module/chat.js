@@ -124,13 +124,21 @@ export const deeperUnderstanding = function(app, html, data) {
 
 export const logTest = function(app, html, data) {
   let actor = game.actors.get(data.message.speaker.actor);
-  console.log(`Last test: ${actor.data.data.lastTest}`);
+  let test = actor.data.data.lastTest;
+
   if (actor.data.data.isLastTestSkill === true) {
-    console.log(`Skill? ${actor.data.data.isLastTestSkill}`);
+    if (app.roll.parts[0].options.rollOutcome === 'pass') {
+      actor.update({'data.skills[test].pass': parseInt(actor.data.data.skills[test].pass += 1)});
+    } else if (app.roll.parts[0].options.rollOutcome === 'fail') {
+      actor.update({'data.skills[test].fail': parseInt(actor.data.data.skills[test].fail += 1)});
+    }
   } else if (actor.data.data.isLastTestSkill === false) {
-    console.log(`Skill? ${actor.data.data.isLastTestSkill}`);
+    if (app.roll.parts[0].options.rollOutcome === 'pass') {
+      actor.update({'data[test].pass': parseInt(actor.data.data[test].pass += 1)});
+    } else if (app.roll.parts[0].options.rollOutcome === 'fail') {
+      actor.update({'data[test].fail': parseInt(actor.data.data[test].fail += 1)});
+    }
   }
-  console.log(`Test outcome: ${app.roll.parts[0].options.rollOutcome}`);
 }
 
 function reRoll(header, formula, explode, actor, originalSuccesses, ob) {
