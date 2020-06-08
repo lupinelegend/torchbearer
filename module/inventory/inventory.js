@@ -18,7 +18,6 @@ let bundleableItem = function (item, container) {
 };
 
 export function arrangeInventory(items) {
-    console.log("arranging inventory");
     const inventory = {
         Head: {
             name: "Head",
