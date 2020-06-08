@@ -82,6 +82,7 @@ export const ofCourse = function(app, html, data) {
 
 export const deeperUnderstanding = function(app, html, data) {
   let actor = game.actors.get(data.message.speaker.actor);
+  let ob = app.roll.parts[0].options.ob;
 
   // Return if the actor doesn't have any fate points to spend
   if (actor.data.data.fate.value < 1) {
@@ -95,11 +96,19 @@ export const deeperUnderstanding = function(app, html, data) {
   let diceRoll = app.roll;
   // Determine how many scoundrels were rolled
   let scoundrels = 0;
+  let originalSuccesses = 0;
   diceRoll.parts[0].rolls.forEach(key => {
     if (key.roll < 4) {
       scoundrels++;
     }
+    if (key.roll > 3) {
+      originalSuccesses++;
+    }
   });
+  if (app.roll.parts[0].options.currentSuccesses != undefined) {
+    originalSuccesses = app.roll.parts[0].options.currentSuccesses
+  }
+  console.log(`Original successes: ${originalSuccesses}`);
 
   // Return if there aren't any scoundrels to reroll
   if (scoundrels === 0) {
@@ -110,18 +119,30 @@ export const deeperUnderstanding = function(app, html, data) {
   let header = 'Deeper Understanding';
   let formula = `1d6`;
   let explode = false;
-  reRoll(header, formula, explode, actor);
+  reRoll(header, formula, explode, actor, originalSuccesses, ob);
+}
+
+export const logTest = function(app, html, data) {
+  let actor = game.actors.get(data.message.speaker.actor);
+  console.log(`Last test: ${actor.data.data.lastTest}`);
+  if (actor.data.data.isLastTestSkill === true) {
+    console.log(`Skill? ${actor.data.data.isLastTestSkill}`);
+  } else if (actor.data.data.isLastTestSkill === false) {
+    console.log(`Skill? ${actor.data.data.isLastTestSkill}`);
+  }
+  console.log(`Test outcome: ${app.roll.parts[0].options.rollOutcome}`);
 }
 
 function reRoll(header, formula, explode, actor, originalSuccesses, ob) {
   // Prep the roll template
   let template;
-  if (header === 'Lucky Reroll' || header === 'Deeper Understanding') {
+  if (header === 'Lucky Reroll') {
     template = 'systems/torchbearer/templates/lucky-reroll.html';
   } else if (header === 'Of Course!') {
     template = 'systems/torchbearer/templates/ofcourse-reroll.html';
-  }
-  else {
+  } else if (header === 'Deeper Understanding') {
+    template = 'systems/torchbearer/templates/deeperunderstanding-reroll.html';
+  } else {
     template = 'systems/torchbearer/templates/torchbearer-roll.html';
   }
 
@@ -192,14 +213,18 @@ function reRoll(header, formula, explode, actor, originalSuccesses, ob) {
   if (totalSuccesses < ob) {
     if (totalSuccesses === 1) {
       displaySuccesses = `${originalSuccesses} + ${rolledSuccesses} = ${totalSuccesses} Success - Fail!`;
+      roll.parts[0].options.rollOutcome = 'fail';
     } else {
       displaySuccesses = `${originalSuccesses} + ${rolledSuccesses} = ${totalSuccesses} Successes - Fail!`;
+      roll.parts[0].options.rollOutcome = 'fail';
     }
   } else if (totalSuccesses >= ob) {
     if (totalSuccesses === 1) {
       displaySuccesses = `${originalSuccesses} + ${rolledSuccesses} = ${totalSuccesses} Success - Pass!`;
+      roll.parts[0].options.rollOutcome = 'pass';
     } else {
       displaySuccesses = `${originalSuccesses} + ${rolledSuccesses} = ${totalSuccesses} Successes - Pass!`;
+      roll.parts[0].options.rollOutcome = 'pass';
     }
   }
 

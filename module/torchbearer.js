@@ -26,17 +26,19 @@ Hooks.once('init', async function() {
   Hooks.on("renderChatMessage", (app, html, data) => {
     // Event listener for "Luck"
     html.find('#luckBtn').click(ev => {
-      console.log(app.roll);
       chat.fateForLuck(app, html, data);
     });
     // Event listener for "Of Course!"
     html.find('#ofCourseBtn').click(ev => {
-      console.log(app.roll);
       chat.ofCourse(app, html, data);
     });
-     // Event listener for "Deeper Understanding"
-     html.find('#deeperUnderstandingBtn').click(ev => {
+    // Event listener for "Deeper Understanding"
+    html.find('#deeperUnderstandingBtn').click(ev => {
       chat.deeperUnderstanding(app, html, data);
+    });
+    // Event listener for logging tests
+    html.find('#logTestBtn').click(ev => {
+      chat.logTest(app, html, data);
     });
   });
   

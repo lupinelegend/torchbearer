@@ -142,6 +142,7 @@ export class TorchbearerActorSheet extends ActorSheet {
     
     // Determine attribute/skill to roll
     let rollTarget = dataset.label;
+    this.actor.data.data.lastTest = rollTarget;
 
     // Determine if rollTarget is a skill
     let skill = this.isSkill(rollTarget);
@@ -452,6 +453,7 @@ export class TorchbearerActorSheet extends ActorSheet {
     // Is the thing being rolled a skill?
     skills.forEach(key => {
       if (rollTarget === key) {
+        this.actor.data.data.isLastTestSkill = true;
         if (natureDoubleTap === false) {
           // Check for Beginner's Luck
           if (this.actor.data.data.skills[rollTarget].rating === 0) {
@@ -488,12 +490,12 @@ export class TorchbearerActorSheet extends ActorSheet {
 
     // Otherwise it's an ability
     if (diceToRoll === undefined) {
+      this.actor.data.data.isLastTestSkill = false;
       if (natureDoubleTap === false) {
         diceToRoll = this.actor.data.data[rollTarget].value + traitMod + natureMod + freshMod + suppliesMod + helpMod + personaMod;  
       } else if (natureDoubleTap === true) {
         diceToRoll = this.actor.data.data.nature.value + suppliesMod + helpMod + traitMod + natureMod + freshMod + personaMod;
       }
-      
     }
 
     // Build the formula
@@ -556,8 +558,15 @@ export class TorchbearerActorSheet extends ActorSheet {
       }
       rollResult.push(tempObj);
     });
-    templateData.rerollsAvailable = sixes;
-    templateData.scoundrelsAvailable = scoundrels;
+
+    // Only loads these values if Fate and Persona are available to spend. Without these values
+    // being set, the buttons won't show up under the roll.
+    if (this.actor.data.data.fate.value != 0) {
+      templateData.rerollsAvailable = sixes;
+    }
+    if (this.actor.data.data.persona.value != 0) {
+      templateData.scoundrelsAvailable = scoundrels;
+    }
 
     // Count successes
     let rolledSuccesses = 0;
@@ -574,8 +583,10 @@ export class TorchbearerActorSheet extends ActorSheet {
     }
 
     let passFail = ' - Fail!';
+    roll.parts[0].options.rollOutcome = 'fail';
     if (rolledSuccesses >= ob) {
       passFail = ' - Pass!'
+      roll.parts[0].options.rollOutcome = 'pass';
     }
     renderTemplate('systems/torchbearer/templates/roll-template.html', {title: header, results: rollResult, dice: diceToRoll, success: displaySuccesses, flavorText: flavor, outcome: passFail}).then(t => {
       // Add the dice roll to the template

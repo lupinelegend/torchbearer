@@ -538,7 +538,9 @@
 						"notes": "",
 						"enemy": false
 					}
-				}
+				},
+				"lastTest": "",
+				"isLastTestSkill": false
 			},
 			"wises": {
 				"wise1": {
