@@ -3,7 +3,6 @@ import { TorchbearerActor } from "./actor/actor.js";
 export const fateForLuck = function(app, html, data) {
   let actor = game.actors.get(data.message.speaker.actor);
   let ob = app.roll.parts[0].options.ob;
-  console.log(`Ob passed in: ${ob}`);
 
   // Return if the actor doesn't have any fate points to spend
   if (actor.data.data.fate.value < 1) {
@@ -29,7 +28,6 @@ export const fateForLuck = function(app, html, data) {
   if (app.roll.parts[0].options.currentSuccesses != undefined) {
     originalSuccesses = app.roll.parts[0].options.currentSuccesses
   }
-  console.log(`Original successes: ${originalSuccesses}`);
 
   // Return if there aren't any 6's to reroll
   if (rerolls === 0) {
@@ -108,7 +106,6 @@ export const deeperUnderstanding = function(app, html, data) {
   if (app.roll.parts[0].options.currentSuccesses != undefined) {
     originalSuccesses = app.roll.parts[0].options.currentSuccesses
   }
-  console.log(`Original successes: ${originalSuccesses}`);
 
   // Return if there aren't any scoundrels to reroll
   if (scoundrels === 0) {
@@ -215,8 +212,6 @@ function reRoll(header, formula, explode, actor, originalSuccesses, ob) {
   // Reassign the ob
   roll.parts[0].options.ob = ob;
   roll.parts[0].options.currentSuccesses = totalSuccesses;
-  console.log(`Post assignment: ${roll.parts[0].options.currentSuccesses}`);
-  console.log(roll);
 
   if (totalSuccesses < ob) {
     if (totalSuccesses === 1) {
