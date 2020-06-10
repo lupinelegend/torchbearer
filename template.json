@@ -63,7 +63,7 @@
 				},
 				"nature": {
 					"value": 0,
-					"max": 7,
+					"max": 0,
 					"pass": 0,
 					"fail": 0
 				},

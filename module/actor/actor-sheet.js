@@ -49,9 +49,16 @@ export class TorchbearerActorSheet extends ActorSheet {
       skillsArray.push(skillList[key].name);
     });
     skillsArray.forEach(key => {
-      if (data.data.skills[key].pass === data.data.skills[key].rating && data.data.skills[key].fail === data.data.skills[key].rating - 1) {
-        ui.notifications.info(`You may now advance ${key} from ${data.data.skills[key].rating} to ${data.data.skills[key].rating + 1}`);
+      if (data.data.skills[key].rating > 0) {
+        if (data.data.skills[key].pass >= data.data.skills[key].rating && data.data.skills[key].fail >= data.data.skills[key].rating - 1) {
+          ui.notifications.info(`You may now advance ${key} from ${data.data.skills[key].rating} to ${data.data.skills[key].rating + 1}`);
+        }
+      } else if (data.data.skills[key].rating === 0) {
+        if (data.data.skills[key].pass + data.data.skills[key].fail >= data.data.nature.max) {
+          ui.notifications.info(`You may now advance ${key} to 2`);
+        }
       }
+      
     });
 
     // Check abilities to see if any can be advanced
@@ -106,22 +113,28 @@ export class TorchbearerActorSheet extends ActorSheet {
     // Event listener for advancing skills
     html.find('.advanceSkill').click(ev => {
       let skill = ev.currentTarget.innerText;
-      console.log(`Current Rating: ${this.actor.data.data.skills[skill].rating}`);
 
       if (this.actor.data.data.skills[skill].rating > 0) {
+        
         // If skill can be advanced, do so then clear passes and failures
         if (this.actor.data.data.skills[skill].pass >= this.actor.data.data.skills[skill].rating && this.actor.data.data.skills[skill].fail >= this.actor.data.data.skills[skill].rating - 1) {
 
           let update = {
-            'data.skills[skill].rating': this.actor.data.data.skills[skill].rating++,
-            'data.skills[skill].pass': 0,
-            'data.skills[skill].fail': 0
+            ['data.skills.' + skill + '.rating']: this.actor.data.data.skills[skill].rating + 1,
+            ['data.skills.' + skill + '.pass']: 0,
+            ['data.skills.' + skill + '.fail']: 0
           };
 
           this.actor.update(update);
-          console.log(`New Rating: ${this.actor.data.data.skills[skill].rating}`);
-          console.log(`Pass: ${this.actor.data.data.skills[skill].pass}`);
-          console.log(`Fail: ${this.actor.data.data.skills[skill].fail}`);
+        }
+      } else if (this.actor.data.data.skills[skill].rating === 0) {
+        if (this.actor.data.data.skills[skill].pass + this.actor.data.data.skills[skill].fail >= this.actor.data.data.nature.max) {
+          let update = {
+            ['data.skills.' + skill + '.rating']: 2,
+            ['data.skills.' + skill + '.pass']: 0,
+            ['data.skills.' + skill + '.fail']: 0
+          };
+          this.actor.update(update);
         }
       }
     });
