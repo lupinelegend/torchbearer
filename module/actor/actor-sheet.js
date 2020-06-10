@@ -108,26 +108,21 @@ export class TorchbearerActorSheet extends ActorSheet {
       let skill = ev.currentTarget.innerText;
       console.log(`Current Rating: ${this.actor.data.data.skills[skill].rating}`);
 
-      // If skill can be advanced, do so then clear passes and failures
-      if (this.actor.data.data.skills[skill].pass === this.actor.data.data.skills[skill].rating && this.actor.data.data.skills[skill].fail === this.actor.data.data.skills[skill].rating - 1) {
+      if (this.actor.data.data.skills[skill].rating > 0) {
+        // If skill can be advanced, do so then clear passes and failures
+        if (this.actor.data.data.skills[skill].pass >= this.actor.data.data.skills[skill].rating && this.actor.data.data.skills[skill].fail >= this.actor.data.data.skills[skill].rating - 1) {
 
-        let update = {
-          'data.skills[skill].rating': this.actor.data.data.skills[skill].rating++,
-          'data.skills[skill].pass': 0,
-          'data.skills[skill].fail': 0
-        };
+          let update = {
+            'data.skills[skill].rating': this.actor.data.data.skills[skill].rating++,
+            'data.skills[skill].pass': 0,
+            'data.skills[skill].fail': 0
+          };
 
-        this.actor.update(update);
-        console.log(`New Rating: ${this.actor.data.data.skills[skill].rating}`);
-        console.log(`Pass: ${this.actor.data.data.skills[skill].pass}`);
-        console.log(`Fail: ${this.actor.data.data.skills[skill].fail}`);
-
-        // Advance the skill rating
-        // this.actor.update({'data.skills[skill].rating': parseInt(this.actor.data.data.skills[skill].rating += 1)});
-
-        // Clear passes and failures
-        // this.actor.update({'data.skills[skill].pass': 0});
-        // this.actor.update({'data.skills[skill].fail': 0});
+          this.actor.update(update);
+          console.log(`New Rating: ${this.actor.data.data.skills[skill].rating}`);
+          console.log(`Pass: ${this.actor.data.data.skills[skill].pass}`);
+          console.log(`Fail: ${this.actor.data.data.skills[skill].fail}`);
+        }
       }
     });
 
