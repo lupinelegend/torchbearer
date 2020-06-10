@@ -252,7 +252,7 @@
               <!-- Will -->
               <div class="grid grid-3col" style="margin-right: 10px;">
                 <div style="align-self: center;">
-                  <h4 style="font-family: Souvenir-Medium; margin: 0 0 0 0rem !important;">Will</h4>
+                  <h4 class="advanceAbility" style="font-family: Souvenir-Medium; margin: 0 0 0 0rem !important;">Will</h4>
                 </div>
                 <div style="display: flex; flex-direction: row; text-align: center;">
                   <input type="text" name="data.will.value" value="{{data.will.value}}" data-dtype="Number" style="padding: 5px; margin: 0 10px 0 10px; width: 30px"/>
@@ -266,7 +266,7 @@
               </div>
               <!-- Health -->
               <div class="grid grid-3col" style="margin-right: 10px;">
-                <h4 style="font-family: Souvenir-Medium; margin: 0 0 0 0rem !important; align-self: center;">Health</h4>
+                <h4 class="advanceAbility" style="font-family: Souvenir-Medium; margin: 0 0 0 0rem !important; align-self: center;">Health</h4>
                 <div style="display: flex; flex-direction: row; text-align: center;">
                   <input type="text" name="data.health.value" value="{{data.health.value}}" data-dtype="Number" style="padding: 5px; margin: 0 10px 0 10px; width: 30px"/>
                   <img src="../systems/torchbearer/assets/icons/d6.png" style="height: 24px; width: 24; border: none; margin-left: 7px;" class="rollable" data-label="health">
@@ -279,7 +279,7 @@
               </div>
               <!-- Nature -->
               <div class="grid grid-3col" style="margin-right: 10px;">
-                <h4 style="font-family: Souvenir-Medium; margin: 0 0 0 0rem !important; align-self: center;">Nature</h4>
+                <h4 class="advanceAbility" style="font-family: Souvenir-Medium; margin: 0 0 0 0rem !important; align-self: center;">Nature</h4>
                 <div style="display: flex; flex-direction: row; align-items: center;">
                   <input type="text" name="data.nature.value" value="{{data.nature.value}}" data-dtype="Number" style="padding: 5px; width: 10px"/>
                   <span>&nbsp/&nbsp</span>
@@ -294,7 +294,7 @@
               </div>
               <!-- Resources -->
               <div class="grid grid-3col" style="margin-right: 10px;">
-                <h4 style="font-family: Souvenir-Medium; margin: 0 0 0 0rem !important; align-self: center;">Resources</h4>
+                <h4 class="advanceAbility" style="font-family: Souvenir-Medium; margin: 0 0 0 0rem !important; align-self: center;">Resources</h4>
                 <div style="display: flex; flex-direction: row; text-align: center;">
                   <input type="text" name="data.resources.value" value="{{data.resources.value}}" data-dtype="Number" style="padding: 5px; margin: 0 10px 0 10px; width: 30px"/>
                   <img src="../systems/torchbearer/assets/icons/d6.png" style="height: 24px; width: 24; border: none; margin-left: 7px;" class="rollable" data-label="resources">
@@ -307,7 +307,7 @@
               </div>
               <!-- Circles -->
               <div class="grid grid-3col" style="margin-right: 10px;">
-                <h4 style="font-family: Souvenir-Medium; margin: 0 0 0 0rem !important; align-self: center;">Circles</h4>
+                <h4 class="advanceAbility" style="font-family: Souvenir-Medium; margin: 0 0 0 0rem !important; align-self: center;">Circles</h4>
                 <div style="display: flex; flex-direction: row; text-align: center;">
                   <input type="text" name="data.circles.value" value="{{data.circles.value}}" data-dtype="Number" style="padding: 5px; margin: 0 10px 0 10px; width: 30px"/>
                   <img src="../systems/torchbearer/assets/icons/d6.png" style="height: 24px; width: 24; border: none; margin-left: 7px;" class="rollable" data-label="circles">
@@ -586,7 +586,7 @@
               <tbody style="font-family: Souvenir-Medium;">
                 {{#each data.skills as |skill key|}}
                 <tr>
-                  <td name="data.skills.{{key}}">{{key}}</td>
+                  <td class="advanceSkill" name="data.skills.{{key}}">{{key}}</td>
                   <td class="resource-content flex-center flexrow">
                     <input type="text" name="data.skills.{{key}}.rating" value="{{skill.rating}}" data-dtype="Number" style="width: 30px; margin: 0 10px 0 0;"/>
                     <img src="../systems/torchbearer/assets/icons/d6.png" style="height: auto; width: 24px; border: none;" class="rollable" data-label="{{key}}">

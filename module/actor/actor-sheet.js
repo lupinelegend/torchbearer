@@ -42,6 +42,27 @@ export class TorchbearerActorSheet extends ActorSheet {
     let trait4Checks = parseInt(data.data.traits.trait4.checks.checksEarned);
     data.data.totalChecks.value = trait1Checks + trait2Checks + trait3Checks + trait4Checks;
 
+    // Check skills to see if any can be advanced
+    let skillsArray = [];
+    const skillList = data.data.skills;
+    Object.keys(skillList).forEach(key => {
+      skillsArray.push(skillList[key].name);
+    });
+    skillsArray.forEach(key => {
+      if (data.data.skills[key].pass === data.data.skills[key].rating && data.data.skills[key].fail === data.data.skills[key].rating - 1) {
+        ui.notifications.info(`You may now advance ${key} from ${data.data.skills[key].rating} to ${data.data.skills[key].rating + 1}`);
+      }
+    });
+
+    // Check abilities to see if any can be advanced
+    let abilitiesArray = ['will', 'health', 'nature', 'resources', 'circles'];
+    let displayArray = ['Will', 'Health', 'Nature', 'Resources', 'Circles'];
+    abilitiesArray.forEach((key, index) => {
+      if (data.data[key].pass === data.data[key].value && data.data[key].fail === data.data[key].value - 1) {
+        ui.notifications.info(`You may now advance ${displayArray[index]} from ${data.data[key].value} to ${data.data[key].value + 1}`);
+      }
+    });
+
     return data;
   }
 
@@ -77,6 +98,42 @@ export class TorchbearerActorSheet extends ActorSheet {
     // Rollable abilities
     html.find('.rollable').click(this._onRoll.bind(this));
 
+    // Event listener for advancing abilities
+    html.find('.advanceAbility').click(ev => {
+      console.log(ev.currentTarget.innerText);
+    });
+
+    // Event listener for advancing skills
+    html.find('.advanceSkill').click(ev => {
+      let skill = ev.currentTarget.innerText;
+      console.log(`Current Rating: ${this.actor.data.data.skills[skill].rating}`);
+
+      // If skill can be advanced, do so then clear passes and failures
+      if (this.actor.data.data.skills[skill].pass === this.actor.data.data.skills[skill].rating && this.actor.data.data.skills[skill].fail === this.actor.data.data.skills[skill].rating - 1) {
+
+        let update = {
+          'data.skills[skill].rating': this.actor.data.data.skills[skill].rating += 1,
+          'data.skills[skill].pass': 0,
+          'data.skills[skill].fail': 0
+        };
+
+        this.actor.update(update);
+        console.log(`New Rating: ${this.actor.data.data.skills[skill].rating}`);
+        console.log(`Pass: ${this.actor.data.data.skills[skill].pass}`);
+        console.log(`Fail: ${this.actor.data.data.skills[skill].fail}`);
+
+        // Advance the skill rating
+        // this.actor.update({'data.skills[skill].rating': parseInt(this.actor.data.data.skills[skill].rating += 1)});
+
+        // Clear passes and failures
+        // this.actor.update({'data.skills[skill].pass': 0});
+        // this.actor.update({'data.skills[skill].fail': 0});
+      }
+    });
+
+    // // Event listener for advancing skills
+    // html.find('.rollable').click(this._advanceSkill.bind(this));
+
     // Class changes
     // html.find('#classDropdown').change(ev => {
     //   let className = ev.currentTarget.selectedOptions[0].value;
@@ -94,7 +151,7 @@ export class TorchbearerActorSheet extends ActorSheet {
   }
 
   /* -------------------------------------------- */
-  
+
   /**
    * Handle creating a new Owned Item for the actor using initial data defined in the HTML dataset
    * @param {Event} event   The originating click event
