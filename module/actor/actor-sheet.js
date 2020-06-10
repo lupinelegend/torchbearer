@@ -70,6 +70,9 @@ export class TorchbearerActorSheet extends ActorSheet {
       }
     });
 
+    // Enforce any penalties imposed by conditions
+    
+
     return data;
   }
 

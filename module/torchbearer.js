@@ -3,6 +3,7 @@ import { TorchbearerActor } from "./actor/actor.js";
 import { TorchbearerActorSheet } from "./actor/actor-sheet.js";
 import { TorchbearerItem } from "./item/item.js";
 import { TorchbearerItemSheet } from "./item/item-sheet.js";
+import { conflictSheet } from "./conflict.js";
 
 // Import Helpers
 import * as chat from "./chat.js";
@@ -38,8 +39,23 @@ Hooks.once('init', async function() {
     });
     // Event listener for logging tests
     html.find('#logTestBtn').click(ev => {
-      chat.logTest(app, html, data);
+      let actor = game.actors.get(data.message.speaker.actor);
+      if (actor.data.data.sick === true) {
+        ui.notifications.error("You may not log tests when you're sick");
+      } else {
+        chat.logTest(app, html, data);
+      }
     });
+  });
+
+  Hooks.on('ready', (app, html, data) => {
+    
+    $('#logo').click(ev => {
+      console.log('CLICK');
+      let sheet = new conflictSheet();
+      sheet.render(true);
+    });
+
   });
   
 
