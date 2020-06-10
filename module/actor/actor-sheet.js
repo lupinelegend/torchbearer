@@ -53,7 +53,7 @@ export class TorchbearerActorSheet extends ActorSheet {
         if (data.data.skills[key].pass >= data.data.skills[key].rating && data.data.skills[key].fail >= data.data.skills[key].rating - 1) {
           ui.notifications.info(`You may now advance ${key} from ${data.data.skills[key].rating} to ${data.data.skills[key].rating + 1}`);
         }
-      } else if (data.data.skills[key].rating === 0) {
+      } else if (data.data.skills[key].rating === 0 && data.data.nature.max > 0) {
         if (data.data.skills[key].pass + data.data.skills[key].fail >= data.data.nature.max) {
           ui.notifications.info(`You may now advance ${key} to 2`);
         }
