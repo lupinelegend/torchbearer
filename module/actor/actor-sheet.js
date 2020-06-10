@@ -112,7 +112,7 @@ export class TorchbearerActorSheet extends ActorSheet {
       if (this.actor.data.data.skills[skill].pass === this.actor.data.data.skills[skill].rating && this.actor.data.data.skills[skill].fail === this.actor.data.data.skills[skill].rating - 1) {
 
         let update = {
-          'data.skills[skill].rating': this.actor.data.data.skills[skill].rating += 1,
+          'data.skills[skill].rating': this.actor.data.data.skills[skill].rating++,
           'data.skills[skill].pass': 0,
           'data.skills[skill].fail': 0
         };
