@@ -17,7 +17,15 @@ let bundleableItem = function (item, container) {
         item.data.slots === item.data.computed.consumedSlots;
 };
 
-export function arrangeInventory(items) {
+export function arrangeInventory(tbItems) {
+    //For the most part just arrange item data not
+    // TorchbearerItem objects...is this necessary?
+    if(!tbItems) return;
+    const items = [];
+    for(const tbItem of tbItems) {
+        items.push(tbItem.data);
+    }
+
     const inventory = {
         Head: {
             name: "Head",
@@ -153,6 +161,29 @@ export function arrangeInventory(items) {
             }
         }
     });
+
+    //OnAfterAddToInventory Callback
+    Object.keys(inventory).forEach((k) => {
+        let container = inventory[k];
+        const removed = [];
+        const validated = [];
+        container.slots.forEach((i) => {
+            if(tbItems.get(i._id).onAfterAddToInventory(container, validated)) {
+                validated.push(i);
+            } else {
+                removed.push(i);
+            }
+        });
+        if (removed.length) {
+            container.slots = container.slots.filter((item) => {
+                return !removed.includes(item);
+            });
+            removed.forEach((i) => {
+                inventory["On Ground"].slots.push(i);
+            });
+        }
+    });
+
     return inventory;
 }
 
