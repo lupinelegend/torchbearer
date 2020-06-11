@@ -335,11 +335,7 @@ export class TorchbearerActorSheet extends ActorSheet {
   tbRoll(rollTarget, flavor, header, help, ob, trait, nature, natureDoubleTap, freshCheck, supplies, persona, natureDescriptor) {
 
     // Check for any factors due to conditions
-    let adjustedStats = this.conditionMods(rollTarget);
-    console.log(`Will: ${adjustedStats.will}`);
-    console.log(`Health: ${adjustedStats.health}`);
-    console.log(`Nature: ${adjustedStats.nature}`);
-    console.log(`Skills: ${adjustedStats.skillMod}`);
+    let adjustedStats = this.conditionMods();
     
     // Exhausted is a factor in all tests except Circles and Resources
     if (this.actor.data.data.exhausted === true) {
@@ -714,7 +710,7 @@ export class TorchbearerActorSheet extends ActorSheet {
     });
   }
 
-  conditionMods(rollTarget) {
+  conditionMods() {
     let adjustedStats = {
       'will': this.actor.data.data.will.value - (this.actor.data.data.injured ? 1 : 0) - (this.actor.data.data.sick ? 1 : 0),
       'health': this.actor.data.data.health.value - (this.actor.data.data.injured ? 1 : 0) - (this.actor.data.data.sick ? 1 : 0),
