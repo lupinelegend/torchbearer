@@ -71,7 +71,7 @@ export class TorchbearerActorSheet extends ActorSheet {
     });
 
     // Enforce any penalties imposed by conditions
-    
+
 
     return data;
   }
@@ -257,7 +257,12 @@ export class TorchbearerActorSheet extends ActorSheet {
             callback: (html) => {
               let flavor = html.find('#flavorText')[0].value;
               let help = html.find('#helpingDice')[0].value;
-              let ob = html.find('#ob')[0].value;
+              let ob;
+              if (isNaN(parseInt(html.find('#ob')[0].value))) {
+                ob = 0;
+              } else {
+                ob = parseInt(parseInt(html.find('#ob')[0].value));
+              }
               let nature = html.find('#natureYes')[0].checked;
               let natureDoubleTap;
               if (html.find('#doubletapYes')[0] === undefined) {
@@ -328,7 +333,21 @@ export class TorchbearerActorSheet extends ActorSheet {
   }
 
   tbRoll(rollTarget, flavor, header, help, ob, trait, nature, natureDoubleTap, freshCheck, supplies, persona, natureDescriptor) {
+
+    // Check for any factors due to conditions
+    let adjustedStats = this.conditionMods(rollTarget);
+    console.log(`Will: ${adjustedStats.will}`);
+    console.log(`Health: ${adjustedStats.health}`);
+    console.log(`Nature: ${adjustedStats.nature}`);
+    console.log(`Skills: ${adjustedStats.skillMod}`);
     
+    // Exhausted is a factor in all tests except Circles and Resources
+    if (this.actor.data.data.exhausted === true) {
+      if (rollTarget != 'circles' && rollTarget != 'resources') {
+        ob = parseInt(ob) + 1;
+      }
+    }
+
     // Check to see if the Fresh bonus should be applied
     let freshMod = 0;
     if (freshCheck === "checked") {
@@ -364,8 +383,10 @@ export class TorchbearerActorSheet extends ActorSheet {
               // Return if the trait has already been used this session, else check it off
               if (traitFinder[key].uses.level1.use1 === true) {
                 abort = true;
-                // ui.notifications.error(`ERROR: You've already used ${trait.name} this session.`);
-                // return;
+                ui.notifications.error(`ERROR: You've already used ${trait.name} this session`);
+              } else if (this.actor.data.data.angry === true) {
+                abort = true;
+                ui.notifications.error(`ERROR: You've can't use ${trait.name} to help when you're angry`);
               } else {
                 let temp = `trait${index+1}`;
                 switch (temp) {
@@ -390,8 +411,9 @@ export class TorchbearerActorSheet extends ActorSheet {
             } else if (traitFinder[key].level.value === "2") {
               if (traitFinder[key].uses.level1.use1 === true && traitFinder[key].uses.level2.use2 === true) {
                 abort = true;
-                // ui.notifications.error(`ERROR: You've already used ${trait.name} this session.`);
-                // return;
+              } else if (this.actor.data.data.angry === true) {
+                abort = true;
+                ui.notifications.error(`ERROR: You've can't use ${trait.name} to help when you're angry`);
               } else if (traitFinder[key].uses.level1.use1 === false) {
                 let temp = `trait${index+1}`;
                 switch (temp) {
@@ -477,7 +499,6 @@ export class TorchbearerActorSheet extends ActorSheet {
 
     // Stop the roll if the user is trying to use a trait that's already been used this session
     if (abort === true) {
-      ui.notifications.error(`ERROR: You've already used ${trait.name} this session.`);
       return;
     }
 
@@ -524,45 +545,52 @@ export class TorchbearerActorSheet extends ActorSheet {
         this.actor.data.data.isLastTestSkill = true;
         if (natureDoubleTap === false) {
           // Check for Beginner's Luck
-          if (this.actor.data.data.skills[rollTarget].rating === 0) {
+          if (this.actor.data.data.skills[rollTarget].rating === 0 && this.actor.data.data.afraid === true) {
+            ui.notifications.error("You can't use Beginner's Luck when you're afraid");
+            abort = true;
+          } else if (this.actor.data.data.skills[rollTarget].rating === 0 && this.actor.data.data.afraid === false) {
             let blAbility = this.actor.data.data.skills[rollTarget].bl;
             if (blAbility === "W") {
               // If Will is not zero, roll Beginner's Luck as normal
               if (this.actor.data.data.will.value != 0) {
                 beginnersLuck = "(Beginner's Luck, Will)";
-                diceToRoll = Math.ceil((this.actor.data.data.will.value + suppliesMod + helpMod)/2) + traitMod + natureMod + freshMod + personaMod;
+                diceToRoll = Math.ceil((adjustedStats.will + suppliesMod + helpMod)/2) + traitMod + natureMod + freshMod + personaMod;
               } else if (this.actor.data.data.will.value === 0) {
                 // If Will is zero, use Nature instead
                 beginnersLuck = "(Beginner's Luck, Nature)";
-                diceToRoll = Math.ceil((this.actor.data.data.nature.value + suppliesMod + helpMod)/2) + traitMod + natureMod + freshMod + personaMod;
+                diceToRoll = Math.ceil((adjustedStats.nature + suppliesMod + helpMod)/2) + traitMod + natureMod + freshMod + personaMod;
               }
             } else if (blAbility === "H") {
               // If Health is not zero, roll Beginner's Luck as normal
               if (this.actor.data.data.health.value != 0) {
                 beginnersLuck = "(Beginner's Luck, Health)";
-                diceToRoll = Math.ceil((this.actor.data.data.health.value + suppliesMod + helpMod)/2) + traitMod + natureMod + freshMod + personaMod;
+                diceToRoll = Math.ceil((adjustedStats.health + suppliesMod + helpMod)/2) + traitMod + natureMod + freshMod + personaMod;
               } else if (this.actor.data.data.will.value === 0) {
                 // If Health is zero, use Nature instead
                 beginnersLuck = "(Beginner's Luck, Nature)";
-                diceToRoll = Math.ceil((this.actor.data.data.nature.value + suppliesMod + helpMod)/2) + traitMod + natureMod + freshMod + personaMod;
+                diceToRoll = Math.ceil((adjustedStats.nature + suppliesMod + helpMod)/2) + traitMod + natureMod + freshMod + personaMod;
               }
             }
           } else {
-            diceToRoll = this.actor.data.data.skills[rollTarget].rating + traitMod + natureMod + freshMod + suppliesMod + helpMod + personaMod;
+            diceToRoll = this.actor.data.data.skills[rollTarget].rating + traitMod + natureMod + freshMod + suppliesMod + helpMod + personaMod + adjustedStats.skillMod;
           }
         } else if (natureDoubleTap === true) {
-          diceToRoll = this.actor.data.data.nature.value + suppliesMod + helpMod + traitMod + natureMod + freshMod + personaMod;
+          diceToRoll = adjustedStats.nature + suppliesMod + helpMod + traitMod + natureMod + freshMod + personaMod;
         }
       }
     });
+
+    if (abort === true) {
+      return;
+    }
 
     // Otherwise it's an ability
     if (diceToRoll === undefined) {
       this.actor.data.data.isLastTestSkill = false;
       if (natureDoubleTap === false) {
-        diceToRoll = this.actor.data.data[rollTarget].value + traitMod + natureMod + freshMod + suppliesMod + helpMod + personaMod;  
+        diceToRoll = adjustedStats[rollTarget] + traitMod + natureMod + freshMod + suppliesMod + helpMod + personaMod;
       } else if (natureDoubleTap === true) {
-        diceToRoll = this.actor.data.data.nature.value + suppliesMod + helpMod + traitMod + natureMod + freshMod + personaMod;
+        diceToRoll = adjustedStats.nature + suppliesMod + helpMod + traitMod + natureMod + freshMod + personaMod;
       }
     }
 
@@ -653,7 +681,10 @@ export class TorchbearerActorSheet extends ActorSheet {
 
     let passFail = ' - Fail!';
     roll.parts[0].options.rollOutcome = 'fail';
-    if (rolledSuccesses >= ob) {
+    if (ob === 0 && rolledSuccesses > ob) {
+      passFail = ' - Pass!'
+      roll.parts[0].options.rollOutcome = 'pass';
+    } else if (ob > 0 && rolledSuccesses >= ob) {
       passFail = ' - Pass!'
       roll.parts[0].options.rollOutcome = 'pass';
     }
@@ -681,6 +712,17 @@ export class TorchbearerActorSheet extends ActorSheet {
         }
       });
     });
+  }
+
+  conditionMods(rollTarget) {
+    let adjustedStats = {
+      'will': this.actor.data.data.will.value - (this.actor.data.data.injured ? 1 : 0) - (this.actor.data.data.sick ? 1 : 0),
+      'health': this.actor.data.data.health.value - (this.actor.data.data.injured ? 1 : 0) - (this.actor.data.data.sick ? 1 : 0),
+      'nature': this.actor.data.data.nature.value - (this.actor.data.data.injured ? 1 : 0) - (this.actor.data.data.sick ? 1 : 0),
+      'skillMod': 0 - (this.actor.data.data.injured ? 1 : 0) - (this.actor.data.data.sick ? 1 : 0)
+    }
+
+    return adjustedStats;
   }
 
   closestCompatibleContainer(item, target) {
