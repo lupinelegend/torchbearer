@@ -740,8 +740,6 @@ export class TorchbearerActorSheet extends ActorSheet {
   }
 
   pickAnotherContainerIfNecessaryDueToItemSize(item) {
-    console.log("Picking another");
-    console.log(item);
     if(!canFit(item, item.data.data.equip, this.actor.data.data.computed.inventory)) {
       if(canFit(item, alternateContainerType(item), this.actor.data.data.computed.inventory)) {
         return alternateContainerType(item);
@@ -751,7 +749,6 @@ export class TorchbearerActorSheet extends ActorSheet {
 
   /** @override */
   async _onDrop(event) {
-    console.log(event);
     let item = await super._onDrop(event);
     let tbItem;
     if(item._id) {
@@ -778,16 +775,10 @@ export class TorchbearerActorSheet extends ActorSheet {
           slotsTaken = tbItem.slotsTaken(newContainerType);
           containerType = newContainerType;
         }
-        console.log("CONTAINER TYPE");
-        console.log(containerType);
       }
       if(containerType) {
         let update = {data: {equip: containerType, containerId: containerId, slots: slotsTaken}};
-        console.log("TO UPDATE");
-        console.log(update);
         await tbItem.update(update);
-        console.log("ITEM UPDATED");
-        console.log(tbItem);
         this.actor._onUpdate({items: true});
         if(oldContainerId) {
           let oldContainer = this.actor.items.get(oldContainerId);

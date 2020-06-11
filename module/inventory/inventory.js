@@ -180,17 +180,9 @@ export function cloneInventory(inventory) {
 //NOTE This doesn't work when testing against packs, only
 // direct carry/worn slots, hence no containerId being passed
 export function canFit(tbItem, containerType, inventory) {
-    console.log("CAN FIT");
-    console.log(tbItem);
-    console.log(containerType);
-    console.log(inventory);
     if(!containerType || containerType === 'Pack') return true;
     const size = calculateSize(tbItem.data, inventory, containerType, {});
     let container = inventory[containerType];
-    console.log("Size " + size);
-    console.log("Current consumption " + currentConsumptionExcluding(container, tbItem));
-    console.log("Capacity " + container.capacity);
-    console.log('CAN FIT DONE');
     return size + currentConsumptionExcluding(container, tbItem) <= container.capacity;
 }
 

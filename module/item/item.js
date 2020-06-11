@@ -17,12 +17,6 @@ export class TorchbearerItem extends Item {
     const data = itemData.data;
 
     data.computed = data.computed || {};
-    if(itemData._id === 'gPgkZf3OnIkjWfmv') {
-      console.log("prepareData");
-      console.log(data);
-      console.log(data.computed.consumedSlots);
-      console.log(data.slots);
-    }
     data.computed.consumedSlots = itemData.data.slots;
     if(data.capacity) {
       if(this.actor && actorData.data.computed.inventory[this._id]) {
@@ -30,10 +24,6 @@ export class TorchbearerItem extends Item {
       } else {
         data.computed.inventory = newItemInventory(this);
       }
-    }
-    if(itemData._id === 'gPgkZf3OnIkjWfmv') {
-      console.log(data);
-      console.log("/prepareData");
     }
   }
 
