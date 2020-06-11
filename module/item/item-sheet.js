@@ -2,8 +2,6 @@
  * Extend the basic ItemSheet with some very simple modifications
  * @extends {ItemSheet}
  */
-import {isCompatibleContainer} from "../inventory/inventory.js";
-
 export class TorchbearerItemSheet extends ItemSheet {
 
   /** @override */
@@ -118,7 +116,8 @@ export class TorchbearerItemSheet extends ItemSheet {
     const dragData = {
       type: "Item",
       actorId: this.item.actor.id,
-      data: item.data
+      data: item.data,
+      source: "Pack",
     };
     if (this.item.actor.isToken) dragData.tokenId = this.item.actor.token.id;
     event.dataTransfer.setData("text/plain", JSON.stringify(dragData));

@@ -2,7 +2,7 @@
  * Extend the basic ActorSheet with some very simple modifications
  * @extends {ActorSheet}
  */
-import {isCompatibleContainer} from "../inventory/inventory.js";
+import {canFit, alternateContainerType} from "../inventory/inventory.js";
 
 export class TorchbearerActorSheet extends ActorSheet {
 
@@ -721,34 +721,64 @@ export class TorchbearerActorSheet extends ActorSheet {
     return adjustedStats;
   }
 
-  closestCompatibleContainer(item, target) {
+  closestCompatibleContainer(tbItem, target) {
     let $closestContainer = $(target).closest('.inventory-container');
     if(!$closestContainer.length) {
       return {};
     }
     const containerType = $closestContainer.data('containerType');
     const containerId = $closestContainer.data('itemId');
-    if(isCompatibleContainer(item, containerType)) {
+    if(tbItem.isCompatibleContainer(containerType)) {
       return {
         containerType,
         containerId: containerId || '',
+        slotsTaken: tbItem.slotsTaken(containerType),
       };
     } else {
-      return this.closestCompatibleContainer(item, $closestContainer.parent());
+      return this.closestCompatibleContainer(tbItem, $closestContainer.parent());
+    }
+  }
+
+  pickAnotherContainerIfNecessaryDueToItemSize(item) {
+    if(!canFit(item, item.data.data.equip, this.actor.data.data.computed.inventory)) {
+      if(canFit(item, alternateContainerType(item), this.actor.data.data.computed.inventory)) {
+        return alternateContainerType(item);
+      }
     }
   }
 
   /** @override */
   async _onDrop(event) {
     let item = await super._onDrop(event);
+    let tbItem;
     if(item._id) {
-      item = this.actor.items.get(item._id);
+      tbItem = this.actor.items.get(item._id);
+    } else {
+      tbItem = item;
     }
-    if(item.data) {
-      let oldContainerId = item.data.data.containerId;
-      let {containerType, containerId} = this.closestCompatibleContainer(item, event.target);
+    if(tbItem.data) {
+      let oldContainerId = tbItem.data.data.containerId;
+      let {containerType, containerId, slotsTaken} = this.closestCompatibleContainer(tbItem, event.target);
+      if(!containerType) {
+        //No closest container specified, so pick one.
+        // First, we know it's not pack w/o a containerId, so if it is the item's gonna need
+        // updating.
+        if(tbItem.data.data.equip === 'Pack') {
+          tbItem.data.data.equip = tbItem.data.data.equipOptions.option1.value;
+          tbItem.data.data.slots = tbItem.data.data.slotOptions.option1.value;
+          containerType = tbItem.data.data.equip;
+          containerId = null;
+          slotsTaken = tbItem.data.data.slots;
+        }
+        let newContainerType = this.pickAnotherContainerIfNecessaryDueToItemSize(tbItem);
+        if(newContainerType) {
+          slotsTaken = tbItem.slotsTaken(newContainerType);
+          containerType = newContainerType;
+        }
+      }
       if(containerType) {
-        await item.update({data: {equip: containerType, containerId: containerId}});
+        let update = {data: {equip: containerType, containerId: containerId, slots: slotsTaken}};
+        await tbItem.update(update);
         this.actor._onUpdate({items: true});
         if(oldContainerId) {
           let oldContainer = this.actor.items.get(oldContainerId);
@@ -758,7 +788,7 @@ export class TorchbearerActorSheet extends ActorSheet {
         }
       }
     }
-    return item;
+    return tbItem;
   }
 
   /** @override */
