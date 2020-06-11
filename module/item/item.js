@@ -23,7 +23,7 @@ export class TorchbearerItem extends Item {
       console.log(data.computed.consumedSlots);
       console.log(data.slots);
     }
-    data.computed.consumedSlots = data.computed.consumedSlots || itemData.data.slots;
+    data.computed.consumedSlots = itemData.data.slots;
     if(data.capacity) {
       if(this.actor && actorData.data.computed.inventory[this._id]) {
         data.computed.inventory = actorData.data.computed.inventory[this._id];
@@ -35,5 +35,26 @@ export class TorchbearerItem extends Item {
       console.log(data);
       console.log("/prepareData");
     }
+  }
+
+  isCompatibleContainer(containerType) {
+    return this.validContainerTypes().includes(containerType);
+  }
+
+  validContainerTypes() {
+    return [
+      this.data.data.equipOptions.option1.value,
+      this.data.data.equipOptions.option2.value,
+      this.data.data.equipOptions.option3.value,
+    ];
+  }
+
+  slotsTaken(containerType) {
+    for(let i = 1; i <= 3; i++) {
+      if(this.data.data.equipOptions['option' + i].value === containerType) {
+        return this.data.data.slotOptions['option' + i].value;
+      }
+    }
+    throw("Invalid slots");
   }
 }
