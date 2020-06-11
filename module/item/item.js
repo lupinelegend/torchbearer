@@ -1,4 +1,5 @@
 import {cloneInventory, newItemInventory} from "../inventory/inventory.js";
+import {itemExtensions} from "./itemExtensions.js";
 
 /**
  * Extend the basic Item with some very simple modifications.
@@ -19,10 +20,21 @@ export class TorchbearerItem extends Item {
     data.computed = data.computed || {};
     data.computed.consumedSlots = itemData.data.slots;
     if(data.capacity) {
-      if(this.actor && actorData.data.computed.inventory[this._id]) {
+      if(this.actor
+          && actorData.data.computed
+          && actorData.data.computed.inventory
+          && actorData.data.computed.inventory[this._id]) {
         data.computed.inventory = actorData.data.computed.inventory[this._id];
       } else {
         data.computed.inventory = newItemInventory(this);
+      }
+    }
+    let itemExtension = itemExtensions[this.data.name];
+    if(itemExtension) {
+      for(const functionName in itemExtension) {
+        if(itemExtension.hasOwnProperty(functionName)) {
+          this[functionName] = itemExtension[functionName].bind(this);
+        }
       }
     }
   }
@@ -46,5 +58,15 @@ export class TorchbearerItem extends Item {
       }
     }
     throw("Invalid slots");
+  }
+
+  /**
+   * Overridable Callback action
+   * @param container: the inventory container being added to
+   * @param validated: array of items that have already been confirmed
+   * @return true if ok to add, false if should be put on ground
+   */
+  onAfterAddToInventory(container, validated) {
+    return true;
   }
 }
