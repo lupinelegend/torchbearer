@@ -51,9 +51,16 @@ Hooks.once('init', async function() {
   Hooks.on('ready', (app, html, data) => {
     
     $('#logo').click(ev => {
-      console.log('CLICK');
-      let sheet = new conflictSheet();
-      sheet.render(true);
+      let actorArray = [];
+      game.actors._source.forEach(element => {
+        actorArray.push(element.name);
+      });
+      console.log(actorArray);
+
+      new conflictSheet({
+        actors: actorArray,
+        test: 'TESTING'
+      }).render(true);
     });
 
   });
