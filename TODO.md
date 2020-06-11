@@ -2,7 +2,7 @@
 
 Inventory
 -
-- Special Equipping Rules (e.g. Quivers, only 1 of a Satchel or a Backpack, Belt rules etc)
+- Special Equipping Rules (e.g. Quivers)
   - Small sack bundling inventory consumption rules
 - Ability to "overburden" (using Laborer)
 - Quick drop of item to ground, Quick pickup
