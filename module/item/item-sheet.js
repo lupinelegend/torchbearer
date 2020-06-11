@@ -2,8 +2,6 @@
  * Extend the basic ItemSheet with some very simple modifications
  * @extends {ItemSheet}
  */
-import {isCompatibleContainer} from "../inventory/inventory.js";
-
 export class TorchbearerItemSheet extends ItemSheet {
 
   /** @override */

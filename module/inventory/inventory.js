@@ -203,16 +203,8 @@ let currentConsumptionExcluding = function(container, tbItem) {
     }, 0);
 }
 
-let validContainerTypes = function (tbItem) {
-    return [
-        tbItem.data.data.equipOptions.option1.value,
-        tbItem.data.data.equipOptions.option2.value,
-        tbItem.data.data.equipOptions.option3.value,
-    ];
-};
-
 export function alternateContainerType(tbItem) {
-    return validContainerTypes(tbItem).reduce((accum, curr) => {
+    return tbItem.validContainerTypes().reduce((accum, curr) => {
         if(curr !== tbItem.data.data.equip && curr !== 'Pack' && curr !== '') {
             return curr;
         } else {
@@ -221,9 +213,6 @@ export function alternateContainerType(tbItem) {
     }, '');
 }
 
-export function isCompatibleContainer(tbItem, containerType) {
-    return validContainerTypes(tbItem).includes(containerType);
-}
 Handlebars.registerHelper('renderInventory', function(capacity, inventory, placeholder, multiSlot) {
     let html = "";
     let consumed = 0;
