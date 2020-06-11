@@ -27,7 +27,7 @@ export class TorchbearerActor extends Actor {
 
     // Make a new Object that holds computed data and keeps it separate from anything else
     data.computed = {};
-    data.computed.inventory = arrangeInventory(actorData.items);
+    data.computed.inventory = arrangeInventory(this.items);
   }
 
   async removeItemFromInventory(itemId) {
