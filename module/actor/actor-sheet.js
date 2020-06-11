@@ -2,7 +2,7 @@
  * Extend the basic ActorSheet with some very simple modifications
  * @extends {ActorSheet}
  */
-import {isCompatibleContainer} from "../inventory/inventory.js";
+import {isCompatibleContainer, canFit, alternateContainerType} from "../inventory/inventory.js";
 
 export class TorchbearerActorSheet extends ActorSheet {
 
@@ -738,8 +738,19 @@ export class TorchbearerActorSheet extends ActorSheet {
     }
   }
 
+  pickAnotherContainerIfNecessaryDueToItemSize(item) {
+    console.log("Picking another");
+    console.log(item);
+    if(!canFit(item, item.data.data.equip, this.actor.data.data.computed.inventory)) {
+      if(canFit(item, alternateContainerType(item), this.actor.data.data.computed.inventory)) {
+        return alternateContainerType(item);
+      }
+    }
+  }
+
   /** @override */
   async _onDrop(event) {
+    console.log(event);
     let item = await super._onDrop(event);
     if(item._id) {
       item = this.actor.items.get(item._id);
@@ -747,8 +758,27 @@ export class TorchbearerActorSheet extends ActorSheet {
     if(item.data) {
       let oldContainerId = item.data.data.containerId;
       let {containerType, containerId} = this.closestCompatibleContainer(item, event.target);
+      if(!containerType) {
+        //No closest container specified, so pick one.
+        // First, we know it's not pack w/o a containerId, so if it is the item's gonna need
+        // updating.
+        if(item.data.data.equip === 'Pack') {
+          item.data.data.equip = item.data.data.equipOptions.option1.value;
+          item.data.data.slots = item.data.data.slotOptions.option1.value;
+          containerType = item.data.data.equip;
+          containerId = null;
+        }
+        containerType = this.pickAnotherContainerIfNecessaryDueToItemSize(item) || containerType;
+        console.log("CONTAINER TYPE");
+        console.log(containerType);
+      }
       if(containerType) {
-        await item.update({data: {equip: containerType, containerId: containerId}});
+        let update = {data: {equip: containerType, containerId: containerId}};
+        console.log("TO UPDATE");
+        console.log(update);
+        await item.update(update);
+        console.log("ITEM UPDATED");
+        console.log(item);
         this.actor._onUpdate({items: true});
         if(oldContainerId) {
           let oldContainer = this.actor.items.get(oldContainerId);
