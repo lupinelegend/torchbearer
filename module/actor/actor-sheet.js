@@ -786,6 +786,12 @@ export class TorchbearerActorSheet extends ActorSheet {
             oldContainer.sheet.render(false);
           }, 0)
         }
+        if(containerId) {
+          let newContainer = this.actor.items.get(containerId);
+          setTimeout(() => {
+            newContainer.sheet.render(false);
+          }, 0)
+        }
       }
     }
     return tbItem;

@@ -6,6 +6,7 @@ export function newItemInventory(item) {
         capacity: item.data.capacity,
         slots: [],
         holdsBundles: true,
+        type: 'Pack',
     };
 }
 
@@ -32,53 +33,62 @@ export function arrangeInventory(tbItems) {
             capacity: 1,
             holdsBundles: false,
             slots: [],
+            type: 'Body',
         },
         "Hands (Worn)": {
             name: "Hands (Worn)",
             capacity: 2,
             holdsBundles: false,
             slots: [],
+            type: 'Body',
         },
         "Hands (Carried)": {
             name: "Hands (Carried)",
             capacity: 2,
             holdsBundles: false,
             slots: [],
+            type: 'Body',
         },
         Torso: {
             name: "Torso",
             capacity: 3,
             holdsBundles: false,
             slots: [],
+            type: 'Body',
         },
         Pocket: {
             name: "Pocket",
             capacity: 1,
             holdsBundles: false,
             slots: [],
+            type: 'Body',
         },
         Neck: {
             name: "Neck",
             capacity: 1,
             holdsBundles: false,
             slots: [],
+            type: 'Body',
         },
         Feet: {
             name: "Feet",
             capacity: 1,
             holdsBundles: false,
             slots: [],
+            type: 'Body',
         },
         Belt: {
             name: "Belt",
             capacity: 3,
             holdsBundles: false,
             slots: [],
+            type: 'Body',
         },
         "On Ground": {
             name: "On Ground",
             holdsBundles: false,
             slots: [],
+            type: 'Body',
         }
     };
 
@@ -183,7 +193,7 @@ export function arrangeInventory(tbItems) {
             });
         }
     });
-
+    console.log(inventory);
     return inventory;
 }
 
@@ -240,8 +250,10 @@ Handlebars.registerHelper('renderInventory', function(capacity, inventory, place
     let html = "";
     let consumed = 0;
     inventory.slots.forEach((item) => {
-        consumed += item.data.computed.consumedSlots;
-        for (let i = 0; i < item.data.computed.consumedSlots; i++) {
+        let consumedSlots = item.data.computed.consumedSlots;
+        consumed += consumedSlots;
+        let linesToRender = consumedSlots || 1;
+        for (let i = 0; i < linesToRender; i++) {
             let inventoryContainerClass = '';
             let containerType = '';
             let lastSlotTakenClass = '';
@@ -249,7 +261,7 @@ Handlebars.registerHelper('renderInventory', function(capacity, inventory, place
                 inventoryContainerClass = 'inventory-container';
                 containerType = 'Pack';
             }
-            if(multiSlot === false || i === item.data.computed.consumedSlots - 1) {
+            if(multiSlot === false || i === linesToRender - 1) {
                 lastSlotTakenClass = 'last-slot-taken';
             }
             let quantityExpression = '';
