@@ -130,8 +130,9 @@ export function arrangeInventory(items) {
                     }
                 }
                 //last, can it be added to the container?
-                //if so, start the next bundle if possible
-                const size = calculateSize(i, inventory, sizeCache);
+                //if so, great and start the next bundle if possible
+                //if not, drop it on the ground
+                const size = calculateSize(i, inventory, i.data.equip, sizeCache);
                 if ((consumed + size) > container.capacity) {
                     removed.push(i);
                     inventory["On Ground"].slots.push(i);
@@ -155,8 +156,8 @@ export function arrangeInventory(items) {
     return inventory;
 }
 
-function calculateSize(item, inventory, sizeCache) {
-    if(item.data.resizes && inventory[item._id] && item.data.equip === 'Pack') {
+function calculateSize(item, inventory, targetContainerType, sizeCache) {
+    if(item.data.resizes && inventory[item._id] && targetContainerType === 'Pack') {
         if(sizeCache[item._id]) {
             return sizeCache[item._id];
         }
@@ -176,12 +177,52 @@ export function cloneInventory(inventory) {
     return cloned;
 }
 
-export function isCompatibleContainer(item, containerType) {
+//NOTE This doesn't work when testing against packs, only
+// direct carry/worn slots, hence no containerId being passed
+export function canFit(tbItem, containerType, inventory) {
+    console.log("CAN FIT");
+    console.log(tbItem);
+    console.log(containerType);
+    console.log(inventory);
+    if(!containerType || containerType === 'Pack') return true;
+    const size = calculateSize(tbItem.data, inventory, containerType, {});
+    let container = inventory[containerType];
+    console.log("Size " + size);
+    console.log("Current consumption " + currentConsumptionExcluding(container, tbItem));
+    console.log("Capacity " + container.capacity);
+    console.log('CAN FIT DONE');
+    return size + currentConsumptionExcluding(container, tbItem) <= container.capacity;
+}
+
+let currentConsumptionExcluding = function(container, tbItem) {
+    return container.slots.reduce((accum, curr) => {
+        if(tbItem && tbItem.data._id === curr._id) {
+            return accum;
+        }
+        return accum + curr.data.computed.consumedSlots;
+    }, 0);
+}
+
+let validContainerTypes = function (tbItem) {
     return [
-        item.data.data.equipOptions.option1.value,
-        item.data.data.equipOptions.option2.value,
-        item.data.data.equipOptions.option3.value,
-    ].includes(containerType);
+        tbItem.data.data.equipOptions.option1.value,
+        tbItem.data.data.equipOptions.option2.value,
+        tbItem.data.data.equipOptions.option3.value,
+    ];
+};
+
+export function alternateContainerType(tbItem) {
+    return validContainerTypes(tbItem).reduce((accum, curr) => {
+        if(curr !== tbItem.data.data.equip && curr !== 'Pack' && curr !== '') {
+            return curr;
+        } else {
+            return accum;
+        }
+    }, '');
+}
+
+export function isCompatibleContainer(tbItem, containerType) {
+    return validContainerTypes(tbItem).includes(containerType);
 }
 Handlebars.registerHelper('renderInventory', function(capacity, inventory, placeholder, multiSlot) {
     let html = "";
