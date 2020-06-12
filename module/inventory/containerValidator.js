@@ -38,12 +38,12 @@ const validateOnce = (inventory) => {
     for(const area in inventory) {
         if(inventory.hasOwnProperty(area)) {
             for(let i = 0; i < inventory[area].slots.length; i++) {
-                const item = inventory[area].slots[i];
+                const tbItem = inventory[area].slots[i];
                 try {
-                    dag.addEdge(item._id, area);
+                    dag.addEdge(tbItem.data._id, area);
                 } catch (containerError) {
                     console.log(containerError);
-                    inventory["On Ground"].slots.push(item);
+                    inventory["On Ground"].slots.push(tbItem);
                     inventory[area].slots.splice(i, 1);
                     return false;
                 }

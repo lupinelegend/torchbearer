@@ -19,16 +19,6 @@ export class TorchbearerItem extends Item {
 
     data.computed = data.computed || {};
     data.computed.consumedSlots = itemData.data.slots;
-    if(data.capacity) {
-      if(this.actor
-          && actorData.data.computed
-          && actorData.data.computed.inventory
-          && actorData.data.computed.inventory[this._id]) {
-        data.computed.inventory = actorData.data.computed.inventory[this._id];
-      } else {
-        data.computed.inventory = newItemInventory(this);
-      }
-    }
     let itemExtension = itemExtensions[this.data.name];
     if(itemExtension) {
       for(const functionName in itemExtension) {
@@ -68,5 +58,9 @@ export class TorchbearerItem extends Item {
    */
   onAfterAddToInventory(container, validated) {
     return true;
+  }
+
+  tbData() {
+    return this.data.data;
   }
 }

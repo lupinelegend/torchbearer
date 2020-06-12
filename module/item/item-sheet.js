@@ -52,6 +52,9 @@ export class TorchbearerItemSheet extends ItemSheet {
       data.inventoryContainerClass = 'inventory-container';
       data.containerType = 'Pack';
     }
+    if(this.item.actor) {
+      data._actor_id = this.item.actor.data._id;
+    }
     return data;
   }
 
