@@ -19,16 +19,6 @@ export class TorchbearerItem extends Item {
 
     data.computed = data.computed || {};
     data.computed.consumedSlots = itemData.data.slots;
-    if(data.capacity) {
-      if(this.actor
-          && actorData.data.computed
-          && actorData.data.computed.inventory
-          && actorData.data.computed.inventory[this._id]) {
-        data.computed.inventory = actorData.data.computed.inventory[this._id];
-      } else {
-        data.computed.inventory = newItemInventory(this);
-      }
-    }
     let itemExtension = itemExtensions[this.data.name];
     if(itemExtension) {
       for(const functionName in itemExtension) {
@@ -37,6 +27,10 @@ export class TorchbearerItem extends Item {
         }
       }
     }
+  }
+
+  tbData() {
+    return this.data.data;
   }
 
   isCompatibleContainer(containerType) {
@@ -62,11 +56,30 @@ export class TorchbearerItem extends Item {
 
   /**
    * Overridable Callback action
+   * @param tbItemOther: the other object
+   * @param given: array of items that have already been confirmed
+   * @return true if ok to add, false if not and make this object unbundleable
+   */
+  onBeforeBundleWith(tbItemOther, given) {
+    return true;
+  }
+  /**
+   * Overridable Callback action
    * @param container: the inventory container being added to
-   * @param validated: array of items that have already been confirmed
+   * @param given: array of items that have already been confirmed
    * @return true if ok to add, false if should be put on ground
    */
-  onAfterAddToInventory(container, validated) {
+  onAfterAddToInventory(container, given) {
     return true;
+  }
+
+  /**
+   * Overridable Callback action
+   * @param container: the inventory container being added to
+   * @param given: array of items that have already been confirmed
+   * @return nothing but can modify data.data.computed.consumedSlots
+   */
+  onCalculateConsumedSlots(container, given) {
+    console.log("onCalculatedConsumedSlots base " + this.data.name);
   }
 }

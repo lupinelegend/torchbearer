@@ -33,4 +33,8 @@ export class TorchbearerActor extends Actor {
   async removeItemFromInventory(itemId) {
     await this.deleteOwnedItem(itemId);
   }
+
+  tbData() {
+    return this.data.data;
+  }
 }

@@ -621,7 +621,7 @@
                       <a class="item-control item-create" title="Create item" data-type="item" type="Head"><i class="fas fa-plus"></i></a>
                     </div>
                   </li>
-                    {{{renderInventory 1 data.computed.inventory.[Head] 'Worn'}}}
+                    {{{renderInventory 1 actor._id 'Head' 'Worn'}}}
                 </ol>
 
                 <ol id="handsWornSlot" class="items-list inventory-container col" data-container-type="Hands (Worn)" style="margin: 0 3px 0 3px;">
@@ -632,7 +632,7 @@
                       <a class="item-control item-create" title="Create item" data-type="item" type="Hands"><i class="fas fa-plus"></i></a>
                     </div>
                   </li>
-                    {{{renderInventory 2 data.computed.inventory.[Hands (Worn)] 'Worn'}}}
+                    {{{renderInventory 2 actor._id 'Hands (Worn)' 'Worn'}}}
                 </ol>
 
                 <ol id="handsCarriedSlot" class="items-list inventory-container col" data-container-type="Hands (Carried)" style="margin: 0 3px 0 3px;">
@@ -644,7 +644,7 @@
                     </div>
                   </li>
 
-                    {{{renderInventory 2 data.computed.inventory.[Hands (Carried)] 'Carried'}}}
+                    {{{renderInventory 2 actor._id 'Hands (Carried)' 'Carried'}}}
                 </ol>
                 <ol id="torsoSlot" class="items-list inventory-container col" data-container-type="Torso" style="margin: 0 3px 0 3px;">
                   <li class="item flexrow item-header" id="torsoSlotHeader">
@@ -655,7 +655,7 @@
                     </div>
                   </li>
 
-                    {{{renderInventory 3 data.computed.inventory.[Torso] 'Worn'}}}
+                    {{{renderInventory 3 actor._id 'Torso' 'Worn'}}}
                 </ol>
                 <ol id="pocketSlot" class="items-list inventory-container col" data-container-type="Pocket" style="margin: 0 3px 0 3px;">
                   <li class="item flexrow item-header" id="pocketSlotHeader">
@@ -666,7 +666,7 @@
                     </div>
                   </li>
 
-                    {{{renderInventory 1 data.computed.inventory.[Pocket] 'Trinkets'}}}
+                    {{{renderInventory 1 actor._id 'Pocket' 'Trinkets'}}}
                 </ol>
               </div>
               <div class="col">
@@ -679,7 +679,7 @@
                     </div>
                   </li>
     
-                    {{{renderInventory 1 data.computed.inventory.[Neck] 'Worn'}}}
+                    {{{renderInventory 1 actor._id 'Neck' 'Worn'}}}
                 </ol>
                 <ol id="feetSlot" class="items-list inventory-container col" data-container-type="Feet" style="margin: 0 3px 0 3px;">
                   <li class="item flexrow item-header" id="feetSlotHeader">
@@ -690,7 +690,7 @@
                     </div>
                   </li>
     
-                    {{{renderInventory 1 data.computed.inventory.[Feet] 'Worn'}}}
+                    {{{renderInventory 1 actor._id 'Feet' 'Worn'}}}
                 </ol>
                 <ol id="beltSlot" class="items-list inventory-container col" data-container-type="Belt" style="margin: 0 3px 0 3px;">
                   <li class="item flexrow item-header" id="beltSlotHeader">
@@ -701,7 +701,7 @@
                     </div>
                   </li>
     
-                    {{{renderInventory 3 data.computed.inventory.[Belt] 'Worn'}}}
+                    {{{renderInventory 3 actor._id 'Belt' 'Worn'}}}
                 </ol>
 
                 <ol id="groundSlot" class="items-list inventory-container col" data-container-type="On Ground" style="margin: 0 3px 0 3px;">
@@ -712,7 +712,7 @@
                       <a class="item-control item-create" title="Create item" data-type="item" type="On Ground"><i class="fas fa-plus"></i></a>
                     </div>
                   </li>
-                    {{{renderInventory 0 data.computed.inventory.[On Ground] 'Ground' false}}}
+                    {{{renderInventory 0 actor._id 'On Ground' 'Ground' false}}}
                 </ol>
               </div>
             </div>
