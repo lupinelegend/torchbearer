@@ -10,8 +10,8 @@
       <!-- Conflict Captain Dropdown -->
       <div class="row" style="flex-wrap: nowrap;">
         <label for="conflictCaptain" style="font-family: Souvenir-Demi;">Conflict Captain</label>
-        <select name="actors" id="conflictCaptain">
-          {{#select actors}}
+        <select name="conflictCaptain" id="conflictCaptain">
+          {{#select conflictCaptain}}
           <option value="" selected disabled hidden>Choose a captain...</option>
           {{#each actors}}
           <option name="{{this}}" value="{{this}}">{{this}}</option>
@@ -27,27 +27,27 @@
       <div class="row" style="flex-wrap: nowrap; margin: 5px 0 5px 0">
         <div class="col" style="border-right: 1px solid #AAA;">
           <div class="row" style="justify-content: center; align-items: center; text-align: center; font-family: Souvenir-Medium;">
-            <input type="text" name="partyDispoCurrent" id="partyDispoCurrent" data-dtype="Number" style="width: 40px; height: 40px; font-size: large !important;">
+            <input type="text" name="partyDispoCurrent" id="partyDispoCurrent" data-dtype="Number" value="{{partyDispoCurrent}}" style="width: 40px; height: 40px; font-size: large !important;">
             <span>&nbsp/&nbsp</span>
-            <input type="text" name="partyDispoTotal" id="partyDispoTotal" data-dtype="Number" style="width: 40px; height: 40px; font-size: large !important;">
+            <input type="text" name="partyDispoMax" id="partyDispoMax" data-dtype="Number" value="{{partyDispoMax}}" style="width: 40px; height: 40px; font-size: large !important;">
           </div>
         </div>
         <div class="col">
           <div class="row" style="justify-content: center; align-items: center; text-align: center; font-family: Souvenir-Medium;">
-            <input type="text" name="partyDispoCurrent" id="partyDispoCurrent" data-dtype="Number" style="width: 40px; height: 40px; font-size: large !important;">
+            <input type="text" name="opponentDispoCurrent" id="opponentDispoCurrent" data-dtype="Number" value="{{opponentDispoCurrent}}" style="width: 40px; height: 40px; font-size: large !important;">
             <span>&nbsp/&nbsp</span>
-            <input type="text" name="partyDispoTotal" id="partyDispoTotal" data-dtype="Number" style="width: 40px; height: 40px; font-size: large !important;">
+            <input type="text" name="opponentDispoMax" id="opponentDispoMax" data-dtype="Number" value="{{opponentDispoMax}}" style="width: 40px; height: 40px; font-size: large !important;">
           </div>
         </div>
       </div>
     </div>
     <div class="col">
       <div class="row" style="flex-wrap: nowrap;">
-        <input type="text" name="opponentIntent" id="opponentIntent">
+        <input type="text" name="opponentIntent" id="opponentIntent" value="{{opponentIntent}}">
         <label for="opponentIntent" style="font-family: Souvenir-Demi;">Opponent Intent</label>
       </div>
       <div class="row" style="flex-wrap: nowrap;">
-        <input type="text" name="opponentName" id="opponentName">
+        <input type="text" name="opponentName" id="opponentName" value="{{opponentName}}">
         <label for="opponentName" style="font-family: Souvenir-Demi;">Opponent Name</label>
       </div>
     </div>

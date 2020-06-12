@@ -53,6 +53,41 @@ Hooks.once('init', async function() {
     type: String
   });
 
+  game.settings.register('conflict-sheet', 'conflictCaptain', {
+    name: '',
+    type: String
+  });
+
+  game.settings.register('conflict-sheet', 'opponentIntent', {
+    name: '',
+    type: String
+  });
+
+  game.settings.register('conflict-sheet', 'opponentName', {
+    name: '',
+    type: String
+  });
+
+  game.settings.register('conflict-sheet', 'partyDispoCurrent', {
+    name: '',
+    type: String
+  });
+
+  game.settings.register('conflict-sheet', 'partyDispoMax', {
+    name: '',
+    type: String
+  });
+
+  game.settings.register('conflict-sheet', 'opponentDispoCurrent', {
+    name: 0,
+    type: String
+  });
+
+  game.settings.register('conflict-sheet', 'opponentDispoMax', {
+    name: 0,
+    type: String
+  });
+
   Hooks.on('ready', (app, html, data) => {
     const sheet = new conflictSheet();
     $('#logo').click(ev => {
