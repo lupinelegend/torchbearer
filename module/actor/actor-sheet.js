@@ -105,6 +105,23 @@ export class TorchbearerActorSheet extends ActorSheet {
       });
     });
 
+    // Delete Inventory Item
+    html.find('.item-drop').click(ev => {
+      const li = $(ev.currentTarget).parents(".item");
+      let tbItem = this.actor.getOwnedItem(li.data("itemId"));
+      tbItem.update({
+        data: {
+          equip: "On Ground",
+          carried: "Ground",
+          slots: 1,
+        }
+      }).then(() => {
+        setTimeout(() => {
+          this.actor._onUpdate({items: true});
+        }, 0);
+      })
+    });
+
     // Rollable abilities
     html.find('.rollable').click(this._onRoll.bind(this));
 

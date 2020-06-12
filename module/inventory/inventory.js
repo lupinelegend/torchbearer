@@ -319,6 +319,7 @@ Handlebars.registerHelper('renderInventory', function(capacity, srcId, srcContai
                   <h4 class="item-name" style="font-family: Souvenir-Medium;">${item.name} ${quantityExpression}</h4>
                   <div class="item-controls">
                       <a class="item-control item-edit" title="Edit Item" style="margin-right: 5px;"><i class="fas fa-edit"></i></a>
+                      <a class="item-control item-drop" title="Drop Item" style="margin-right: 5px;"><i class="fas fa-chevron-circle-down"></i></a>
                       <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
                   </div>
               </li>`;
