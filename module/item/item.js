@@ -11,7 +11,6 @@ export class TorchbearerItem extends Item {
    */
   prepareData() {
     super.prepareData();
-
     // Get the Item's data
     const itemData = this.data;
     const actorData = this.actor ? this.actor.data : {};
@@ -31,6 +30,21 @@ export class TorchbearerItem extends Item {
 
   tbData() {
     return this.data.data;
+  }
+  
+  async syncEquipVariables() {
+    let tbData = this.tbData();
+    for(let i = 1; i <= 3; i++) {
+      if(tbData.equip === tbData.equipOptions['option' + i].value) {
+        await this.update({
+          data: {
+            carried: tbData.carryOptions['option' + i].value,
+            slots: tbData.slotOptions['option' + i].value,
+          }
+        });
+        return;
+      }
+    }
   }
 
   isCompatibleContainer(containerType) {
@@ -80,6 +94,5 @@ export class TorchbearerItem extends Item {
    * @return nothing but can modify data.data.computed.consumedSlots
    */
   onCalculateConsumedSlots(container, given) {
-    console.log("onCalculatedConsumedSlots base " + this.data.name);
   }
 }

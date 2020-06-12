@@ -143,6 +143,7 @@ export class TorchbearerActorSheet extends ActorSheet {
     });
 
     html.find('#overburdenToggle').click(() => {
+      console.log(this.actor);
       this.actor.update({
         data: {
           overburdened: !this.actor.tbData().overburdened
@@ -758,6 +759,9 @@ export class TorchbearerActorSheet extends ActorSheet {
   /** @override */
   async _onDrop(event) {
     let item = await super._onDrop(event);
+
+    if(this.actor.data.type !== 'Character') return;
+
     let tbItem;
     if(item._id) {
       tbItem = this.actor.items.get(item._id);
@@ -765,6 +769,8 @@ export class TorchbearerActorSheet extends ActorSheet {
       tbItem = item;
     }
     if(tbItem.data) {
+      await tbItem.syncEquipVariables();
+
       let oldContainerId = tbItem.data.data.containerId;
       let {containerType, containerId, slotsTaken} = this.closestCompatibleContainer(tbItem, event.target);
       if(!containerType) {

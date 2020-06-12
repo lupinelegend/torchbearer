@@ -30,8 +30,6 @@ export const itemExtensions = {
     "Bow": {
         onAfterAddToInventory: function(container, given) {
             //Only one of a backpack or a satchel can be worn
-            console.log(this);
-            console.log(container);
             if(container.type === 'Body') return true;
             if(container.type === 'Pack' && container.name !== 'Quiver') return false;
             for(let i = 0; i < given.length; i++) {
