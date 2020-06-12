@@ -509,3 +509,7 @@ input:checked + .slider:before {
   flex: 0 0 86px;
   text-align: right;
 }
+
+.torchbearer i.clickable {
+  cursor: pointer;
+}
