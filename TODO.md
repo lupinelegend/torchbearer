@@ -2,8 +2,6 @@
 
 Inventory
 -
-- Special Equipping Rules (e.g. Quivers)
-  - Small sack bundling inventory consumption rules
 - Ability to "overburden" (using Laborer)
 - Quick drop of item to ground, Quick pickup
 - Make Line Item rendering for containers indicate that they have contents somehow
@@ -11,6 +9,7 @@ Inventory
 - Filling out the equipment databases with base 1st ed content
 - Cached items (from 2nd ed sheet; maybe need a sub-tab for this)
 - Lost items (from 2nd ed sheet; maybe on same sub-tab as cached items)
+- Optional Gear from e.g. Middarmark & content posted on Blog
 
 Dice Rolls
 - 
