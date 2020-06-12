@@ -88,7 +88,7 @@ export class TorchbearerActorSheet extends ActorSheet {
     //html.find('.item-create').click(this._onItemCreate.bind(this));
 
     // Update Inventory Item
-    html.find('.item-edit').click(ev => {
+    html.find('.item-name.clickable').click(ev => {
       const li = $(ev.currentTarget).parents(".item");
       const item = this.actor.getOwnedItem(li.data("itemId"));
       // const equip = item.data.data.equip;
@@ -103,6 +103,23 @@ export class TorchbearerActorSheet extends ActorSheet {
         // Get the equipment slot of the item being deleted
         li.slideUp(200, () => this.render(false));
       });
+    });
+
+    // Drop Inventory Item
+    html.find('.item-drop').click(ev => {
+      const li = $(ev.currentTarget).parents(".item");
+      let tbItem = this.actor.getOwnedItem(li.data("itemId"));
+      tbItem.update({
+        data: {
+          equip: "On Ground",
+          carried: "Ground",
+          slots: 1,
+        }
+      }).then(() => {
+        setTimeout(() => {
+          this.actor._onUpdate({items: true});
+        }, 0);
+      })
     });
 
     // Rollable abilities

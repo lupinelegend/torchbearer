@@ -281,8 +281,22 @@ export function alternateContainerType(tbItem) {
         }
     }, '');
 }
+function renderOptions(srcContainer) {
+    if(srcContainer === 'On Ground') {
+        return {
+            multiSlot: false,
+            droppable: false,
+        };
+    } else {
+        return {
+            multiSlot: true,
+            droppable: true,
+        }
+    }
+}
 
-Handlebars.registerHelper('renderInventory', function(capacity, srcId, srcContainer, placeholder, multiSlot) {
+Handlebars.registerHelper('renderInventory', function(capacity, srcId, srcContainer, placeholder) {
+    let { multiSlot , droppable } = renderOptions(srcContainer);
     let html = "";
     let consumed = 0;
     let container;
@@ -316,10 +330,14 @@ Handlebars.registerHelper('renderInventory', function(capacity, srcId, srcContai
                 html +=
                     `<li class="item flexrow primary-slot-consumed ${inventoryContainerClass} ${lastSlotTakenClass}" data-item-id="${item._id}" data-container-type="${containerType}">
                   <div class="item-image"><img src="${item.img}" title="${item.name}" alt="${item.name}" width="24" height="24"/></div>
-                  <h4 class="item-name" style="font-family: Souvenir-Medium;">${item.name} ${quantityExpression}</h4>
-                  <div class="item-controls">
-                      <a class="item-control item-edit" title="Edit Item" style="margin-right: 5px;"><i class="fas fa-edit"></i></a>
-                      <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+                  <h4 class="item-name clickable" style="font-family: Souvenir-Medium;">${item.name} ${quantityExpression}</h4>
+                  <div class="item-controls">`;
+                if(droppable) {
+                    html +=
+                        `<a class="item-control item-drop" title="Drop Item" style="margin-right: 5px;"><i class="fas fa-chevron-circle-down"></i></a>`;
+                }
+                html +=
+                      `<a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
                   </div>
               </li>`;
             } else if (multiSlot !== false) {

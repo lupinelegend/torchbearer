@@ -64,7 +64,7 @@ export class TorchbearerItemSheet extends ItemSheet {
     if (!this.options.editable) return;
 
     // Roll handlers, click handlers, etc. would go here.
-    html.find('.item-edit').click(ev => {
+    html.find('.item-name.clickable').click(ev => {
       const li = $(ev.currentTarget).parents(".item");
       const item = this.actor.getOwnedItem(li.data("itemId"));
       item.sheet.render(true);
@@ -81,6 +81,28 @@ export class TorchbearerItemSheet extends ItemSheet {
         });
       }
     });
+
+    // Drop Inventory Item
+    html.find('.item-drop').click(ev => {
+      const li = $(ev.currentTarget).parents(".item");
+      if(this.item.actor) {
+        let tbItem = this.actor.getOwnedItem(li.data("itemId"));
+        tbItem.update({
+          data: {
+            equip: "On Ground",
+            carried: "Ground",
+            slots: 1,
+            containerId: '',
+          }
+        }).then(() => {
+          setTimeout(() => {
+            this.item._onUpdate();
+          }, 0);
+        })
+      }
+    });
+
+
   }
 
   /** @override */
