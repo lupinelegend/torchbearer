@@ -29,6 +29,10 @@ export class TorchbearerItem extends Item {
     }
   }
 
+  tbData() {
+    return this.data.data;
+  }
+
   isCompatibleContainer(containerType) {
     return this.validContainerTypes().includes(containerType);
   }
@@ -52,15 +56,30 @@ export class TorchbearerItem extends Item {
 
   /**
    * Overridable Callback action
+   * @param tbItemOther: the other object
+   * @param given: array of items that have already been confirmed
+   * @return true if ok to add, false if not and make this object unbundleable
+   */
+  onBeforeBundleWith(tbItemOther, given) {
+    return true;
+  }
+  /**
+   * Overridable Callback action
    * @param container: the inventory container being added to
-   * @param validated: array of items that have already been confirmed
+   * @param given: array of items that have already been confirmed
    * @return true if ok to add, false if should be put on ground
    */
-  onAfterAddToInventory(container, validated) {
+  onAfterAddToInventory(container, given) {
     return true;
   }
 
-  tbData() {
-    return this.data.data;
+  /**
+   * Overridable Callback action
+   * @param container: the inventory container being added to
+   * @param given: array of items that have already been confirmed
+   * @return nothing but can modify data.data.computed.consumedSlots
+   */
+  onCalculateConsumedSlots(container, given) {
+    console.log("onCalculatedConsumedSlots base " + this.data.name);
   }
 }

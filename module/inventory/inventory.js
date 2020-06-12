@@ -10,12 +10,13 @@ export function newItemInventory(tbItem) {
     };
 }
 
-let bundleableItem = function (tbItem, container) {
+let bundleableItem = function (tbItem, container, itemOwnInventory) {
     //is the container bundleable, is the item bundleable,
     // and is the item currently holding anything inside it?
     return container.holdsBundles &&
         tbItem.tbData().bundleSize > 1 &&
-        tbItem.tbData().slots === tbItem.tbData().computed.consumedSlots;
+        (!itemOwnInventory || itemOwnInventory.slots.length === 0);
+        // tbItem.tbData().slots === tbItem.tbData().computed.consumedSlots;
 };
 
 export function arrangeInventory(tbItemsMap) {
@@ -94,7 +95,7 @@ export function arrangeInventory(tbItemsMap) {
     //Create an "inventory section" for any containers
     // in the actor's possession
     tbItems.forEach((tbItem) => {
-        if (tbItem.data.data.capacity) {
+        if (tbItem.tbData().capacity) {
             inventory[tbItem.data._id] = newItemInventory(tbItem)
         }
     });
@@ -103,10 +104,11 @@ export function arrangeInventory(tbItemsMap) {
     // inventory section, or on the ground if it's somehow gotten
     // disconnected from those places
     tbItems.forEach((tbItem) => {
-        if (tbItem.tbData().containerId && inventory[tbItem.tbData().containerId]) {
-            inventory[tbItem.tbData().containerId].slots.push(tbItem);
-        } else if (inventory[tbItem.tbData().equip]) {
-            inventory[tbItem.tbData().equip].slots.push(tbItem);
+        let tbItemData = tbItem.tbData();
+        if (tbItemData.containerId && inventory[tbItemData.containerId]) {
+            inventory[tbItemData.containerId].slots.push(tbItem);
+        } else if (inventory[tbItemData.equip]) {
+            inventory[tbItemData.equip].slots.push(tbItem);
         } else {
             inventory["On Ground"].slots.push(tbItem);
         }
@@ -132,35 +134,42 @@ export function arrangeInventory(tbItemsMap) {
             container.slots.forEach((tbItem) => {
                 //first, can the item be bundled? if so, do that and exit the rest
                 // of the process
-                tbItem.tbData().computed.bundledWith = [];
-                if(bundleableItem(tbItem, container)) {
-                    if(bundles[tbItem.tbData().name]) {
-                        //Add this item to the bundle and queue it for removal from this inventory slot set
-                        bundles[tbItem.tbData().name].tbData().computed.bundledWith.push(tbItem);
-                        removed.push(tbItem);
-                        //if the original item is now bundled with enough items to meet the size, it's
-                        // no longer an eligible bundle
-                        if(bundles[tbItem.tbData().name].tbData().computed.bundledWith.length === tbItem.tbData().bundleSize - 1) {
-                            delete bundles[tbItem.tbData().name];
+                let itemData = tbItem.tbData();
+                itemData.computed.bundledWith = [];
+                let itemName = itemData.name;
+                let existingBundle = bundles[itemName];
+                if(bundleableItem(tbItem, container, inventory[tbItem.data._id])) {
+                    if(existingBundle) {
+                        if(existingBundle.onBeforeBundleWith(tbItem, slotted)) {
+                            //Add this item to the bundle and queue it for removal from this inventory slot set
+                            existingBundle.tbData().computed.bundledWith.push(tbItem);
+                            removed.push(tbItem);
+                            //if the original item is now bundled with enough items to meet the size, it's
+                            // no longer an eligible bundle
+                            if(existingBundle.tbData().computed.bundledWith.length === itemData.bundleSize - 1) {
+                                delete bundles[itemName];
+                            }
+                            //once it's in a bundle we know there's nothing else to do here
+                            return;
+                        } else {
+                            delete bundles[itemName];
                         }
-                        //once it's in a bundle we know there's nothing else to do here
-                        return;
                     }
                 }
                 //last, can it be added to the container?
                 //if so, great and start the next bundle if possible
                 //if not, drop it on the ground
-                const size = calculateSize(tbItem, inventory, tbItem.tbData().equip, slotted, sizeCache);
+                const size = calculateConsumedSlots(tbItem, inventory, container, slotted, sizeCache);
                 if ((consumed + size) > container.capacity) {
                     removed.push(tbItem);
                     inventory["On Ground"].slots.push(tbItem);
-                    if(bundles[tbItem.tbData().name]) {
-                        delete bundle[tbItem.tbData().name];
+                    if(existingBundle) {
+                        delete bundle[itemName];
                     }
                 } else {
                     consumed += size;
-                    if(bundleableItem(tbItem, container)) {
-                        bundles[tbItem.tbData().name] = tbItem;
+                    if(bundleableItem(tbItem, container, inventory[tbItem.data._id])) {
+                        bundles[itemName] = tbItem;
                     }
                     slotted.push(tbItem);
                 }
@@ -199,18 +208,19 @@ export function arrangeInventory(tbItemsMap) {
     return inventory;
 }
 
-function calculateSize(tbItem, inventory, targetContainerType, given, sizeCache) {
-    if(tbItem.tbData().resizes && inventory[tbItem.data._id] && targetContainerType === 'Pack') {
+function calculateConsumedSlots(tbItem, inventory, container, given, sizeCache) {
+    if(tbItem.tbData().resizes && inventory[tbItem.data._id] && container.type === 'Pack') {
         if(sizeCache[tbItem.data._id]) {
             return sizeCache[tbItem.data._id];
         }
         let computedSlots = tbItem.tbData().slots;
         inventory[tbItem.data._id].slots.forEach((containedTbItem) => {
-            computedSlots += calculateSize(containedTbItem, inventory, given, sizeCache);
+            computedSlots += calculateConsumedSlots(containedTbItem, inventory, given, sizeCache);
         });
         tbItem.tbData().computed.consumedSlots = computedSlots;
         sizeCache[tbItem.data._id] = computedSlots;
     }
+    tbItem.onCalculateConsumedSlots(container, given);
     return tbItem.tbData().computed.consumedSlots;
 }
 
@@ -224,8 +234,8 @@ export function cloneInventory(inventory) {
 // direct carry/worn slots, hence no containerId being passed
 export function canFit(tbItem, containerType, inventory) {
     if(!containerType || containerType === 'Pack') return true;
-    const size = calculateSize(tbItem.data, inventory, containerType, currentSubinventoryExcluding(container, tbItem), {});
     let container = inventory[containerType];
+    const size = calculateConsumedSlots(tbItem, inventory, container, currentSubinventoryExcluding(container, tbItem), {});
     return size + currentConsumptionExcluding(container, tbItem) <= container.capacity;
 }
 
@@ -240,7 +250,7 @@ let currentConsumptionExcluding = function(container, tbItem) {
         if(tbItem && tbItem.data._id === curr._id) {
             return accum;
         }
-        return accum + curr.data.computed.consumedSlots;
+        return accum + curr.tbData().computed.consumedSlots;
     }, 0);
 }
 
