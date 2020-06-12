@@ -48,21 +48,16 @@ Hooks.once('init', async function() {
     });
   });
 
+  game.settings.register('conflict-sheet', 'partyIntent', {
+    name: '',
+    type: String
+  });
+
   Hooks.on('ready', (app, html, data) => {
-    
+    const sheet = new conflictSheet();
     $('#logo').click(ev => {
-      let actorArray = [];
-      game.actors._source.forEach(element => {
-        actorArray.push(element.name);
-      });
-      console.log(actorArray);
-
-      new conflictSheet({
-        actors: actorArray,
-        test: 'TESTING'
-      }).render(true);
+      sheet.render(true);
     });
-
   });
   
 
