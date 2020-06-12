@@ -1,709 +1,757 @@
 {
   "Actor": {
-    "types": ["Character", "NPC", "GMPC"],
+    "types": [
+      "Character",
+      "NPC",
+      "GMPC"
+    ],
     "templates": {
-			"notes": {
-				"roleplay": "",
-				"arc": ""
-			},
-			"background": {
-				"name": "",
-				"parents": "",
-				"stock": "",
-				"charMentor": "",
-				"friend": "",
-				"age": "",
-				"enemy": "",
-				"home": "",
-				"raiment": ""
-			},
-			"purpose": {
-				"belief": "",
-				"creed": "",
-				"goal": "",
-				"instinct": "",
-				"natureDescriptors": ""
-			},
+      "notes": {
+        "roleplay": "",
+        "arc": ""
+      },
+      "background": {
+        "name": "",
+        "parents": "",
+        "stock": "",
+        "charMentor": "",
+        "friend": "",
+        "age": "",
+        "enemy": "",
+        "home": "",
+        "raiment": ""
+      },
+      "purpose": {
+        "belief": "",
+        "creed": "",
+        "goal": "",
+        "instinct": "",
+        "natureDescriptors": ""
+      },
       "rewards": {
-				"fate": {
-					"value": 0,
-					"spent": 0
-				},
-				"persona": {
-					"value": 0,
-					"spent": 0
-				},
-				"totalChecks": {
-					"value": 0
-				}
-			},
-			"conditions": {
-				"fresh": true,
-				"hungryandthirsty": false,
-				"angry": false,
-				"afraid": false,
-				"exhausted": false,
-				"injured": false,
-				"sick": false,
-				"dead": false,
-				"conditionProgress": 0
-			},
-			"abilities": {
-				"will": {
-					"value": 0,
-					"max": 10,
-					"pass": 0,
-					"fail": 0
-				},
-				"health": {
-					"value": 0,
-					"max": 10,
-					"pass": 0,
-					"fail": 0
-				},
-				"nature": {
-					"value": 0,
-					"max": 0,
-					"pass": 0,
-					"fail": 0
-				},
-				"resources": {
-					"value": 0,
-					"max": 10,
-					"pass": 0,
-					"fail": 0
-				},
-				"circles": {
-					"value": 0,
-					"max": 10,
-					"pass": 0,
-					"fail": 0
-				},
-				"precedence": {
-					"value": 0,
-					"max": 10
-				},
-				"might": {
-					"value": 3,
-					"max": 10
-				},
-				"urdr": {
-					"value": 0,
-					"max": 10
-				},
-				"burden": {
-					"value": 0,
-					"max": 10
-				},
-				"memorypalace": {
-					"value": 0,
-					"max": 10
-				}
-			},
-			"common": {
-				"skills": {
-					"Alchemist": {
-						"name": "Alchemist",
-						"rating": 0,
-						"max": 10,
-						"pass": 0,
-						"fail": 0,
-						"help": "Lore Master, Laborer",
-						"bl": "W"
-					},
-					"Arcanist": {
-						"name": "Arcanist",
-						"rating": 0,
-						"max": 10,
-						"pass": 0,
-						"fail": 0,
-						"help": "Lore Master",
-						"bl": "W"
-					},
-					"Armorer": {
-						"name": "Armorer",
-						"rating": 0,
-						"max": 10,
-						"pass": 0,
-						"fail": 0,
-						"help": "Alchemist, Smith, Laborer",
-						"bl": "H"
-					},
-					"Carpenter": {
-						"name": "Carpenter",
-						"rating": 0,
-						"max": 10,
-						"pass": 0,
-						"fail": 0,
-						"help": "Laborer, Alchemist",
-						"bl": "H"
-					},
-					"Cartographer": {
-						"name": "Cartographer",
-						"rating": 0,
-						"max": 10,
-						"pass": 0,
-						"fail": 0,
-						"help": "Scholar, Pathfinder",
-						"bl": "W"
-					},
-					"Commander": {
-						"name": "Commander",
-						"rating": 0,
-						"max": 10,
-						"pass": 0,
-						"fail": 0,
-						"help": "Steward",
-						"bl": "W"
-					},
-					"Cook": {
-						"name": "Cook",
-						"rating": 0,
-						"max": 10,
-						"pass": 0,
-						"fail": 0,
-						"help": "Alchemist, Laborer",
-						"bl": "W"
-					},
-					"Criminal": {
-						"name": "Criminal",
-						"rating": 0,
-						"max": 10,
-						"pass": 0,
-						"fail": 0,
-						"help": "Scout, Scholar",
-						"bl": "H"
-					},
-					"Dungeoneer": {
-						"name": "Dungeoneer",
-						"rating": 0,
-						"max": 10,
-						"pass": 0,
-						"fail": 0,
-						"help": "Criminal, Laborer, Scout, Survivalist",
-						"bl": "H"
-					},
-					"Fighter": {
-						"name": "Fighter",
-						"rating": 0,
-						"max": 10,
-						"pass": 0,
-						"fail": 0,
-						"help": "Fighter",
-						"bl": "H"
-					},
-					"Haggler": {
-						"name": "Haggler",
-						"rating": 0,
-						"max": 10,
-						"pass": 0,
-						"fail": 0,
-						"help": "Persuader, Manipulator",
-						"bl": "W"
-					},
-					"Healer": {
-						"name": "Healer",
-						"rating": 0,
-						"max": 10,
-						"pass": 0,
-						"fail": 0,
-						"help": "Alchemist, Laborer",
-						"bl": "W"
-					},
-					"Hunter": {
-						"name": "Hunter",
-						"rating": 0,
-						"max": 10,
-						"pass": 0,
-						"fail": 0,
-						"help": "Survivalist, Laborer",
-						"bl": "H"
-					},
-					"Laborer": {
-						"name": "Laborer",
-						"rating": 0,
-						"max": 10,
-						"pass": 0,
-						"fail": 0,
-						"help": "Laborer",
-						"bl": "H"
-					},
-					"Loremaster": {
-						"name": "Loremaster",
-						"rating": 0,
-						"max": 10,
-						"pass": 0,
-						"fail": 0,
-						"help": "Scholar",
-						"bl": "W"
-					},
-					"Manipulator": {
-						"name": "Manipulator",
-						"rating": 0,
-						"max": 10,
-						"pass": 0,
-						"fail": 0,
-						"help": "Persuader",
-						"bl": "W"
-					},
-					"Mentor": {
-						"name": "Mentor",
-						"rating": 0,
-						"max": 10,
-						"pass": 0,
-						"fail": 0,
-						"help": "Skill taught",
-						"bl": "W"
-					},
-					"Orator": {
-						"name": "Orator",
-						"rating": 0,
-						"max": 10,
-						"pass": 0,
-						"fail": 0,
-						"help": "Manipulator",
-						"bl": "W"
-					},
-					"Pathfinder": {
-						"name": "Pathfinder",
-						"rating": 0,
-						"max": 10,
-						"pass": 0,
-						"fail": 0,
-						"help": "Scout, Hunter",
-						"bl": "H"
-					},
-					"Peasant": {
-						"name": "Peasant",
-						"rating": 0,
-						"max": 10,
-						"pass": 0,
-						"fail": 0,
-						"help": "Laborer, Survivalist",
-						"bl": "H"
-					},
-					"Persuader": {
-						"name": "Persuader",
-						"rating": 0,
-						"max": 10,
-						"pass": 0,
-						"fail": 0,
-						"help": "Manipulator",
-						"bl": "W"
-					},
-					"Rider": {
-						"name": "Rider",
-						"rating": 0,
-						"max": 10,
-						"pass": 0,
-						"fail": 0,
-						"help": "Peasant",
-						"bl": "H"
-					},
-					"Ritualist": {
-						"name": "Ritualist",
-						"rating": 0,
-						"max": 10,
-						"pass": 0,
-						"fail": 0,
-						"help": "Ritualist",
-						"bl": "W"
-					},
-					"Sailor": {
-						"name": "Sailor",
-						"rating": 0,
-						"max": 10,
-						"pass": 0,
-						"fail": 0,
-						"help": "Laborer, Pathfinder, Survivalist",
-						"bl": "H"
-					},
-					"Scavenger": {
-						"name": "Scavenger",
-						"rating": 0,
-						"max": 10,
-						"pass": 0,
-						"fail": 0,
-						"help": "Scavenger, Scout",
-						"bl": "H"
-					},
-					"Scholar": {
-						"name": "Scholar",
-						"rating": 0,
-						"max": 10,
-						"pass": 0,
-						"fail": 0,
-						"help": "Lore Master, Steward",
-						"bl": "W"
-					},
-					"Scout": {
-						"name": "Scout",
-						"rating": 0,
-						"max": 10,
-						"pass": 0,
-						"fail": 0,
-						"help": "Pathfinder, Hunter",
-						"bl": "W"
-					},
-					"Steward": {
-						"name": "Steward",
-						"rating": 0,
-						"max": 10,
-						"pass": 0,
-						"fail": 0,
-						"help": "Scholar, Orator, Theologian",
-						"bl": "W"
-					},
-					"Stonemason": {
-						"name": "Stonemason",
-						"rating": 0,
-						"max": 10,
-						"pass": 0,
-						"fail": 0,
-						"help": "Laborer",
-						"bl": "H"
-					},
-					"Survivalist": {
-						"name": "Survivalist",
-						"rating": 0,
-						"max": 10,
-						"pass": 0,
-						"fail": 0,
-						"help": "Hunter, Laborer",
-						"bl": "H"
-					},
-					"Theologian": {
-						"name": "Theologian",
-						"rating": 0,
-						"max": 10,
-						"pass": 0,
-						"fail": 0,
-						"help": "Scholar",
-						"bl": "W"
-					},
-					"Weaver": {
-						"name": "Weaver",
-						"rating": 0,
-						"max": 10,
-						"pass": 0,
-						"fail": 0,
-						"help": "Weaver, Laborer",
-						"bl": "W"
-					}
-				},
-				"traits": {
-					"trait1": {
-						"name": "",
-						"level": {
-							"value": 1
-						},
-						"uses": {
-							"level1": {
-								"use1": false
-							},
-							"level2": {
-								"use1": false,
-								"use2": false
-							}
-						},
-						"checks": {
-							"checksEarned": 0
-						}
-					},
-					"trait2": {
-						"name": "",
-						"level": {
-							"value": 1
-						},
-						"uses": {
-							"level1": {
-								"use1": false
-							},
-							"level2": {
-								"use1": false,
-								"use2": false
-							}
-						},
-						"checks": {
-							"checksEarned": 0
-						}
-					},
-					"trait3": {
-						"name": "",
-						"level": {
-							"value": 1
-						},
-						"uses": {
-							"level1": {
-								"use1": false
-							},
-							"level2": {
-								"use1": false,
-								"use2": false
-							}
-						},
-						"checks": {
-							"checksEarned": 0
-						}
-					},
-					"trait4": {
-						"name": "",
-						"level": {
-							"value": 1
-						},
-						"uses": {
-							"level1": {
-								"use1": false
-							},
-							"level2": {
-								"use1": false,
-								"use2": false
-							}
-						},
-						"checks": {
-							"checksEarned": 0
-						}
-					}
-				},
-				"alliesEnemies": {
-					"ally1": {
-						"name": "",
-						"location": "",
-						"notes": "",
-						"enemy": false
-					},
-					"ally2": {
-						"name": "",
-						"location": "",
-						"notes": "",
-						"enemy": false
-					},
-					"ally3": {
-						"name": "",
-						"location": "",
-						"notes": "",
-						"enemy": false
-					},
-					"ally4": {
-						"name": "",
-						"location": "",
-						"notes": "",
-						"enemy": false
-					},
-					"ally5": {
-						"name": "",
-						"location": "",
-						"notes": "",
-						"enemy": false
-					},
-					"ally6": {
-						"name": "",
-						"location": "",
-						"notes": "",
-						"enemy": false
-					},
-					"ally7": {
-						"name": "",
-						"location": "",
-						"notes": "",
-						"enemy": false
-					},
-					"ally8": {
-						"name": "",
-						"location": "",
-						"notes": "",
-						"enemy": false
-					},
-					"ally9": {
-						"name": "",
-						"location": "",
-						"notes": "",
-						"enemy": false
-					},
-					"ally10": {
-						"name": "",
-						"location": "",
-						"notes": "",
-						"enemy": false
-					},
-					"ally11": {
-						"name": "",
-						"location": "",
-						"notes": "",
-						"enemy": false
-					},
-					"ally12": {
-						"name": "",
-						"location": "",
-						"notes": "",
-						"enemy": false
-					}
-				},
-				"lastTest": "",
-				"isLastTestSkill": false
-			},
-			"wises": {
-				"wise1": {
-					"name": "",
-					"pass": false,
-					"fail": false,
-					"fate": false,
-					"persona": false
-				},
-				"wise2": {
-					"name": "",
-					"pass": false,
-					"fail": false,
-					"fate": false,
-					"persona": false
-				},
-				"wise3": {
-					"name": "",
-					"pass": false,
-					"fail": false,
-					"fate": false,
-					"persona": false
-				},
-				"wise4": {
-					"name": "",
-					"pass": false,
-					"fail": false,
-					"fate": false,
-					"persona": false
-				}
-			}
+        "fate": {
+          "value": 0,
+          "spent": 0
+        },
+        "persona": {
+          "value": 0,
+          "spent": 0
+        },
+        "totalChecks": {
+          "value": 0
+        }
+      },
+      "conditions": {
+        "fresh": true,
+        "hungryandthirsty": false,
+        "angry": false,
+        "afraid": false,
+        "exhausted": false,
+        "injured": false,
+        "sick": false,
+        "dead": false,
+        "conditionProgress": 0
+      },
+      "abilities": {
+        "will": {
+          "value": 0,
+          "max": 10,
+          "pass": 0,
+          "fail": 0
+        },
+        "health": {
+          "value": 0,
+          "max": 10,
+          "pass": 0,
+          "fail": 0
+        },
+        "nature": {
+          "value": 0,
+          "max": 0,
+          "pass": 0,
+          "fail": 0
+        },
+        "resources": {
+          "value": 0,
+          "max": 10,
+          "pass": 0,
+          "fail": 0
+        },
+        "circles": {
+          "value": 0,
+          "max": 10,
+          "pass": 0,
+          "fail": 0
+        },
+        "precedence": {
+          "value": 0,
+          "max": 10
+        },
+        "might": {
+          "value": 3,
+          "max": 10
+        },
+        "urdr": {
+          "value": 0,
+          "max": 10
+        },
+        "burden": {
+          "value": 0,
+          "max": 10
+        },
+        "memorypalace": {
+          "value": 0,
+          "max": 10
+        }
+      },
+      "common": {
+        "skills": {
+          "Alchemist": {
+            "name": "Alchemist",
+            "rating": 0,
+            "max": 10,
+            "pass": 0,
+            "fail": 0,
+            "help": "Lore Master, Laborer",
+            "bl": "W"
+          },
+          "Arcanist": {
+            "name": "Arcanist",
+            "rating": 0,
+            "max": 10,
+            "pass": 0,
+            "fail": 0,
+            "help": "Lore Master",
+            "bl": "W"
+          },
+          "Armorer": {
+            "name": "Armorer",
+            "rating": 0,
+            "max": 10,
+            "pass": 0,
+            "fail": 0,
+            "help": "Alchemist, Smith, Laborer",
+            "bl": "H"
+          },
+          "Carpenter": {
+            "name": "Carpenter",
+            "rating": 0,
+            "max": 10,
+            "pass": 0,
+            "fail": 0,
+            "help": "Laborer, Alchemist",
+            "bl": "H"
+          },
+          "Cartographer": {
+            "name": "Cartographer",
+            "rating": 0,
+            "max": 10,
+            "pass": 0,
+            "fail": 0,
+            "help": "Scholar, Pathfinder",
+            "bl": "W"
+          },
+          "Commander": {
+            "name": "Commander",
+            "rating": 0,
+            "max": 10,
+            "pass": 0,
+            "fail": 0,
+            "help": "Steward",
+            "bl": "W"
+          },
+          "Cook": {
+            "name": "Cook",
+            "rating": 0,
+            "max": 10,
+            "pass": 0,
+            "fail": 0,
+            "help": "Alchemist, Laborer",
+            "bl": "W"
+          },
+          "Criminal": {
+            "name": "Criminal",
+            "rating": 0,
+            "max": 10,
+            "pass": 0,
+            "fail": 0,
+            "help": "Scout, Scholar",
+            "bl": "H"
+          },
+          "Dungeoneer": {
+            "name": "Dungeoneer",
+            "rating": 0,
+            "max": 10,
+            "pass": 0,
+            "fail": 0,
+            "help": "Criminal, Laborer, Scout, Survivalist",
+            "bl": "H"
+          },
+          "Fighter": {
+            "name": "Fighter",
+            "rating": 0,
+            "max": 10,
+            "pass": 0,
+            "fail": 0,
+            "help": "Fighter",
+            "bl": "H"
+          },
+          "Haggler": {
+            "name": "Haggler",
+            "rating": 0,
+            "max": 10,
+            "pass": 0,
+            "fail": 0,
+            "help": "Persuader, Manipulator",
+            "bl": "W"
+          },
+          "Healer": {
+            "name": "Healer",
+            "rating": 0,
+            "max": 10,
+            "pass": 0,
+            "fail": 0,
+            "help": "Alchemist, Laborer",
+            "bl": "W"
+          },
+          "Hunter": {
+            "name": "Hunter",
+            "rating": 0,
+            "max": 10,
+            "pass": 0,
+            "fail": 0,
+            "help": "Survivalist, Laborer",
+            "bl": "H"
+          },
+          "Laborer": {
+            "name": "Laborer",
+            "rating": 0,
+            "max": 10,
+            "pass": 0,
+            "fail": 0,
+            "help": "Laborer",
+            "bl": "H"
+          },
+          "Loremaster": {
+            "name": "Loremaster",
+            "rating": 0,
+            "max": 10,
+            "pass": 0,
+            "fail": 0,
+            "help": "Scholar",
+            "bl": "W"
+          },
+          "Manipulator": {
+            "name": "Manipulator",
+            "rating": 0,
+            "max": 10,
+            "pass": 0,
+            "fail": 0,
+            "help": "Persuader",
+            "bl": "W"
+          },
+          "Mentor": {
+            "name": "Mentor",
+            "rating": 0,
+            "max": 10,
+            "pass": 0,
+            "fail": 0,
+            "help": "Skill taught",
+            "bl": "W"
+          },
+          "Orator": {
+            "name": "Orator",
+            "rating": 0,
+            "max": 10,
+            "pass": 0,
+            "fail": 0,
+            "help": "Manipulator",
+            "bl": "W"
+          },
+          "Pathfinder": {
+            "name": "Pathfinder",
+            "rating": 0,
+            "max": 10,
+            "pass": 0,
+            "fail": 0,
+            "help": "Scout, Hunter",
+            "bl": "H"
+          },
+          "Peasant": {
+            "name": "Peasant",
+            "rating": 0,
+            "max": 10,
+            "pass": 0,
+            "fail": 0,
+            "help": "Laborer, Survivalist",
+            "bl": "H"
+          },
+          "Persuader": {
+            "name": "Persuader",
+            "rating": 0,
+            "max": 10,
+            "pass": 0,
+            "fail": 0,
+            "help": "Manipulator",
+            "bl": "W"
+          },
+          "Rider": {
+            "name": "Rider",
+            "rating": 0,
+            "max": 10,
+            "pass": 0,
+            "fail": 0,
+            "help": "Peasant",
+            "bl": "H"
+          },
+          "Ritualist": {
+            "name": "Ritualist",
+            "rating": 0,
+            "max": 10,
+            "pass": 0,
+            "fail": 0,
+            "help": "Ritualist",
+            "bl": "W"
+          },
+          "Sailor": {
+            "name": "Sailor",
+            "rating": 0,
+            "max": 10,
+            "pass": 0,
+            "fail": 0,
+            "help": "Laborer, Pathfinder, Survivalist",
+            "bl": "H"
+          },
+          "Scavenger": {
+            "name": "Scavenger",
+            "rating": 0,
+            "max": 10,
+            "pass": 0,
+            "fail": 0,
+            "help": "Scavenger, Scout",
+            "bl": "H"
+          },
+          "Scholar": {
+            "name": "Scholar",
+            "rating": 0,
+            "max": 10,
+            "pass": 0,
+            "fail": 0,
+            "help": "Lore Master, Steward",
+            "bl": "W"
+          },
+          "Scout": {
+            "name": "Scout",
+            "rating": 0,
+            "max": 10,
+            "pass": 0,
+            "fail": 0,
+            "help": "Pathfinder, Hunter",
+            "bl": "W"
+          },
+          "Steward": {
+            "name": "Steward",
+            "rating": 0,
+            "max": 10,
+            "pass": 0,
+            "fail": 0,
+            "help": "Scholar, Orator, Theologian",
+            "bl": "W"
+          },
+          "Stonemason": {
+            "name": "Stonemason",
+            "rating": 0,
+            "max": 10,
+            "pass": 0,
+            "fail": 0,
+            "help": "Laborer",
+            "bl": "H"
+          },
+          "Survivalist": {
+            "name": "Survivalist",
+            "rating": 0,
+            "max": 10,
+            "pass": 0,
+            "fail": 0,
+            "help": "Hunter, Laborer",
+            "bl": "H"
+          },
+          "Theologian": {
+            "name": "Theologian",
+            "rating": 0,
+            "max": 10,
+            "pass": 0,
+            "fail": 0,
+            "help": "Scholar",
+            "bl": "W"
+          },
+          "Weaver": {
+            "name": "Weaver",
+            "rating": 0,
+            "max": 10,
+            "pass": 0,
+            "fail": 0,
+            "help": "Weaver, Laborer",
+            "bl": "W"
+          }
+        },
+        "traits": {
+          "trait1": {
+            "name": "",
+            "level": {
+              "value": 1
+            },
+            "uses": {
+              "level1": {
+                "use1": false
+              },
+              "level2": {
+                "use1": false,
+                "use2": false
+              }
+            },
+            "checks": {
+              "checksEarned": 0
+            }
+          },
+          "trait2": {
+            "name": "",
+            "level": {
+              "value": 1
+            },
+            "uses": {
+              "level1": {
+                "use1": false
+              },
+              "level2": {
+                "use1": false,
+                "use2": false
+              }
+            },
+            "checks": {
+              "checksEarned": 0
+            }
+          },
+          "trait3": {
+            "name": "",
+            "level": {
+              "value": 1
+            },
+            "uses": {
+              "level1": {
+                "use1": false
+              },
+              "level2": {
+                "use1": false,
+                "use2": false
+              }
+            },
+            "checks": {
+              "checksEarned": 0
+            }
+          },
+          "trait4": {
+            "name": "",
+            "level": {
+              "value": 1
+            },
+            "uses": {
+              "level1": {
+                "use1": false
+              },
+              "level2": {
+                "use1": false,
+                "use2": false
+              }
+            },
+            "checks": {
+              "checksEarned": 0
+            }
+          }
+        },
+        "alliesEnemies": {
+          "ally1": {
+            "name": "",
+            "location": "",
+            "notes": "",
+            "enemy": false
+          },
+          "ally2": {
+            "name": "",
+            "location": "",
+            "notes": "",
+            "enemy": false
+          },
+          "ally3": {
+            "name": "",
+            "location": "",
+            "notes": "",
+            "enemy": false
+          },
+          "ally4": {
+            "name": "",
+            "location": "",
+            "notes": "",
+            "enemy": false
+          },
+          "ally5": {
+            "name": "",
+            "location": "",
+            "notes": "",
+            "enemy": false
+          },
+          "ally6": {
+            "name": "",
+            "location": "",
+            "notes": "",
+            "enemy": false
+          },
+          "ally7": {
+            "name": "",
+            "location": "",
+            "notes": "",
+            "enemy": false
+          },
+          "ally8": {
+            "name": "",
+            "location": "",
+            "notes": "",
+            "enemy": false
+          },
+          "ally9": {
+            "name": "",
+            "location": "",
+            "notes": "",
+            "enemy": false
+          },
+          "ally10": {
+            "name": "",
+            "location": "",
+            "notes": "",
+            "enemy": false
+          },
+          "ally11": {
+            "name": "",
+            "location": "",
+            "notes": "",
+            "enemy": false
+          },
+          "ally12": {
+            "name": "",
+            "location": "",
+            "notes": "",
+            "enemy": false
+          }
+        },
+        "lastTest": "",
+        "isLastTestSkill": false
+      },
+      "wises": {
+        "wise1": {
+          "name": "",
+          "pass": false,
+          "fail": false,
+          "fate": false,
+          "persona": false
+        },
+        "wise2": {
+          "name": "",
+          "pass": false,
+          "fail": false,
+          "fate": false,
+          "persona": false
+        },
+        "wise3": {
+          "name": "",
+          "pass": false,
+          "fail": false,
+          "fate": false,
+          "persona": false
+        },
+        "wise4": {
+          "name": "",
+          "pass": false,
+          "fail": false,
+          "fate": false,
+          "persona": false
+        }
+      },
+      "inventory": {
+        "overburdened": false
+      }
     },
     "Character": {
-			"templates": ["background", "purpose", "traits", "rewards", "conditions", "abilities", "skills", "wises", "inventory", "allies", "enemies", "common", "notes"],
-			"class": {
-				"name": "",
-				"startingWill": 0,
-				"startingHealth": 0,
-				"startingSkills": {},
-				"startingTrait": "",
-				"allowedWeapons": [],
-				"restrictedWeapons": [],
-				"allowedArmor": []
-			},
-			"classes": {
-				"outcast": {
-					"value": "Dwarf Adventurer"
-				},
-				"ranger": {
-					"value": "Elf Ranger"
-				},
-				"burglar": {
-					"value": "Halfling Burglar"
-				},
-				"theurge": {
-					"value": "Human Theurge"
-				},
-				"magician": {
-					"value": "Human Magician"
-				},
-				"warrior": {
-					"value": "Human Warrior"
-				}
-			},
-			"level": {
-				"value": 1
-			}
+      "templates": [
+        "background",
+        "purpose",
+        "traits",
+        "rewards",
+        "conditions",
+        "abilities",
+        "skills",
+        "wises",
+        "inventory",
+        "allies",
+        "enemies",
+        "common",
+        "notes"
+      ],
+      "class": {
+        "name": "",
+        "startingWill": 0,
+        "startingHealth": 0,
+        "startingSkills": {},
+        "startingTrait": "",
+        "allowedWeapons": [],
+        "restrictedWeapons": [],
+        "allowedArmor": []
+      },
+      "classes": {
+        "outcast": {
+          "value": "Dwarf Adventurer"
+        },
+        "ranger": {
+          "value": "Elf Ranger"
+        },
+        "burglar": {
+          "value": "Halfling Burglar"
+        },
+        "theurge": {
+          "value": "Human Theurge"
+        },
+        "magician": {
+          "value": "Human Magician"
+        },
+        "warrior": {
+          "value": "Human Warrior"
+        }
+      },
+      "level": {
+        "value": 1
+      }
     },
     "NPC": {
-      "templates": ["purpose", "traits", "rewards", "abilities", "skills", "wises"]
+      "templates": [
+        "purpose",
+        "traits",
+        "rewards",
+        "abilities",
+        "skills",
+        "wises"
+      ]
     },
     "GMPC": {
-      "templates": ["background", "purpose", "traits", "rewards", "conditions", "abilities", "skills", "wises", "inventory", "allies", "enemies", "common", "notes"]
+      "templates": [
+        "background",
+        "purpose",
+        "traits",
+        "rewards",
+        "conditions",
+        "abilities",
+        "skills",
+        "wises",
+        "inventory",
+        "allies",
+        "enemies",
+        "common",
+        "notes"
+      ]
     }
   },
   "Item": {
-    "types": ["Item", "Relic", "Spell", "Class", "Feature"],
+    "types": [
+      "Item",
+      "Relic",
+      "Spell",
+      "Class",
+      "Feature"
+    ],
     "templates": {
       "base": {
         "description": ""
       }
     },
     "Item": {
-			"name": "",
-			"equip": "",
-			"carried": "",
-			"slots": 1,
-			"cost": "",
-			"description": "",
-			"capacity": 0,
-			"bundleSize": 1,
-			"resizes": false,
-			"containerId": "",
-			"maxDraughts": 0,
-			"draughts": 0,
-			"liquid": "",
-			"damaged": false,
-		    "lightsource": {
-				"lasts": 0,
-				"remaining": 0,
-				"held": {
-					"characters": 0,
-					"dimCharacters": 0
-				},
-				"tossed": {
-					"characters": 0,
-					"dimCharacters": 0
-				}
-			},
-			"equipOptions": {
-				"option1": {
-					"value": ""
-				},
-				"option2": {
-					"value": ""
-				},
-				"option3": {
-					"value": ""
-				}
-			},
-			"carryOptions": {
-				"option1": {
-					"value": ""
-				},
-				"option2": {
-					"value": ""
-				},
-				"option3": {
-					"value": ""
-				}
-			},
-			"slotOptions": {
-				"option1": {
-					"value": 0
-				},
-				"option2": {
-					"value": 0
-				},
-				"option3": {
-					"value": 0
-				}
-			},
-			"notes": "",
-			"prevEquip": ""
+      "name": "",
+      "equip": "",
+      "carried": "",
+      "slots": 1,
+      "cost": "",
+      "description": "",
+      "capacity": 0,
+      "bundleSize": 1,
+      "resizes": false,
+      "containerId": "",
+      "maxDraughts": 0,
+      "draughts": 0,
+      "liquid": "",
+      "damaged": false,
+      "lightsource": {
+        "lasts": 0,
+        "remaining": 0,
+        "held": {
+          "characters": 0,
+          "dimCharacters": 0
+        },
+        "tossed": {
+          "characters": 0,
+          "dimCharacters": 0
+        }
+      },
+      "equipOptions": {
+        "option1": {
+          "value": ""
+        },
+        "option2": {
+          "value": ""
+        },
+        "option3": {
+          "value": ""
+        }
+      },
+      "carryOptions": {
+        "option1": {
+          "value": ""
+        },
+        "option2": {
+          "value": ""
+        },
+        "option3": {
+          "value": ""
+        }
+      },
+      "slotOptions": {
+        "option1": {
+          "value": 0
+        },
+        "option2": {
+          "value": 0
+        },
+        "option3": {
+          "value": 0
+        }
+      },
+      "notes": "",
+      "prevEquip": ""
     },
     "Relic": {
       "name": "",
-	  	"inventoryslot": "",
-	  	"invocationpatroncircle": ""
+      "inventoryslot": "",
+      "invocationpatroncircle": ""
     },
     "Spell": {
       "name": "",
-			"ob": 0,
-			"known": false,
-			"spellbook": false,
-			"memorized": false,
-			"cast": false,
-			"scroll": false,
-			"supplies": false,
-			"effect": ""
+      "ob": 0,
+      "known": false,
+      "spellbook": false,
+      "memorized": false,
+      "cast": false,
+      "scroll": false,
+      "supplies": false,
+      "effect": ""
     },
     "Class": {
-			"name": "",
+      "name": "",
       "startingWill": 0,
       "startingHealth": 0,
       "startingSkills": {},
@@ -711,14 +759,14 @@
       "allowedWeapons": [],
       "restrictedWeapons": [],
       "allowedArmor": []
-		},
+    },
     "Feature": {
       "outcast": {
-				"level1": "You may wear any armor and wield any weapon except great swords and lances."
-			},
-			"ranger": {
-				"level1": "You may wield swords, spears, and daggers and wear leather or chain armor, and wear a helmet. Your Level 1 benefit is to add +1 to wilderness camp event rolls."
-			}
+        "level1": "You may wear any armor and wield any weapon except great swords and lances."
+      },
+      "ranger": {
+        "level1": "You may wield swords, spears, and daggers and wear leather or chain armor, and wear a helmet. Your Level 1 benefit is to add +1 to wilderness camp event rolls."
+      }
     }
   }
 }

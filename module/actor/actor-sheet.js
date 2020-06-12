@@ -142,6 +142,14 @@ export class TorchbearerActorSheet extends ActorSheet {
       }
     });
 
+    html.find('#overburdenToggle').click(() => {
+      this.actor.update({
+        data: {
+          overburdened: !this.actor.tbData().overburdened
+        }
+      });
+    });
+
     // // Event listener for advancing skills
     // html.find('.rollable').click(this._advanceSkill.bind(this));
 
