@@ -88,7 +88,7 @@ export class TorchbearerActorSheet extends ActorSheet {
     //html.find('.item-create').click(this._onItemCreate.bind(this));
 
     // Update Inventory Item
-    html.find('.item-edit').click(ev => {
+    html.find('.item-name.clickable').click(ev => {
       const li = $(ev.currentTarget).parents(".item");
       const item = this.actor.getOwnedItem(li.data("itemId"));
       // const equip = item.data.data.equip;
@@ -105,7 +105,7 @@ export class TorchbearerActorSheet extends ActorSheet {
       });
     });
 
-    // Delete Inventory Item
+    // Drop Inventory Item
     html.find('.item-drop').click(ev => {
       const li = $(ev.currentTarget).parents(".item");
       let tbItem = this.actor.getOwnedItem(li.data("itemId"));

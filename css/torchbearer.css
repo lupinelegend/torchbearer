@@ -510,6 +510,6 @@ input:checked + .slider:before {
   text-align: right;
 }
 
-.torchbearer i.clickable {
+.torchbearer .clickable {
   cursor: pointer;
 }
