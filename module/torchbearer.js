@@ -49,43 +49,77 @@ Hooks.once('init', async function() {
   });
 
   game.settings.register('conflict-sheet', 'partyIntent', {
-    name: '',
+    name: 'partyIntent',
+    scope: 'world',
+    config: false,
+    default: '',
     type: String
   });
 
   game.settings.register('conflict-sheet', 'conflictCaptain', {
-    name: '',
+    name: 'conflictCaptain',
+    scope: 'world',
+    config: false,
+    default: '',
     type: String
   });
 
   game.settings.register('conflict-sheet', 'opponentIntent', {
-    name: '',
+    name: 'opponentIntent',
+    scope: 'world',
+    config: false,
+    default: '',
     type: String
   });
 
   game.settings.register('conflict-sheet', 'opponentName', {
-    name: '',
+    name: 'opponentName',
+    scope: 'world',
+    config: false,
+    default: '',
     type: String
   });
 
   game.settings.register('conflict-sheet', 'partyDispoCurrent', {
-    name: '',
+    name: 'partyDispoCurrent',
+    scope: 'world',
+    config: false,
+    default: '',
     type: String
   });
 
   game.settings.register('conflict-sheet', 'partyDispoMax', {
-    name: '',
+    name: 'partyDispoMax',
+    scope: 'world',
+    config: false,
+    default: '',
     type: String
   });
 
   game.settings.register('conflict-sheet', 'opponentDispoCurrent', {
-    name: 0,
+    name: 'opponentDispoCurrent',
+    scope: 'world',
+    config: false,
+    default: '',
     type: String
   });
 
   game.settings.register('conflict-sheet', 'opponentDispoMax', {
-    name: 0,
+    name: 'opponentDispoMax',
+    scope: 'world',
+    config: false,
+    default: '',
     type: String
+  });
+
+  game.socket.on('system.torchbearer', data => {
+    if (game.user.isGM) {
+      switch (data.name) {
+        case 'partyIntent':
+          game.settings.set('conflict-sheet', 'partyIntent', data.payload);
+          break;
+      }
+    }
   });
 
   Hooks.on('ready', (app, html, data) => {

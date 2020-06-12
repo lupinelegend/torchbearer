@@ -18,38 +18,78 @@ export class conflictSheet extends Application {
 
     let data = super.getData();
     
-    let partyIntent = '';
+    let partyIntent;
     let temp = game.settings.get('conflict-sheet', 'partyIntent');
-    partyIntent = JSON.parse(temp);
+    if (temp === 'undefined' || temp === '') {
+      partyIntent = '';
+    } else {
+      //partyIntent = JSON.parse(temp);
+      partyIntent = temp;
+    }
 
-    let opponentIntent = '';
+    let opponentIntent;
     temp = game.settings.get('conflict-sheet', 'opponentIntent');
-    opponentIntent = JSON.parse(temp);
+    if (temp === 'undefined' || temp === '') {
+      opponentIntent = '';
+    } else {
+      //opponentIntent = JSON.parse(temp);
+      opponentIntent = temp;
+    }
 
-    let conflictCaptain = '';
+    let conflictCaptain;
     temp = game.settings.get('conflict-sheet', 'conflictCaptain');
-    conflictCaptain = JSON.parse(temp);
+    if (temp === 'undefined' || temp === '') {
+      conflictCaptain = '';
+    } else {
+      //conflictCaptain = JSON.parse(temp);
+      conflictCaptain = temp;
+    }
 
-    let opponentName = '';
+    let opponentName;
     temp = game.settings.get('conflict-sheet', 'opponentName');
-    opponentName = JSON.parse(temp);
+    if (temp === 'undefined' || temp === '') {
+      opponentName = '';
+    } else {
+      //opponentName = JSON.parse(temp);
+      opponentName = temp;
+    }
 
-    let partyDispoCurrent = '';
+    let partyDispoCurrent;
     temp = game.settings.get('conflict-sheet', 'partyDispoCurrent');
-    partyDispoCurrent = JSON.parse(temp);
+    if (temp === 'undefined' || temp === '') {
+      partyDispoCurrent = '';
+    } else {
+      //partyDispoCurrent = JSON.parse(temp);
+      partyDispoCurrent = temp;
+    }
 
-    let partyDispoMax = '';
+    let partyDispoMax;
     temp = game.settings.get('conflict-sheet', 'partyDispoMax');
-    partyDispoMax = JSON.parse(temp);
+    if (temp === 'undefined' || temp === '') {
+      partyDispoMax = '';
+    } else {
+      let temp = game.settings.get('conflict-sheet', 'partyDispoMax');
+      //partyDispoMax = JSON.parse(temp);
+      partyDispoMax = temp;
+    }
 
-    let opponentDispoCurrent = '';
+    let opponentDispoCurrent;
     temp = game.settings.get('conflict-sheet', 'opponentDispoCurrent');
-    opponentDispoCurrent = JSON.parse(temp);
+    if (temp === 'undefined' || temp === '') {
+      opponentDispoCurrent = '';
+    } else {
+      //opponentDispoCurrent = JSON.parse(temp);
+      opponentDispoCurrent = temp;
+    }
 
-    let opponentDispoMax = '';
+    let opponentDispoMax;
     temp = game.settings.get('conflict-sheet', 'opponentDispoMax');
-    opponentDispoMax = JSON.parse(temp);
-
+    if (temp === 'undefined' || temp === '') {
+      opponentDispoMax = '';
+    } else {
+      //opponentDispoMax = JSON.parse(temp);
+      opponentDispoMax = temp;
+    }
 
     // Create an array of actor names
     let actorArray = [];
@@ -73,40 +113,100 @@ export class conflictSheet extends Application {
     return data;
   }
 
+  // safeParse(maybeJSON) {
+  //   return maybeJSON && maybeJSON !== 'undefined' ? JSON.parse(maybeJSON) : '';
+  // }
+
   /** @override */
   activateListeners(html) {
     super.activateListeners(html);
 
     html.find('#partyIntent').change(ev => {
-      game.settings.set('conflict-sheet', 'partyIntent', JSON.stringify(ev.currentTarget.value));
+      if (game.user.isGM) {
+        game.settings.set('conflict-sheet', 'partyIntent', ev.currentTarget.value);
+      } else{
+        game.socket.emit('system.torchbearer', {
+          name: 'partyIntent',
+          payload: ev.currentTarget.value
+        });
+      }
     });
 
     html.find('#opponentIntent').change(ev => {
-      game.settings.set('conflict-sheet', 'opponentIntent', JSON.stringify(ev.currentTarget.value));
+      if (game.user.isGM) {
+        game.settings.set('conflict-sheet', 'opponentIntent', ev.currentTarget.value);
+      } else{
+        game.socket.emit(game.settings, {
+          name: 'opponentIntent',
+          payload: ev.currentTarget.value
+        });
+      }
     });
 
     html.find('#conflictCaptain').change(ev => {
-      game.settings.set('conflict-sheet', 'conflictCaptain', JSON.stringify(ev.currentTarget.value));
+      if (game.user.isGM) {
+        game.settings.set('conflict-sheet', 'conflictCaptain', ev.currentTarget.value);
+      } else{
+        game.socket.emit(game.settings, {
+          name: 'conflictCaptain',
+          payload: ev.currentTarget.value
+        });
+      }
     });
 
     html.find('#opponentName').change(ev => {
-      game.settings.set('conflict-sheet', 'opponentName', JSON.stringify(ev.currentTarget.value));
+      if (game.user.isGM) {
+        game.settings.set('conflict-sheet', 'opponentName', ev.currentTarget.value);
+      } else{
+        game.socket.emit(game.settings, {
+          name: 'opponentName',
+          payload: ev.currentTarget.value
+        });
+      }
     });
 
     html.find('#partyDispoCurrent').change(ev => {
-      game.settings.set('conflict-sheet', 'partyDispoCurrent', JSON.stringify(ev.currentTarget.value));
+      if (game.user.isGM) {
+        game.settings.set('conflict-sheet', 'partyDispoCurrent', ev.currentTarget.value);
+      } else{
+        game.socket.emit(game.settings, {
+          name: 'partyDispoCurrent',
+          payload: ev.currentTarget.value
+        });
+      }
     });
 
     html.find('#partyDispoMax').change(ev => {
-      game.settings.set('conflict-sheet', 'partyDispoMax', JSON.stringify(ev.currentTarget.value));
+      if (game.user.isGM) {
+        game.settings.set('conflict-sheet', 'partyDispoMax', ev.currentTarget.value);
+      } else{
+        game.socket.emit(game.settings, {
+          name: 'partyDispoMax',
+          payload: ev.currentTarget.value
+        });
+      }
     });
 
     html.find('#opponentDispoCurrent').change(ev => {
-      game.settings.set('conflict-sheet', 'opponentDispoCurrent', JSON.stringify(ev.currentTarget.value));
+      if (game.user.isGM) {
+        game.settings.set('conflict-sheet', 'opponentDispoCurrent', ev.currentTarget.value);
+      } else{
+        game.socket.emit(game.settings, {
+          name: 'opponentDispoCurrent',
+          payload: ev.currentTarget.value
+        });
+      }
     });
 
     html.find('#opponentDispoMax').change(ev => {
-      game.settings.set('conflict-sheet', 'opponentDispoMax', JSON.stringify(ev.currentTarget.value));
+      if (game.user.isGM) {
+        game.settings.set('conflict-sheet', 'opponentDispoMax', ev.currentTarget.value);
+      } else{
+        game.socket.emit(game.settings, {
+          name: 'opponentDispoMax',
+          payload: ev.currentTarget.value
+        });
+      }
     });
   }
 }
