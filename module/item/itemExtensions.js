@@ -26,5 +26,20 @@ export const itemExtensions = {
             }
             return true;
         }
+    },
+    "Bow": {
+        onAfterAddToInventory: function(container, validated) {
+            //Only one of a backpack or a satchel can be worn
+            console.log(this);
+            console.log(container);
+            if(container.type === 'Body') return true;
+            if(container.type === 'Pack' && container.name !== 'Quiver') return false;
+            for(let i = 0; i < validated.length; i++) {
+                if(validated[i].name === 'Bow') {
+                    return false;
+                }
+            }
+            return true;
+        }
     }
 }

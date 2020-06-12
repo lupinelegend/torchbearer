@@ -60,7 +60,7 @@
 					"value": "Hands (Carried)"
 				},
 				"option2": {
-					"value": "Quiver"
+					"value": "Pack"
 				},
 				"option3": {
 					"value": ""
@@ -71,7 +71,7 @@
 					"value": "Carried"
 				},
 				"option2": {
-					"value": "Pack"
+					"value": "Quiver"
 				},
 				"option3": {
 					"value": ""
@@ -82,7 +82,7 @@
 					"value": 2
 				},
 				"option2": {
-					"value": 1
+					"value": 0
 				},
 				"option3": {
 					"value": 0
