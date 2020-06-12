@@ -19,7 +19,7 @@ let bundleableItem = function (tbItem, container, itemOwnInventory) {
         // tbItem.tbData().slots === tbItem.tbData().computed.consumedSlots;
 };
 
-export function arrangeInventory(tbItemsMap) {
+export function arrangeInventory(tbItemsMap, overburdened) {
     //For the most part just arrange item data not
     // TorchbearerItem objects...is this necessary?
     if(!tbItemsMap) return;
@@ -44,7 +44,7 @@ export function arrangeInventory(tbItemsMap) {
         },
         "Hands (Carried)": {
             name: "Hands (Carried)",
-            capacity: 2,
+            capacity: overburdened ? 4 : 2,
             holdsBundles: false,
             slots: [],
             type: 'Body',
