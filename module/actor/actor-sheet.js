@@ -143,6 +143,7 @@ export class TorchbearerActorSheet extends ActorSheet {
     });
 
     html.find('#overburdenToggle').click(() => {
+      console.log(this.actor);
       this.actor.update({
         data: {
           overburdened: !this.actor.tbData().overburdened
@@ -765,6 +766,33 @@ export class TorchbearerActorSheet extends ActorSheet {
       tbItem = item;
     }
     if(tbItem.data) {
+      switch (tbItem.data.data.equip) {
+        case tbItem.data.data.equipOptions.option1.value:
+          await tbItem.update({
+            data: {
+              carried: tbItem.data.data.carryOptions.option1.value,
+              slots: tbItem.data.data.slotOptions.option1.value,
+            }
+          });
+          break;
+        case tbItem.data.data.equipOptions.option2.value:
+          await tbItem.update({
+            data: {
+              carried: tbItem.data.data.carryOptions.option2.value,
+              slots: tbItem.data.data.slotOptions.option2.value,
+            }
+          });
+          break;
+        case tbItem.data.data.equipOptions.option3.value:
+          await tbItem.update({
+            data: {
+              carried: tbItem.data.data.carryOptions.option3.value,
+              slots: tbItem.data.data.slotOptions.option3.value,
+            }
+          });
+          break;
+      }
+
       let oldContainerId = tbItem.data.data.containerId;
       let {containerType, containerId, slotsTaken} = this.closestCompatibleContainer(tbItem, event.target);
       if(!containerType) {

@@ -204,6 +204,18 @@ export function arrangeInventory(tbItemsMap, overburdened) {
         }
     });
 
+    //Lastly, convert (sadly) from tbItems just to raw
+    // Item data (with a link back to the actor) to stop
+    // infinite recursion problems
+    Object.keys(inventory).forEach((k) => {
+        let container = inventory[k];
+        container.slots = container.slots.map((tbItem) => {
+            const data = duplicate(tbItem.data);
+            data._actor_id = tbItem.actor.data._id;
+            return data;
+        });
+    });
+
     console.log(inventory);
     return inventory;
 }
@@ -246,11 +258,17 @@ let currentSubinventoryExcluding = function(container, tbItem) {
 }
 
 let currentConsumptionExcluding = function(container, tbItem) {
-    return container.slots.reduce((accum, curr) => {
-        if(tbItem && tbItem.data._id === curr._id) {
+    return container.slots.reduce((accum, currItemOrTbItem) => {
+        let itemData;
+        if(currItemOrTbItem.tbData) {
+            itemData = currItemOrTbItem.data;
+        } else {
+            itemData = currItemOrTbItem;
+        }
+        if(tbItem && tbItem.data._id === itemData._id) {
             return accum;
         }
-        return accum + curr.tbData().computed.consumedSlots;
+        return accum + itemData.data.computed.consumedSlots;
     }, 0);
 }
 
@@ -275,15 +293,15 @@ Handlebars.registerHelper('renderInventory', function(capacity, srcId, srcContai
         container = newVar.tbData().computed.inventory[srcContainer];
     }
 
-    container.slots.forEach((tbItem) => {
-        let consumedSlots = tbItem.tbData().computed.consumedSlots;
+    container.slots.forEach((item) => {
+        let consumedSlots = item.data.computed.consumedSlots;
         consumed += consumedSlots;
         let linesToRender = consumedSlots || 1;
         for (let i = 0; i < linesToRender; i++) {
             let inventoryContainerClass = '';
             let containerType = '';
             let lastSlotTakenClass = '';
-            if(tbItem.tbData().capacity) {
+            if(item.data.capacity) {
                 inventoryContainerClass = 'inventory-container';
                 containerType = 'Pack';
             }
@@ -291,14 +309,14 @@ Handlebars.registerHelper('renderInventory', function(capacity, srcId, srcContai
                 lastSlotTakenClass = 'last-slot-taken';
             }
             let quantityExpression = '';
-            if(tbItem.tbData().computed.bundledWith && tbItem.tbData().computed.bundledWith.length > 0) {
-                quantityExpression = `(${tbItem.tbData().computed.bundledWith.length + 1})`;
+            if(item.data.computed.bundledWith && item.data.computed.bundledWith.length > 0) {
+                quantityExpression = `(${item.data.computed.bundledWith.length + 1})`;
             }
             if(i === 0) {
                 html +=
-                    `<li class="item flexrow primary-slot-consumed ${inventoryContainerClass} ${lastSlotTakenClass}" data-item-id="${tbItem.data._id}" data-container-type="${containerType}">
-                  <div class="item-image"><img src="${tbItem.data.img}" title="${tbItem.data.name}" alt="${tbItem.data.name}" width="24" height="24"/></div>
-                  <h4 class="item-name" style="font-family: Souvenir-Medium;">${tbItem.data.name} ${quantityExpression}</h4>
+                    `<li class="item flexrow primary-slot-consumed ${inventoryContainerClass} ${lastSlotTakenClass}" data-item-id="${item._id}" data-container-type="${containerType}">
+                  <div class="item-image"><img src="${item.img}" title="${item.name}" alt="${item.name}" width="24" height="24"/></div>
+                  <h4 class="item-name" style="font-family: Souvenir-Medium;">${item.name} ${quantityExpression}</h4>
                   <div class="item-controls">
                       <a class="item-control item-edit" title="Edit Item" style="margin-right: 5px;"><i class="fas fa-edit"></i></a>
                       <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
@@ -306,7 +324,7 @@ Handlebars.registerHelper('renderInventory', function(capacity, srcId, srcContai
               </li>`;
             } else if (multiSlot !== false) {
                 html +=
-                    `<li class="item flexrow secondary-slot-consumed ${inventoryContainerClass} ${lastSlotTakenClass}" data-item-id="${tbItem.data._id}" data-container-type="${containerType}">
+                    `<li class="item flexrow secondary-slot-consumed ${inventoryContainerClass} ${lastSlotTakenClass}" data-item-id="${item._id}" data-container-type="${containerType}">
                   <div class="item-image" style="width:24px;height:24px"></div>
                   <h4 class="item-name" style="font-family: Souvenir-Medium;"></h4>
               </li>`;
