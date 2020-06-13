@@ -113,17 +113,19 @@ export class conflictSheet extends Application {
     return data;
   }
 
-  // safeParse(maybeJSON) {
-  //   return maybeJSON && maybeJSON !== 'undefined' ? JSON.parse(maybeJSON) : '';
-  // }
-
   /** @override */
   activateListeners(html) {
     super.activateListeners(html);
 
     html.find('#partyIntent').change(ev => {
       if (game.user.isGM) {
-        game.settings.set('conflict-sheet', 'partyIntent', ev.currentTarget.value);
+        game.settings.set('conflict-sheet', 'partyIntent', ev.currentTarget.value).then( () => {
+          this.render(true);
+          game.socket.emit('system.torchbearer', {
+            name: 'partyIntent',
+            payload: ev.currentTarget.value
+          });
+        });
       } else{
         game.socket.emit('system.torchbearer', {
           name: 'partyIntent',

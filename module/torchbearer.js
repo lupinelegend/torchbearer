@@ -48,6 +48,8 @@ Hooks.once('init', async function() {
     });
   });
 
+  const sheet = new conflictSheet();
+
   game.settings.register('conflict-sheet', 'partyIntent', {
     name: 'partyIntent',
     scope: 'world',
@@ -112,18 +114,20 @@ Hooks.once('init', async function() {
     type: String
   });
 
+  // https://discordapp.com/channels/170995199584108546/670336275496042502/721144171468947556
   game.socket.on('system.torchbearer', data => {
     if (game.user.isGM) {
       switch (data.name) {
         case 'partyIntent':
-          game.settings.set('conflict-sheet', 'partyIntent', data.payload);
+          game.settings.set('conflict-sheet', 'partyIntent', data.payload).then( () => sheet.render(true));
           break;
       }
+    } else {
+      sheet.render(true);
     }
   });
 
   Hooks.on('ready', (app, html, data) => {
-    const sheet = new conflictSheet();
     $('#logo').click(ev => {
       sheet.render(true);
     });
