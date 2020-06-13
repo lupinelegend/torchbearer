@@ -223,6 +223,14 @@
                 </select>
                 <input type="text" name="data.slotOptions.option3.value" value="{{data.slotOptions.option3.value}}" data-dtype="Number" style="width: 30px; text-align: center; font-family: Souvenir-Medium; height: 25px;"/>
             </div>
+
+            <div class="row" style="flex-basis: auto;">
+                <div class="col" style="flex: 1 1 auto; align-items: center; display:flex">
+                    <label for="damagedCheckbox" style="font-family: Souvenir-Demi">Damaged:</label>
+                    <input style="margin-bottom:-2px;" type="checkbox" name="data.damaged" id="damagedCheckbox" data-dtype="Boolean" {{checked data.damaged}}>
+                </div>
+            </div>
+
         </div>
 
         {{!-- Notes Tab --}}

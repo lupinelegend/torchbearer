@@ -332,6 +332,10 @@ Handlebars.registerHelper('renderInventory', function(capacity, srcId, srcContai
                   <div class="item-image"><img src="${item.img}" title="${item.name}" alt="${item.name}" width="24" height="24"/></div>
                   <h4 class="item-name clickable" style="font-family: Souvenir-Medium;">${item.name} ${quantityExpression}</h4>
                   <div class="item-controls">`;
+                if(item.data.damaged) {
+                    html +=
+                        `<a class="item-control item-damaged" title="Damaged" style="margin-right: 5px;"><i style="color:#ff4444;" class="fas fa-exclamation"></i></a>`;
+                }
                 if(droppable) {
                     html +=
                         `<a class="item-control item-drop" title="Drop Item" style="margin-right: 5px;"><i class="fas fa-chevron-circle-down"></i></a>`;
