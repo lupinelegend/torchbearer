@@ -281,8 +281,8 @@ export function alternateContainerType(tbItem) {
         }
     }, '');
 }
-function renderOptions(srcContainer) {
-    if(srcContainer === 'On Ground') {
+function renderOptions(containerId) {
+    if(['On Ground'].includes(containerId)) {
         return {
             multiSlot: false,
             droppable: false,
@@ -295,18 +295,31 @@ function renderOptions(srcContainer) {
     }
 }
 
-Handlebars.registerHelper('renderInventory', function(capacity, srcId, srcContainer, placeholder) {
-    let { multiSlot , droppable } = renderOptions(srcContainer);
+function capacityConsumed(container) {
+    let consumed = 0;
+    container.slots.forEach((item) => {
+        consumed += item.data.computed.consumedSlots;
+    });
+    return consumed;
+}
+
+Handlebars.registerHelper('renderInventory', function(capacity, actorId, containerId, placeholder) {
+    let { multiSlot , droppable } = renderOptions(containerId);
     let html = "";
     let consumed = 0;
-    let container;
-    if(!srcId) {
-        container = {slots: []};
+    let inventory;
+    if(actorId) {
+        const actor = game.actors.get(actorId);
+        inventory = actor.tbData().computed.inventory;
     } else {
-        let newVar = game.actors.get(srcId);
-        container = newVar.tbData().computed.inventory[srcContainer];
+        inventory = {
+            [containerId] : {
+                slots: [],
+            }
+        };
     }
-
+    const container = inventory[containerId];
+    console.log(container);
     container.slots.forEach((item) => {
         let consumedSlots = item.data.computed.consumedSlots;
         consumed += consumedSlots;
@@ -325,6 +338,10 @@ Handlebars.registerHelper('renderInventory', function(capacity, srcId, srcContai
             let quantityExpression = '';
             if(item.data.computed.bundledWith && item.data.computed.bundledWith.length > 0) {
                 quantityExpression = `(${item.data.computed.bundledWith.length + 1})`;
+            }
+            if(!quantityExpression && inventory[item._id]) {
+                let subContainer = inventory[item._id];
+                quantityExpression = `[${capacityConsumed(subContainer)}/${subContainer.capacity}]`;
             }
             if(i === 0) {
                 html +=
