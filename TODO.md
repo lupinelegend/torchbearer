@@ -2,7 +2,6 @@
 
 Inventory
 -
-- Quick drop of item to ground, Quick pickup
 - Make Line Item rendering for containers indicate that they have contents somehow
 - Show damaged status in item attributes and on list
 - Filling out the equipment databases with base 1st ed content
