@@ -1,16 +1,17 @@
 {{!-- Sheet Header --}}
 <header class="sheet-header">
   <div class="row">
+    <!-- Party Intent and Conflict Captain -->
     <div class="col">
       <!-- Party Intent Input -->
-      <div class="row" style="flex-wrap: nowrap;">
-        <label for="partyIntent" style="font-family: Souvenir-Demi;">Party Intent</label>
-        <input type="text" name="partyIntent" id="partyIntent" value="{{partyIntent}}">
+      <div class="row" style="flex-wrap: nowrap; margin: 8px 0 8px 0; justify-content: flex-end;">
+        <label for="partyIntent" style="font-family: Souvenir-Demi; margin-right: 5px; align-self: center;">Party Intent</label>
+        <input type="text" name="partyIntent" id="partyIntent" value="{{partyIntent}}" style="width: 230px;">
       </div>
       <!-- Conflict Captain Dropdown -->
-      <div class="row" style="flex-wrap: nowrap;">
-        <label for="conflictCaptain" style="font-family: Souvenir-Demi;">Conflict Captain</label>
-        <select name="conflictCaptain" id="conflictCaptain">
+      <div class="row" style="flex-wrap: nowrap; margin: 8px 0 8px 0; justify-content: flex-end;">
+        <label for="conflictCaptain" style="font-family: Souvenir-Demi; margin-right: 5px; align-self: center;">Conflict Captain</label>
+        <select name="conflictCaptain" id="conflictCaptain" style="width: 230px;">
           {{#select conflictCaptain}}
           <option value="" selected disabled hidden>Choose a captain...</option>
           {{#each actors}}
@@ -20,12 +21,13 @@
         </select>
       </div>
     </div>
+    <!-- Disposition -->
     <div class="col" style="flex: 0 0 245px;">
       <div class="row" style="display: block; text-align: center;">
         <h2 style="margin: auto; font-family: Souvenir-Demi;" id="dispo">Disposition</h3>
       </div>
       <div class="row" style="flex-wrap: nowrap; margin: 5px 0 5px 0">
-        <div class="col" style="border-right: 1px solid #AAA;">
+        <div class="col" style="border-right: 1px solid #782e22;">
           <div class="row" style="justify-content: center; align-items: center; text-align: center; font-family: Souvenir-Medium;">
             <input type="text" name="partyDispoCurrent" id="partyDispoCurrent" data-dtype="Number" value="{{partyDispoCurrent}}" style="width: 40px; height: 40px; font-size: large !important;">
             <span>&nbsp/&nbsp</span>
@@ -41,21 +43,22 @@
         </div>
       </div>
     </div>
+    <!-- Opponent Intent and Name -->
     <div class="col">
-      <div class="row" style="flex-wrap: nowrap;">
-        <input type="text" name="opponentIntent" id="opponentIntent" value="{{opponentIntent}}">
-        <label for="opponentIntent" style="font-family: Souvenir-Demi;">Opponent Intent</label>
+      <div class="row" style="flex-wrap: nowrap; margin: 8px 0 8px 0;">
+        <input type="text" name="opponentIntent" id="opponentIntent" value="{{opponentIntent}}" style="width: 230px;">
+        <label for="opponentIntent" style="font-family: Souvenir-Demi; margin-left: 5px; align-self: center;">Opponent Intent</label>
       </div>
-      <div class="row" style="flex-wrap: nowrap;">
-        <input type="text" name="opponentName" id="opponentName" value="{{opponentName}}">
-        <label for="opponentName" style="font-family: Souvenir-Demi;">Opponent Name</label>
+      <div class="row" style="flex-wrap: nowrap; margin: 8px 0 8px 0;">
+        <input type="text" name="opponentName" id="opponentName" value="{{opponentName}}" style="width: 230px;">
+        <label for="opponentName" style="font-family: Souvenir-Demi; margin-left: 5px; align-self: center;">Opponent Name</label>
       </div>
     </div>
   </div>
 </header>
 
 {{!-- Sheet Tab Navigation --}}
-<nav class="sheet-tabs tabs" data-group="primary">
+<nav class="sheet-tabs tabs" data-group="conflictTabs">
   <a class="item" data-tab="setup" style="font-family: Souvenir-Demi;">Setup</a>
   <a class="item" data-tab="conflict" style="font-family: Souvenir-Demi;">Conflict</a>
   <a class="item" data-tab="reference" style="font-family: Souvenir-Demi;">Reference</a>
@@ -63,12 +66,21 @@
 
 {{!-- Sheet Body --}}
 <section class="sheet-body">
-  <div class="tab" data-group="primary" data-tab="setup">
-    <div class="col" style="border-right: 1px solid #AAA;">
-      
+  
+  {{!-- Setup Tab --}}
+  <div class="tab" data-group="conflictTabs" data-tab="setup">
+    <div class="col" style="border-right: 1px solid #782e22;">
+      <span>Text goes here.</span>
     </div>
     <div class="col">
-
+      <span>Text goes here too.</span>
     </div>
   </div>
+  
+  {{!-- Conflict Tab --}}
+  <div class="tab" data-group="conflictTabs" data-tab="conflict">Conflict</div>
+  
+  {{!-- Reference Tab --}}
+  <div class="tab" data-group="conflictTabs" data-tab="reference">Reference</div>
+
 </section>

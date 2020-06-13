@@ -24,6 +24,7 @@ Hooks.once('init', async function() {
     decimals: 2
   };
 
+  // Event listeners for chat message buttons
   Hooks.on("renderChatMessage", (app, html, data) => {
     // Event listener for "Luck"
     html.find('#luckBtn').click(ev => {
@@ -48,8 +49,8 @@ Hooks.once('init', async function() {
     });
   });
 
+  // Conflict sheet variable definitions
   const sheet = new conflictSheet();
-
   game.settings.register('conflict-sheet', 'partyIntent', {
     name: 'partyIntent',
     scope: 'world',
@@ -57,7 +58,6 @@ Hooks.once('init', async function() {
     default: '',
     type: String
   });
-
   game.settings.register('conflict-sheet', 'conflictCaptain', {
     name: 'conflictCaptain',
     scope: 'world',
@@ -65,7 +65,6 @@ Hooks.once('init', async function() {
     default: '',
     type: String
   });
-
   game.settings.register('conflict-sheet', 'opponentIntent', {
     name: 'opponentIntent',
     scope: 'world',
@@ -73,7 +72,6 @@ Hooks.once('init', async function() {
     default: '',
     type: String
   });
-
   game.settings.register('conflict-sheet', 'opponentName', {
     name: 'opponentName',
     scope: 'world',
@@ -81,7 +79,6 @@ Hooks.once('init', async function() {
     default: '',
     type: String
   });
-
   game.settings.register('conflict-sheet', 'partyDispoCurrent', {
     name: 'partyDispoCurrent',
     scope: 'world',
@@ -89,7 +86,6 @@ Hooks.once('init', async function() {
     default: '',
     type: String
   });
-
   game.settings.register('conflict-sheet', 'partyDispoMax', {
     name: 'partyDispoMax',
     scope: 'world',
@@ -97,7 +93,6 @@ Hooks.once('init', async function() {
     default: '',
     type: String
   });
-
   game.settings.register('conflict-sheet', 'opponentDispoCurrent', {
     name: 'opponentDispoCurrent',
     scope: 'world',
@@ -105,7 +100,6 @@ Hooks.once('init', async function() {
     default: '',
     type: String
   });
-
   game.settings.register('conflict-sheet', 'opponentDispoMax', {
     name: 'opponentDispoMax',
     scope: 'world',
@@ -114,6 +108,7 @@ Hooks.once('init', async function() {
     type: String
   });
 
+  // Updates inputs to the Conflict Sheet across clients
   // https://discordapp.com/channels/170995199584108546/670336275496042502/721144171468947556
   game.socket.on('system.torchbearer', data => {
     if (game.user.isGM) {
@@ -121,12 +116,34 @@ Hooks.once('init', async function() {
         case 'partyIntent':
           game.settings.set('conflict-sheet', 'partyIntent', data.payload).then( () => sheet.render(true));
           break;
+        case 'opponentIntent':
+          game.settings.set('conflict-sheet', 'opponentIntent', data.payload).then( () => sheet.render(true));
+          break;
+        case 'conflictCaptain':
+          game.settings.set('conflict-sheet', 'conflictCaptain', data.payload).then( () => sheet.render(true));
+          break;
+        case 'opponentName':
+          game.settings.set('conflict-sheet', 'opponentName', data.payload).then( () => sheet.render(true));
+          break;
+        case 'partyDispoCurrent':
+          game.settings.set('conflict-sheet', 'partyDispoCurrent', data.payload).then( () => sheet.render(true));
+          break;
+        case 'partyDispoMax':
+          game.settings.set('conflict-sheet', 'partyDispoMax', data.payload).then( () => sheet.render(true));
+          break;
+        case 'opponentDispoCurrent':
+          game.settings.set('conflict-sheet', 'opponentDispoCurrent', data.payload).then( () => sheet.render(true));
+          break;
+        case 'opponentDispoMax':
+          game.settings.set('conflict-sheet', 'opponentDispoMax', data.payload).then( () => sheet.render(true));
+          break;
       }
     } else {
       sheet.render(true);
     }
   });
 
+  // Event listener which opens the Conflict Sheet when the Foundry icon is clicked
   Hooks.on('ready', (app, html, data) => {
     $('#logo').click(ev => {
       sheet.render(true);

@@ -118,97 +118,52 @@ export class conflictSheet extends Application {
     super.activateListeners(html);
 
     html.find('#partyIntent').change(ev => {
-      if (game.user.isGM) {
-        game.settings.set('conflict-sheet', 'partyIntent', ev.currentTarget.value).then( () => {
-          this.render(true);
-          game.socket.emit('system.torchbearer', {
-            name: 'partyIntent',
-            payload: ev.currentTarget.value
-          });
-        });
-      } else{
-        game.socket.emit('system.torchbearer', {
-          name: 'partyIntent',
-          payload: ev.currentTarget.value
-        });
-      }
+      this.updateSheet(ev, 'partyIntent');
     });
 
     html.find('#opponentIntent').change(ev => {
-      if (game.user.isGM) {
-        game.settings.set('conflict-sheet', 'opponentIntent', ev.currentTarget.value);
-      } else{
-        game.socket.emit(game.settings, {
-          name: 'opponentIntent',
-          payload: ev.currentTarget.value
-        });
-      }
+      this.updateSheet(ev, 'opponentIntent');
     });
 
     html.find('#conflictCaptain').change(ev => {
-      if (game.user.isGM) {
-        game.settings.set('conflict-sheet', 'conflictCaptain', ev.currentTarget.value);
-      } else{
-        game.socket.emit(game.settings, {
-          name: 'conflictCaptain',
-          payload: ev.currentTarget.value
-        });
-      }
+      this.updateSheet(ev, 'conflictCaptain');
     });
 
     html.find('#opponentName').change(ev => {
-      if (game.user.isGM) {
-        game.settings.set('conflict-sheet', 'opponentName', ev.currentTarget.value);
-      } else{
-        game.socket.emit(game.settings, {
-          name: 'opponentName',
-          payload: ev.currentTarget.value
-        });
-      }
+      this.updateSheet(ev, 'opponentName');
     });
 
     html.find('#partyDispoCurrent').change(ev => {
-      if (game.user.isGM) {
-        game.settings.set('conflict-sheet', 'partyDispoCurrent', ev.currentTarget.value);
-      } else{
-        game.socket.emit(game.settings, {
-          name: 'partyDispoCurrent',
-          payload: ev.currentTarget.value
-        });
-      }
+      this.updateSheet(ev, 'partyDispoCurrent');
     });
 
     html.find('#partyDispoMax').change(ev => {
-      if (game.user.isGM) {
-        game.settings.set('conflict-sheet', 'partyDispoMax', ev.currentTarget.value);
-      } else{
-        game.socket.emit(game.settings, {
-          name: 'partyDispoMax',
-          payload: ev.currentTarget.value
-        });
-      }
+      this.updateSheet(ev, 'partyDispoMax');
     });
 
     html.find('#opponentDispoCurrent').change(ev => {
-      if (game.user.isGM) {
-        game.settings.set('conflict-sheet', 'opponentDispoCurrent', ev.currentTarget.value);
-      } else{
-        game.socket.emit(game.settings, {
-          name: 'opponentDispoCurrent',
-          payload: ev.currentTarget.value
-        });
-      }
+      this.updateSheet(ev, 'opponentDispoCurrent');
     });
 
     html.find('#opponentDispoMax').change(ev => {
-      if (game.user.isGM) {
-        game.settings.set('conflict-sheet', 'opponentDispoMax', ev.currentTarget.value);
-      } else{
-        game.socket.emit(game.settings, {
-          name: 'opponentDispoMax',
+      this.updateSheet(ev, 'opponentDispoMax');
+    });
+  }
+
+  updateSheet(ev, input) {
+    if (game.user.isGM) {
+      game.settings.set('conflict-sheet', input, ev.currentTarget.value).then( () => {
+        this.render(true);
+        game.socket.emit('system.torchbearer', {
+          name: input,
           payload: ev.currentTarget.value
         });
-      }
-    });
+      });
+    } else{
+      game.socket.emit('system.torchbearer', {
+        name: input,
+        payload: ev.currentTarget.value
+      });
+    }
   }
 }
