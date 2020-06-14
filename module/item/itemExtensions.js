@@ -1,3 +1,18 @@
+class SharedItemBehaviors {
+    static clearHungryThirsty(item) {
+        if(!item) {
+            item = this;
+        }
+        if(item.actor && item.actor.tbData().hungryandthirsty) {
+            item.actor.update({
+                data: {
+                    hungryandthirsty: false
+                }
+            });
+        }
+    }
+}
+
 export const itemExtensions = {
     "Backpack": {
         onAfterAddToInventory: function(container, given) {
@@ -65,5 +80,14 @@ export const itemExtensions = {
                 }
             }
         }
-    }
+    },
+    "Waterskin": {
+        onAfterConsumed: SharedItemBehaviors.clearHungryThirsty,
+    },
+    "Bottle": {
+        onAfterConsumed: SharedItemBehaviors.clearHungryThirsty,
+    },
+    "Jug": {
+        onAfterConsumed: SharedItemBehaviors.clearHungryThirsty,
+    },
 }

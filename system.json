@@ -47,6 +47,13 @@
       "entity": "Item"
     },
     {
+      "name": "clothing",
+      "label": "Torchbearer Clothing",
+      "system": "torchbearer",
+      "path": "./packs/clothing.db",
+      "entity": "Item"
+    },
+    {
       "name": "classes",
       "label": "Torchbearer Classes",
       "system": "torchbearer",

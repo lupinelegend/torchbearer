@@ -131,6 +131,7 @@ export class TorchbearerActorSheet extends ActorSheet {
           draughts: Math.clamped(tbItem.data.data.draughts - 1, 0, 10),
         }
       }).then(() => {
+        tbItem.onAfterConsumed();
         setTimeout(() => {
           this.actor._onUpdate({items: true});
         }, 0);
