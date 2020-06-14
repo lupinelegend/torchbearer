@@ -8,9 +8,14 @@
             await actor.removeItemFromInventory(item._id);
         }
     }
-    const compendiums = ['armor', 'containers', 'equipment', 'weapons', 'lights'];
+    const allItemFolders = game.folders.filter(f => f.data.type === 'Item');
+    for(let i = 0; i < allItemFolders.length; i++) {
+        await Folder.delete(allItemFolders[i]._id);
+    }
+    const compendiums = ['armor', 'containers', 'equipment', 'weapons', 'lights', 'clothing'];
     for(let i = 0; i < compendiums.length; i++) {
         const kind = compendiums[i];
+        const folder = await Folder.create({type: "Item", parent: null, name: (kind[0].toUpperCase() + kind.slice(1))})
         const pack = game.packs.find(p => p.collection === `torchbearer.${kind}`);
         await pack.configure({locked: false});
         const existingContent = await pack.getContent();
@@ -23,12 +28,18 @@
         if(created.data) {
             const entity = await pack.importEntity(created);
             console.log(`Imported Item ${created.name} into Compendium pack ${pack.collection}`);
-            await game.items.importFromCollection(`torchbearer.${kind}`, entity._id);
+            let importedItem = await game.items.importFromCollection(`torchbearer.${kind}`, entity._id);
+            await importedItem.update({
+                folder: folder._id,
+            });
         } else {
             for ( let i of created ) {
                 const entity = await pack.importEntity(i);
                 console.log(`Imported Item ${i.name} into Compendium pack ${pack.collection}`);
-                await game.items.importFromCollection(`torchbearer.${kind}`, entity._id);
+                let importedItem = await game.items.importFromCollection(`torchbearer.${kind}`, entity._id);
+                await importedItem.update({
+                    folder: folder._id,
+                });
             }
         }
         await pack.configure({locked: true});

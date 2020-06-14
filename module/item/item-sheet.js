@@ -112,6 +112,7 @@ export class TorchbearerItemSheet extends ItemSheet {
             draughts: Math.clamped(tbItem.data.data.draughts - 1, 0, 10),
           }
         }).then(() => {
+          tbItem.onAfterConsumed();
           setTimeout(() => {
             this.item._onUpdate();
           }, 0);

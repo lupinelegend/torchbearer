@@ -88,6 +88,13 @@ export class TorchbearerItem extends Item {
   }
 
   /**
+   * Overridable Callback action whenever the item is consumed as
+   * food or drink
+   */
+  onAfterConsumed() {
+  }
+
+  /**
    * Overridable Callback action
    * @param container: the inventory container being added to
    * @param given: array of items that have already been confirmed
