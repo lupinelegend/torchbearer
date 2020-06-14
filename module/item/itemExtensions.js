@@ -90,4 +90,10 @@ export const itemExtensions = {
     "Jug": {
         onAfterConsumed: SharedItemBehaviors.clearHungryThirsty,
     },
+    "Rations, Fresh": {
+        onAfterConsumed: SharedItemBehaviors.clearHungryThirsty,
+    },
+    "Rations, Preserved": {
+        onAfterConsumed: SharedItemBehaviors.clearHungryThirsty,
+    },
 }

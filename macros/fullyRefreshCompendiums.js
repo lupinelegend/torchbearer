@@ -8,11 +8,14 @@
             await actor.removeItemFromInventory(item._id);
         }
     }
+    const compendiums = ['armor', 'containers', 'equipment', 'weapons', 'lights', 'clothing', 'food'];
     const allItemFolders = game.folders.filter(f => f.data.type === 'Item');
     for(let i = 0; i < allItemFolders.length; i++) {
-        await Folder.delete(allItemFolders[i]._id);
+        let folder = allItemFolders[i];
+        if(compendiums.includes(folder.name.toLowerCase())) {
+            await Folder.delete(folder._id);
+        }
     }
-    const compendiums = ['armor', 'containers', 'equipment', 'weapons', 'lights', 'clothing'];
     for(let i = 0; i < compendiums.length; i++) {
         const kind = compendiums[i];
         const folder = await Folder.create({type: "Item", parent: null, name: (kind[0].toUpperCase() + kind.slice(1))})

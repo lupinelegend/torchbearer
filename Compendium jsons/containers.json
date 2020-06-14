@@ -161,6 +161,9 @@
       "maxDraughts": 2,
       "draughts": 2,
       "liquid": "Water",
+      "consumable": {
+        "consumes": "draughts"
+      },
       "equipOptions": {
         "option1": {
           "value": "Pack"
@@ -213,6 +216,9 @@
       "maxDraughts": 3,
       "draughts": 3,
       "liquid": "Water",
+      "consumable": {
+        "consumes": "draughts"
+      },
       "equipOptions": {
         "option1": {
           "value": "Pack"
@@ -412,6 +418,9 @@
       "maxDraughts": 1,
       "draughts": 1,
       "liquid": "Water",
+      "consumable": {
+        "consumes": "draughts"
+      },
       "equipOptions": {
         "option1": {
           "value": "Belt"
