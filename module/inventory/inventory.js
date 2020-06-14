@@ -295,7 +295,7 @@ function renderOptions(containerId) {
     }
 }
 
-function capacityConsumed(container) {
+function capacityConsumedIn(container) {
     let consumed = 0;
     container.slots.forEach((item) => {
         consumed += item.data.computed.consumedSlots;
@@ -319,7 +319,6 @@ Handlebars.registerHelper('renderInventory', function(capacity, actorId, contain
         };
     }
     const container = inventory[containerId];
-    console.log(container);
     container.slots.forEach((item) => {
         let consumedSlots = item.data.computed.consumedSlots;
         consumed += consumedSlots;
@@ -341,7 +340,14 @@ Handlebars.registerHelper('renderInventory', function(capacity, actorId, contain
             }
             if(!quantityExpression && inventory[item._id]) {
                 let subContainer = inventory[item._id];
-                quantityExpression = `[${capacityConsumed(subContainer)}/${subContainer.capacity}]`;
+                let capacityConsumed = capacityConsumedIn(subContainer);
+                if(capacityConsumed) {
+                    quantityExpression = `[${capacityConsumed}/${subContainer.capacity}]`;
+                }
+            }
+            let liquidColor = '#1e90ff';
+            if(item.data.liquid === 'Wine') {
+                liquidColor = '#800080';
             }
             if(i === 0) {
                 html +=
@@ -349,6 +355,10 @@ Handlebars.registerHelper('renderInventory', function(capacity, actorId, contain
                   <div class="item-image"><img src="${item.img}" title="${item.name}" alt="${item.name}" width="24" height="24"/></div>
                   <h4 class="item-name clickable" style="font-family: Souvenir-Medium;">${item.name} ${quantityExpression}</h4>
                   <div class="item-controls">`;
+                for(let draught = 0; draught < item.data.draughts; draught++) {
+                    html +=
+                        `<a class="item-control item-drink" title="Drink" style="margin-right: 5px;"><i style="color:${liquidColor};" class="fas fa-tint"></i></a>`;
+                }
                 if(item.data.damaged) {
                     html +=
                         `<a class="item-control item-damaged" title="Damaged" style="margin-right: 5px;"><i style="color:#ff4444;" class="fas fa-exclamation"></i></a>`;
