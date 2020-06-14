@@ -2,9 +2,10 @@
 
 Inventory
 -
-- Make Line Item rendering for containers indicate that they have contents somehow
-- Show damaged status in item attributes and on list
+- Rations icon to clear hungry/thirsty status
 - Filling out the equipment databases with base 1st ed content
+  - Food
+  - Magic Items
 - Cached items (from 2nd ed sheet; maybe need a sub-tab for this)
 - Lost items (from 2nd ed sheet; maybe on same sub-tab as cached items)
 - Optional Gear from e.g. Middarmark & content posted on Blog
