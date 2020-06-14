@@ -86,7 +86,7 @@ export class TorchbearerItemSheet extends ItemSheet {
     html.find('.item-drop').click(ev => {
       const li = $(ev.currentTarget).parents(".item");
       if(this.item.actor) {
-        let tbItem = this.actor.getOwnedItem(li.data("itemId"));
+        let tbItem = this.item.actor.getOwnedItem(li.data("itemId"));
         tbItem.update({
           data: {
             equip: "On Ground",
@@ -99,6 +99,23 @@ export class TorchbearerItemSheet extends ItemSheet {
             this.item._onUpdate();
           }, 0);
         })
+      }
+    });
+
+    // Drink Item
+    html.find('.item-drink').click(ev => {
+      const li = $(ev.currentTarget).parents(".item");
+      if(this.item.actor) {
+        let tbItem = this.item.actor.getOwnedItem(li.data("itemId"));
+        tbItem.update({
+          data: {
+            draughts: Math.clamped(tbItem.data.data.draughts - 1, 0, 10),
+          }
+        }).then(() => {
+          setTimeout(() => {
+            this.item._onUpdate();
+          }, 0);
+        });
       }
     });
 

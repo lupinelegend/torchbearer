@@ -122,6 +122,21 @@ export class TorchbearerActorSheet extends ActorSheet {
       })
     });
 
+    // Drink Item
+    html.find('.item-drink').click(ev => {
+      const li = $(ev.currentTarget).parents(".item");
+      let tbItem = this.actor.getOwnedItem(li.data("itemId"));
+      tbItem.update({
+        data: {
+          draughts: Math.clamped(tbItem.data.data.draughts - 1, 0, 10),
+        }
+      }).then(() => {
+        setTimeout(() => {
+          this.actor._onUpdate({items: true});
+        }, 0);
+      })
+    });
+
     // Rollable abilities
     html.find('.rollable').click(this._onRoll.bind(this));
 
