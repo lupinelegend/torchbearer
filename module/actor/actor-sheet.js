@@ -123,14 +123,20 @@ export class TorchbearerActorSheet extends ActorSheet {
     });
 
     // Drink Item
-    html.find('.item-drink').click(ev => {
+    html.find('.item-consume').click(ev => {
       const li = $(ev.currentTarget).parents(".item");
       let tbItem = this.actor.getOwnedItem(li.data("itemId"));
-      tbItem.update({
-        data: {
-          draughts: Math.clamped(tbItem.data.data.draughts - 1, 0, 10),
-        }
-      }).then(() => {
+      let update;
+      if(tbItem.tbData().consumable.consumes === 'draughts') {
+        update = tbItem.update({
+          data: {
+            draughts: Math.clamped(tbItem.data.data.draughts - 1, 0, 10),
+          }
+        });
+      } else if(tbItem.tbData().consumable.consumes === 'self') {
+        update = this.actor.removeItemFromInventory(tbItem.data._id);
+      }
+      update && update.then(() => {
         tbItem.onAfterConsumed();
         setTimeout(() => {
           this.actor._onUpdate({items: true});

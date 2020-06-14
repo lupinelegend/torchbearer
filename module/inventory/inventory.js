@@ -345,9 +345,22 @@ Handlebars.registerHelper('renderInventory', function(capacity, actorId, contain
                     quantityExpression = `[${capacityConsumed}/${subContainer.capacity}]`;
                 }
             }
-            let liquidColor = '#1e90ff';
-            if(item.data.liquid === 'Wine') {
-                liquidColor = '#800080';
+            let consumeQuantity = 0;
+            let consumeIconColor = '';
+            let consumeIcon = '';
+            if(item.data.consumable.consumes) {
+                if(item.data.consumable.consumes === 'draughts') {
+                    consumeIcon = 'fa-tint';
+                    consumeIconColor = '#1e90ff';
+                    if(item.data.liquid === 'Wine') {
+                        consumeIconColor = '#800080';
+                    }
+                    consumeQuantity = item.data.draughts;
+                } else if(item.data.consumable.consumes === 'self') {
+                    consumeIcon = item.data.consumable.icon;
+                    consumeIconColor = item.data.consumable.iconColor;
+                    consumeQuantity = item.data.computed.bundledWith.length + 1;
+                }
             }
             if(i === 0) {
                 html +=
@@ -355,9 +368,9 @@ Handlebars.registerHelper('renderInventory', function(capacity, actorId, contain
                   <div class="item-image"><img src="${item.img}" title="${item.name}" alt="${item.name}" width="24" height="24"/></div>
                   <h4 class="item-name clickable" style="font-family: Souvenir-Medium;">${item.name} ${quantityExpression}</h4>
                   <div class="item-controls">`;
-                for(let draught = 0; draught < item.data.draughts; draught++) {
+                for(let consumeIdx = 0; consumeIdx < consumeQuantity; consumeIdx++) {
                     html +=
-                        `<a class="item-control item-drink" title="Drink" style="margin-right: 5px;"><i style="color:${liquidColor};" class="fas fa-tint"></i></a>`;
+                        `<a class="item-control item-consume" title="Consume" style="margin-right: 5px;"><i style="color:${consumeIconColor};" class="fas ${consumeIcon}"></i></a>`;
                 }
                 if(item.data.damaged) {
                     html +=

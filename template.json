@@ -685,6 +685,11 @@
       "maxDraughts": 0,
       "draughts": 0,
       "liquid": "",
+      "consumable": {
+        "consumes": "",
+        "icon" : "",
+        "iconColor": ""
+      },
       "damaged": false,
       "lightsource": {
         "lasts": 0,

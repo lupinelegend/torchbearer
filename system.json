@@ -54,6 +54,13 @@
       "entity": "Item"
     },
     {
+      "name": "food",
+      "label": "Torchbearer Food",
+      "system": "torchbearer",
+      "path": "./packs/food.db",
+      "entity": "Item"
+    },
+    {
       "name": "classes",
       "label": "Torchbearer Classes",
       "system": "torchbearer",
