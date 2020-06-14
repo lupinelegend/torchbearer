@@ -55,13 +55,13 @@
       "abilities": {
         "will": {
           "value": 0,
-          "max": 10,
+          "max": 6,
           "pass": 0,
           "fail": 0
         },
         "health": {
           "value": 0,
-          "max": 10,
+          "max": 6,
           "pass": 0,
           "fail": 0
         },
@@ -85,7 +85,7 @@
         },
         "precedence": {
           "value": 0,
-          "max": 10
+          "max": 7
         },
         "might": {
           "value": 3,

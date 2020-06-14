@@ -95,9 +95,24 @@ export class conflictSheet extends Application {
     let actorArray = [];
     game.actors._source.forEach(element => {
       if (element.type === 'Character') {
-        actorArray.push(element.name);
+        console.log(element);
+        let char = {
+          name: element.name,
+          weapons: []
+        }
+        let i = 0;
+        let weaponArray = [];
+        while (i < element.items.length) {
+          weaponArray.push(element.items[i]);
+          i++;
+        }
+        char.weapons = weaponArray;
+        actorArray.push(char);
       }
     });
+    console.log(actorArray);
+
+    // Create an array of weapons
 
     // Set template variables
     data.actors = actorArray;
