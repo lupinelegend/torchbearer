@@ -89,6 +89,18 @@ export function arrangeInventory(tbItemsMap, overburdened) {
             holdsBundles: false,
             slots: [],
             type: 'Body',
+        },
+        "Cached": {
+            name: "Cached",
+            holdsBundles: false,
+            slots: [],
+            type: 'Elsewhere',
+        },
+        "Lost": {
+            name: "Lost",
+            holdsBundles: false,
+            slots: [],
+            type: 'Elsewhere',
         }
     };
 
@@ -282,7 +294,7 @@ export function alternateContainerType(tbItem) {
     }, '');
 }
 function renderOptions(containerId) {
-    if(['On Ground'].includes(containerId)) {
+    if(['On Ground', 'Cached', 'Lost'].includes(containerId)) {
         return {
             multiSlot: false,
             droppable: false,

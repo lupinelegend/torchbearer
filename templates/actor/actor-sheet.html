@@ -115,7 +115,7 @@
         <a class="item" data-tab="whoYouAre" style="font-family: Souvenir-Demi;">Who You Are</a>
         <a class="item" data-tab="abilities" style="font-family: Souvenir-Demi;">Abilities</a>
         <a class="item" data-tab="skills" style="font-family: Souvenir-Demi;">Skills</a>
-        <a class="item" data-tab="inventory" style="font-family: Souvenir-Demi;">Inventory</a>
+        <a class="item" data-tab="inventory" id="primary-tab-inventory" style="font-family: Souvenir-Demi;">Inventory</a>
         <a class="item" data-tab="magic" style="font-family: Souvenir-Demi;">Magic</a>
         <a class="item" data-tab="notes" style="font-family: Souvenir-Demi;">Notes</a>
     </nav>
@@ -609,119 +609,159 @@
 
         {{!-- Inventory Tab --}}
         <div class="tab items" data-group="primary" data-tab="inventory">
-          <div class="container scroll">
-            <div class="row">
-              <div class="col">
-                <ol id="headSlot" class="items-list inventory-container col" data-container-type="Head" style="margin: 0 3px 0 3px;">
-                  <!-- Section header -->
-                  <li class="item flexrow item-header" id="headSlotHeader">
-                    <div class="item-image"></div>
-                    <div class="item-name" style="font-family: Souvenir-Demi;">Head</div>
-                    <div class="item-controls">
-                      <a class="item-control item-create" title="Create item" data-type="item" type="Head"><i class="fas fa-plus"></i></a>
-                    </div>
-                  </li>
-                    {{{renderInventory 1 actor._id 'Head' 'Worn'}}}
-                </ol>
+            <nav class="inventory-tabs tabs" data-group="inventory">
+                <a class="item" data-tab="on-person" style="font-family: Souvenir-Demi;">On Person</a>
+                <a class="item" data-tab="elsewhere" style="font-family: Souvenir-Demi;">Elsewhere</a>
+            </nav>
+            <section class="inventory-body">
+                <div class="tab items" data-group="inventory" data-tab="on-person">
+                    <div class="container scroll">
+                        <div class="row">
+                            <div class="col">
+                                <ol id="headSlot" class="items-list inventory-container col" data-container-type="Head" style="margin: 0 3px 0 3px;">
+                                    <!-- Section header -->
+                                    <li class="item flexrow item-header" id="headSlotHeader">
+                                        <div class="item-image"></div>
+                                        <div class="item-name" style="font-family: Souvenir-Demi;">Head</div>
+                                        <div class="item-controls">
+                                            <a class="item-control item-create" title="Create item" data-type="item" type="Head"><i class="fas fa-plus"></i></a>
+                                        </div>
+                                    </li>
+                                    {{{renderInventory 1 actor._id 'Head' 'Worn'}}}
+                                </ol>
 
-                <ol id="handsWornSlot" class="items-list inventory-container col" data-container-type="Hands (Worn)" style="margin: 0 3px 0 3px;">
-                  <li class="item flexrow item-header" id="handsWornSlotHeader">
-                    <div class="item-image"></div>
-                    <div class="item-name" style="font-family: Souvenir-Demi;">Hands (Worn)</div>
-                    <div class="item-controls">
-                      <a class="item-control item-create" title="Create item" data-type="item" type="Hands"><i class="fas fa-plus"></i></a>
-                    </div>
-                  </li>
-                    {{{renderInventory 2 actor._id 'Hands (Worn)' 'Worn'}}}
-                </ol>
+                                <ol id="handsWornSlot" class="items-list inventory-container col" data-container-type="Hands (Worn)" style="margin: 0 3px 0 3px;">
+                                    <li class="item flexrow item-header" id="handsWornSlotHeader">
+                                        <div class="item-image"></div>
+                                        <div class="item-name" style="font-family: Souvenir-Demi;">Hands (Worn)</div>
+                                        <div class="item-controls">
+                                            <a class="item-control item-create" title="Create item" data-type="item" type="Hands"><i class="fas fa-plus"></i></a>
+                                        </div>
+                                    </li>
+                                    {{{renderInventory 2 actor._id 'Hands (Worn)' 'Worn'}}}
+                                </ol>
 
-                <ol id="handsCarriedSlot" class="items-list inventory-container col" data-container-type="Hands (Carried)" style="margin: 0 3px 0 3px;">
-                  <li class="item flexrow item-header" id="handsCarriedSlotHeader">
-                    <div class="item-image"></div>
-                    <div class="item-name" style="font-family: Souvenir-Demi;">Hands (Carried)</div>
-                    <div class="item-controls">
-                        <i class="fas fa-weight-hanging clickable" title="Overburden" id="overburdenToggle"></i>
-                        <a class="item-control item-create" title="Create item" data-type="item" type="Hands"><i class="fas fa-plus"></i></a>
-                    </div>
-                  </li>
-                    {{#ifeq data.overburdened true}}
-                        {{{renderInventory 4 actor._id 'Hands (Carried)' 'Carried'}}}
-                    {{/ifeq}}
-                    {{#ifeq data.overburdened false}}
-                        {{{renderInventory 2 actor._id 'Hands (Carried)' 'Carried'}}}
-                    {{/ifeq}}
-                </ol>
-                <ol id="torsoSlot" class="items-list inventory-container col" data-container-type="Torso" style="margin: 0 3px 0 3px;">
-                  <li class="item flexrow item-header" id="torsoSlotHeader">
-                    <div class="item-image"></div>
-                    <div class="item-name" style="font-family: Souvenir-Demi;">Torso</div>
-                    <div class="item-controls">
-                      <a class="item-control item-create" title="Create item" data-type="item" type="Torso"><i class="fas fa-plus"></i></a>
-                    </div>
-                  </li>
+                                <ol id="handsCarriedSlot" class="items-list inventory-container col" data-container-type="Hands (Carried)" style="margin: 0 3px 0 3px;">
+                                    <li class="item flexrow item-header" id="handsCarriedSlotHeader">
+                                        <div class="item-image"></div>
+                                        <div class="item-name" style="font-family: Souvenir-Demi;">Hands (Carried)</div>
+                                        <div class="item-controls">
+                                            <i class="fas fa-weight-hanging clickable"  title="Overburden" id="overburdenToggle"></i>
+                                            <a class="item-control item-create" title="Create item" data-type="item" type="Hands"><i class="fas fa-plus"></i></a>
+                                        </div>
+                                    </li>
+                                    {{#ifeq data.overburdened true}}
+                                        {{{renderInventory 4 actor._id 'Hands (Carried)' 'Carried'}}}
+                                    {{/ifeq}}
+                                    {{#ifeq data.overburdened false}}
+                                        {{{renderInventory 2 actor._id 'Hands (Carried)' 'Carried'}}}
+                                    {{/ifeq}}
+                                </ol>
+                                <ol id="torsoSlot" class="items-list inventory-container col" data-container-type="Torso" style="margin: 0 3px 0 3px;">
+                                    <li class="item flexrow item-header" id="torsoSlotHeader">
+                                        <div class="item-image"></div>
+                                        <div class="item-name" style="font-family: Souvenir-Demi;">Torso</div>
+                                        <div class="item-controls">
+                                            <a class="item-control item-create" title="Create item" data-type="item" type="Torso"><i class="fas fa-plus"></i></a>
+                                        </div>
+                                    </li>
 
-                    {{{renderInventory 3 actor._id 'Torso' 'Worn'}}}
-                </ol>
-                <ol id="pocketSlot" class="items-list inventory-container col" data-container-type="Pocket" style="margin: 0 3px 0 3px;">
-                  <li class="item flexrow item-header" id="pocketSlotHeader">
-                    <div class="item-image"></div>
-                    <div class="item-name" style="font-family: Souvenir-Demi;">Pocket</div>
-                    <div class="item-controls">
-                      <a class="item-control item-create" title="Create item" data-type="item" type="Pocket"><i class="fas fa-plus"></i></a>
-                    </div>
-                  </li>
+                                    {{{renderInventory 3 actor._id 'Torso' 'Worn'}}}
+                                </ol>
+                                <ol id="pocketSlot" class="items-list inventory-container col" data-container-type="Pocket" style="margin: 0 3px 0 3px;">
+                                    <li class="item flexrow item-header" id="pocketSlotHeader">
+                                        <div class="item-image"></div>
+                                        <div class="item-name" style="font-family: Souvenir-Demi;">Pocket</div>
+                                        <div class="item-controls">
+                                            <a class="item-control item-create" title="Create item" data-type="item" type="Pocket"><i class="fas fa-plus"></i></a>
+                                        </div>
+                                    </li>
 
-                    {{{renderInventory 1 actor._id 'Pocket' 'Trinkets'}}}
-                </ol>
-              </div>
-              <div class="col">
-                <ol id="neckSlot" class="items-list inventory-container col" data-container-type="Neck" style="margin: 0 3px 0 3px;">
-                  <li class="item flexrow item-header" id="neckSlotHeader">
-                    <div class="item-image"></div>
-                    <div class="item-name" style="font-family: Souvenir-Demi;">Neck</div>
-                    <div class="item-controls">
-                      <a class="item-control item-create" title="Create item" data-type="item" type="Neck"><i class="fas fa-plus"></i></a>
-                    </div>
-                  </li>
-    
-                    {{{renderInventory 1 actor._id 'Neck' 'Worn'}}}
-                </ol>
-                <ol id="feetSlot" class="items-list inventory-container col" data-container-type="Feet" style="margin: 0 3px 0 3px;">
-                  <li class="item flexrow item-header" id="feetSlotHeader">
-                    <div class="item-image"></div>
-                    <div class="item-name" style="font-family: Souvenir-Demi;">Feet</div>
-                    <div class="item-controls">
-                      <a class="item-control item-create" title="Create item" data-type="item" type="Feet"><i class="fas fa-plus"></i></a>
-                    </div>
-                  </li>
-    
-                    {{{renderInventory 1 actor._id 'Feet' 'Worn'}}}
-                </ol>
-                <ol id="beltSlot" class="items-list inventory-container col" data-container-type="Belt" style="margin: 0 3px 0 3px;">
-                  <li class="item flexrow item-header" id="beltSlotHeader">
-                    <div class="item-image"></div>
-                    <div class="item-name" style="font-family: Souvenir-Demi;">Belt</div>
-                    <div class="item-controls">
-                      <a class="item-control item-create" title="Create item" data-type="item" type="Belt"><i class="fas fa-plus"></i></a>
-                    </div>
-                  </li>
-    
-                    {{{renderInventory 3 actor._id 'Belt' 'Worn'}}}
-                </ol>
+                                    {{{renderInventory 1 actor._id 'Pocket' 'Trinkets'}}}
+                                </ol>
+                            </div>
+                            <div class="col">
+                                <ol id="neckSlot" class="items-list inventory-container col" data-container-type="Neck" style="margin: 0 3px 0 3px;">
+                                    <li class="item flexrow item-header" id="neckSlotHeader">
+                                        <div class="item-image"></div>
+                                        <div class="item-name" style="font-family: Souvenir-Demi;">Neck</div>
+                                        <div class="item-controls">
+                                            <a class="item-control item-create" title="Create item" data-type="item" type="Neck"><i class="fas fa-plus"></i></a>
+                                        </div>
+                                    </li>
 
-                <ol id="groundSlot" class="items-list inventory-container col" data-container-type="On Ground" style="margin: 0 3px 0 3px;">
-                  <li class="item flexrow item-header" id="groundSlotHeader">
-                    <div class="item-image"></div>
-                    <div class="item-name" style="font-family: Souvenir-Demi;">On Ground</div>
-                    <div class="item-controls">
-                      <a class="item-control item-create" title="Create item" data-type="item" type="On Ground"><i class="fas fa-plus"></i></a>
+                                    {{{renderInventory 1 actor._id 'Neck' 'Worn'}}}
+                                </ol>
+                                <ol id="feetSlot" class="items-list inventory-container col" data-container-type="Feet" style="margin: 0 3px 0 3px;">
+                                    <li class="item flexrow item-header" id="feetSlotHeader">
+                                        <div class="item-image"></div>
+                                        <div class="item-name" style="font-family: Souvenir-Demi;">Feet</div>
+                                        <div class="item-controls">
+                                            <a class="item-control item-create" title="Create item" data-type="item" type="Feet"><i class="fas fa-plus"></i></a>
+                                        </div>
+                                    </li>
+
+                                    {{{renderInventory 1 actor._id 'Feet' 'Worn'}}}
+                                </ol>
+                                <ol id="beltSlot" class="items-list inventory-container col" data-container-type="Belt" style="margin: 0 3px 0 3px;">
+                                    <li class="item flexrow item-header" id="beltSlotHeader">
+                                        <div class="item-image"></div>
+                                        <div class="item-name" style="font-family: Souvenir-Demi;">Belt</div>
+                                        <div class="item-controls">
+                                            <a class="item-control item-create" title="Create item" data-type="item" type="Belt"><i class="fas fa-plus"></i></a>
+                                        </div>
+                                    </li>
+
+                                    {{{renderInventory 3 actor._id 'Belt' 'Worn'}}}
+                                </ol>
+
+                                <ol id="groundSlot" class="items-list inventory-container col" data-container-type="On Ground" style="margin: 0 3px 0 3px;">
+                                    <li class="item flexrow item-header" id="groundSlotHeader">
+                                        <div class="item-image"></div>
+                                        <div class="item-name" style="font-family: Souvenir-Demi;">On Ground</div>
+                                        <div class="item-controls">
+                                            <a class="item-control item-create" title="Create item" data-type="item" type="On Ground"><i class="fas fa-plus"></i></a>
+                                        </div>
+                                    </li>
+                                    {{{renderInventory 0 actor._id 'On Ground' 'Ground'}}}
+                                </ol>
+                            </div>
+                        </div>
                     </div>
-                  </li>
-                    {{{renderInventory 0 actor._id 'On Ground' 'Ground'}}}
-                </ol>
-              </div>
-            </div>
-          </div>
+                </div>
+                <div class="tab items" data-group="inventory" data-tab="elsewhere">
+                    <div class="container scroll">
+                        <div class="row">
+                            <div class="col">
+                                <ol id="cachedSlot" class="items-list inventory-container col" data-container-type="Cached" style="margin: 0 3px 0 3px;">
+                                    <!-- Section header -->
+                                    <li class="item flexrow item-header" id="cachedSlotHeader">
+                                        <div class="item-image"></div>
+                                        <div class="item-name" style="font-family: Souvenir-Demi;">Cached</div>
+                                        <div class="item-controls">
+                                            <a class="item-control item-create" title="Create item" data-type="item" type="Cached"><i class="fas fa-plus"></i></a>
+                                        </div>
+                                    </li>
+                                    {{{renderInventory 0 actor._id 'Cached' 'Cached'}}}
+                                </ol>
+                            </div>
+                            <div class="col">
+                                <ol id="lostSlot" class="items-list inventory-container col" data-container-type="Lost" style="margin: 0 3px 0 3px;">
+                                    <!-- Section header -->
+                                    <li class="item flexrow item-header" id="cachedSlotHeader">
+                                        <div class="item-image"></div>
+                                        <div class="item-name" style="font-family: Souvenir-Demi;">Lost</div>
+                                        <div class="item-controls">
+                                            <a class="item-control item-create" title="Create item" data-type="item" type="Lost"><i class="fas fa-plus"></i></a>
+                                        </div>
+                                    </li>
+                                    {{{renderInventory 0 actor._id 'Lost' 'Lost'}}}
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
 
         {{!-- Magic Tab --}}
