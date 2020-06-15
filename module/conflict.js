@@ -17,7 +17,7 @@ export class conflictSheet extends Application {
     // https://discordapp.com/channels/170995199584108546/670336275496042502/720685481641246770
 
     let data = super.getData();
-    
+
     let partyIntent;
     let temp = game.settings.get('conflict-sheet', 'partyIntent');
     if (temp === 'undefined' || temp === '') {
@@ -92,13 +92,16 @@ export class conflictSheet extends Application {
     }
 
     // Create an array of actor names
+    let storedActorArray = game.settings.get('conflict-sheet', 'actorArray');
+    console.log(storedActorArray);
     let actorArray = [];
-    game.actors._source.forEach(element => {
+    game.actors._source.forEach((element, index) => {
       if (element.type === 'Character') {
-        console.log(element);
         let char = {
           name: element.name,
-          weapons: []
+          equipped: '',
+          weapons: [],
+          index: index
         }
         let i = 0;
         let weaponArray = [];
@@ -110,7 +113,19 @@ export class conflictSheet extends Application {
         actorArray.push(char);
       }
     });
+    game.settings.set('conflict-sheet', 'actorArray', actorArray);
     console.log(actorArray);
+
+    // let storedActorArray = game.settings.get('conflict-sheet', 'actorArray');
+    // storedActorArray.forEach((element, index) => {
+    //   actorArray.forEach((subElement, subIndex) => {
+    //     if (element.name === subElement.name) {
+    //       console.log(element);
+    //       console.log(subElement);
+    //       //element.equipped = subElement.equipped;
+    //     }
+    //   });
+    // });
 
     // Create an array of weapons
 
@@ -133,51 +148,78 @@ export class conflictSheet extends Application {
     super.activateListeners(html);
 
     html.find('#partyIntent').change(ev => {
-      this.updateSheet(ev, 'partyIntent');
+      this.updateSheet(ev.currentTarget.value, 'partyIntent');
     });
 
     html.find('#opponentIntent').change(ev => {
-      this.updateSheet(ev, 'opponentIntent');
+      this.updateSheet(ev.currentTarget.value, 'opponentIntent');
     });
 
     html.find('#conflictCaptain').change(ev => {
-      this.updateSheet(ev, 'conflictCaptain');
+      this.updateSheet(ev.currentTarget.value, 'conflictCaptain');
     });
 
     html.find('#opponentName').change(ev => {
-      this.updateSheet(ev, 'opponentName');
+      this.updateSheet(ev.currentTarget.value, 'opponentName');
     });
 
     html.find('#partyDispoCurrent').change(ev => {
-      this.updateSheet(ev, 'partyDispoCurrent');
+      this.updateSheet(ev.currentTarget.value, 'partyDispoCurrent');
     });
 
     html.find('#partyDispoMax').change(ev => {
-      this.updateSheet(ev, 'partyDispoMax');
+      this.updateSheet(ev.currentTarget.value, 'partyDispoMax');
     });
 
     html.find('#opponentDispoCurrent').change(ev => {
-      this.updateSheet(ev, 'opponentDispoCurrent');
+      this.updateSheet(ev.currentTarget.value, 'opponentDispoCurrent');
     });
 
     html.find('#opponentDispoMax').change(ev => {
-      this.updateSheet(ev, 'opponentDispoMax');
+      this.updateSheet(ev.currentTarget.value, 'opponentDispoMax');
+    });
+
+    html.find('.charWeapon').change(ev => {
+      
+      // Get actor name
+      let len = 0;
+      for (let i = 0; i < ev.currentTarget.id.length; i++) {
+        if (ev.currentTarget.id.charAt(i) === '-') {
+          len = i;
+        }
+      }
+      let actorName = ev.currentTarget.id.slice(0,len);
+
+      // Get actor object
+      let actorArray = game.settings.get('conflict-sheet', 'actorArray');
+      console.log(actorArray[0]);
+      let actorIndex;
+      actorArray[0].forEach((element, index) => {
+        console.log(element);
+        if (actorName === element.name) {
+          actorIndex = index;
+        }
+      });
+      actorArray[0][actorIndex].equipped = ev.currentTarget.value;
+      console.log(actorArray);
+      game.settings.set('conflict-sheet', 'actorArray', actorArray);
+      //this.updateSheet(actorArray, 'actorArray');
     });
   }
 
-  updateSheet(ev, input) {
+  updateSheet(value, input) {
     if (game.user.isGM) {
-      game.settings.set('conflict-sheet', input, ev.currentTarget.value).then( () => {
+      game.settings.set('conflict-sheet', input, value).then( () => {
         this.render(true);
         game.socket.emit('system.torchbearer', {
           name: input,
-          payload: ev.currentTarget.value
+          payload: value
         });
       });
     } else{
       game.socket.emit('system.torchbearer', {
         name: input,
-        payload: ev.currentTarget.value
+        payload: value
       });
     }
   }

@@ -107,6 +107,13 @@ Hooks.once('init', async function() {
     default: '',
     type: String
   });
+  game.settings.register('conflict-sheet', 'actorArray', {
+    name: 'actorArray',
+    scope: 'world',
+    config: false,
+    default: [],
+    type: Array
+  });
 
   // Updates inputs to the Conflict Sheet across clients
   // https://discordapp.com/channels/170995199584108546/670336275496042502/721144171468947556
@@ -146,6 +153,7 @@ Hooks.once('init', async function() {
   // Event listener which opens the Conflict Sheet when the Foundry icon is clicked
   Hooks.on('ready', (app, html, data) => {
     $('#logo').click(ev => {
+      console.log('CLICK');
       sheet.render(true);
     });
   });
