@@ -4,6 +4,7 @@ Inventory
 -
 - Filling out the equipment databases with base 1st ed content
   - Magic Items
+- Update items for 2e
 - Optional Gear from e.g. Middarmark & content posted on Blog
 
 Dice Rolls
