@@ -114,6 +114,13 @@ Hooks.once('init', async function() {
     default: [],
     type: Array
   });
+  game.settings.register('conflict-sheet', 'conflictState', {
+    name: 'conflictState',
+    scope: 'world',
+    config: false,
+    default: {},
+    type: Object
+  });
 
   // Updates inputs to the Conflict Sheet across clients
   // https://discordapp.com/channels/170995199584108546/670336275496042502/721144171468947556

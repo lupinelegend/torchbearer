@@ -91,16 +91,24 @@ export class conflictSheet extends Application {
       opponentDispoMax = temp;
     }
 
+    let conflictState;
+    temp = game.settings.get('conflict-sheet', 'conflictState');
+    if (temp === 'undefined' || temp === '') {
+      conflictState = {};
+    } else {
+      conflictState = temp;
+    }
+    console.log(conflictState);
+
     // Create an array of actor names
-    let storedActorArray = game.settings.get('conflict-sheet', 'actorArray');
-    console.log(storedActorArray);
     let actorArray = [];
     game.actors._source.forEach((element, index) => {
       if (element.type === 'Character') {
         let char = {
           name: element.name,
-          equipped: '',
+          id: element._id,
           weapons: [],
+          equipped: '',
           index: index
         }
         let i = 0;
@@ -113,21 +121,16 @@ export class conflictSheet extends Application {
         actorArray.push(char);
       }
     });
-    game.settings.set('conflict-sheet', 'actorArray', actorArray);
+
+    actorArray.forEach(element => {
+      Object.keys(conflictState).forEach(key => {
+        console.log(`Element: ${element.id}, Key: ${key}`)
+        if (element.id === key) {
+          element.equipped = conflictState[key].equipped;
+        }
+      });
+    });
     console.log(actorArray);
-
-    // let storedActorArray = game.settings.get('conflict-sheet', 'actorArray');
-    // storedActorArray.forEach((element, index) => {
-    //   actorArray.forEach((subElement, subIndex) => {
-    //     if (element.name === subElement.name) {
-    //       console.log(element);
-    //       console.log(subElement);
-    //       //element.equipped = subElement.equipped;
-    //     }
-    //   });
-    // });
-
-    // Create an array of weapons
 
     // Set template variables
     data.actors = actorArray;
@@ -180,30 +183,37 @@ export class conflictSheet extends Application {
     });
 
     html.find('.charWeapon').change(ev => {
-      
-      // Get actor name
-      let len = 0;
-      for (let i = 0; i < ev.currentTarget.id.length; i++) {
-        if (ev.currentTarget.id.charAt(i) === '-') {
-          len = i;
+
+      // Get actor ID
+      let actorID = ev.currentTarget.id;
+
+      // Get conflictState
+      let conflictState = game.settings.get('conflict-sheet', 'conflictState');
+
+      // If the conflictState is empty, create a new actor entry, else, update the actors
+      if (!conflictState.initialized) {
+        conflictState.initialized = true;
+        conflictState[`${actorID}`] = {
+          equipped: ev.currentTarget.value
+        };
+      } else {
+        let flag = false;
+        Object.keys(conflictState).forEach(key => {
+          if (actorID === key) {
+            conflictState[key].equipped = ev.currentTarget.value;
+            flag = true;
+          }
+        });
+        // If there wasn't an existing actor, add one
+        if (flag === false) {
+          conflictState[`${actorID}`] = {
+            equipped: ev.currentTarget.value
+          };
         }
       }
-      let actorName = ev.currentTarget.id.slice(0,len);
 
-      // Get actor object
-      let actorArray = game.settings.get('conflict-sheet', 'actorArray');
-      console.log(actorArray[0]);
-      let actorIndex;
-      actorArray[0].forEach((element, index) => {
-        console.log(element);
-        if (actorName === element.name) {
-          actorIndex = index;
-        }
-      });
-      actorArray[0][actorIndex].equipped = ev.currentTarget.value;
-      console.log(actorArray);
-      game.settings.set('conflict-sheet', 'actorArray', actorArray);
-      //this.updateSheet(actorArray, 'actorArray');
+      game.settings.set('conflict-sheet', 'conflictState', conflictState);
+      console.log(conflictState);
     });
   }
 

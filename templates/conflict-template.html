@@ -79,17 +79,17 @@
               <th>Disposition</th>
             </thead>
             <tbody>
-              {{#each actors as |actor key|}}
+              {{#each actors as |actor|}}
               <tr>
                 <td>
-                  {{this.name}}
+                  {{name}}
                 </td>
                 <td style="text-align: center;">
-                  <select name="weapon {{key}}" class="charWeapon" id="{{this.name}}-weapon">
-                    {{#select (lookup weapon @key)}}
+                  <select name="{{equipped}}" class="charWeapon" id="{{id}}">
+                    {{#select equipped}}
                     <option value="" selected disabled hidden>Choose a weapon...</option>
                     {{#each this.weapons}}
-                    <option name="{{this.name}}" value="{{this.name}}">{{this.name}}</option>
+                    <option name="{{name}}" value="{{name}}">{{name}}</option>
                     {{/each}}
                     {{/select}}
                   </select>
