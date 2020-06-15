@@ -2,7 +2,7 @@
  * Extend the basic ActorSheet with some very simple modifications
  * @extends {ActorSheet}
  */
-import {canFit, alternateContainerType} from "../inventory/inventory.js";
+import {alternateContainerType, canFit} from "../inventory/inventory.js";
 
 export class TorchbearerActorSheet extends ActorSheet {
 
@@ -13,7 +13,18 @@ export class TorchbearerActorSheet extends ActorSheet {
       template: "systems/torchbearer/templates/actor/actor-sheet.html",
       width: 617,
       height: 848,
-      tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description" }],
+      tabs: [
+          {
+            navSelector: ".sheet-tabs",
+            contentSelector: ".sheet-body",
+            initial: "description",
+          },
+          {
+            navSelector: ".inventory-tabs",
+            contentSelector: ".inventory-body",
+            initial: "on-person"
+          },
+      ],
       dragDrop: [{dragSelector: ".items-list .item", dropSelector: null}]
     });
   }
@@ -182,12 +193,17 @@ export class TorchbearerActorSheet extends ActorSheet {
     });
 
     html.find('#overburdenToggle').click(() => {
-      console.log(this.actor);
       this.actor.update({
         data: {
           overburdened: !this.actor.tbData().overburdened
         }
       });
+    });
+
+    html.find('#primary-tab-inventory').click(() => {
+      setTimeout(() => {
+        this._tabs[1].activate(this._tabs[1].active, true);
+      }, 0);
     });
 
     // // Event listener for advancing skills
