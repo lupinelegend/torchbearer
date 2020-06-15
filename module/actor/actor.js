@@ -30,7 +30,52 @@ export class TorchbearerActor extends Actor {
     data.computed.inventory = arrangeInventory(this.items, data.overburdened);
   }
 
+  _determineDumpTarget(tbItem, recursions = 0) {
+    let container = (tbItem.tbData().containerId
+        ? this.tbData().computed.inventory[tbItem.tbData().containerId]
+        : this.tbData().computed.inventory[tbItem.tbData().equip]) || {};
+    if(container.name === 'Cached') {
+      return {dumpEquip: "Cached", dumpCarried: "Cached"}
+    }
+    if(container.name === 'Lost') {
+      return {dumpEquip: "Lost", dumpCarried: "Lost"}
+    }
+    if(container.type === 'Pack') {
+      let containerTbItem = this.items.get(tbItem.tbData().containerId);
+      if(!containerTbItem || recursions >= 20) {
+        return {dumpEquip: "On Ground", dumpCarried: "Ground"};
+      }
+      return this._determineDumpTarget(containerTbItem, recursions + 1);
+    }
+    return {dumpEquip: "On Ground", dumpCarried: "Ground"};
+  }
+
+  async _dumpContents(tbItem) {
+    let {dumpEquip, dumpCarried} = this._determineDumpTarget(tbItem);
+    let slots = this.tbData().computed.inventory[tbItem._id].slots;
+    for(let i = 0; i < slots.length; i++) {
+      let tbContainedItem = this.items.get(slots[i]._id);
+      if(tbContainedItem) {
+        await tbContainedItem.update({
+          data: {
+            equip: dumpEquip,
+            carried: dumpCarried,
+            slots: 1,
+            containerId: '',
+          }
+        });
+      }
+    }
+  }
+
   async removeItemFromInventory(itemId) {
+    let inventoryContainer = this.tbData().computed.inventory[itemId];
+    if(inventoryContainer && inventoryContainer.slots.length > 0) {
+      const tbItem = this.items.get(itemId);
+      if(tbItem) {
+        await this._dumpContents(tbItem);
+      }
+    }
     await this.deleteOwnedItem(itemId);
   }
 
