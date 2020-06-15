@@ -25,7 +25,9 @@ export function arrangeInventory(tbItemsMap, overburdened) {
     if(!tbItemsMap) return;
     const tbItems = [];
     for(const tbItem of tbItemsMap) {
-        tbItems.push(tbItem);
+        if(tbItem.data.type === 'Item') {
+            tbItems.push(tbItem);
+        }
     }
     const inventory = {
         Head: {
