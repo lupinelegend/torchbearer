@@ -506,10 +506,12 @@ input:checked + .slider:before {
 
 .torchbearer .items-list .item-name {
   margin: 0;
+  flex-basis: auto;
 }
 
 .torchbearer .items-list .item-controls {
   text-align: right;
+  flex-basis: auto;
 }
 
 .torchbearer .clickable {
