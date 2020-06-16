@@ -360,20 +360,35 @@ Handlebars.registerHelper('renderInventory', function(capacity, actorId, contain
                 }
             }
             let consumeQuantity = 0;
-            let consumeIconColor = '';
+            let consumeIconStyle = '';
             let consumeIcon = '';
             if(item.data.consumable.consumes) {
                 if(item.data.consumable.consumes === 'draughts') {
                     consumeIcon = 'fa-tint';
-                    consumeIconColor = '#1e90ff';
+                    consumeIconStyle = 'color:#1e90ff';
                     if(item.data.liquid === 'Wine') {
-                        consumeIconColor = '#800080';
+                        consumeIconStyle = 'color:#800080';
                     }
                     consumeQuantity = item.data.draughts;
                 } else if(item.data.consumable.consumes === 'self') {
                     consumeIcon = item.data.consumable.icon;
-                    consumeIconColor = item.data.consumable.iconColor;
+                    consumeIconStyle = item.data.consumable.iconStyle;
                     consumeQuantity = item.data.computed.bundledWith.length + 1;
+                } else if(item.data.consumable.consumes === 'light' && item.data.activatable.active) {
+                    consumeIcon = item.data.consumable.icon;
+                    consumeIconStyle = item.data.consumable.iconStyle;
+                    consumeQuantity = item.data.lightsource.remaining;
+                }
+            }
+            let activateIcon = '';
+            let activateIconStyle = '';
+            if(item.data.activatable.activates) {
+                if(item.data.activatable.active) {
+                    activateIcon = item.data.activatable.activeIcon;
+                    activateIconStyle = item.data.activatable.activeIconStyle;
+                } else {
+                    activateIcon = item.data.activatable.inactiveIcon;
+                    activateIconStyle = item.data.activatable.inactiveIconStyle;
                 }
             }
             if(i === 0) {
@@ -384,7 +399,11 @@ Handlebars.registerHelper('renderInventory', function(capacity, actorId, contain
                   <div class="item-controls">`;
                 for(let consumeIdx = 0; consumeIdx < consumeQuantity; consumeIdx++) {
                     html +=
-                        `<a class="item-control item-consume" title="Consume" style="margin-right: 5px;"><i style="color:${consumeIconColor};" class="fas ${consumeIcon}"></i></a>`;
+                        `<a class="item-control item-consume" title="Consume" style="margin-right: 5px;"><i style="${consumeIconStyle};" class="fas ${consumeIcon}"></i></a>`;
+                }
+                if(item.data.activatable.activates) {
+                    html +=
+                        `<a class="item-control item-activate" title="Activate" style="margin-right: 5px;"><i style="${activateIconStyle};" class="fas ${activateIcon}"></i></a>`;
                 }
                 if(item.data.damaged) {
                     html +=

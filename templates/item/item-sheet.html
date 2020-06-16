@@ -70,6 +70,18 @@
                 </div>
             </div>
             {{/if}}
+            {{#if data.lightsource.lasts}}
+                <div class="row" style="flex-basis: auto; align-items:center; margin-bottom: 8px;">
+                    <label for="data.light" style="font-family: Souvenir-Demi; margin-right: 8px;">Light Remaining: </label>
+                    <select name="data.lightsource.remaining" data-dtype="Number" style="font-family: Souvenir-Medium;">
+                        {{#select data.lightsource.remaining}}
+                            {{#times (add data.lightsource.lasts 1)}}
+                                <option value="{{this}}">{{this}}</option>
+                            {{/times}}
+                        {{/select}}
+                    </select>
+                </div>
+            {{/if}}
             {{#if data.maxDraughts}}
                 <div class="row" style="flex-basis: auto; align-items:center; margin-bottom: 8px;">
                     <label for="data.liquid" style="font-family: Souvenir-Demi; margin-right: 8px;">Holding: </label>
@@ -82,7 +94,7 @@
                 </div>
                 <div class="row" style="flex-basis: auto; align-items:center; margin-bottom: 8px;">
                     <label for="data.draughts" style="font-family: Souvenir-Demi; margin-right: 8px;">Draughts: </label>
-                    <select name="data.draughts" style="font-family: Souvenir-Medium;">
+                    <select name="data.draughts" data-dtype="Number" style="font-family: Souvenir-Medium;">
                     {{#select data.draughts}}
                         {{#times (add data.maxDraughts 1)}}
                             <option value="{{this}}">{{this}}</option>

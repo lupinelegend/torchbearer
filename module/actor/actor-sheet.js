@@ -137,22 +137,22 @@ export class TorchbearerActorSheet extends ActorSheet {
     html.find('.item-consume').click(ev => {
       const li = $(ev.currentTarget).parents(".item");
       let tbItem = this.actor.getOwnedItem(li.data("itemId"));
-      let update;
-      if(tbItem.tbData().consumable.consumes === 'draughts') {
-        update = tbItem.update({
-          data: {
-            draughts: Math.clamped(tbItem.data.data.draughts - 1, 0, 10),
-          }
-        });
-      } else if(tbItem.tbData().consumable.consumes === 'self') {
-        update = this.actor.removeItemFromInventory(tbItem.data._id);
-      }
-      update && update.then(() => {
-        tbItem.onAfterConsumed();
+      tbItem.consumeOne().then(() => {
         setTimeout(() => {
           this.actor._onUpdate({items: true});
         }, 0);
-      })
+      });
+    });
+
+    // Activate Item
+    html.find('.item-activate').click(ev => {
+      const li = $(ev.currentTarget).parents(".item");
+      let tbItem = this.actor.getOwnedItem(li.data("itemId"));
+      tbItem.toggleActive().then(() => {
+        setTimeout(() => {
+          this.actor._onUpdate({items: true});
+        }, 0);
+      });
     });
 
     // Rollable abilities
@@ -848,6 +848,7 @@ export class TorchbearerActorSheet extends ActorSheet {
       if(containerType) {
         let update = {data: {equip: containerType, containerId: containerId, slots: slotsTaken}};
         await tbItem.update(update);
+        await tbItem.onAfterEquipped({containerType, containerId});
         this.actor._onUpdate({items: true});
         if(oldContainerId) {
           let oldContainer = this.actor.items.get(oldContainerId);

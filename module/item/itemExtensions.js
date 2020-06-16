@@ -1,12 +1,85 @@
 class SharedItemBehaviors {
-    static clearHungryThirsty(item) {
+    static compareLanternsByFuel(a, b) {
+        return (b.consumed) - (a.consumed);
+    }
+
+    static leastFueledLanternInHands(actor) {
+        const inventory = actor.tbData().computed.inventory;
+        const container = inventory["Hands (Carried)"];
+        let lanterns = [];
+        for(let j = 0; j < container.slots.length; j++) {
+            const item = container.slots[j];
+            if(item.name === 'Lantern') {
+                if(item.data.lightsource.remaining < item.data.lightsource.lasts) {
+                    lanterns.push({
+                        consumed: item.data.lightsource.lasts - item.data.lightsource.remaining,
+                        _id: item._id,
+                    });
+                }
+            }
+        }
+        if(lanterns.length > 0) {
+            return actor.items.get(lanterns.sort(SharedItemBehaviors.compareLanternsByFuel)[0]._id);
+        } else return null;
+    }
+
+    static async clearHungryThirsty(item) {
         if(!item) {
             item = this;
         }
         if(item.actor && item.actor.tbData().hungryandthirsty) {
-            item.actor.update({
+            await item.actor.update({
                 data: {
                     hungryandthirsty: false
+                }
+            });
+        }
+    }
+
+    static abortIfStowedOrFuelless(item) {
+        if(!item) {
+            item = this;
+        }
+        // If it's somehow active, allow it to deactivate no matter what
+        if(item.tbData().activatable.active) {
+            return true;
+        }
+        if(item.tbData().equip === 'Pack') {
+            ui.notifications.error("You can't light something stowed in a pack");
+            return false;
+        }
+        if(!item.tbData().lightsource.remaining) {
+            ui.notifications.error("There is no remaining fuel in this object");
+            return false;
+        }
+        return true;
+    }
+
+    static async deactivateWhenOutOfFuel(item) {
+        if(!item) {
+            item = this;
+        }
+        if(item.tbData().lightsource.remaining === 0) {
+            await item.update({
+                data: {
+                    activatable: {
+                        active: false,
+                    }
+                }
+            });
+        }
+    }
+
+    static async deactivateWhenStowed(equippedEvent, item) {
+        if(!item) {
+            item = this;
+        }
+        if(item.tbData().activatable.active && equippedEvent.containerType === 'Pack') {
+            await item.update({
+                data: {
+                    activatable: {
+                        active: false,
+                    }
                 }
             });
         }
@@ -95,5 +168,46 @@ export const itemExtensions = {
     },
     "Rations, Preserved": {
         onAfterConsumed: SharedItemBehaviors.clearHungryThirsty,
+    },
+    "Flask of Oil": {
+        onBeforeConsumed: function() {
+            if(!this.actor) return false;
+            let lanternTbItem = SharedItemBehaviors.leastFueledLanternInHands(this.actor);
+            if(lanternTbItem && lanternTbItem.tbData().lightsource.remaining === 0) {
+                return true;
+            } else {
+                ui.notifications.error("You must be Carrying an unfueled Lantern in your Hands.");
+                return false;
+            }
+        },
+        onAfterConsumed: async function() {
+            if(!this.actor) return;
+            let lanternTbItem = SharedItemBehaviors.leastFueledLanternInHands(this.actor);
+            if(lanternTbItem
+                && lanternTbItem.tbData().lightsource.remaining < lanternTbItem.tbData().lightsource.lasts) {
+                await lanternTbItem.update({
+                    data: {
+                        lightsource: {
+                            remaining: lanternTbItem.tbData().lightsource.lasts,
+                        }
+                    }
+                });
+            }
+        }
+    },
+    "Torch": {
+        onBeforeActivate: SharedItemBehaviors.abortIfStowedOrFuelless,
+        onAfterConsumed: SharedItemBehaviors.deactivateWhenOutOfFuel,
+        onAfterEquipped: SharedItemBehaviors.deactivateWhenStowed,
+    },
+    "Candle": {
+        onBeforeActivate: SharedItemBehaviors.abortIfStowedOrFuelless,
+        onAfterConsumed: SharedItemBehaviors.deactivateWhenOutOfFuel,
+        onAfterEquipped: SharedItemBehaviors.deactivateWhenStowed,
+    },
+    "Lantern": {
+        onBeforeActivate: SharedItemBehaviors.abortIfStowedOrFuelless,
+        onAfterConsumed: SharedItemBehaviors.deactivateWhenOutOfFuel,
+        onAfterEquipped: SharedItemBehaviors.deactivateWhenStowed,
     },
 }
