@@ -772,5 +772,5 @@ export class conflictSheet extends Application {
   //       }
   //     });
   //   });
-  // }
+  }
 }
