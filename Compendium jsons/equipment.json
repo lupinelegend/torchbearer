@@ -1,9 +1,9 @@
 [
   {
-    "name": "Flask of oil",
+    "name": "Flask of Oil",
     "type": "Item",
     "data": {
-      "name": "Flask of oil",
+      "name": "Flask of Oil",
       "equip": "Hands (Carried)",
       "carried": "Carried",
       "slots": 1,
@@ -12,6 +12,10 @@
       "capacity": 0,
       "bundleSize": 2,
       "resizes": false,
+      "consumable": {
+        "consumes": "self",
+        "icon": "fa-tint"
+      },
       "equipOptions": {
         "option1": {
           "value": "Hands (Carried)"

@@ -47,6 +47,52 @@ export class TorchbearerItem extends Item {
     }
   }
 
+  async consumeOne() {
+    if(!this.actor) {
+      return;
+    }
+
+    if(!this.onBeforeConsumed()) {
+      return;
+    }
+
+    let update;
+    const tbData = this.tbData();
+    if(tbData.consumable.consumes === 'draughts') {
+      update = this.update({
+        data: {
+          draughts: Math.clamped(tbData.draughts - 1, 0, 10),
+        }
+      });
+    } else if(tbData.consumable.consumes === 'self') {
+      update = this.actor.removeItemFromInventory(this.data._id);
+    } else if(tbData.consumable.consumes === 'light') {
+      update = this.update({
+        data: {
+          lightsource: {
+            remaining: Math.clamped(tbData.lightsource.remaining - 1, 0, 10),
+          }
+        }
+      });
+    }
+    await update;
+    await this.onAfterConsumed();
+  }
+
+  async toggleActive() {
+    if(!this.actor) return;
+    const tbData = this.tbData();
+    if(!tbData.activatable.activates) return;
+    if(!this.onBeforeActivate()) return;
+    await this.update({
+      data: {
+        activatable: {
+          active: !tbData.activatable.active,
+        }
+      }
+    });
+  }
+
   isCompatibleContainer(containerType) {
     return this.validContainerTypes().includes(containerType);
   }
@@ -88,10 +134,21 @@ export class TorchbearerItem extends Item {
   }
 
   /**
-   * Overridable Callback action whenever the item is consumed as
-   * food or drink
+   * Overridable Callback actions whenever the item is consumed as
+   * food or drink, etc.
    */
-  onAfterConsumed() {
+  onBeforeConsumed() {
+    return true;
+  }
+  async onAfterConsumed() {
+  }
+
+  onBeforeActivate() {
+    return true;
+  }
+
+  async onAfterEquipped(equippedEvent) {
+
   }
 
   /**

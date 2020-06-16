@@ -18,7 +18,7 @@
       "consumable": {
         "consumes": "self",
         "icon": "fa-drumstick-bite",
-        "iconColor": "#cc8820"
+        "iconStyle": "color:#cc8820"
       },
       "equipOptions": {
         "option1": {
@@ -75,7 +75,7 @@
       "consumable": {
         "consumes": "self",
         "icon": "fa-drumstick-bite",
-        "iconColor": "#cc8820"
+        "iconStyle": "color:#cc8820"
       },
       "equipOptions": {
         "option1": {
