@@ -253,6 +253,11 @@ input:checked + .slider:before {
   cursor: pointer;
 }
 
+.conflictGrid {
+  display: grid;
+  grid-template-columns: auto 120px auto 90px;
+}
+
 .grid,
 .grid-2col {
   display: grid;

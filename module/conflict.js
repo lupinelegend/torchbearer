@@ -109,6 +109,7 @@ export class conflictSheet extends Application {
           id: element._id,
           weapons: [],
           equipped: '',
+          dispo: '',
           index: index
         }
         let i = 0;
@@ -124,9 +125,9 @@ export class conflictSheet extends Application {
 
     actorArray.forEach(element => {
       Object.keys(conflictState).forEach(key => {
-        console.log(`Element: ${element.id}, Key: ${key}`)
         if (element.id === key) {
           element.equipped = conflictState[key].equipped;
+          element.dispo = conflictState[key].dispo;
         }
       });
     });
@@ -212,8 +213,40 @@ export class conflictSheet extends Application {
         }
       }
 
-      game.settings.set('conflict-sheet', 'conflictState', conflictState);
-      console.log(conflictState);
+      this.updateSheet(conflictState, 'conflictState')
+    });
+
+    html.find('.charDispo').change(ev => {
+
+      // Get actor ID
+      let actorID = ev.currentTarget.id;
+
+      // Get conflictState
+      let conflictState = game.settings.get('conflict-sheet', 'conflictState');
+
+      // If the conflictState is empty, create a new actor entry, else, update the actors
+      if (!conflictState.initialized) {
+        conflictState.initialized = true;
+        conflictState[`${actorID}`] = {
+          dispo: ev.currentTarget.value
+        };
+      } else {
+        let flag = false;
+        Object.keys(conflictState).forEach(key => {
+          if (actorID === key) {
+            conflictState[key].dispo = ev.currentTarget.value;
+            flag = true;
+          }
+        });
+        // If there wasn't an existing actor, add one
+        if (flag === false) {
+          conflictState[`${actorID}`] = {
+            dispo: ev.currentTarget.value
+          };
+        }
+      }
+
+      this.updateSheet(conflictState, 'conflictState')
     });
   }
 

@@ -1,6 +1,7 @@
 <form class="{{cssClass}}">
   {{!-- Sheet Header --}}
-  <header class="sheet-header">
+  <header class="sheet-header" style="margin-bottom: 5px;">
+    <!-- Conflict General Info -->
     <div class="row">
       <!-- Party Intent and Conflict Captain -->
       <div class="col">
@@ -56,57 +57,71 @@
         </div>
       </div>
     </div>
+    <!-- Horizontal Row -->
+    <div class="row" style="flex-basis: 100%;">
+      <hr style="border-top: none; border-bottom: 1px solid #782e22; display: flex; flex-basis: 100%; margin: 0 0 5px 0;">
+    </div>
+    <!-- Conflict Actor Info -->
+    <div class="row">
+      <!-- Player Character Info -->
+      <div class="col" style="border-right: 1px solid #782e22;">
+        <table class="tbtable" style="table-layout: auto;">
+          <thead class="theader">
+            <th>Character</th>
+            <th>Weapon</th>
+            <th>Bonus</th>
+            <th>Disposition</th>
+          </thead>
+          <tbody>
+            {{#each actors as |actor|}}
+            <tr>
+              <td>
+                {{name}}
+              </td>
+              <!-- Weapon Dropdown -->
+              <td style="text-align: center;">
+                <select name="{{equipped}}" class="charWeapon" id="{{id}}">
+                  {{#select equipped}}
+                  <option value="" selected disabled hidden>Choose a weapon...</option>
+                  {{#each this.weapons}}
+                  <option name="{{name}}" value="{{name}}">{{name}}</option>
+                  {{/each}}
+                  {{/select}}
+                </select>
+              </td>
+              <td></td>
+              <td style="text-align: center;">
+                <input type="text" style="width: 50px;" id="{{id}}" class="charDispo" value="{{dispo}}">
+              </td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+      <!-- NPC Opponent Info -->
+      <div class="col">
+        <table class="tbtable" style="table-layout: auto;">
+          <thead class="theader">
+            <th>Opponent</th>
+            <th>Weapon</th>
+            <th>Bonus</th>
+            <th>Disposition</th>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </header>
 
   {{!-- Sheet Tab Navigation --}}
   <nav class="sheet-tabs tabs" data-group="conflictTabs">
-    <a class="item" data-tab="setup" style="font-family: Souvenir-Demi;">Setup</a>
     <a class="item" data-tab="conflict" style="font-family: Souvenir-Demi;">Conflict</a>
     <a class="item" data-tab="reference" style="font-family: Souvenir-Demi;">Reference</a>
   </nav>
 
   {{!-- Sheet Body --}}
   <section class="sheet-body" style="height: fit-content;">
-    
-    {{!-- Setup Tab --}}
-    <div class="tab" data-group="conflictTabs" data-tab="setup">
-      <div class="row">
-        <div class="col" style="border-right: 1px solid #782e22;">
-          <table>
-            <thead>
-              <th>Character</th>
-              <th>Weapon</th>
-              <th>Disposition</th>
-            </thead>
-            <tbody>
-              {{#each actors as |actor|}}
-              <tr>
-                <td>
-                  {{name}}
-                </td>
-                <td style="text-align: center;">
-                  <select name="{{equipped}}" class="charWeapon" id="{{id}}">
-                    {{#select equipped}}
-                    <option value="" selected disabled hidden>Choose a weapon...</option>
-                    {{#each this.weapons}}
-                    <option name="{{name}}" value="{{name}}">{{name}}</option>
-                    {{/each}}
-                    {{/select}}
-                  </select>
-                </td>
-                <td>
-                  <input type="text">
-                </td>
-              </tr>
-              {{/each}}
-            </tbody>
-          </table>
-        </div>
-        <div class="col">
-          <span>Text goes here too.</span>
-        </div>
-      </div>
-    </div>
     
     {{!-- Conflict Tab --}}
     <div class="tab" data-group="conflictTabs" data-tab="conflict">Conflict</div>
