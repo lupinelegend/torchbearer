@@ -172,6 +172,9 @@ input:checked + .slider:before {
   height: 488px;
   width: 100%;
 }
+.subtabbed.container {
+  height: auto;
+}
 
 .scroll {
   display: flex;
