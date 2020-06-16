@@ -688,15 +688,15 @@
       "consumable": {
         "consumes": "",
         "icon" : "",
-        "iconColor": ""
+        "iconStyle": ""
       },
       "activatable": {
         "activates": false,
         "active": false,
         "inactiveIcon": "",
-        "inactiveIconColor": "",
+        "inactiveIconStyle": "",
         "activeIcon": "",
-        "activeIconColor": ""
+        "activeIconStyle": ""
       },
       "damaged": false,
       "lightsource": {

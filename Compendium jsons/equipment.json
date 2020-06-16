@@ -14,8 +14,7 @@
       "resizes": false,
       "consumable": {
         "consumes": "self",
-        "icon": "fa-tint",
-        "iconColor": "inherit"
+        "icon": "fa-tint"
       },
       "equipOptions": {
         "option1": {

@@ -1,26 +1,20 @@
 class SharedItemBehaviors {
     static compareLanternsByFuel(a, b) {
-        return (b.consumed + b.containerBonus) - (a.consumed + a.containerBonus);
+        return (b.consumed) - (a.consumed);
     }
-    static leastFueledLanternInPossession(actor) {
+
+    static leastFueledLanternInHands(actor) {
         const inventory = actor.tbData().computed.inventory;
-        const containerIds = Object.keys(inventory);
+        const container = inventory["Hands (Carried)"];
         let lanterns = [];
-        for(let i = 0; i < containerIds.length; i++) {
-            const container = inventory[containerIds[i]];
-            if(container.type === 'Elsewhere') {
-                continue;
-            }
-            for(let j = 0; j < container.slots.length; j++) {
-                const item = container.slots[j];
-                if(item.name === 'Lantern') {
-                    if(item.data.lightsource.remaining < item.data.lightsource.lasts) {
-                        lanterns.push({
-                            consumed: item.data.lightsource.lasts - item.data.lightsource.remaining,
-                            _id: item._id,
-                            containerBonus: containerIds[i] === 'Hands (Carried)' ? 0.1 : 0.0,
-                        });
-                    }
+        for(let j = 0; j < container.slots.length; j++) {
+            const item = container.slots[j];
+            if(item.name === 'Lantern') {
+                if(item.data.lightsource.remaining < item.data.lightsource.lasts) {
+                    lanterns.push({
+                        consumed: item.data.lightsource.lasts - item.data.lightsource.remaining,
+                        _id: item._id,
+                    });
                 }
             }
         }
@@ -46,8 +40,19 @@ class SharedItemBehaviors {
         if(!item) {
             item = this;
         }
-        return item.tbData().activatable.active ||
-            (item.tbData().equip !== 'Pack' && item.tbData().lightsource.remaining);
+        // If it's somehow active, allow it to deactivate no matter what
+        if(item.tbData().activatable.active) {
+            return true;
+        }
+        if(item.tbData().equip === 'Pack') {
+            ui.notifications.error("You can't light something stowed in a pack");
+            return false;
+        }
+        if(!item.tbData().lightsource.remaining) {
+            ui.notifications.error("There is no remaining fuel in this object");
+            return false;
+        }
+        return true;
     }
 
     static async deactivateWhenOutOfFuel(item) {
@@ -165,9 +170,19 @@ export const itemExtensions = {
         onAfterConsumed: SharedItemBehaviors.clearHungryThirsty,
     },
     "Flask of Oil": {
+        onBeforeConsumed: function() {
+            if(!this.actor) return false;
+            let lanternTbItem = SharedItemBehaviors.leastFueledLanternInHands(this.actor);
+            if(lanternTbItem && lanternTbItem.tbData().lightsource.remaining === 0) {
+                return true;
+            } else {
+                ui.notifications.error("You must be Carrying an unfueled Lantern in your Hands.");
+                return false;
+            }
+        },
         onAfterConsumed: async function() {
             if(!this.actor) return;
-            let lanternTbItem = SharedItemBehaviors.leastFueledLanternInPossession(this.actor);
+            let lanternTbItem = SharedItemBehaviors.leastFueledLanternInHands(this.actor);
             if(lanternTbItem
                 && lanternTbItem.tbData().lightsource.remaining < lanternTbItem.tbData().lightsource.lasts) {
                 await lanternTbItem.update({
