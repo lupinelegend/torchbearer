@@ -761,7 +761,7 @@ export class TorchbearerActorSheet extends ActorSheet {
 
         // Hook into Dice So Nice!
         if (game.dice3d) {
-          game.dice3d.showForRoll(roll, chatData.whisper, chatData.blind).then(displayed => {
+          game.dice3d.showForRoll(roll, game.user, true, chatData.whisper, chatData.blind).then(displayed => {
             ChatMessage.create(chatData)
           });
         }
