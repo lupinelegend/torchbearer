@@ -23,7 +23,7 @@
         "inactiveIcon": "fa-broom",
         "inactiveIconStyle": "transform:rotate(135deg)",
         "activeIcon": "fa-broom",
-        "activeIconStyle": "transform:rotate(135deg);background:linear-gradient(35deg, rgba(255,203,0,1) 0%, rgba(255,203,0,1) 45%, rgba(158,104,35,1) 40%, rgba(158,104,35,1) 100%);-webkit-text-fill-color:transparent;-webkit-background-clip:text;"
+        "activeIconStyle": "transform:rotate(135deg);background:-webkit-linear-gradient(35deg, rgba(255,203,0,1) 0%, rgba(255,203,0,1) 45%, rgba(158,104,35,1) 40%, rgba(158,104,35,1) 100%);-webkit-text-fill-color:transparent;-webkit-background-clip:text;"
       },
       "lightsource": {
         "lasts": 4,
@@ -97,7 +97,7 @@
         "inactiveIcon": "fa-broom",
         "inactiveIconStyle": "transform:rotate(135deg)",
         "activeIcon": "fa-broom",
-        "activeIconStyle": "transform:rotate(135deg);background:linear-gradient(35deg, rgba(255,203,0,1) 0%, rgba(255,203,0,1) 45%, rgba(158,104,35,1) 40%, rgba(158,104,35,1) 100%);-webkit-text-fill-color:transparent;-webkit-background-clip:text;"
+        "activeIconStyle": "transform:rotate(135deg);background:-webkit-linear-gradient(35deg, rgba(255,203,0,1) 0%, rgba(255,203,0,1) 45%, rgba(158,104,35,1) 40%, rgba(158,104,35,1) 100%);-webkit-text-fill-color:transparent;-webkit-background-clip:text;"
       },
       "lightsource": {
         "lasts": 2,
@@ -171,7 +171,7 @@
         "inactiveIcon": "fa-broom",
         "inactiveIconStyle": "transform:rotate(135deg)",
         "activeIcon": "fa-broom",
-        "activeIconStyle": "transform:rotate(135deg);background:linear-gradient(35deg, rgba(255,203,0,1) 0%, rgba(255,203,0,1) 45%, rgba(158,104,35,1) 40%, rgba(158,104,35,1) 100%);-webkit-text-fill-color:transparent;-webkit-background-clip:text;"
+        "activeIconStyle": "transform:rotate(135deg);background:-webkit-linear-gradient(35deg, rgba(255,203,0,1) 0%, rgba(255,203,0,1) 45%, rgba(158,104,35,1) 40%, rgba(158,104,35,1) 100%);-webkit-text-fill-color:transparent;-webkit-background-clip:text;"
       },
       "lightsource": {
         "lasts": 3,
