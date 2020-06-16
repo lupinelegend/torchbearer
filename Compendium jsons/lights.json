@@ -21,9 +21,9 @@
         "activates": true,
         "active": false,
         "inactiveIcon": "fa-broom",
-        "inactiveIconStyle": "transform:rotate(135deg)",
+        "inactiveIconStyle": "transform:rotate(135deg);margin-right:-4px;margin-left:-4px;",
         "activeIcon": "fa-broom",
-        "activeIconStyle": "transform:rotate(135deg);background:-webkit-linear-gradient(35deg, rgba(255,203,0,1) 0%, rgba(255,203,0,1) 45%, rgba(158,104,35,1) 40%, rgba(158,104,35,1) 100%);-webkit-text-fill-color:transparent;-webkit-background-clip:text;"
+        "activeIconStyle": "transform:rotate(135deg);margin-right:-4px;margin-left:-4px;background:-webkit-linear-gradient(35deg, rgba(255,203,0,1) 0%, rgba(255,203,0,1) 45%, rgba(158,104,35,1) 40%, rgba(158,104,35,1) 100%);-webkit-text-fill-color:transparent;-webkit-background-clip:text;"
       },
       "lightsource": {
         "lasts": 4,
@@ -95,9 +95,9 @@
         "activates": true,
         "active": false,
         "inactiveIcon": "fa-broom",
-        "inactiveIconStyle": "transform:rotate(135deg)",
+        "inactiveIconStyle": "transform:rotate(135deg);margin-right:-4px;margin-left:-4px;",
         "activeIcon": "fa-broom",
-        "activeIconStyle": "transform:rotate(135deg);background:-webkit-linear-gradient(35deg, rgba(255,203,0,1) 0%, rgba(255,203,0,1) 45%, rgba(158,104,35,1) 40%, rgba(158,104,35,1) 100%);-webkit-text-fill-color:transparent;-webkit-background-clip:text;"
+        "activeIconStyle": "transform:rotate(135deg);margin-right:-4px;margin-left:-4px;background:-webkit-linear-gradient(35deg, rgba(255,203,0,1) 0%, rgba(255,203,0,1) 45%, rgba(158,104,35,1) 40%, rgba(158,104,35,1) 100%);-webkit-text-fill-color:transparent;-webkit-background-clip:text;"
       },
       "lightsource": {
         "lasts": 2,
@@ -169,9 +169,9 @@
         "activates": true,
         "active": false,
         "inactiveIcon": "fa-broom",
-        "inactiveIconStyle": "transform:rotate(135deg)",
+        "inactiveIconStyle": "transform:rotate(135deg);margin-right:-4px;margin-left:-4px;",
         "activeIcon": "fa-broom",
-        "activeIconStyle": "transform:rotate(135deg);background:-webkit-linear-gradient(35deg, rgba(255,203,0,1) 0%, rgba(255,203,0,1) 45%, rgba(158,104,35,1) 40%, rgba(158,104,35,1) 100%);-webkit-text-fill-color:transparent;-webkit-background-clip:text;"
+        "activeIconStyle": "transform:rotate(135deg);margin-right:-4px;margin-left:-4px;background:-webkit-linear-gradient(35deg, rgba(255,203,0,1) 0%, rgba(255,203,0,1) 45%, rgba(158,104,35,1) 40%, rgba(158,104,35,1) 100%);-webkit-text-fill-color:transparent;-webkit-background-clip:text;"
       },
       "lightsource": {
         "lasts": 3,
