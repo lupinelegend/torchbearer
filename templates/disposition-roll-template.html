@@ -1,0 +1,45 @@
+<form>
+  <div class="row" style="align-items: center; margin-bottom: 5px;">
+    <label for="conflictType" style="font-family: Souvenir-Medium;"><u>Conflict Type</u>:</label>
+    <select name="conflictType" id="conflictType" style="margin: 0 0 0 5px;">
+      {{#select conflictType}}
+      <option value="" selected disabled hidden>Choose a type...</option>
+      {{#each conflictTypes}}
+      <option name="this.name" value="{{this.name}}">{{this.name}}</option>
+      {{/each}}
+      {{/select}}
+    </select>
+  </div>
+  <div class="row" style="align-items: center; margin-bottom: 5px;">
+    <label for="skillRoll" style="font-family: Souvenir-Medium;"><u>Skill to Roll</u>:</label>
+    <select name="skillRoll" id="skillRoll" style="margin: 0 0 0 5px;">
+      {{#select skillRoll}}
+      <option value="" selected disabled hidden>Choose a skill...</option>
+      {{#each conflictTypes.skill}}
+      <option name="this" value="{{this}}">{{this}}</option>
+      {{/each}}
+      {{/select}}
+    </select>
+  </div>
+  <div class="row" style="margin-bottom: 5px;">
+    <label style="font-family: Souvenir-Medium; margin-bottom: 5px;"><u>If Other</u>:</label>
+    <div class="row" style="flex-wrap: nowrap; align-items: center;">
+      <label style="font-family: Souvenir-Medium;">Skill: </label>
+      <input type="text" style="width: 128px; margin: 0 10px 0 5px;" id="skill">
+      <label style="font-family: Souvenir-Medium;">Ability: </label>
+      <input type="text" style="width: 128px; margin: 0 0 0 5px;" id="ability">
+    </div>
+  </div>
+  <div class="row" style="align-items: center; margin-bottom: 5px;">
+    <label style="font-family: Souvenir-Medium;"><u>Helping Dice</u>:</label>
+    <input type="text" style="width: 30px; margin: 0 10px 0 5px;" id="help">
+  </div>
+  <div class="row"  style="align-items: center; margin-bottom: 5px;">
+    <label style="font-family: Souvenir-Medium;"><u>Is any member of the team hungry and thirsty</u>?</label>
+    <input type="checkbox" name="{{hungry}}" id="hungry" {{checked hungry}} disabled>
+  </div>
+  <div class="row"  style="align-items: center; margin-bottom: 5px;">
+    <label style="font-family: Souvenir-Medium;"><u>Is the Conflict Captain exhausted</u>?</label>
+    <input type="checkbox" name="{{exhausted}}" id="hungry" {{checked exhausted}} disabled>
+  </div>
+</form>

@@ -26,7 +26,9 @@
       <!-- Disposition -->
       <div class="col" style="flex: 0 0 245px;">
         <div class="row" style="display: block; text-align: center;">
-          <h2 style="margin: auto; font-family: Souvenir-Demi;" id="dispo">Disposition</h3>
+          <a id="dispoHeader">
+            <h2 style="margin: auto; font-family: Souvenir-Demi;" id="dispoHeader">Hit Points</h3>
+          </a>
         </div>
         <div class="row" style="flex-wrap: nowrap; margin: 5px 0 5px 0">
           <div class="col" style="border-right: 1px solid #782e22;">
@@ -66,7 +68,7 @@
       <!-- Player Character Info -->
       <div class="col" style="border-right: 1px solid #782e22;">
         <table class="tbtable" style="table-layout: auto;">
-          <thead class="theader">
+          <thead class="theader" style="font-family: Souvenir-Demi;">
             <th>Character</th>
             <th>Weapon</th>
             <th>Bonus</th>
@@ -75,7 +77,7 @@
           <tbody>
             {{#each actors as |actor|}}
             <tr>
-              <td>
+              <td style="font-family: Souvenir-Medium;">
                 {{name}}
               </td>
               <!-- Weapon Dropdown -->
@@ -101,7 +103,7 @@
       <!-- NPC Opponent Info -->
       <div class="col">
         <table class="tbtable" style="table-layout: auto;">
-          <thead class="theader">
+          <thead class="theader" style="font-family: Souvenir-Demi;">
             <th>Opponent</th>
             <th>Weapon</th>
             <th>Bonus</th>
