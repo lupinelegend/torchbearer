@@ -374,6 +374,21 @@ Handlebars.registerHelper('renderInventory', function(capacity, actorId, contain
                     consumeIcon = item.data.consumable.icon;
                     consumeIconColor = item.data.consumable.iconColor;
                     consumeQuantity = item.data.computed.bundledWith.length + 1;
+                } else if(item.data.consumable.consumes === 'light' && item.data.activatable.active) {
+                    consumeIcon = item.data.consumable.icon;
+                    consumeIconColor = item.data.consumable.iconColor;
+                    consumeQuantity = item.data.lightsource.remaining;
+                }
+            }
+            let activateIcon = '';
+            let activateIconColor = '';
+            if(item.data.activatable.activates) {
+                if(item.data.activatable.active) {
+                    activateIcon = item.data.activatable.activeIcon;
+                    activateIconColor = item.data.activatable.activeIconColor;
+                } else {
+                    activateIcon = item.data.activatable.inactiveIcon;
+                    activateIconColor = item.data.activatable.inactiveIconColor;
                 }
             }
             if(i === 0) {
@@ -385,6 +400,10 @@ Handlebars.registerHelper('renderInventory', function(capacity, actorId, contain
                 for(let consumeIdx = 0; consumeIdx < consumeQuantity; consumeIdx++) {
                     html +=
                         `<a class="item-control item-consume" title="Consume" style="margin-right: 5px;"><i style="color:${consumeIconColor};" class="fas ${consumeIcon}"></i></a>`;
+                }
+                if(item.data.activatable.activates) {
+                    html +=
+                        `<a class="item-control item-activate" title="Activate" style="margin-right: 5px;"><i style="color:${activateIconColor};" class="fas ${activateIcon}"></i></a>`;
                 }
                 if(item.data.damaged) {
                     html +=

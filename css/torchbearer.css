@@ -509,9 +509,6 @@ input:checked + .slider:before {
 }
 
 .torchbearer .items-list .item-controls {
-  -webkit-box-flex: 0;
-  -ms-flex: 0 0 102px;
-  flex: 0 0 102px;
   text-align: right;
 }
 

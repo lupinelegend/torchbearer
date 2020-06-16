@@ -102,23 +102,25 @@ export class TorchbearerItemSheet extends ItemSheet {
       }
     });
 
-    // Drink Item
+    // Consume Item
     html.find('.item-consume').click(ev => {
       const li = $(ev.currentTarget).parents(".item");
       if(this.item.actor) {
         let tbItem = this.item.actor.getOwnedItem(li.data("itemId"));
-        let update;
-        if(tbItem.tbData().consumable.consumes === 'draughts') {
-          update = tbItem.update({
-            data: {
-              draughts: Math.clamped(tbItem.data.data.draughts - 1, 0, 10),
-            }
-          });
-        } else if(tbItem.tbData().consumable.consumes === 'self') {
-          update = this.item.actor.removeItemFromInventory(tbItem.data._id);
-        }
-        update && update.then(() => {
-          tbItem.onAfterConsumed();
+        tbItem.consumeOne().then(() => {
+          setTimeout(() => {
+            this.item._onUpdate();
+          }, 0);
+        });
+      }
+    });
+
+    // Activate Item
+    html.find('.item-activate').click(ev => {
+      const li = $(ev.currentTarget).parents(".item");
+      if(this.item.actor) {
+        let tbItem = this.item.actor.getOwnedItem(li.data("itemId"));
+        tbItem.toggleActive().then(() => {
           setTimeout(() => {
             this.item._onUpdate();
           }, 0);

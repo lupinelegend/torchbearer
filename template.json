@@ -690,6 +690,14 @@
         "icon" : "",
         "iconColor": ""
       },
+      "activatable": {
+        "activates": false,
+        "active": false,
+        "inactiveIcon": "",
+        "inactiveIconColor": "",
+        "activeIcon": "",
+        "activeIconColor": ""
+      },
       "damaged": false,
       "lightsource": {
         "lasts": 0,

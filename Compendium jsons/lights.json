@@ -12,6 +12,19 @@
       "capacity": 0,
       "bundleSize": 4,
       "resizes": false,
+      "consumable": {
+        "consumes": "light",
+        "icon" : "fa-fire",
+        "iconColor": "#ffd900"
+      },
+      "activatable": {
+        "activates": true,
+        "active": false,
+        "inactiveIcon": "fa-power-off",
+        "inactiveIconColor": "inherit",
+        "activeIcon": "fa-power-off",
+        "activeIconColor": "#00ff00"
+      },
       "lightsource": {
         "lasts": 4,
         "remaining": 4,
@@ -73,6 +86,19 @@
       "capacity": 0,
       "bundleSize": 4,
       "resizes": false,
+      "consumable": {
+        "consumes": "light",
+        "icon" : "fa-fire",
+        "iconColor": "#ffd900"
+      },
+      "activatable": {
+        "activates": true,
+        "active": false,
+        "inactiveIcon": "fa-power-off",
+        "inactiveIconColor": "inherit",
+        "activeIcon": "fa-power-off",
+        "activeIconColor": "#00ff00"
+      },
       "lightsource": {
         "lasts": 2,
         "remaining": 2,
@@ -134,9 +160,22 @@
       "capacity": 0,
       "bundleSize": 1,
       "resizes": false,
+      "consumable": {
+        "consumes": "light",
+        "icon" : "fa-fire",
+        "iconColor": "#ffd900"
+      },
+      "activatable": {
+        "activates": true,
+        "active": false,
+        "inactiveIcon": "fa-power-off",
+        "inactiveIconColor": "inherit",
+        "activeIcon": "fa-power-off",
+        "activeIconColor": "#00ff00"
+      },
       "lightsource": {
         "lasts": 3,
-        "remaining": 3,
+        "remaining": 0,
         "held": {
           "characters": 3,
           "dimCharacters": 3
