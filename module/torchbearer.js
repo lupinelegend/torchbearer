@@ -4,6 +4,7 @@ import { TorchbearerActorSheet } from "./actor/actor-sheet.js";
 import { TorchbearerItem } from "./item/item.js";
 import { TorchbearerItemSheet } from "./item/item-sheet.js";
 import { conflictSheet } from "./conflict.js";
+import { GrindSheet } from "./grind.js";
 
 // Import Helpers
 import * as chat from "./chat.js";
@@ -14,6 +15,8 @@ Hooks.once('init', async function() {
     TorchbearerActor,
     TorchbearerItem
   };
+
+  game.grind = new GrindSheet();
 
   /**
    * Set an initiative formula for the system
@@ -121,10 +124,21 @@ Hooks.once('init', async function() {
     default: {},
     type: Object
   });
+  game.settings.register('grind-sheet', 'theGrind', {
+    name: 'theGrind',
+    scope: 'world',
+    config: false,
+    default: {},
+    type: Object
+  });
 
   // Updates inputs to the Conflict Sheet across clients
   // https://discordapp.com/channels/170995199584108546/670336275496042502/721144171468947556
   game.socket.on('system.torchbearer', data => {
+    if(data.messageType === 'grind') {
+      game.grind.handleMessage(data);
+      return;
+    }
     if (game.user.isGM) {
       switch (data.name) {
         case 'partyIntent':
