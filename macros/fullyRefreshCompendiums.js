@@ -34,6 +34,9 @@
             let importedItem = await game.items.importFromCollection(`torchbearer.${kind}`, entity._id);
             await importedItem.update({
                 folder: folder._id,
+                permission: {
+                    default: 2,
+                },
             });
         } else {
             for ( let i of created ) {
@@ -42,6 +45,9 @@
                 let importedItem = await game.items.importFromCollection(`torchbearer.${kind}`, entity._id);
                 await importedItem.update({
                     folder: folder._id,
+                    permission: {
+                        default: 2,
+                    },
                 });
             }
         }
