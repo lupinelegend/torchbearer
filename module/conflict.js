@@ -391,7 +391,7 @@ export class conflictSheet extends Application {
                 let help = html.find('#help')[0].value;
                 let otherSkill = html.find('#skill')[0].value;
                 let otherAbility = html.find('#ability')[0].value;
-                this.rollDispo(type, skill, help, otherSkill, otherAbility, hungry, exhausted);
+                this.rollDispo(type, skill, help, otherSkill, otherAbility, hungry, exhausted, conflictCaptain);
               }
             },
             no: {
@@ -407,28 +407,39 @@ export class conflictSheet extends Application {
     }
   }
 
-  rollDispo(type, skill, help, otherSkill, otherAbility, hungry, exhausted) {
+  rollDispo(type, skill, help, otherSkill, otherAbility, hungry, exhausted, conflictCaptain) {
+    console.log(conflictCaptain);
+
+    let roller;
+    game.actors._source.forEach(element => {
+      if (element.name === conflictCaptain) {
+        roller = element._id;
+      }
+    });
+
+    console.log(roller);
+    
     // Check for any factors due to conditions
-    let adjustedStats = {
-      'will': this.actor.data.data.will.value - (this.actor.data.data.injured ? 1 : 0) - (this.actor.data.data.sick ? 1 : 0),
-      'health': this.actor.data.data.health.value - (this.actor.data.data.injured ? 1 : 0) - (this.actor.data.data.sick ? 1 : 0),
-      'nature': this.actor.data.data.nature.value - (this.actor.data.data.injured ? 1 : 0) - (this.actor.data.data.sick ? 1 : 0),
-      'skillMod': 0 - (this.actor.data.data.injured ? 1 : 0) - (this.actor.data.data.sick ? 1 : 0)
-    }
+    // let adjustedStats = {
+    //   'will': this.actor.data.data.will.value - (this.actor.data.data.injured ? 1 : 0) - (this.actor.data.data.sick ? 1 : 0),
+    //   'health': this.actor.data.data.health.value - (this.actor.data.data.injured ? 1 : 0) - (this.actor.data.data.sick ? 1 : 0),
+    //   'nature': this.actor.data.data.nature.value - (this.actor.data.data.injured ? 1 : 0) - (this.actor.data.data.sick ? 1 : 0),
+    //   'skillMod': 0 - (this.actor.data.data.injured ? 1 : 0) - (this.actor.data.data.sick ? 1 : 0)
+    // }
 
-    // Check to see if the Fresh bonus should be applied
-    let freshMod = 0;
-    if (freshCheck === "checked") {
-      freshMod = 1;
-    }
+    // // Check to see if the Fresh bonus should be applied
+    // let freshMod = 0;
+    // if (freshCheck === "checked") {
+    //   freshMod = 1;
+    // }
 
-    // Set help to zero if it's NaN
-    let helpMod;
-    if (isNaN(parseInt(help))) {
-      helpMod = 0;
-    } else {
-      helpMod = parseInt(help);
-    }
+    // // Set help to zero if it's NaN
+    // let helpMod;
+    // if (isNaN(parseInt(help))) {
+    //   helpMod = 0;
+    // } else {
+    //   helpMod = parseInt(help);
+    // }
 
   //   // Determine if and how a Trait is being used
   //   let traitMod = 0;
