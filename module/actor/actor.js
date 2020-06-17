@@ -14,15 +14,25 @@ export class TorchbearerActor extends Actor {
 
     // Make separate methods for each Actor type (character, npc, etc.) to keep
     // things organized.
+    console.log(actorData.type);
     if (actorData.type === 'Character') this._prepareCharacterData(actorData);
 
-    //if (actorData.type === 'npc') this._prepareCharacterData(actorData);
+    if (actorData.type === 'NPC') this._prepareNpcData(actorData);
   }
 
   /**
    * Prepare Character type specific data
    */
   _prepareCharacterData(actorData) {
+    const data = actorData.data;
+
+    // Make a new Object that holds computed data and keeps it separate from anything else
+    data.computed = {};
+    data.computed.inventory = arrangeInventory(this.items, data.overburdened);
+  }
+
+  //TODO replace this once an actual NPC sheet is done
+  _prepareNpcData(actorData) {
     const data = actorData.data;
 
     // Make a new Object that holds computed data and keeps it separate from anything else

@@ -650,12 +650,11 @@
                                             <a class="item-control item-create" title="Create item" data-type="item" type="Hands"><i class="fas fa-plus"></i></a>
                                         </div>
                                     </li>
-                                    {{#ifeq data.overburdened true}}
+                                    {{#if data.overburdened}}
                                         {{{renderInventory 4 actor._id 'Hands (Carried)' 'Carried'}}}
-                                    {{/ifeq}}
-                                    {{#ifeq data.overburdened false}}
+                                    {{else}}
                                         {{{renderInventory 2 actor._id 'Hands (Carried)' 'Carried'}}}
-                                    {{/ifeq}}
+                                    {{/if}}
                                 </ol>
                                 <ol id="torsoSlot" class="items-list inventory-container col" data-container-type="Torso" style="margin: 0 3px 0 3px;">
                                     <li class="item flexrow item-header" id="torsoSlotHeader">

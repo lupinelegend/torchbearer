@@ -34,7 +34,9 @@ export class TorchbearerActorSheet extends ActorSheet {
   /** @override */
   getData() {
     const data = super.getData();
-
+    if(this.actor.data.type !== 'Character') {
+      return data;
+    }
     // Condition checkboxes
     const conditionStates = [data.data.hungryandthirsty, data.data.angry, data.data.afraid, data.data.exhausted, data.data.injured, data.data.sick, data.data.dead];
     const inc = (100 / 7);
