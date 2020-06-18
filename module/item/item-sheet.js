@@ -19,7 +19,9 @@ export class TorchbearerItemSheet extends ItemSheet {
   get template() {
     const path = "systems/torchbearer/templates/item";
     // Return a single sheet for all item types.
-    return `${path}/item-sheet.html`;
+    // return `${path}/item-sheet.html`;
+    return `${path}/${this.item.data.type}-sheet.html`;
+
     // Alternatively, you could use the following return statement to do a
     // unique item sheet by type, like `weapon-sheet.html`.
 

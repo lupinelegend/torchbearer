@@ -753,15 +753,34 @@
       "invocationpatroncircle": ""
     },
     "Spell": {
-      "name": "",
-      "ob": 0,
+			"name": "",
+			"circle": "",
+			"description": "",
+			"effect": "",
+			"materials": "",
+			"focus": "",
+			"toScribe": {
+				"skill": "",
+				"ob": 0
+			},
+			"toLearn": {
+				"skill": "",
+				"ob": 0
+			},
+			"casting": {
+				"test": "",
+				"skill": "",
+				"ob": 0,
+				"factorCategories": {}
+			},
+			"castingTime": "",
+			"duration": "",
       "known": false,
       "spellbook": false,
       "memorized": false,
       "cast": false,
       "scroll": false,
-      "supplies": false,
-      "effect": ""
+      "supplies": false
     },
     "Class": {
       "name": "",

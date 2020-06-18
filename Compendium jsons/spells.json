@@ -1,0 +1,948 @@
+[
+  {
+    "name": "Aetheric Appendage",
+    "type": "Spell",
+    "data": {
+      "name": "Aetheric Appendage",
+      "circle": "First",
+      "description": "The caster extrudes writhing tentacles of aether from the fngers of one hand, using them to manipulate the material world at a distance.",
+      "effect": "For one turn, this spell allows the caster to make appropriate skill or ability tests at range. It can be used to lift, carry and manipulate objects at a distance, as long as the caster can see the object they’re manipulating (a spell like Eye of the Overworld can be used to extend the caster’s sight). For example, it could be used to tie a rope to a tree limb high above, steal a key ring from a jailer’s belt while trapped in a cell or raise the lid of a sarcophagus. To mundane observers, it appears the objects are moving through the air on their own. Observers able to perceive the Otherworld can see the translucent, vaguely luminescent tentacles extending from the caster’s fngers.",
+      "materials": "A dried cephalopod",
+			"toScribe": {
+				"skill": "Scholar",
+				"ob": 2
+			},
+			"toLearn": {
+				"skill": "Lore Master",
+				"ob": 3
+      },
+      "casting": {
+				"test": "Fixed",
+        "skill": "Arcanist",
+        "ob": 2,
+        "factorCategories": {}
+      },
+      "castingTime": "Free",
+      "duration": "One turn"
+    }
+  },
+  {
+    "name": "Aetherial Premonition",
+    "type": "Spell",
+    "data": {
+      "name": "Aetherial Premonition",
+      "circle": "First",
+      "description": "The caster sets an aetherial alarm in the Otherworld to provide warning against approaching danger.",
+      "effect": "This spell wards a camp, house or the like, creating the sound of a ringing bell in the event of trouble. Cast this spell as you enter camp (before rolling for camp events) and the spell grants +1 to the camp events roll. And any who keep watch are granted +1D to tests to avert disaster",
+      "focus": "A silver bell [worn 1]",
+			"toScribe": {
+				"skill": "Scholar",
+				"ob": 2
+			},
+			"toLearn": {
+				"skill": "Lore Master",
+				"ob": 2
+      },
+      "casting": {
+				"test": "Factors",
+        "skill": "Arcanist",
+        "ob": 0,
+        "factorCategories": {
+          "cast": {
+            "name": "Cast",
+            "campType": {
+              "name": "Camp Type",
+              "factors": {
+                "dangerous": {
+                  "name": "Dangerous",
+                  "ob": 1
+                },
+                "unsafe": {
+                  "name": "Unsafe",
+                  "ob": 2
+                },
+                "typical": {
+                  "name": "Typical",
+                  "ob": 3
+                }
+              }
+            },
+            "+area": {
+              "name": "Area",
+              "factors": {
+                "nearTown": {
+                  "name": "Near Town",
+                  "ob": 0
+                },
+                "underground": {
+                  "name": "Underground",
+                  "ob": 1
+                },
+                "wild": {
+                  "name": "Wild",
+                  "ob": 2
+                },
+                "ruins": {
+                  "name": "Ruins",
+                  "ob": 3
+                }
+              }
+            }
+          }
+        }
+      },
+      "castingTime": "Free",
+      "duration": "One turn"
+    }
+  },
+  {
+    "name": "Arcane Semblance",
+    "type": "Spell",
+    "data": {
+      "name": "Arcane Semblance",
+      "circle": "First",
+      "description": "By casting this spell the magician makes the subject’s ﬂesh as malleable as clay, such that it may be shaped and formed according to their whim. Magicians with this spell can make themselves and others appear as someone they are not but no one in particular.",
+      "effect": "This spell creates a disguise that allows the subjects to move freely through places they would not otherwise be allowed. Of course, suspicious guards may still question their reasons for passing through. The new form must be humanoid and cannot make the subject taller or shorter by more than two feet. Seeming weight, clothing and carried items may be altered.",
+      "materials": "A bit of clay",
+			"toScribe": {
+				"skill": "Scholar",
+				"ob": 2
+			},
+			"toLearn": {
+				"skill": "Lore Master",
+				"ob": 2
+      },
+      "casting": {
+				"test": "Factors",
+        "skill": "Arcanist",
+        "ob": 0,
+        "factorCategories": {
+          "cast": {
+            "name": "Cast",
+            "appearance": {
+              "name": "Camp Type",
+              "factors": {
+                "similarWeightAndAppearance": {
+                  "name": "Similar weight and appearance",
+                  "ob": 1
+                },
+                "dissimilarWeightAndAppearance": {
+                  "name": "Dissimilar weight and appearance",
+                  "ob": 2
+                },
+                "differentStock": {
+                  "name": "Different Stock",
+                  "ob": 3
+                }
+              }
+            },
+            "+breadth": {
+              "name": "+Breadth",
+              "factors": {
+                "self": {
+                  "name": "Self",
+                  "ob": 0
+                },
+                "twoPeople": {
+                  "name": "Two people",
+                  "ob": 1
+                },
+                "smallGroup": {
+                  "name": "Small group",
+                  "ob": 2
+                }
+              }
+            },
+            "+duration": {
+              "name": "+Duration",
+              "factors": {
+                "oneTurn": {
+                  "name": "One turn",
+                  "ob": 0
+                },
+                "twoTurns": {
+                  "name": "Two turns",
+                  "ob": 2
+                },
+                "phase": {
+                  "name": "Phase",
+                  "ob": 3
+                }
+              }
+            }
+          }
+        }
+      },
+      "castingTime": "One turn",
+      "duration": "Variable (one turn to a phase)"
+    }
+  },
+  {
+    "name": "Celestial Music",
+    "type": "Spell",
+    "data": {
+      "name": "Celestial Music",
+      "circle": "First",
+      "description": "With a series of minute fnger gestures, the caster channels the Music of the Spheres, creating the rumble of thunder or haunting orchestral music. Celestial Music entrances the unwary mind, forcing those affected to seek the source of the bewitching sound.",
+      "effect": "This spell distracts and attracts its victims. Creatures who hear its unearthly sounds are drawn to investigate. The caster may target victims within sight and lead them to an area just out of sight. The caster may not move during this process. Creatures entranced by the sounds will seek out their source and listen until the spell ends or until an unaffected creature speaks to them in a voice louder than a whisper. Victims led into a perilous locale make a Nature or Health test to avoid any mishaps intended by the magician. Being lead into danger breaks the enchantment, whether or not the victim passes or fails the test to avoid it.",
+      "focus": "A tuning fork or a crystal goblet [pack 1]",
+			"toScribe": {
+				"skill": "Scholar",
+				"ob": 2
+			},
+			"toLearn": {
+				"skill": "Lore Master",
+				"ob": 
+      },
+      "casting": {
+				"test": "Versus",
+        "skill": "Arcanist",
+        "ob": 0,
+        "versus": "The spell causes a versus test between the target’s Will or Nature and the magician’s Arcanist skill. If the target’s Might is greater than the caster’s, the magician suffers -1s per point of difference. Victims who lose the versus test are drawn to the noise for one turn. Additional successes increase the duration of the distraction or increase the distance the victims travel—from one area or room, to two or three rooms or areas from the caster."
+      },
+      "castingTime": "One turn",
+      "duration": "Variable"
+    }
+  },
+  {
+    "name": "Daemonic Stupefaction",
+    "type": "Spell",
+    "data": {
+      "name": "Daemonic Stupefaction",
+      "circle": "First",
+      "description": "The magician summons bewitching spirits to ﬂy into the mouths of their victims, so they fnd it nearly impossible to speak or to think clearly.",
+      "effect": "For one turn, the victim suffers a penalty to tests that require language: -1D to tests, and increase the dice penalty by the margin of success. The caster must target a specifc language.",
+      "materials": "A collection of teeth or a draught of alcoholic spirits",
+			"toScribe": {
+				"skill": "Scholar",
+				"ob": 2
+			},
+			"toLearn": {
+				"skill": "Lore Master",
+				"ob": 3
+      },
+      "casting": {
+				"test": "Factors",
+        "skill": "Arcanist",
+        "ob": 0,
+        "factorCategories": {
+          "cast": {
+            "name": "Cast",
+            "languagedObscured": {
+              "name": "Language Obscured",
+              "factors": {
+                "arcaneOrHolyLanguage": {
+                  "name": "Arcane or holy language",
+                  "ob": 1
+                },
+                "deadOrArchaicLanguage": {
+                  "name": "Dead or archaic language",
+                  "ob": 2
+                },
+                "contemporaryLanguage": {
+                  "name": "Contemporary language",
+                  "ob": 3
+                }
+              }
+            },
+            "+breadth": {
+              "name": "+Breadth",
+              "factors": {
+                "onePerson": {
+                  "name": "One person",
+                  "ob": 0
+                },
+                "smallGroup": {
+                  "name": "Small group",
+                  "ob": 1
+                },
+                "twoGroups": {
+                  "name": "Two groups",
+                  "ob": 2
+                },
+                "largeCrowd": {
+                  "name": "Large Crowd",
+                  "ob": 3
+                }
+              }
+            },
+            "+duration": {
+              "name": "+Duration",
+              "factors": {
+                "oneTurn": {
+                  "name": "One turn",
+                  "ob": 0
+                },
+                "conflict": {
+                  "name": "Conflict",
+                  "ob": 1
+                },
+                "phase": {
+                  "name": "Phase",
+                  "ob": 2
+                }
+              }
+            }
+          }
+        }
+      },
+      "castingTime": "Free",
+      "duration": "Variable"
+    }
+  },
+  {
+    "name": "Dweomercraft",
+    "type": "Spell",
+    "data": {
+      "name": "Dweomercraft",
+      "circle": "First",
+      "description": "The magician hooks threads of aether to a bit of scrap and weaves simple tools into being.",
+      "effect": "With a fragment of appropriate material, the caster can create appropriate tools or supplies for skills. For example, the caster could create a needle and thread from a sliver of bone and a bit of wool or gut or create paper or sailcloth from a scrap of ﬂax. Dweomercraft can be used to solve material problems, like the lack of rope or a sail, or it can be used to create tools for a skill test. It can also be used to conjure expendable materials and supplies, which grant +1D to an appropriate test.",
+      "focus": "Dogwood stick shuttle [carried 1 or pack 1]",
+			"toScribe": {
+				"skill": "Scholar",
+				"ob": 3
+			},
+			"toLearn": {
+				"skill": "Lore Master",
+				"ob": 3
+      },
+      "casting": {
+				"test": "Factors",
+        "skill": "Arcanist",
+        "ob": 0,
+        "factorCategories": {
+          "dweomertools": {
+            "creatingTools": {
+              "name": "Creating Tools",
+              "factors": {
+                "needleLeverOrOar": {
+                  "name": "Needle, lever or oar",
+                  "ob": 1
+                },
+                "hookSpadeOrTongs": {
+                  "name": "Hook, spade or tongs",
+                  "ob": 2
+                },
+                "calipersPulleyOrLoom": {
+                  "name": "Calipers, pulley or loom",
+                  "ob": 3
+                },
+                "alchemicalRitualisticOrSorcerous": {
+                  "name": "Alchemical, ritualistic or sorcerous",
+                  "ob": 4
+                }
+              }
+            },
+            "+duration": {
+              "name": "+Duration",
+              "factors": {
+                "phase": {
+                  "name": "Phase",
+                  "ob": 0
+                },
+                "adventure": {
+                  "name": "Adventure",
+                  "ob": 1
+                },
+                "permanent": {
+                  "name": "Permanent",
+                  "ob": 2
+                }
+              }
+            }
+          },
+          "conjuringMaterials": {
+            "conjuringSupplies": {
+              "name": "Conjuring Supplies",
+              "craftSkillSupples": {
+                "name": "Craft skill supplies",
+                "ob": 1
+              },
+              "scholarlySupplies": {
+                "name": "Scholarly supplies",
+                "ob": 2
+              },
+              "spellMaterials": {
+                "name": "Spell materials",
+                "ob": 3
+              }
+            },
+            "+amount": {
+              "name": "+Amount",
+              "oneUse": {
+                "name": "One use",
+                "ob": 0
+              },
+              "twoUses": {
+                "name": "Two uses",
+                "ob": 2
+              },
+              "threeUses": {
+                "name": "Three uses",
+                "ob": 4
+              }
+            }
+          }
+        }
+      },
+      "castingTime": "One turn",
+      "duration": "Variable"
+    }
+  },
+  {
+    "name": "Lightness of Being",
+    "type": "Spell",
+    "data": {
+      "name": "Lightness of Being",
+      "circle": "First",
+      "description": "Speaking a single, sibilant syllable, the magician infuses their being with the lightness of spirit.",
+      "effect": "Through concentration, the caster can cause the recipient to rise slowly from the ground or to descend gently from a great height. Success allows the targets to bypass a test involving climbing or descending from a great height. If cast on the unwilling, the spell causes them to ﬂoat gently upward and then descend back to the ground in the span of a turn. If the recipient is yanked or pulled (or stabbed), the spell breaks and they descend to earth.",
+      "materials": "A seed pod from a maple or ash tree",
+			"toScribe": {
+				"skill": "Scholar",
+				"ob": 1
+			},
+			"toLearn": {
+				"skill": "Lore Master",
+				"ob": 2
+      },
+      "casting": {
+				"test": "Factors",
+        "skill": "Arcanist",
+        "ob": 0,
+        "factorCategories": {
+          "cast": {
+            "name": "Cast",
+            "breadth": {
+              "name": "Breadth",
+              "factors": {
+                "caster": {
+                  "name": "Caster",
+                  "ob": 1
+                },
+                "otherPerson": {
+                  "name": "Other person",
+                  "ob": 2
+                },
+                "smallGroup": {
+                  "name": "Small group",
+                  "ob": 3
+                }
+              }
+            },
+            "+recipient": {
+              "name": "+Recipient",
+              "factors": {
+                "oneTurn": {
+                  "name": "Willing",
+                  "ob": 0
+                },
+                "twoTurns": {
+                  "name": "Unwilling",
+                  "ob": 2
+                }
+              }
+            }
+          }
+        }
+      },
+      "castingTime": "Free",
+      "duration": "One turn"
+    }
+  },
+  {
+    "name": "Mystic Porter",
+    "type": "Spell",
+    "data": {
+      "name": "Mystic Porter",
+      "circle": "First",
+      "description": "With a series of intricate, arcane gestures, the caster shapes a faintly luminescent disc of aether to carry their burdens.",
+      "effect": "This spell creates an aetheric disc that ﬂoats at waist height. The caster  can control its ponderous movements out to a distance of two paces. The disk provides 8-12 additional inventory slots.",
+      "focus": "A trug woven from strips of beech bark [carried 1]",
+			"toScribe": {
+				"skill": "Scholar",
+				"ob": 1
+			},
+			"toLearn": {
+				"skill": "Lore Master",
+				"ob": 2
+      },
+      "casting": {
+				"test": "Factors",
+        "skill": "Arcanist",
+        "ob": 0,
+        "factorCategories": {
+          "cast": {
+            "name": "Cast",
+            "breadth": {
+              "name": "Breadth",
+              "factors": {
+                "8slots": {
+                  "name": "8 inventory slots",
+                  "ob": 1
+                },
+                "10slots": {
+                  "name": "10 inventory slots",
+                  "ob": 2
+                },
+                "12slots": {
+                  "name": "12 inventory slots",
+                  "ob": 3
+                }
+              }
+            },
+            "+duration": {
+              "name": "+Duration",
+              "factors": {
+                "fourTurns": {
+                  "name": "Four turns",
+                  "ob": 0
+                },
+                "phase": {
+                  "name": "Phase",
+                  "ob": 1
+                },
+                "session": {
+                  "name": "Session",
+                  "ob": 2
+                },
+                "adventure": {
+                  "name": "Adventure",
+                  "ob": 4
+                }
+              }
+            },
+            "+origin": {
+              "name": "+Origin",
+              "factors": {
+                "self": {
+                  "name": "Self",
+                  "ob": 0
+                },
+                "other": {
+                  "name": "Other",
+                  "ob": 1
+                }
+              }
+            }
+          }
+        }
+      },
+      "castingTime": "One turn",
+      "duration": "Variable"
+    }
+  },
+  {
+    "name": "Supernal Vision",
+    "type": "Spell",
+    "data": {
+      "name": "Supernal Vision",
+      "circle": "First",
+      "description": "Entering a trance, the magician shifts their vision to the Otherworld, attuning to the magical auras of enchanted items, creatures or places within their presence. While in this state, their eyes are covered with a milky whiteness.",
+      "effect": "While in this state, the caster may use the Lore Master skill to study magical auras and determine their purpose. Additionally, while under the effects of this spell, the caster gains +1D to Arcanist tests but suffers -1D to all tests requiring physical action. The caster may end this spell at any time. While under the effects of this spell, the caster is able to see nonmaterialized spirits in the Otherworld. However, those spirits are also able to see the caster’s eyes and might choose to investigate…",
+      "focus": "A blindfold of pure white silk covering the eyes [worn/head]",
+			"toScribe": {
+				"skill": "Scholar",
+				"ob": 1
+			},
+			"toLearn": {
+				"skill": "Lore Master",
+				"ob": 2
+      },
+      "casting": {
+				"test": "Factors",
+        "skill": "Arcanist",
+        "ob": 0,
+        "factorCategories": {
+          "cast": {
+            "name": "Cast",
+            "duration": {
+              "name": "Duration",
+              "factors": {
+                "oneTurns": {
+                  "name": "One turns",
+                  "ob": 2
+                },
+                "twoTurns": {
+                  "name": "Two turns",
+                  "ob": 3
+                },
+                "phase": {
+                  "name": "Phase",
+                  "ob": 4
+                },
+                "session": {
+                  "name": "Session",
+                  "ob": 5
+                }
+              }
+            }
+          }
+        }
+      },
+      "castingTime": "Free",
+      "duration": "Variable"
+    }
+  },
+  {
+    "name": "Swarm",
+    "type": "Spell",
+    "data": {
+      "name": "Swarm",
+      "circle": "First",
+      "description": "The magician pulls a swarm of enraged aetherial hornets across the Shroud of Worlds to harry and harass.",
+      "effect": "Use Arcanist to Attack in place of the required skill or ability during a kill, capture or drive off conﬂicts. This includes rolling for or helping with the disposition roll. In addition, Swarm provide +1D to Attack if the caster has the Angry condition. Further, mundane armor has no effect on Swarm. Only magical armor and spells or invocations provide protection.",
+      "materials": "A flowering blossom [worn/head or neck or carried 1]",
+			"toScribe": {
+				"skill": "Scholar",
+				"ob": 2
+			},
+			"toLearn": {
+				"skill": "Lore Master",
+				"ob": 2
+      },
+      "casting": {
+				"test": "Skill swap",
+        "skill": "Arcanist",
+        "ob": 0,
+        "factorCategories": {}
+      },
+      "castingTime": "Free",
+      "duration": "One conflict"
+    }
+  },
+  {
+    "name": "Thread of Friendship",
+    "type": "Spell",
+    "data": {
+      "name": "Thread of Friendship",
+      "circle": "First",
+      "description": "With fngers like hooks, the magician reaches into the Skein of Destiny and plucks one thread, turning an enemy into a friend.",
+      "effect": "This spell must be spoken to the victim in a normal voice. Passing the test converts the victim into a friend for the duration of the spell, with all the benefts that entails. This spell does not affect undead or creatures Might of 6 or greater. A creature must have the capacity for language to be targeted by this spell. While it’s not necessary to speak the same language as the target, making your wishes known could be diffcult if you don’t. If your new friend does not understand you, they will still seek to help you if they can. Success temporarily makes the target equivalent to a Town Friend or Adventuring Friend as appropriate. They retain their own beliefs and values, so you will have to use Persuader to get your new friend to do something against those beliefs or values.",
+      "materials": "A drop of pure honey smeared on the caster’s lips",
+      "focus": "Strands of thread with the victim’s name whispered over them and woven into a ring worn by the caster [worn/hands]",
+			"toScribe": {
+				"skill": "Scholar",
+				"ob": 2
+			},
+			"toLearn": {
+				"skill": "Lore Master",
+				"ob": 3
+      },
+      "casting": {
+				"test": "Versus",
+        "skill": "Arcanist",
+        "ob": 0,
+        "factorCategories": {},
+        "versus": "This spell causes a versus test between the target’s Will (or Nature for monsters) and the caster’s Arcanist skill. The caster suffers a -1s penalty for each rank by which the target’s Might exceeds that of the caster. Record the margin of success when the spell is cast. At the beginning of each phase after the spell was cast, the victim rolls its Will (or Nature for monsters). They are granted +1D for each rank by which their Might exceeds that of the caster, and +1D per phase after the first. The obstacle is equal to the margin of success when the spell was originally cast. Success frees the victim from the spell. If the obstacle is 0, the spell ends at the end of the phase in which it was cast."
+      },
+      "castingTime": "Free",
+      "duration": "One turn"
+    }
+  },
+  {
+    "name": "Wayfinder's Friend",
+    "type": "Spell",
+    "data": {
+      "name": "Wayfinder's Friend",
+      "circle": "First",
+      "description": "The caster peers into the Otherworld for guidance from the spirits of land and sea.",
+      "effect": "If the magician is lost in the wilderness, successfully casting the Wayfnder’s Friend will grant them a revelation as to their current location in relation to their desired destination. The spirits of the air, sun and moon will emerge and report! To have the spirits guide them to their destination, the magician may use the Arcanist skill in place of Pathfnder or Sailor (for navigational tests only). The spell doesn’t work underground.",
+      "focus": "A sunstone [pack 1]",
+			"toScribe": {
+				"skill": "Scholar",
+				"ob": 2
+			},
+			"toLearn": {
+				"skill": "Lore Master",
+				"ob": 2
+      },
+      "casting": {
+				"test": "Factors",
+        "skill": "Arcanist",
+        "ob": 0,
+        "factorCategories": {
+          "mysticalCompass": {
+            "weather": {
+              "name": "Weather",
+              "factors": {
+                "overcast": {
+                  "name": "Overcast",
+                  "ob": 1
+                },
+                "lightSnowOrRain": {
+                  "name": "Light snow or rain",
+                  "ob": 2
+                },
+                "squall": {
+                  "name": "Squall",
+                  "ob": 3
+                },
+                "storm": {
+                  "name": "Storm",
+                  "ob": 4
+                }
+              }
+            },
+            "+terrain": {
+              "name": "+Terrain",
+              "factors": {
+                "roadsOrRivers": {
+                  "name": "Roads or rivers",
+                  "ob": 0
+                },
+                "fieldsOrStreams": {
+                  "name": "Fields or streams",
+                  "ob": 1
+                },
+                "forestsOrHills": {
+                  "name": "Forests or hills",
+                  "ob": 2
+                },
+                "mountainsOrBrokenTerrain": {
+                  "name": "Mountains or broken terrain",
+                  "ob": 3
+                },
+              }
+            }
+          },
+          "wayfinding": {
+            "wayfindingFactors": {
+              "name": "Wayfinding",
+              "factors": {
+                "overland": {
+                  "name": "Overland journeys",
+                  "ob": "Use the appropriate factors for Pathfinder"
+                },
+                "sea": {
+                  "name": "Sea journeys",
+                  "ob": "Use the appropriate factors for Sailor"
+                }
+              }
+            }
+          }
+        }
+      },
+      "castingTime": "Free",
+      "duration": "One turn"
+    }
+  },
+  {
+    "name": "Wisdom of the Sages",
+    "type": "Spell",
+    "data": {
+      "name": "Wisdom of the Sages",
+      "circle": "First",
+      "description": "Intoning their true names, the magician summons long-dead sages from beyond the Shroud of Worlds to whisper the translation of spoken or written words.",
+      "effect": "Possessed by ghosts, the caster may read, speak or comprehend a foreign or alien tongue. No Scholar test required.",
+      "materials": "A scrip inscribed with the true name of a sage",
+			"toScribe": {
+				"skill": "Scholar",
+				"ob": 2
+			},
+			"toLearn": {
+				"skill": "Lore Master",
+				"ob": 2
+      },
+      "casting": {
+				"test": "Factors",
+        "skill": "Arcanist",
+        "ob": 0,
+        "factorCategories": {
+          "cast": {
+            "name": "Cast",
+            "language": {
+              "name": "Language",
+              "factors": {
+                "similarToKnownLanguage": {
+                  "name": "Similar to known language",
+                  "ob": 1
+                },
+                "unknownLanguage": {
+                  "name": "Unknown language",
+                  "ob": 2
+                },
+                "archaicOrDeadLanguage": {
+                  "name": "Archaic or dead language",
+                  "ob": 3
+                },
+                "arcaneOrDivineLanguage": {
+                  "name": "Arcane or divine language",
+                  "ob": 4
+                }
+              }
+            },
+            "+duration": {
+              "name": "+Duration",
+              "factors": {
+                "oneTurn": {
+                  "name": "One turn",
+                  "ob": 0
+                },
+                "phase": {
+                  "name": "Phase",
+                  "ob": 1
+                },
+                "session": {
+                  "name": "Session",
+                  "ob": 2
+                }
+              }
+            }
+          }
+        }
+      },
+      "castingTime": "One turn",
+      "duration": "Variable"
+    }
+  },
+  {
+    "name": "Wizard's Ægis",
+    "type": "Spell",
+    "data": {
+      "name": "Wizard's Ægis",
+      "circle": "First",
+      "description": "The magician summons a luminescent shield of aether bearing their wizard’s sigil.",
+      "effect": "Use the Arcanist skill to Defend in place of the required skill or ability during a kill, capture or drive off conﬂict. This includes rolling for or helping with the disposition roll. In addition, Wizard’s Ægis possesses these qualities: +2s to Defend; if your Defend action is successfil, the opposing team suffers -1D to its next action.",
+      "materials": "A chrysoprase ring or pendant [worn/hand or neck]",
+			"toScribe": {
+				"skill": "Scholar",
+				"ob": 1
+			},
+			"toLearn": {
+				"skill": "Lore Master",
+				"ob": 2
+      },
+      "casting": {
+				"test": "Skill swap",
+        "skill": "Arcanist",
+        "ob": 0,
+        "factorCategories": {}
+      },
+      "castingTime": "Free",
+      "duration": "One conflict"
+    }
+  },
+  {
+    "name": "Word of Binding",
+    "type": "Spell",
+    "data": {
+      "name": "Word of Binding",
+      "circle": "First",
+      "description": "With a sharp syllable uttered by the magician, invisible webs of aether, stronger than iron, bind portals and chests shut.",
+      "effect": "This spell takes existing materials used to close or secure and makes them supernaturally strong. Bonds, a door, a chest or a gate held by the Word of Binding cannot be opened by mundane means. Once bound, only the expiration of the spell, the destruction of the object or the Rhyme of Opening or Sign of Abrogation spells can undo the Word of Binding.",
+      "focus": "Iron links in a chain [worn/neck, pack 1 or carried 1]",
+			"toScribe": {
+				"skill": "Scholar",
+				"ob": 1
+			},
+			"toLearn": {
+				"skill": "Lore Master",
+				"ob": 2
+      },
+      "casting": {
+				"test": "Factors",
+        "skill": "Arcanist",
+        "ob": 0,
+        "factorCategories": {
+          "cast": {
+            "name": "Cast",
+            "duration": {
+              "name": "Duration",
+              "factors": {
+                "phase": {
+                  "name": "Phase",
+                  "ob": 2
+                },
+                "adventure": {
+                  "name": "Adventure",
+                  "ob": 4
+                },
+                "permanent": {
+                  "name": "Permanent",
+                  "ob": 6
+                }
+              }
+            }
+          }
+        }
+      },
+      "castingTime": "Free",
+      "duration": "Variable"
+    }
+  },
+  {
+    "name": "Wyrd Lights",
+    "type": "Spell",
+    "data": {
+      "name": "Wyrd Lights",
+      "circle": "First",
+      "description": "With whispered words, the magician calls forth dancing ﬂames from the aetherial plane.",
+      "effect": "The magician summons a number of lights that dance and whirl about the head. Each wisp provides light equivalent to a candle and are unaffected by wind and weather. They can even give light when submerged. With a thought, the caster may send the lights down corridors or around corners, giving the appearance of a party of adventurers carrying candles. The caster may also command each light to hover in a different place or follow a different person. The magician may choose to end the spell at any time.",
+      "materials": "A pinch of brimstone blown from the fngertips [pocket]",
+			"toScribe": {
+				"skill": "Scholar",
+				"ob": 2
+			},
+			"toLearn": {
+				"skill": "Lore Master",
+				"ob": 2
+      },
+      "casting": {
+				"test": "Factors",
+        "skill": "Arcanist",
+        "ob": 0,
+        "factorCategories": {
+          "cast": {
+            "name": "Cast",
+            "number": {
+              "name": "Number",
+              "factors": {
+                "oneLight": {
+                  "name": "One light",
+                  "ob": 1
+                },
+                "twoLights": {
+                  "name": "Two lights",
+                  "ob": 1
+                },
+                "threeLights": {
+                  "name": "Three lights",
+                  "ob": 3
+                },
+                "fourLights": {
+                  "name": "Four lights",
+                  "ob": 4
+                }
+              }
+            },
+            "+duration": {
+              "name": "+Duration",
+              "factors": {
+                "twoTurns": {
+                  "name": "Two turns",
+                  "ob": 0
+                },
+                "threeTurns": {
+                  "name": "Three turns",
+                  "ob": 1
+                },
+                "fourTurns": {
+                  "name": "Four turns",
+                  "ob": 2
+                },
+                "phase": {
+                  "name": "Phase",
+                  "ob": 3
+                }
+              }
+            }
+          }
+        }
+      },
+      "castingTime": "One turn",
+      "duration": "Variable"
+    }
+  }
+]
