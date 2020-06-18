@@ -49,7 +49,6 @@
         "ob": 0,
         "factorCategories": {
           "cast": {
-            "name": "Cast",
             "campType": {
               "name": "Camp Type",
               "factors": {
@@ -68,7 +67,7 @@
               }
             },
             "+area": {
-              "name": "Area",
+              "name": "+Area",
               "factors": {
                 "nearTown": {
                   "name": "Near Town",
@@ -118,7 +117,6 @@
         "ob": 0,
         "factorCategories": {
           "cast": {
-            "name": "Cast",
             "appearance": {
               "name": "Camp Type",
               "factors": {
@@ -192,7 +190,7 @@
 			},
 			"toLearn": {
 				"skill": "Lore Master",
-				"ob": 
+				"ob": 0
       },
       "casting": {
 				"test": "Versus",
@@ -227,7 +225,6 @@
         "ob": 0,
         "factorCategories": {
           "cast": {
-            "name": "Cast",
             "languagedObscured": {
               "name": "Language Obscured",
               "factors": {
@@ -355,32 +352,36 @@
           "conjuringMaterials": {
             "conjuringSupplies": {
               "name": "Conjuring Supplies",
-              "craftSkillSupples": {
-                "name": "Craft skill supplies",
-                "ob": 1
-              },
-              "scholarlySupplies": {
-                "name": "Scholarly supplies",
-                "ob": 2
-              },
-              "spellMaterials": {
-                "name": "Spell materials",
-                "ob": 3
+              "factors": {
+                "craftSkillSupples": {
+                  "name": "Craft skill supplies",
+                  "ob": 1
+                },
+                "scholarlySupplies": {
+                  "name": "Scholarly supplies",
+                  "ob": 2
+                },
+                "spellMaterials": {
+                  "name": "Spell materials",
+                  "ob": 3
+                }
               }
             },
             "+amount": {
               "name": "+Amount",
-              "oneUse": {
-                "name": "One use",
-                "ob": 0
-              },
-              "twoUses": {
-                "name": "Two uses",
-                "ob": 2
-              },
-              "threeUses": {
-                "name": "Three uses",
-                "ob": 4
+              "factors": {
+                "oneUse": {
+                  "name": "One use",
+                  "ob": 0
+                },
+                "twoUses": {
+                  "name": "Two uses",
+                  "ob": 2
+                },
+                "threeUses": {
+                  "name": "Three uses",
+                  "ob": 4
+                }
               }
             }
           }
@@ -413,7 +414,6 @@
         "ob": 0,
         "factorCategories": {
           "cast": {
-            "name": "Cast",
             "breadth": {
               "name": "Breadth",
               "factors": {
@@ -474,7 +474,6 @@
         "ob": 0,
         "factorCategories": {
           "cast": {
-            "name": "Cast",
             "breadth": {
               "name": "Breadth",
               "factors": {
@@ -556,7 +555,6 @@
         "ob": 0,
         "factorCategories": {
           "cast": {
-            "name": "Cast",
             "duration": {
               "name": "Duration",
               "factors": {
@@ -703,7 +701,7 @@
                 "mountainsOrBrokenTerrain": {
                   "name": "Mountains or broken terrain",
                   "ob": 3
-                },
+                }
               }
             }
           },
@@ -751,7 +749,6 @@
         "ob": 0,
         "factorCategories": {
           "cast": {
-            "name": "Cast",
             "language": {
               "name": "Language",
               "factors": {
@@ -847,7 +844,6 @@
         "ob": 0,
         "factorCategories": {
           "cast": {
-            "name": "Cast",
             "duration": {
               "name": "Duration",
               "factors": {
@@ -895,7 +891,6 @@
         "ob": 0,
         "factorCategories": {
           "cast": {
-            "name": "Cast",
             "number": {
               "name": "Number",
               "factors": {

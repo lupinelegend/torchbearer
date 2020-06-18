@@ -66,6 +66,13 @@
       "system": "torchbearer",
       "path": "./packs/classes.db",
       "entity": "Item"
+    },
+    {
+      "name": "spells",
+      "label": "Torchbearer Spells",
+      "system": "torchbearer",
+      "path": "./packs/spells.db",
+      "entity": "Item"
     }
   ],
   "languages": [
