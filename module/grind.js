@@ -238,7 +238,17 @@ export class GrindSheet extends Application {
 
     async advanceGrind() {
         if(game.user.isGM) {
-            await this.updateGrind({turn: this._grindData.grind.turn + 1});
+            const newTurn = this._grindData.grind.turn + 1;
+            await this.updateGrind({turn: newTurn});
+            const tbActors = this._grindData.grind.actors.map(id => game.actors.get(id));
+            for(let i = 0; i < tbActors.length; i++) {
+                await tbActors[i].consumeActiveLightFuel();
+            }
+            if(newTurn % 4 === 0) {
+                for(let i = 0; i < tbActors.length; i++) {
+                    await tbActors[i].takeNextGrindCondition();
+                }
+            }
         }
     }
 
