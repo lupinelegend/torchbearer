@@ -230,8 +230,9 @@ export class GrindSheet extends Application {
     }
 }
 Handlebars.registerHelper('renderGrindActor', function(actorId, lightLevels) {
-    let tbActor = game.actors.get(actorId);
-    let lightLevel = lightLevels[actorId];
+    const tbActor = game.actors.get(actorId);
+    const tbData = tbActor.tbData();
+    const lightLevel = lightLevels[actorId];
     let nameColor = 'inherit';
     let bgColor = 'inherit';
     switch(lightLevel) {
@@ -245,31 +246,46 @@ Handlebars.registerHelper('renderGrindActor', function(actorId, lightLevels) {
     }
     let html = '';
     html +=
-        `<li class="grind actor" style="display:flex;align-items: center" data-actor-id="${actorId}">
-          <div style="display: flex;align-items: center;flex:1;background-color: ${bgColor};color:${nameColor}">
+        `<li class="grind actor" style="display:flex;align-items: center" data-actor-id="${actorId}">`;
+
+    //Actor name & icon
+    html +=
+         `<div style="display: flex;align-items: center;flex:1;background-color: ${bgColor};color:${nameColor}">
               <div class="actor-image clickable"><img src="${tbActor.img}" title="${tbActor.name}" alt="${tbActor.name}"/></div>
               <div style="flex-basis: 100px;flex-grow:0;display:flex;align-items: center;">
                   <h1 class="actor-name clickable" style="font-family: Souvenir-Medium;">${tbActor.name}</h1>
               </div>
-          </div>
-          <div style="display:flex;align-items: center;flex:1;padding-left:8px;">`;
-    tbActor.tbData().computed.emittedLight.held.forEach((i) => {
-        html +=
-            `<div><object data="systems/torchbearer/assets/images/${i.name.toLowerCase()}.svg" type="image/svg+xml" style="background-color:white;width:24px;flex-grow:0;"></object></div>`;
+          </div>`;
+
+    //Light summary
+    html+=
+         `<div style="display:flex;align-items: center;flex:1;padding-left:8px;">`;
+    tbData.computed.emittedLight.held.forEach((i) => {
+        html += `<img src='systems/torchbearer/assets/icons/items/${i.name.toLowerCase()}.png' title='${i.name}' />`
         for(let consumeIdx = 0; consumeIdx < i.data.lightsource.remaining; consumeIdx++) {
             html +=
                 `<a class="item-control item-consume" title="Consume" style="margin-right: 5px;"><i style="${i.data.consumable.iconStyle};" class="fas ${i.data.consumable.icon}"></i></a>`;
         }
     });
-    tbActor.tbData().computed.emittedLight.tossed.forEach((i) => {
-        html +=
-            `<div><object data="systems/torchbearer/assets/images/${i.name.toLowerCase()}.svg" type="image/svg+xml" style="background-color:white;width:24px;flex-grow:0;border-bottom:2px solid black;"></object></div>`;
+    tbData.computed.emittedLight.tossed.forEach((i) => {
+        html += `<img src='systems/torchbearer/assets/icons/items/${i.name.toLowerCase()}.png' title='${i.name}' style="border-bottom: 2px solid black;" />`
         for(let consumeIdx = 0; consumeIdx < i.data.lightsource.remaining; consumeIdx++) {
             html +=
                 `<a class="item-control item-consume" title="Consume" style="margin-right: 5px;"><i style="${i.data.consumable.iconStyle};" class="fas ${i.data.consumable.icon}"></i></a>`;
         }
     });
     html += `</div>`;
+
+    //Conditions summary
+    html+=
+        `<div style="display:flex;align-items: center;flex:2;padding-left:8px;">`;
+    ['fresh', 'hungryandthirsty', 'angry', 'afraid', 'exhausted', 'injured', 'sick', 'dead'].forEach((condition) => {
+        if(tbData[condition]) {
+            html += `<img src='systems/torchbearer/assets/icons/conditions/${condition}.png' title='${condition}' />`
+        }
+    });
+    html += `</div>`;
+
     html += `</li>`;
     return html;
 });
