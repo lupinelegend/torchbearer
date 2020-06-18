@@ -19,8 +19,7 @@
       "casting": {
 				"test": "Fixed",
         "skill": "Arcanist",
-        "ob": 2,
-        "factorCategories": {}
+        "ob": 2
       },
       "castingTime": "Free",
       "duration": "One turn"
@@ -603,8 +602,7 @@
       "casting": {
 				"test": "Skill swap",
         "skill": "Arcanist",
-        "ob": 0,
-        "factorCategories": {}
+        "ob": 0
       },
       "castingTime": "Free",
       "duration": "One conflict"
@@ -632,7 +630,6 @@
 				"test": "Versus",
         "skill": "Arcanist",
         "ob": 0,
-        "factorCategories": {},
         "versus": "This spell causes a versus test between the target’s Will (or Nature for monsters) and the caster’s Arcanist skill. The caster suffers a -1s penalty for each rank by which the target’s Might exceeds that of the caster. Record the margin of success when the spell is cast. At the beginning of each phase after the spell was cast, the victim rolls its Will (or Nature for monsters). They are granted +1D for each rank by which their Might exceeds that of the caster, and +1D per phase after the first. The obstacle is equal to the margin of success when the spell was originally cast. Success frees the victim from the spell. If the obstacle is 0, the spell ends at the end of the phase in which it was cast."
       },
       "castingTime": "Free",
@@ -814,8 +811,7 @@
       "casting": {
 				"test": "Skill swap",
         "skill": "Arcanist",
-        "ob": 0,
-        "factorCategories": {}
+        "ob": 0
       },
       "castingTime": "Free",
       "duration": "One conflict"

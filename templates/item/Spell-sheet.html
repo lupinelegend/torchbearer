@@ -41,7 +41,9 @@
         <p style="margin-left: 3px;"><b style="font-family: Souvenir-Demi;"><u>Duration</u>:</b> {{data.duration}}</p>
     </div>
 
+    {{#if data.casting.factorCategories}}
     <h3 style="font-family: Souvenir-Demi; margin-top: 8px;">Spell Factors</h3>
+    {{/if}}
 
     {{#each data.casting.factorCategories}}
     <div class="row" style="align-items: baseline; font-family: Souvenir-Medium; padding: 0;">
