@@ -85,6 +85,80 @@ export class GrindSheet extends Application {
         });
     }
 
+    /** @override */
+    _onDragStart(event) {
+        const li = event.currentTarget;
+        const tbActor = game.actors.get(li.dataset.actorId);
+        const dragData = {
+            type: "GrindActor",
+            data: tbActor.data
+        };
+        event.dataTransfer.setData("text/plain", JSON.stringify(dragData));
+    }
+
+    /** @override */
+    async _onDrop(event) {
+        // Try to extract the data
+        let data;
+        try {
+            data = JSON.parse(event.dataTransfer.getData('text/plain'));
+            if (data.type !== "GrindActor") return;
+        } catch (err) {
+            return false;
+        }
+        await this._onSortPartyMember(event, data.data);
+    }
+    /**
+     * Handle a drop event for a party member to sort them
+     * @param {Event} event
+     * @param {Object} actorData
+     * @private
+     */
+    async _onSortPartyMember(event, actorData) {
+
+        // Get the drag source and its siblings
+        //const source = game.actors.get(actorData._id);
+        const source = {data: {type: 'Character', _id: actorData._id, sort: this._grindData.grind.actors.indexOf(actorData._id)}}
+        const siblings = this._getSortSiblings(source);
+
+        // Get the drop target
+        const dropTarget = event.target.closest(".actor");
+        const targetId = dropTarget ? dropTarget.dataset.actorId : null;
+        const target = siblings.find(s => s.data._id === targetId);
+
+        // Ensure we are only sorting like-types
+        if (target && (source.data.type !== target.data.type)) return;
+
+        // Perform the sort
+        const sortUpdates = SortingHelpers.performIntegerSort(source, {target: target, siblings});
+        if(sortUpdates.length === 1) {
+            const newActors = [];
+            if(sortUpdates[0].update.sort <= 0) {
+                newActors.push(source.data._id);
+            }
+            this._grindData.grind.actors.forEach(aId => {
+                if(aId !== source.data._id) {
+                    newActors.push(aId);
+                }
+            });
+            if(sortUpdates[0].update.sort > 0) {
+                newActors.push(source.data._id);
+            }
+            await this.updateGrind({actors: newActors});
+        } else {
+            await this.updateGrind({actors: sortUpdates.map(entry => entry.target.data._id)});
+        }
+    }
+
+    /* -------------------------------------------- */
+
+    _getSortSiblings(source) {
+        return this._grindData.grind.actors.filter(aId => {
+            return aId !== source.data._id;
+        }).map((aId, idx) => {
+            return {data: {type: 'Character', _id: aId, sort: idx}};
+        });
+    }
     computePartyChecks(tbActors) {
         let sum = 0;
         for(let i = 0; i < tbActors.length; i++) {
@@ -199,9 +273,6 @@ export class GrindSheet extends Application {
         if(!override) {
             changes = Object.assign({}, await this.currentGrind(), changes);
         }
-        // console.log("UpdateGrind");
-        // console.log(changes);
-        // console.log("/UpdateGrind");
         await game.settings.set('grind-sheet', 'theGrind', changes);
         setTimeout(() => {
             this.sendMessage("grindChanged");
@@ -246,11 +317,11 @@ Handlebars.registerHelper('renderGrindActor', function(actorId, lightLevels) {
     }
     let html = '';
     html +=
-        `<li class="grind actor" style="display:flex;align-items: center" data-actor-id="${actorId}">`;
+        `<li class="grind actor" style="display:flex;align-items: center;background-color: ${bgColor}" data-actor-id="${actorId}">`;
 
     //Actor name & icon
     html +=
-         `<div style="display: flex;align-items: center;flex:1;background-color: ${bgColor};color:${nameColor}">
+         `<div style="display: flex;align-items: center;flex:1;;color:${nameColor}">
               <div class="actor-image clickable"><img src="${tbActor.img}" title="${tbActor.name}" alt="${tbActor.name}"/></div>
               <div style="flex-basis: 100px;flex-grow:0;display:flex;align-items: center;">
                   <h1 class="actor-name clickable" style="font-family: Souvenir-Medium;">${tbActor.name}</h1>
