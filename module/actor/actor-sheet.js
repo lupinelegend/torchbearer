@@ -34,7 +34,9 @@ export class TorchbearerActorSheet extends ActorSheet {
   /** @override */
   getData() {
     const data = super.getData();
-
+    if(this.actor.data.type !== 'Character') {
+      return data;
+    }
     // Condition checkboxes
     const conditionStates = [data.data.hungryandthirsty, data.data.angry, data.data.afraid, data.data.exhausted, data.data.injured, data.data.sick, data.data.dead];
     const inc = (100 / 7);
@@ -45,13 +47,6 @@ export class TorchbearerActorSheet extends ActorSheet {
       }
     });
     data.data.conditionProgress = Math.round(conditionsTrue * inc);
-
-    // Update checks
-    let trait1Checks = parseInt(data.data.traits.trait1.checks.checksEarned);
-    let trait2Checks = parseInt(data.data.traits.trait2.checks.checksEarned);
-    let trait3Checks = parseInt(data.data.traits.trait3.checks.checksEarned);
-    let trait4Checks = parseInt(data.data.traits.trait4.checks.checksEarned);
-    data.data.totalChecks.value = trait1Checks + trait2Checks + trait3Checks + trait4Checks;
 
     // Check skills to see if any can be advanced
     let skillsArray = [];

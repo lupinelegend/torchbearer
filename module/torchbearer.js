@@ -127,7 +127,7 @@ Hooks.once('init', async function() {
   game.settings.register('grind-sheet', 'theGrind', {
     name: 'theGrind',
     scope: 'world',
-    config: false,
+    config: true,
     default: {},
     type: Object
   });
@@ -136,7 +136,7 @@ Hooks.once('init', async function() {
   // https://discordapp.com/channels/170995199584108546/670336275496042502/721144171468947556
   game.socket.on('system.torchbearer', data => {
     if(data.messageType === 'grind') {
-      game.grind.handleMessage(data);
+      game.grind.handleMessage(data.payload);
       return;
     }
     if (game.user.isGM) {

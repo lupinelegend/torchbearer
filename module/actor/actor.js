@@ -16,7 +16,7 @@ export class TorchbearerActor extends Actor {
     // things organized.
     if (actorData.type === 'Character') this._prepareCharacterData(actorData);
 
-    //if (actorData.type === 'npc') this._prepareCharacterData(actorData);
+    if (actorData.type === 'NPC') this._prepareNpcData(actorData);
   }
 
   /**
@@ -28,6 +28,31 @@ export class TorchbearerActor extends Actor {
     // Make a new Object that holds computed data and keeps it separate from anything else
     data.computed = {};
     data.computed.inventory = arrangeInventory(this.items, data.overburdened);
+    //The first time this is executed, Actors don't have their items yet, so there is
+    // no inventory
+    if(data.computed.inventory) {
+      data.computed.emittedLight = this.calculateEmittedLight(data.computed.inventory);
+    }
+
+    let trait1Checks = parseInt(data.traits.trait1.checks.checksEarned);
+    let trait2Checks = parseInt(data.traits.trait2.checks.checksEarned);
+    let trait3Checks = parseInt(data.traits.trait3.checks.checksEarned);
+    let trait4Checks = parseInt(data.traits.trait4.checks.checksEarned);
+    data.computed.totalChecks = trait1Checks + trait2Checks + trait3Checks + trait4Checks;
+  }
+
+  //TODO replace this once an actual NPC sheet is done
+  _prepareNpcData(actorData) {
+    const data = actorData.data;
+
+    // Make a new Object that holds computed data and keeps it separate from anything else
+    data.computed = {};
+    data.computed.inventory = arrangeInventory(this.items, data.overburdened);
+  }
+
+  _onUpdate(data, options, userId, context) {
+    super._onUpdate(data, options, userId, context);
+    game.grind.render(false);
   }
 
   _determineDumpTarget(tbItem, recursions = 0) {
@@ -78,6 +103,35 @@ export class TorchbearerActor extends Actor {
     }
     await this.deleteOwnedItem(itemId);
   }
+
+  calculateEmittedLight(inventory) {
+    let emittedLight = {
+      characters: 0,
+      dim: 0,
+      held: [],
+      tossed: [],
+    };
+    let heldItems = inventory["Hands (Carried)"].slots;
+    for(let i = 0; i < heldItems.length; i++) {
+      let item = heldItems[i];
+      if(item.data.lightsource.remaining && item.data.activatable.active) {
+        emittedLight.held.push(item);
+        emittedLight.characters += item.data.lightsource.held.characters;
+        emittedLight.dim += item.data.lightsource.held.dimCharacters;
+      }
+    }
+    let groundItems = inventory["On Ground"].slots;
+    for(let i = 0; i < groundItems.length; i++) {
+      let item = groundItems[i];
+      if(item.data.lightsource.remaining && item.data.activatable.active) {
+        emittedLight.tossed.push(item);
+        emittedLight.characters += item.data.lightsource.tossed.characters;
+        emittedLight.dim += item.data.lightsource.tossed.dimCharacters;
+      }
+    }
+    return emittedLight;
+  }
+
 
   tbData() {
     return this.data.data;
