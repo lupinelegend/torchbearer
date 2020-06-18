@@ -309,6 +309,19 @@ export class GrindSheet extends Application {
             payload: message
         });
     }
+
+    async lightLevelFor(actorId) {
+        if(!this._grindData) {
+            console.log("WARN: Looking up lightlevel but Grind not initialized. Initializing.");
+            await this.getData();
+        }
+        const lightLevels = this._grindData.computed.lightLevels;
+        if(!lightLevels[actorId]) {
+            console.log("WARN: Looking up lightlevel for Actor not in grind; returning Bright");
+            return LIGHT_LEVELS.Bright;
+        }
+        return lightLevels[actorId];
+    }
 }
 Handlebars.registerHelper('renderGrindActor', function(actorId, lightLevels) {
     const tbActor = game.actors.get(actorId);
