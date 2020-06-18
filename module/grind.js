@@ -11,9 +11,9 @@ export class GrindSheet extends Application {
             title: "Grind Sheet",
             classes: ["torchbearer", "sheet", "grind"],
             template: "systems/torchbearer/templates/grind-template.html",
-            width: 810,
-            height: 642,
-            tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "setup" }],
+            width: 850,
+            height: 675,
+            tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "party" }],
             dragDrop: [{dragSelector: ".actors-list .actor", dropSelector: null}]
         });
     }
@@ -47,6 +47,7 @@ export class GrindSheet extends Application {
 
         data.computed.partyChecks = this.computePartyChecks(tbActors);
         data.computed.lightLevels = this.computeLightLevels(data.grind.ambientLight, tbActors);
+        data.computed.groundItems = this.catalogGroundItems(tbActors);
         this._grindData = data;
         return data;
     }
@@ -75,7 +76,7 @@ export class GrindSheet extends Application {
             this.loadChars();
         });
         html.find('#logGrind').on('click', async () => {
-            console.log(await this.currentGrind());
+            console.log(this._grindData);
         });
         html.find('.change-light').on('click', () => {
             this.changeLight();
@@ -165,6 +166,25 @@ export class GrindSheet extends Application {
             sum += tbActors[i].tbData().computed.totalChecks;
         }
         return sum;
+    }
+
+    catalogGroundItems(tbActors) {
+        let catalog = [];
+        let total = 0;
+        for(let i = 0; i < tbActors.length; i++) {
+            const container = tbActors[i].tbData().computed.inventory['On Ground'];
+            if(container.slots.length > 0) {
+                catalog.push({
+                    _actor_id: container.slots[0]._actor_id,
+                    container: container
+                });
+                total += container.slots.length;
+            }
+        }
+        return {
+            total: total,
+            catalog: catalog,
+        };
     }
 
     computeLightLevels(ambientLight, tbActors) {

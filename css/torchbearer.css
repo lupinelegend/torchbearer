@@ -558,3 +558,6 @@ input:checked + .slider:before {
 .torchbearer .ddbox:hover .dd {
   display: block;
 }
+.torchbearer.grind h1 {
+  border-bottom: 0;
+}

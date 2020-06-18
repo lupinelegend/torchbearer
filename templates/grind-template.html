@@ -1,6 +1,6 @@
 <form class="{{cssClass}} flexcol tbBackground" style="margin: 22px;">
     <header class="sheet-header" style="margin-bottom: 5px;">
-        <div class="container">
+        <div class="container" style="height:auto;">
             {{#if isGM }}
                 <div class="row ddbox" style="padding:8px;border:1px solid black;position:absolute;right:26px">
                     <div class="col" style="display:flex;flex-direction: column">
@@ -63,12 +63,6 @@
                 <div class="row" style="font-family: Souvenir-Demi;justify-content: center">
                     Turn: {{grind.turn}}
                 </div>
-
-                <ol id="grindActors" class="actors-list col" style="margin-top:16px;">
-                    {{#each grind.actors}}
-                        {{{renderGrindActor this ../computed.lightLevels}}}
-                    {{/each}}
-                </ol>
             {{else}}
                 <div class="row" style="justify-content: center">
                     <h1 style="font-family: Souvenir-Demi;text-align: center">The Grind</h1>
@@ -79,4 +73,30 @@
             {{/if}}
         </div>
     </header>
+    {{#if grind.active}}
+        <nav class="sheet-tabs tabs" data-group="primary">
+            <a class="item" data-tab="party" style="font-family: Souvenir-Demi;">The Party</a>
+            <a class="item" data-tab="groundItems" style="font-family: Souvenir-Demi;">Items on Ground ({{computed.groundItems.total}})</a>
+        </nav>
+
+        <section class="sheet-body">
+            <!-- <hr style="border-top: 1px solid #AAA; border-bottom: none;"> -->
+
+            <div class="tab container scroll" data-group="primary" data-tab="party" style="font-family: Souvenir-Medium;height:320px;">
+                <ol id="grindActors" class="actors-list col">
+                    {{#each grind.actors}}
+                        {{{renderGrindActor this ../computed.lightLevels}}}
+                    {{/each}}
+                </ol>
+            </div>
+            <div class="tab" data-group="primary" data-tab="groundItems" style="font-family: Souvenir-Medium;height:320px;">
+                <ol id="groundSlot" class="items-list inventory-container col" data-container-type="On Ground" style="margin: 0 3px 0 3px;">
+                    {{#each computed.groundItems.catalog}}
+                        {{{renderInventory 0 this._actor_id 'On Ground' 'Ground'}}}
+                    {{/each}}
+                </ol>
+            </div>
+
+        </section>
+    {{/if}}
 </form>
