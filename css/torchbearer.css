@@ -531,7 +531,6 @@ input:checked + .slider:before {
   object-fit: cover;
   object-position: 50% 0;
   border: none;
-  background-color: #cccccc;
 }
 
 .torchbearer .items-list .item-name,
@@ -547,4 +546,15 @@ input:checked + .slider:before {
 
 .torchbearer .clickable {
   cursor: pointer;
+}
+
+.torchbearer.grind .sheet-header img {
+  margin-right: 0px;
+}
+.torchbearer .ddbox .dd {
+  display: none;
+}
+
+.torchbearer .ddbox:hover .dd {
+  display: block;
 }

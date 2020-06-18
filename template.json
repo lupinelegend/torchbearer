@@ -36,9 +36,6 @@
         "persona": {
           "value": 0,
           "spent": 0
-        },
-        "totalChecks": {
-          "value": 0
         }
       },
       "conditions": {
