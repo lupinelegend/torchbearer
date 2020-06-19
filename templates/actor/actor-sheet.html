@@ -627,7 +627,7 @@
                                             <a class="item-control item-create" title="Create item" data-type="item" type="Head"><i class="fas fa-plus"></i></a>
                                         </div>
                                     </li>
-                                    {{{renderInventory 1 actor._id 'Head' 'Worn'}}}
+                                    {{{renderInventory 1 actor._id 'Head' 'Worn' 'actor'}}}
                                 </ol>
 
                                 <ol id="handsWornSlot" class="items-list inventory-container col" data-container-type="Hands (Worn)" style="margin: 0 3px 0 3px;">
@@ -638,7 +638,7 @@
                                             <a class="item-control item-create" title="Create item" data-type="item" type="Hands"><i class="fas fa-plus"></i></a>
                                         </div>
                                     </li>
-                                    {{{renderInventory 2 actor._id 'Hands (Worn)' 'Worn'}}}
+                                    {{{renderInventory 2 actor._id 'Hands (Worn)' 'Worn' 'actor'}}}
                                 </ol>
 
                                 <ol id="handsCarriedSlot" class="items-list inventory-container col" data-container-type="Hands (Carried)" style="margin: 0 3px 0 3px;">
@@ -651,9 +651,9 @@
                                         </div>
                                     </li>
                                     {{#if data.overburdened}}
-                                        {{{renderInventory 4 actor._id 'Hands (Carried)' 'Carried'}}}
+                                        {{{renderInventory 4 actor._id 'Hands (Carried)' 'Carried' 'actor'}}}
                                     {{else}}
-                                        {{{renderInventory 2 actor._id 'Hands (Carried)' 'Carried'}}}
+                                        {{{renderInventory 2 actor._id 'Hands (Carried)' 'Carried' 'actor'}}}
                                     {{/if}}
                                 </ol>
                                 <ol id="torsoSlot" class="items-list inventory-container col" data-container-type="Torso" style="margin: 0 3px 0 3px;">
@@ -665,7 +665,7 @@
                                         </div>
                                     </li>
 
-                                    {{{renderInventory 3 actor._id 'Torso' 'Worn'}}}
+                                    {{{renderInventory 3 actor._id 'Torso' 'Worn' 'actor'}}}
                                 </ol>
                                 <ol id="pocketSlot" class="items-list inventory-container col" data-container-type="Pocket" style="margin: 0 3px 0 3px;">
                                     <li class="item flexrow item-header" id="pocketSlotHeader">
@@ -676,7 +676,7 @@
                                         </div>
                                     </li>
 
-                                    {{{renderInventory 1 actor._id 'Pocket' 'Trinkets'}}}
+                                    {{{renderInventory 1 actor._id 'Pocket' 'Trinkets' 'actor'}}}
                                 </ol>
                             </div>
                             <div class="col">
@@ -689,7 +689,7 @@
                                         </div>
                                     </li>
 
-                                    {{{renderInventory 1 actor._id 'Neck' 'Worn'}}}
+                                    {{{renderInventory 1 actor._id 'Neck' 'Worn' 'actor'}}}
                                 </ol>
                                 <ol id="feetSlot" class="items-list inventory-container col" data-container-type="Feet" style="margin: 0 3px 0 3px;">
                                     <li class="item flexrow item-header" id="feetSlotHeader">
@@ -700,7 +700,7 @@
                                         </div>
                                     </li>
 
-                                    {{{renderInventory 1 actor._id 'Feet' 'Worn'}}}
+                                    {{{renderInventory 1 actor._id 'Feet' 'Worn' 'actor'}}}
                                 </ol>
                                 <ol id="beltSlot" class="items-list inventory-container col" data-container-type="Belt" style="margin: 0 3px 0 3px;">
                                     <li class="item flexrow item-header" id="beltSlotHeader">
@@ -711,7 +711,7 @@
                                         </div>
                                     </li>
 
-                                    {{{renderInventory 3 actor._id 'Belt' 'Worn'}}}
+                                    {{{renderInventory 3 actor._id 'Belt' 'Worn' 'actor'}}}
                                 </ol>
 
                                 <ol id="groundSlot" class="items-list inventory-container col" data-container-type="On Ground" style="margin: 0 3px 0 3px;">
@@ -722,7 +722,7 @@
                                             <a class="item-control item-create" title="Create item" data-type="item" type="On Ground"><i class="fas fa-plus"></i></a>
                                         </div>
                                     </li>
-                                    {{{renderInventory 0 actor._id 'On Ground' 'Ground'}}}
+                                    {{{renderInventory 0 actor._id 'On Ground' 'Ground' 'actor'}}}
                                 </ol>
                             </div>
                         </div>
@@ -741,7 +741,7 @@
                                             <a class="item-control item-create" title="Create item" data-type="item" type="Cached"><i class="fas fa-plus"></i></a>
                                         </div>
                                     </li>
-                                    {{{renderInventory 0 actor._id 'Cached' 'Cached'}}}
+                                    {{{renderInventory 0 actor._id 'Cached' 'Cached' 'actor'}}}
                                 </ol>
                             </div>
                             <div class="col">
@@ -754,7 +754,7 @@
                                             <a class="item-control item-create" title="Create item" data-type="item" type="Lost"><i class="fas fa-plus"></i></a>
                                         </div>
                                     </li>
-                                    {{{renderInventory 0 actor._id 'Lost' 'Lost'}}}
+                                    {{{renderInventory 0 actor._id 'Lost' 'Lost' 'actor'}}}
                                 </ol>
                             </div>
                         </div>
