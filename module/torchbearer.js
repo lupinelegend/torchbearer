@@ -16,6 +16,15 @@ Hooks.once('init', async function() {
     TorchbearerItem
   };
 
+  game.gmIsActive = () => {
+    for(let i = 0; i < game.users.entities.length; i++) {
+      const user = game.users.entities[i];
+      if(user.isGM && user.active) {
+        return true;
+      }
+    }
+    return false;
+  }
   game.grind = new GrindSheet();
 
   /**

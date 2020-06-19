@@ -77,6 +77,7 @@ export class TorchbearerItem extends Item {
     }
     await update;
     await this.onAfterConsumed();
+    game.grind.updateGrind();
   }
 
   async toggleActive() {

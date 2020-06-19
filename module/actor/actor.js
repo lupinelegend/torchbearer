@@ -58,7 +58,7 @@ export class TorchbearerActor extends Actor {
 
   _onUpdate(data, options, userId, context) {
     super._onUpdate(data, options, userId, context);
-    game.grind.render(false);
+    game.grind.updateGrind();
   }
 
   _determineDumpTarget(tbItem, recursions = 0) {
@@ -108,6 +108,7 @@ export class TorchbearerActor extends Actor {
       }
     }
     await this.deleteOwnedItem(itemId);
+    this._onUpdate({items: true});
   }
 
   async takeNextGrindCondition() {
