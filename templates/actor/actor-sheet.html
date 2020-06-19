@@ -769,7 +769,7 @@
           <table class="tbtable">
             <thead class="theader" style="font-family: Souvenir-Demi;">
               <th style="text-align: center;">Cast?</th>
-              <th style="text-align: center;">Spell</th>
+              <th style="text-align: center">Spell</th>
               <th style="text-align: center;">Library</th>
               <th style="text-align: center;">Book</th>
               <th style="text-align: center;">Mem.</th>
@@ -782,48 +782,68 @@
               <tr>
                 <td colspan="8" style="text-align: center; background-color: rgba(0, 0, 0, 0.05); border-bottom: 1px solid gray;">~ First Circle ~</td>
               </tr>
-              {{{renderSpells actor._id 'First'}}}
+              {{#each data.computed.spells.first as |spell|}}
+              <tr id="${element.id}">
+                <td style="text-align: center;">
+                  <input type="checkbox" class="spell-toggle" id="{{_id}}" title="cast" {{checked data.cast}}>
+                </td>
+                <td>
+                  <h4 class="spell-name clickable" style="font-family: Souvenir-Medium; margin-bottom: 0px;" title="{{_id}}">{{name}}</h4>
+                </td>
+                <td style="text-align: center;">
+                  <input type="checkbox" class="spell-toggle" id="{{_id}}" title="library" {{checked data.library}}>
+                </td>
+                <td style="text-align: center;">
+                  <input type="checkbox" class="spell-toggle" id="{{_id}}" title="spellbook" {{checked data.spellbook}}>
+                </td>
+                <td style="text-align: center;">
+                  <input type="checkbox" class="spell-toggle" id="{{_id}}" title="memorized" {{checked data.memorized}}>
+                </td>
+                <td style="text-align: center;">
+                  <input type="checkbox" class="spell-toggle" id="{{_id}}" title="scroll" {{checked data.scroll}}>
+                </td>
+                <td style="text-align: center;">
+                  <input type="checkbox" class="spell-toggle" id="{{_id}}" title="supplies" {{checked data.supplies}}>
+                </td>
+                <td style="text-align: center;">
+                  <a class="item-control spell-delete" title="Delete Item" name="{{_id}}"><i class="fas fa-trash"></i></a>
+                </td>
+              </tr>
+              {{/each}}
+              <!-- Second Circle Spells -->
               <tr>
                 <td colspan="8" style="text-align: center; background-color: rgba(0, 0, 0, 0.05); border-bottom: 1px solid gray;">~ Second Circle ~</td>
               </tr>
-              {{{renderSpells actor._id 'Second'}}}
+              {{#each data.computed.spells.second as |spell|}}
+              <tr id="${element.id}">
+                <td style="text-align: center;">
+                  <input type="checkbox" class="spell-toggle" id="{{_id}}" title="cast" {{checked data.cast}}>
+                </td>
+                <td>
+                  <h4 class="spell-name clickable" style="font-family: Souvenir-Medium; margin-bottom: 0px;" title="{{_id}}">{{name}}</h4>
+                </td>
+                <td style="text-align: center;">
+                  <input type="checkbox" class="spell-toggle" id="{{_id}}" title="library" {{checked data.library}}>
+                </td>
+                <td style="text-align: center;">
+                  <input type="checkbox" class="spell-toggle" id="{{_id}}" title="spellbook" {{checked data.spellbook}}>
+                </td>
+                <td style="text-align: center;">
+                  <input type="checkbox" class="spell-toggle" id="{{_id}}" title="memorized" {{checked data.memorized}}>
+                </td>
+                <td style="text-align: center;">
+                  <input type="checkbox" class="spell-toggle" id="{{_id}}" title="scroll" {{checked data.scroll}}>
+                </td>
+                <td style="text-align: center;">
+                  <input type="checkbox" class="spell-toggle" id="{{_id}}" title="supplies" {{checked data.supplies}}>
+                </td>
+                <td style="text-align: center;">
+                  <a class="item-control spell-delete" title="Delete Item" name="{{_id}}"><i class="fas fa-trash"></i></a>
+                </td>
+              </tr>
+              {{/each}}
             </tbody>
           </table>
-
-            <!-- <ol class="items-list">
-              <li class="item flexrow item-header" style="font-family: Souvenir-Demi">
-                <div class="item-image">Cast?</div>
-                <div class="item-name">Spell</div>
-                <div>Ob</div>
-                <div>Known</div>
-                <div>Book</div>
-                <div>Mem.</div>
-                <div>Scroll</div>
-                <div>Supplies</div>
-              </li>
-
-              <li style="background-color: rgba(0, 0, 0, 0.05); font-family: Souvenir-Demi; border-bottom: 1px solid gray;">
-                <div style="text-align: center;">~ First Circle ~</div>
-              </li>
-
-              
-
-              <li style="background-color: rgba(0, 0, 0, 0.05); font-family: Souvenir-Demi; border-bottom: 1px solid gray;">
-                <div style="text-align: center;">~ Second Circle ~</div>
-              </li>
-
-              
-
-              <li style="background-color: rgba(0, 0, 0, 0.05); font-family: Souvenir-Demi; border-bottom: 1px solid gray;">
-                <div style="text-align: center;">~ Third Circle ~</div>
-              </li>
-              <li style="background-color: rgba(0, 0, 0, 0.05); font-family: Souvenir-Demi; border-bottom: 1px solid gray;">
-                <div style="text-align: center;">~ Fourth Circle ~</div>
-              </li>
-              <li style="background-color: rgba(0, 0, 0, 0.05); font-family: Souvenir-Demi; border-bottom: 1px solid gray;">
-                <div style="text-align: center;">~ Fifth Circle ~</div>
-              </li>
-            </ol> -->
 
         </div>
 

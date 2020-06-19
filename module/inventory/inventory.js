@@ -357,51 +357,51 @@ export function arrangeSpells(tbItemsMap) {
     return spellInventory;
 }
 
-Handlebars.registerHelper('renderSpells', function(actorId, spellCircle) {
-    let html = "";
-    let spells;
-    if(actorId) {
-        const actor = game.actors.get(actorId);
-        spells = actor.tbData().computed.spells;
-    }
+// Handlebars.registerHelper('renderSpells', function(actorId, spellCircle) {
+//     let html = "";
+//     let spells;
+//     if(actorId) {
+//         const actor = game.actors.get(actorId);
+//         spells = actor.tbData().computed.spells;
+//     }
 
-    switch(spellCircle) {
-        case "First": 
-            spells.first.forEach(element => {
-                html += `
-                    <tr id="${element.id}">
-                        <td></td>
-                        <td><h4 class="spell-name clickable" style="font-family: Souvenir-Medium;" title="${element.id}">${element.data.name}</h4></td>
-                        <td style="text-align: center;"><input type="checkbox" name="data.library" data-dtype="Boolean" {{checked data.library}}></td>
-                        <td style="text-align: center;"><input type="checkbox" name="data.spellbook" {{checked data.spellbook}}></td>
-                        <td style="text-align: center;"><input type="checkbox" name="data.memorized" {{checked data.memorized}}></td>
-                        <td style="text-align: center;"><input type="checkbox" name="data.scroll" {{checked data.scroll}}></td>
-                        <td style="text-align: center;"><input type="checkbox" name="data.supplies" {{checked data.supplies}}></td>
-                        <td style="text-align: center;"><a class="item-control spell-delete" title="Delete Item" name="${element.id}"><i class="fas fa-trash"></i></a></td>
-                    </tr>
-                `;
-            });
-            break;
-        case "Second":
-            spells.second.forEach(element => {
-                html += `
-                    <tr id="${element.id}">
-                        <td></td>
-                        <td><h4 class="spell-name clickable" style="font-family: Souvenir-Medium;" title="${element.id}">${element.data.name}</h4></td>
-                        <td style="text-align: center;"><input type="checkbox" name="{{data.library}}" {{checked data.library}}></td>
-                        <td style="text-align: center;"><input type="checkbox" name="{{data.spellbook}}" {{checked data.spellbook}}></td>
-                        <td style="text-align: center;"><input type="checkbox" name="{{data.memorized}}" {{checked data.memorized}}></td>
-                        <td style="text-align: center;"><input type="checkbox" name="{{data.scroll}}" {{checked data.scroll}}></td>
-                        <td style="text-align: center;"><input type="checkbox" name="{{data.supplies}}" {{checked data.supplies}}></td>
-                        <td style="text-align: center;"><a class="item-control spell-delete" title="Delete Item" name="${element.id}"><i class="fas fa-trash"></i></a></td>
-                    </tr>
-                `;
-            });
-            break;
-    }
+//     switch(spellCircle) {
+//         case "First": 
+//             spells.first.forEach(element => {
+//                 html += `
+//                     <tr id="${element.id}">
+//                         <td style="text-align: center;"><input type="checkbox" class="spell-toggle" id="${element.id}" title="cast" {{checked item.data.cast}}></td>
+//                         <td><h4 class="spell-name clickable" style="font-family: Souvenir-Medium; margin-bottom: 0px;" title="${element.id}">${element.data.name}</h4></td>
+//                         <td style="text-align: center;"><input type="checkbox" class="spell-toggle" id="${element.id}" title="library" {{checked data.library}}></td>
+//                         <td style="text-align: center;"><input type="checkbox" class="spell-toggle" id="${element.id}" title="spellbook" {{checked data.spellbook}}></td>
+//                         <td style="text-align: center;"><input type="checkbox" class="spell-toggle" id="${element.id}" title="memorized" {{checked data.memorized}}></td>
+//                         <td style="text-align: center;"><input type="checkbox" class="spell-toggle" id="${element.id}" title="scroll" {{checked data.scroll}}></td>
+//                         <td style="text-align: center;"><input type="checkbox" class="spell-toggle" id="${element.id}" title="supplies" {{checked data.supplies}}></td>
+//                         <td style="text-align: center;"><a class="item-control spell-delete" title="Delete Item" name="${element.id}"><i class="fas fa-trash"></i></a></td>
+//                     </tr>
+//                 `;
+//             });
+//             break;
+//         case "Second":
+//             spells.second.forEach(element => {
+//                 html += `
+//                     <tr id="${element.id}">
+//                         <td style="text-align: center;"><input type="checkbox" name="data.data.cast" data-dtype="Boolean" {{checked data.data.cast}}></td>
+//                         <td><h4 class="spell-name clickable" style="font-family: Souvenir-Medium; margin-bottom: 0px;" title="${element.id}">${element.data.name}</h4></td>
+//                         <td style="text-align: center;"><input type="checkbox" name="{{data.library}}" {{checked data.library}}></td>
+//                         <td style="text-align: center;"><input type="checkbox" name="{{data.spellbook}}" {{checked data.spellbook}}></td>
+//                         <td style="text-align: center;"><input type="checkbox" name="{{data.memorized}}" {{checked data.memorized}}></td>
+//                         <td style="text-align: center;"><input type="checkbox" name="{{data.scroll}}" {{checked data.scroll}}></td>
+//                         <td style="text-align: center;"><input type="checkbox" name="{{data.supplies}}" {{checked data.supplies}}></td>
+//                         <td style="text-align: center;"><a class="item-control spell-delete" title="Delete Item" name="${element.id}"><i class="fas fa-trash"></i></a></td>
+//                     </tr>
+//                 `;
+//             });
+//             break;
+//     }
 
-    return html;
-});
+//     return html;
+// });
 
 Handlebars.registerHelper('renderInventory', function(capacity, actorId, containerId, placeholder) {
     let { multiSlot , droppable } = renderOptions(containerId);

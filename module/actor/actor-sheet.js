@@ -102,6 +102,7 @@ export class TorchbearerActorSheet extends ActorSheet {
     // Update Inventory Item
     html.find('.spell-name.clickable').click(ev => {
       const spell = this.actor.getOwnedItem(ev.currentTarget.title);
+      console.log(spell);
       spell.sheet.render(true);
     });
 
@@ -119,6 +120,34 @@ export class TorchbearerActorSheet extends ActorSheet {
     html.find('.spell-delete').click(ev => {
       document.getElementById(ev.currentTarget.name).remove();
       this.actor.removeItemFromInventory(ev.currentTarget.name);
+    });
+
+    // Update spell data
+    html.find('.spell-toggle').click(ev => {
+      // ev.preventDefault();
+      const spell = this.actor.getOwnedItem(ev.currentTarget.id);
+      let checkState = ev.currentTarget.checked;
+      console.log(spell);
+      switch (ev.currentTarget.title) {
+        case 'cast':
+          spell.update({"data.cast": checkState});
+          break;
+        case 'library':
+          spell.update({"data.library": checkState});
+          break;
+        case 'spellbook':
+          spell.update({"data.spellbook": checkState});
+          break;
+        case 'memorized':
+          spell.update({"data.memorized": checkState});
+          break;
+        case 'scroll':
+          spell.update({"data.scroll": checkState});
+          break;
+        case 'supplies':
+          spell.update({"data.supplies": checkState});
+          break;
+      }
     });
 
     // Drop Inventory Item
