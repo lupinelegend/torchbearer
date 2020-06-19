@@ -4,7 +4,6 @@ const LIGHT_LEVELS = {
     'Dark': 0,
 };
 export class GrindSheet extends Application {
-
     /** @override */
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
@@ -176,9 +175,9 @@ export class GrindSheet extends Application {
             if(sortUpdates[0].update.sort > 0) {
                 newActors.push(source.data._id);
             }
-            await this.updateGrind({actors: newActors});
+            await this.updateGrind({actors: newActors}, 'onSortPartyMember');
         } else {
-            await this.updateGrind({actors: sortUpdates.map(entry => entry.target.data._id)});
+            await this.updateGrind({actors: sortUpdates.map(entry => entry.target.data._id)}, 'onSortPartyMember');
         }
     }
 
@@ -279,27 +278,27 @@ export class GrindSheet extends Application {
                 ambientLight: 'Bright',
                 active: true,
             };
-            await this.updateGrind(newGrind, true);
+            await this.updateGrind(newGrind, 'resetGrind');
             return newGrind;
         }
     }
 
     async activateGrind() {
         if(game.user.isGM) {
-            await this.updateGrind({active: true});
+            await this.updateGrind({active: true}, 'activateGrind');
         }
     }
 
     async deactivateGrind() {
         if(game.user.isGM) {
-            await this.updateGrind({active: false});
+            await this.updateGrind({active: false}, 'deactivateGrind');
         }
     }
 
     async advanceGrind() {
         if(game.user.isGM) {
             const newTurn = this._grindData.grind.turn + 1;
-            await this.updateGrind({turn: newTurn});
+            await this.updateGrind({turn: newTurn}, 'advanceGrind');
             const tbActors = this._grindData.grind.actors.map(id => game.actors.get(id));
             for(let i = 0; i < tbActors.length; i++) {
                 await tbActors[i].consumeActiveLightFuel();
@@ -315,13 +314,13 @@ export class GrindSheet extends Application {
     async changeLight() {
         switch(this._grindData.grind.ambientLight) {
             case "Dark":
-                await this.updateGrind({ambientLight: "Bright"});
+                await this.updateGrind({ambientLight: "Bright"}, 'changeLight');
                 break;
             case "Dim":
-                await this.updateGrind({ambientLight: "Dark"});
+                await this.updateGrind({ambientLight: "Dark"}, 'changeLight');
                 break;
             case "Bright":
-                await this.updateGrind({ambientLight: "Dim"});
+                await this.updateGrind({ambientLight: "Dim"}, 'changeLight');
                 break;
         }
     }
@@ -335,21 +334,28 @@ export class GrindSheet extends Application {
                     actorIds.push(actor._id);
                 }
             }
-            await this.updateGrind({actors: actorIds});
+            await this.updateGrind({actors: actorIds}, 'loadChars');
         }
     }
 
-    async updateGrind(changes, override) {
+    async updateGrind(changes, source) {
         if(changes) {
-            if(!override) {
+            if(source !== 'resetGrind') {
                 changes = Object.assign({}, await this.currentGrind(), changes);
             }
             await game.settings.set('grind-sheet', 'theGrind', changes);
         }
+        this._hasUpdate = true;
+        if(!this._updateSources) this._updateSources = [];
+        this._updateSources.push(source);
         setTimeout(() => {
-            this.sendMessage({type: "grindChanged"});
-            this.onUpdate();
-        }, 0);
+            if(this._hasUpdate) {
+                this.sendMessage({type: "grindChanged", source: this._updateSources});
+                this._hasUpdate = false;
+                this._updateSources = [];
+                this.onUpdate();
+            }
+        }, 1000);
     }
 
     onUpdate() {
@@ -360,6 +366,7 @@ export class GrindSheet extends Application {
         switch(message.type) {
             case "grindChanged":
                 console.log("Informed of grind change");
+                console.log(message);
                 this.onUpdate();
                 break;
             case "claimRequest":

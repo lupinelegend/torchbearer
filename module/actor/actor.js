@@ -58,7 +58,7 @@ export class TorchbearerActor extends Actor {
 
   _onUpdate(data, options, userId, context) {
     super._onUpdate(data, options, userId, context);
-    game.grind.updateGrind();
+    game.grind.updateGrind(null, 'actor._onUpdate');
   }
 
   _determineDumpTarget(tbItem, recursions = 0) {
