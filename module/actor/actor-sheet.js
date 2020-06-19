@@ -76,9 +76,6 @@ export class TorchbearerActorSheet extends ActorSheet {
       }
     });
 
-    // Enforce any penalties imposed by conditions
-
-
     return data;
   }
 
@@ -95,10 +92,17 @@ export class TorchbearerActorSheet extends ActorSheet {
 
     // Update Inventory Item
     html.find('.item-name.clickable').click(ev => {
+      console.log(ev.currentTarget);
       const li = $(ev.currentTarget).parents(".item");
       const item = this.actor.getOwnedItem(li.data("itemId"));
       // const equip = item.data.data.equip;
       item.sheet.render(true);
+    });
+
+    // Update Inventory Item
+    html.find('.spell-name.clickable').click(ev => {
+      const spell = this.actor.getOwnedItem(ev.currentTarget.title);
+      spell.sheet.render(true);
     });
 
     // Delete Inventory Item
@@ -109,6 +113,12 @@ export class TorchbearerActorSheet extends ActorSheet {
         // Get the equipment slot of the item being deleted
         li.slideUp(200, () => this.render(false));
       });
+    });
+
+    // Delete Spell Item
+    html.find('.spell-delete').click(ev => {
+      document.getElementById(ev.currentTarget.name).remove();
+      this.actor.removeItemFromInventory(ev.currentTarget.name);
     });
 
     // Drop Inventory Item
@@ -809,7 +819,7 @@ export class TorchbearerActorSheet extends ActorSheet {
   /** @override */
   async _onDrop(event) {
     let item = await super._onDrop(event);
-
+    console.log(item);
     if(this.actor.data.type !== 'Character') return;
 
     let tbItem;
@@ -818,47 +828,53 @@ export class TorchbearerActorSheet extends ActorSheet {
     } else {
       tbItem = item;
     }
-    if(tbItem.data) {
-      await tbItem.syncEquipVariables();
 
-      let oldContainerId = tbItem.data.data.containerId;
-      let {containerType, containerId, slotsTaken} = this.closestCompatibleContainer(tbItem, event.target);
-      if(!containerType) {
-        //No closest container specified, so pick one.
-        // First, we know it's not pack w/o a containerId, so if it is the item's gonna need
-        // updating.
-        if(tbItem.data.data.equip === 'Pack') {
-          tbItem.data.data.equip = tbItem.data.data.equipOptions.option1.value;
-          tbItem.data.data.slots = tbItem.data.data.slotOptions.option1.value;
-          containerType = tbItem.data.data.equip;
-          containerId = null;
-          slotsTaken = tbItem.data.data.slots;
+    if (tbItem.type === "Spell") {
+      console.log('Yer a wizard, Harry');
+    } else {
+      if(tbItem.data) {
+        await tbItem.syncEquipVariables();
+  
+        let oldContainerId = tbItem.data.data.containerId;
+        let {containerType, containerId, slotsTaken} = this.closestCompatibleContainer(tbItem, event.target);
+        if(!containerType) {
+          //No closest container specified, so pick one.
+          // First, we know it's not pack w/o a containerId, so if it is the item's gonna need
+          // updating.
+          if(tbItem.data.data.equip === 'Pack') {
+            tbItem.data.data.equip = tbItem.data.data.equipOptions.option1.value;
+            tbItem.data.data.slots = tbItem.data.data.slotOptions.option1.value;
+            containerType = tbItem.data.data.equip;
+            containerId = null;
+            slotsTaken = tbItem.data.data.slots;
+          }
+          let newContainerType = this.pickAnotherContainerIfNecessaryDueToItemSize(tbItem);
+          if(newContainerType) {
+            slotsTaken = tbItem.slotsTaken(newContainerType);
+            containerType = newContainerType;
+          }
         }
-        let newContainerType = this.pickAnotherContainerIfNecessaryDueToItemSize(tbItem);
-        if(newContainerType) {
-          slotsTaken = tbItem.slotsTaken(newContainerType);
-          containerType = newContainerType;
-        }
-      }
-      if(containerType) {
-        let update = {data: {equip: containerType, containerId: containerId, slots: slotsTaken}};
-        await tbItem.update(update);
-        await tbItem.onAfterEquipped({containerType, containerId});
-        this.actor._onUpdate({items: true});
-        if(oldContainerId) {
-          let oldContainer = this.actor.items.get(oldContainerId);
-          setTimeout(() => {
-            oldContainer.sheet.render(false);
-          }, 0)
-        }
-        if(containerId) {
-          let newContainer = this.actor.items.get(containerId);
-          setTimeout(() => {
-            newContainer.sheet.render(false);
-          }, 0)
+        if(containerType) {
+          let update = {data: {equip: containerType, containerId: containerId, slots: slotsTaken}};
+          await tbItem.update(update);
+          await tbItem.onAfterEquipped({containerType, containerId});
+          this.actor._onUpdate({items: true});
+          if(oldContainerId) {
+            let oldContainer = this.actor.items.get(oldContainerId);
+            setTimeout(() => {
+              oldContainer.sheet.render(false);
+            }, 0)
+          }
+          if(containerId) {
+            let newContainer = this.actor.items.get(containerId);
+            setTimeout(() => {
+              newContainer.sheet.render(false);
+            }, 0)
+          }
         }
       }
     }
+
     return tbItem;
   }
 

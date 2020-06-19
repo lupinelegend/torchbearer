@@ -772,7 +772,7 @@
 			},
 			"castingTime": "",
 			"duration": "",
-      "known": false,
+      "library": false,
       "spellbook": false,
       "memorized": false,
       "cast": false,

@@ -1,4 +1,5 @@
 import {arrangeInventory} from "../inventory/inventory.js";
+import {arrangeSpells} from "../inventory/inventory.js";
 
 export class TorchbearerActor extends Actor {
 
@@ -27,6 +28,9 @@ export class TorchbearerActor extends Actor {
 
     // Make a new Object that holds computed data and keeps it separate from anything else
     data.computed = {};
+    
+    data.computed.spells = arrangeSpells(this.items);
+
     data.computed.inventory = arrangeInventory(this.items, data.overburdened);
     //The first time this is executed, Actors don't have their items yet, so there is
     // no inventory

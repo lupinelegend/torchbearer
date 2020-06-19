@@ -764,30 +764,66 @@
         </div>
 
         {{!-- Magic Tab --}}
-        <div class="tab items" data-group="primary" data-tab="magic">
+        <div class="tab" data-group="primary" data-tab="magic">
             
-            <ol class="items-list">
-                <li class="item flexrow item-header" style="font-family: Souvenir-Demi">
-                  <div class="item-image">Cast?</div>
-                  <div class="item-name">Spell</div>
-                  <div>Ob</div>
-                  <div>Known</div>
-                  <div>Spell Book</div>
-                  <div>Mem.</div>
-                  <div>Scroll</div>
-                  <div>Supplies</div>
-                </li>
+          <table class="tbtable">
+            <thead class="theader" style="font-family: Souvenir-Demi;">
+              <th style="text-align: center;">Cast?</th>
+              <th style="text-align: center;">Spell</th>
+              <th style="text-align: center;">Library</th>
+              <th style="text-align: center;">Book</th>
+              <th style="text-align: center;">Mem.</th>
+              <th style="text-align: center;">Scroll</th>
+              <th style="text-align: center;">Supplies</th>
+              <th></th>
+            </thead>
 
-            {{#each actor.items as |item id|}}
-                <li class="item flexrow" data-item-id="{{item._id}}">
-                    <div class="item-image"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></div>
-                    <h4 class="item-name clickable" style="font-family: Souvenir-Medium;">{{item.name}}</h4>
-                    <div class="item-controls">
-                        <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
-                    </div>
-                </li>
-            {{/each}}
-            </ol>
+            <tbody style="font-family: Souvenir-Medium;">
+              <tr>
+                <td colspan="8" style="text-align: center; background-color: rgba(0, 0, 0, 0.05); border-bottom: 1px solid gray;">~ First Circle ~</td>
+              </tr>
+              {{{renderSpells actor._id 'First'}}}
+              <tr>
+                <td colspan="8" style="text-align: center; background-color: rgba(0, 0, 0, 0.05); border-bottom: 1px solid gray;">~ Second Circle ~</td>
+              </tr>
+              {{{renderSpells actor._id 'Second'}}}
+            </tbody>
+          </table>
+
+            <!-- <ol class="items-list">
+              <li class="item flexrow item-header" style="font-family: Souvenir-Demi">
+                <div class="item-image">Cast?</div>
+                <div class="item-name">Spell</div>
+                <div>Ob</div>
+                <div>Known</div>
+                <div>Book</div>
+                <div>Mem.</div>
+                <div>Scroll</div>
+                <div>Supplies</div>
+              </li>
+
+              <li style="background-color: rgba(0, 0, 0, 0.05); font-family: Souvenir-Demi; border-bottom: 1px solid gray;">
+                <div style="text-align: center;">~ First Circle ~</div>
+              </li>
+
+              
+
+              <li style="background-color: rgba(0, 0, 0, 0.05); font-family: Souvenir-Demi; border-bottom: 1px solid gray;">
+                <div style="text-align: center;">~ Second Circle ~</div>
+              </li>
+
+              
+
+              <li style="background-color: rgba(0, 0, 0, 0.05); font-family: Souvenir-Demi; border-bottom: 1px solid gray;">
+                <div style="text-align: center;">~ Third Circle ~</div>
+              </li>
+              <li style="background-color: rgba(0, 0, 0, 0.05); font-family: Souvenir-Demi; border-bottom: 1px solid gray;">
+                <div style="text-align: center;">~ Fourth Circle ~</div>
+              </li>
+              <li style="background-color: rgba(0, 0, 0, 0.05); font-family: Souvenir-Demi; border-bottom: 1px solid gray;">
+                <div style="text-align: center;">~ Fifth Circle ~</div>
+              </li>
+            </ol> -->
 
         </div>
 

@@ -935,5 +935,81 @@
       "castingTime": "One turn",
       "duration": "Variable"
     }
+  },
+  {
+    "name": "Destiny of Heroes",
+    "type": "Spell",
+    "data": {
+      "name": "Destiny of Heroes",
+      "circle": "Second",
+      "description": "Channeling raw power into the Skein of Destiny and strumming the taut strings like a harp, the magician infuses allies with heroic power.",
+      "effect": "Increase Might by one for one turn.",
+      "focus": "The finger bone of a saint [pcket or worn/neck]",
+			"toScribe": {
+				"skill": "Scholar",
+				"ob": 3
+			},
+			"toLearn": {
+				"skill": "Lore Master",
+				"ob": 4
+      },
+      "casting": {
+				"test": "Factors",
+        "skill": "Arcanist",
+        "ob": 0,
+        "factorCategories": {
+          "cast": {
+            "typeOfConflict": {
+              "name": "Type of Conflict",
+              "factors": {
+                "driveOff": {
+                  "name": "Drive Off",
+                  "ob": 1
+                },
+                "kill": {
+                  "name": "Kill",
+                  "ob": 2
+                },
+                "capture": {
+                  "name": "Capture",
+                  "ob": 3
+                },
+                "ambush": {
+                  "name": "Ambush",
+                  "ob": 4
+                },
+                "skirmish": {
+                  "name": "Skirmish",
+                  "ob": 5
+                },
+                "battle": {
+                  "name": "Battle",
+                  "ob": 6
+                }
+              }
+            },
+            "+breadth": {
+              "name": "+Breadth",
+              "factors": {
+                "self": {
+                  "name": "Self",
+                  "ob": 1
+                },
+                "other": {
+                  "name": "Other",
+                  "ob": 2
+                },
+                "group": {
+                  "name": "Group",
+                  "ob": 3
+                }
+              }
+            }
+          }
+        }
+      },
+      "castingTime": "Free",
+      "duration": "One turn"
+    }
   }
 ]

@@ -230,7 +230,7 @@ export function arrangeInventory(tbItemsMap, overburdened) {
         });
     });
 
-    console.log(inventory);
+    //console.log(inventory);
     return inventory;
 }
 
@@ -316,6 +316,92 @@ function capacityConsumedIn(container) {
     });
     return consumed;
 }
+
+export function arrangeSpells(tbItemsMap) {
+    if(!tbItemsMap) return;
+    
+    let spellInventory = {
+        first: [],
+        second: [],
+        third: [],
+        fourth: [],
+        fifth: []
+    };
+    
+    const tbSpells = [];
+    for(const tbSpell of tbItemsMap) {
+        if(tbSpell.data.type === 'Spell') {
+            tbSpells.push(tbSpell);
+        }
+    }
+
+    tbSpells.forEach(element => {
+        switch (element.data.data.circle) {
+            case "First":
+                spellInventory.first.push(element);
+                break;
+            case "Second":
+                spellInventory.second.push(element);
+                break;
+            case "Third":
+                spellInventory.third.push(element);
+                break;
+            case "Fourth":
+                spellInventory.fourth.push(element);
+                break;
+            case "Fifth":
+                spellInventory.fifth.push(element);
+                break;
+        }
+    });
+    return spellInventory;
+}
+
+Handlebars.registerHelper('renderSpells', function(actorId, spellCircle) {
+    let html = "";
+    let spells;
+    if(actorId) {
+        const actor = game.actors.get(actorId);
+        spells = actor.tbData().computed.spells;
+    }
+
+    switch(spellCircle) {
+        case "First": 
+            spells.first.forEach(element => {
+                html += `
+                    <tr id="${element.id}">
+                        <td></td>
+                        <td><h4 class="spell-name clickable" style="font-family: Souvenir-Medium;" title="${element.id}">${element.data.name}</h4></td>
+                        <td style="text-align: center;"><input type="checkbox" name="data.library" data-dtype="Boolean" {{checked data.library}}></td>
+                        <td style="text-align: center;"><input type="checkbox" name="data.spellbook" {{checked data.spellbook}}></td>
+                        <td style="text-align: center;"><input type="checkbox" name="data.memorized" {{checked data.memorized}}></td>
+                        <td style="text-align: center;"><input type="checkbox" name="data.scroll" {{checked data.scroll}}></td>
+                        <td style="text-align: center;"><input type="checkbox" name="data.supplies" {{checked data.supplies}}></td>
+                        <td style="text-align: center;"><a class="item-control spell-delete" title="Delete Item" name="${element.id}"><i class="fas fa-trash"></i></a></td>
+                    </tr>
+                `;
+            });
+            break;
+        case "Second":
+            spells.second.forEach(element => {
+                html += `
+                    <tr id="${element.id}">
+                        <td></td>
+                        <td><h4 class="spell-name clickable" style="font-family: Souvenir-Medium;" title="${element.id}">${element.data.name}</h4></td>
+                        <td style="text-align: center;"><input type="checkbox" name="{{data.library}}" {{checked data.library}}></td>
+                        <td style="text-align: center;"><input type="checkbox" name="{{data.spellbook}}" {{checked data.spellbook}}></td>
+                        <td style="text-align: center;"><input type="checkbox" name="{{data.memorized}}" {{checked data.memorized}}></td>
+                        <td style="text-align: center;"><input type="checkbox" name="{{data.scroll}}" {{checked data.scroll}}></td>
+                        <td style="text-align: center;"><input type="checkbox" name="{{data.supplies}}" {{checked data.supplies}}></td>
+                        <td style="text-align: center;"><a class="item-control spell-delete" title="Delete Item" name="${element.id}"><i class="fas fa-trash"></i></a></td>
+                    </tr>
+                `;
+            });
+            break;
+    }
+
+    return html;
+});
 
 Handlebars.registerHelper('renderInventory', function(capacity, actorId, containerId, placeholder) {
     let { multiSlot , droppable } = renderOptions(containerId);
