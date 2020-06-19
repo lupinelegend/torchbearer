@@ -561,3 +561,8 @@ input:checked + .slider:before {
 .torchbearer.grind h1 {
   border-bottom: 0;
 }
+
+.torchbearer.grind .items-list h4 {
+  flex-basis: 200px;
+  flex-grow: 0;
+}

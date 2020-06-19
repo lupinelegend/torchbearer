@@ -1,4 +1,4 @@
-<form class="{{cssClass}} flexcol tbBackground" style="margin: 22px;">
+<form class="{{cssClass}} flexcol tbBackground grind" style="margin: 22px;">
     <header class="sheet-header" style="margin-bottom: 5px;">
         <div class="container" style="height:auto;">
             {{#if isGM }}
@@ -90,9 +90,14 @@
                 </ol>
             </div>
             <div class="tab" data-group="primary" data-tab="groundItems" style="font-family: Souvenir-Medium;height:320px;">
-                <ol id="groundSlot" class="items-list inventory-container col" data-container-type="On Ground" style="margin: 0 3px 0 3px;">
+                <ol class="items-list inventory-container col" data-container-type="On Ground" style="margin: 0 3px 32px 3px;overflow-y:inherit;">
+                    {{#each computed.groundItems.own}}
+                        {{{renderInventory 0 this._actor_id 'On Ground' 'Ground' 'grind'}}}
+                    {{/each}}
+                </ol>
+                <ol class="items-list inventory-container col" data-container-type="On Ground" style="margin: 0 3px 0 3px;overflow-y:inherit;">
                     {{#each computed.groundItems.catalog}}
-                        {{{renderInventory 0 this._actor_id 'On Ground' 'Ground'}}}
+                        {{{renderInventory 0 this._actor_id 'On Ground' 'Ground' 'grind'}}}
                     {{/each}}
                 </ol>
             </div>

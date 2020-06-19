@@ -81,9 +81,40 @@ export class GrindSheet extends Application {
         html.find('.change-light').on('click', () => {
             this.changeLight();
         });
-        html.find('.grind.actor .actor-image, .grind.actor .actor-name').on('click', (evt) => {
-            game.actors.get($(evt.target).closest('.grind.actor').data('actorId')).sheet.render(true);
+        html.find('.actor .actor-image, .actor .actor-name').on('click', (evt) => {
+            game.actors.get($(evt.target).closest('.actor').data('actorId')).sheet.render(true);
         });
+        html.find('.item .item-image, .item .item-name').on('click', (evt) => {
+            const itemNode = $(evt.target).closest('.item');
+            if(itemNode.data('actorId')) {
+                game.actors.get(itemNode.data('actorId')).getOwnedItem(itemNode.data('itemId')).sheet.render(true);
+            } else {
+                game.items.get(itemNode.data('itemId')).sheet.render(true);
+            }
+        });
+
+        // Drop Inventory Item
+        html.find('.item-claim').click(ev => {
+            const li = $(ev.currentTarget).parents(".item");
+            const claim = {
+                type: 'claimRequest',
+                fromActor: li.data("actorId"),
+                itemId: li.data("itemId"),
+                toActor: game.user.data.character,
+            };
+            this.sendMessage(claim);
+        });
+
+    }
+
+    async processClaimRequest(request) {
+        if(!game.user.isGM) return;
+        const toActor = game.actors.get(request.toActor);
+        const fromActor = game.actors.get(request.fromActor);
+        const fromItem = fromActor.getOwnedItem(request.itemId);
+        await toActor.createEmbeddedEntity("OwnedItem", duplicate(fromItem.data));
+        await fromActor.removeItemFromInventory(fromItem._id);
+        this.sendMessage({type:"grindChanged"});
     }
 
     /** @override */
@@ -170,11 +201,19 @@ export class GrindSheet extends Application {
 
     catalogGroundItems(tbActors) {
         let catalog = [];
+        let own = [];
         let total = 0;
         for(let i = 0; i < tbActors.length; i++) {
-            const container = tbActors[i].tbData().computed.inventory['On Ground'];
+            const tbActor = tbActors[i];
+            const container = tbActor.tbData().computed.inventory['On Ground'];
+            let target;
+            if(tbActor.owner) {
+                target = own;
+            } else {
+                target = catalog;
+            }
             if(container.slots.length > 0) {
-                catalog.push({
+                target.push({
                     _actor_id: container.slots[0]._actor_id,
                     container: container
                 });
@@ -183,6 +222,7 @@ export class GrindSheet extends Application {
         }
         return {
             total: total,
+            own: own,
             catalog: catalog,
         };
     }
@@ -300,12 +340,14 @@ export class GrindSheet extends Application {
     }
 
     async updateGrind(changes, override) {
-        if(!override) {
-            changes = Object.assign({}, await this.currentGrind(), changes);
+        if(changes) {
+            if(!override) {
+                changes = Object.assign({}, await this.currentGrind(), changes);
+            }
+            await game.settings.set('grind-sheet', 'theGrind', changes);
         }
-        await game.settings.set('grind-sheet', 'theGrind', changes);
         setTimeout(() => {
-            this.sendMessage("grindChanged");
+            this.sendMessage({type: "grindChanged"});
             this.onUpdate();
         }, 0);
     }
@@ -315,9 +357,13 @@ export class GrindSheet extends Application {
     }
 
     handleMessage(message) {
-        switch(message) {
+        switch(message.type) {
             case "grindChanged":
+                console.log("Informed of grind change");
                 this.onUpdate();
+                break;
+            case "claimRequest":
+                this.processClaimRequest(message);
                 break;
         }
     }

@@ -319,7 +319,7 @@ function capacityConsumedIn(container) {
 
 export function arrangeSpells(tbItemsMap) {
     if(!tbItemsMap) return;
-    
+
     let spellInventory = {
         first: [],
         second: [],
@@ -327,7 +327,7 @@ export function arrangeSpells(tbItemsMap) {
         fourth: [],
         fifth: []
     };
-    
+
     const tbSpells = [];
     for(const tbSpell of tbItemsMap) {
         if(tbSpell.data.type === 'Spell') {
@@ -366,7 +366,7 @@ Handlebars.registerHelper('renderSpells', function(actorId, spellCircle) {
     }
 
     switch(spellCircle) {
-        case "First": 
+        case "First":
             spells.first.forEach(element => {
                 html += `
                     <tr id="${element.id}">
@@ -403,14 +403,18 @@ Handlebars.registerHelper('renderSpells', function(actorId, spellCircle) {
     return html;
 });
 
-Handlebars.registerHelper('renderInventory', function(capacity, actorId, containerId, placeholder) {
+Handlebars.registerHelper('renderInventory', function(capacity, actorId, containerId, placeholder, sheet) {
     let { multiSlot , droppable } = renderOptions(containerId);
     let html = "";
     let consumed = 0;
     let inventory;
+    let ownerName = '';
+    let deleteable = sheet !== 'grind';
+    let claimable = sheet === 'grind' && game.user.data.character && actorId !== game.user.data.character && game.gmIsActive();
     if(actorId) {
-        const actor = game.actors.get(actorId);
-        inventory = actor.tbData().computed.inventory;
+        const tbActor = game.actors.get(actorId);
+        inventory = tbActor.tbData().computed.inventory;
+        ownerName = tbActor.name;
     } else {
         inventory = {
             [containerId] : {
@@ -479,10 +483,15 @@ Handlebars.registerHelper('renderInventory', function(capacity, actorId, contain
             }
             if(i === 0) {
                 html +=
-                    `<li class="item flexrow primary-slot-consumed ${inventoryContainerClass} ${lastSlotTakenClass}" data-item-id="${item._id}" data-container-type="${containerType}">
+                    `<li class="item flexrow primary-slot-consumed ${inventoryContainerClass} ${lastSlotTakenClass}" data-actor-id="${actorId}" data-item-id="${item._id}" data-container-type="${containerType}">
                   <div class="item-image"><img src="${item.img}" title="${item.name}" alt="${item.name}" width="24" height="24"/></div>
-                  <h4 class="item-name clickable" style="font-family: Souvenir-Medium;">${item.name} ${quantityExpression}</h4>
-                  <div class="item-controls">`;
+                  <h4 class="item-name clickable" style="font-family: Souvenir-Medium;">${item.name} ${quantityExpression}</h4>`
+                if(sheet === 'grind' && ownerName) {
+                    html+=
+                        `<h4 style="font-family:Souvenir-Medium;">${ownerName}</h4>`;
+                }
+                html +=
+                    `<div class="item-controls">`;
                 for(let consumeIdx = 0; consumeIdx < consumeQuantity; consumeIdx++) {
                     html +=
                         `<a class="item-control item-consume" title="Consume" style="margin-right: 5px;"><i style="${consumeIconStyle};" class="fas ${consumeIcon}"></i></a>`;
@@ -499,9 +508,16 @@ Handlebars.registerHelper('renderInventory', function(capacity, actorId, contain
                     html +=
                         `<a class="item-control item-drop" title="Drop Item" style="margin-right: 5px;"><i class="fas fa-chevron-circle-down"></i></a>`;
                 }
+                if(deleteable) {
+                    html +=
+                        `<a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>`;
+                }
+                if(claimable) {
+                    html +=
+                        `<a class="item-control item-claim" title="Claim Item"><i class="fas fa-scroll"></i></a>`;
+                }
                 html +=
-                      `<a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
-                  </div>
+                  `</div>
               </li>`;
             } else if (multiSlot !== false) {
                 html +=

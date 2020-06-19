@@ -99,6 +99,7 @@ export class TorchbearerItemSheet extends ItemSheet {
         }).then(() => {
           setTimeout(() => {
             this.item._onUpdate();
+            game.grind.updateGrind();
           }, 0);
         })
       }
