@@ -1,6 +1,8 @@
 import {arrangeInventory} from "../inventory/inventory.js";
 import {arrangeSpells} from "../inventory/inventory.js";
 
+const GRIND_CONDITION_SEQUENCE = ['hungryandthirsty', 'exhausted', 'angry', 'sick', 'injured', 'afraid', 'dead'];
+
 export class TorchbearerActor extends Actor {
 
   /**
@@ -106,6 +108,35 @@ export class TorchbearerActor extends Actor {
       }
     }
     await this.deleteOwnedItem(itemId);
+  }
+
+  async takeNextGrindCondition() {
+    const tbData = this.tbData();
+    for(let i = 0; i < GRIND_CONDITION_SEQUENCE.length; i++) {
+      if(!tbData[GRIND_CONDITION_SEQUENCE[i]]) {
+        await this.update({
+          data: {
+            fresh: false,
+            [GRIND_CONDITION_SEQUENCE[i]]: true,
+          }
+        });
+        return;
+      }
+    }
+  }
+
+  async consumeActiveLightFuel() {
+    const emittedLight = this.calculateEmittedLight(this.tbData().computed.inventory);
+    const sources = [].concat(emittedLight.held).concat(emittedLight.tossed);
+    if(!sources.length) return;
+
+    for(let i = 0; i < sources.length; i++) {
+      const tbItem = this.getOwnedItem(sources[i]._id);
+      await tbItem.consumeOne();
+    }
+    setTimeout(() => {
+      this._onUpdate({items: true});
+    }, 0);
   }
 
   calculateEmittedLight(inventory) {

@@ -63,8 +63,8 @@
                 <div class="row" style="font-family: Souvenir-Demi;justify-content: center">
                     Turn: {{grind.turn}}
                 </div>
-                <h3 style="font-family: Souvenir-Demi;margin-top:16px;">The Party</h3>
-                <ol id="grindActors" class="actors-list col">
+
+                <ol id="grindActors" class="actors-list col" style="margin-top:16px;">
                     {{#each grind.actors}}
                         {{{renderGrindActor this ../computed.lightLevels}}}
                     {{/each}}
