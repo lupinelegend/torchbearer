@@ -17,16 +17,14 @@ Magic
 
 Conflict
 -
+- Only include players that are part of the grind
+- Weapon drop downs should sort weapons first
+- Weapon drop downs should only show unique items
 
-Light
+Grind
 -
-- Allow users to indicate that held light sources are lit
-  - Also dropped light sources
-- Provide a global light tracker
-  - Track who is in full light, dim light, and darkness
-- Provide global light information for Die Rolls
-- GM advance light tracker and consume fuel on lit inventory items
-  - can specify which ones should be consumed (all by default)
+- Allow players to drag and drop, not just GM
+- Allow GM to remove players from the grind
 
 UI
 -
