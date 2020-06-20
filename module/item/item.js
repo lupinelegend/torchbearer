@@ -49,11 +49,11 @@ export class TorchbearerItem extends Item {
 
   async consumeOne() {
     if(!this.actor) {
-      return;
+      return false;
     }
 
     if(!this.onBeforeConsumed()) {
-      return;
+      return false;
     }
 
     let update;
@@ -77,14 +77,17 @@ export class TorchbearerItem extends Item {
     }
     await update;
     await this.onAfterConsumed();
-    game.grind.updateGrind();
+    return true;
   }
 
+  /*
+   * @return Whether the item successfully toggled
+   */
   async toggleActive() {
-    if(!this.actor) return;
+    if(!this.actor) return false;
     const tbData = this.tbData();
-    if(!tbData.activatable.activates) return;
-    if(!this.onBeforeActivate()) return;
+    if(!tbData.activatable.activates) return false;
+    if(!this.onBeforeActivate()) return false;
     await this.update({
       data: {
         activatable: {
@@ -92,6 +95,7 @@ export class TorchbearerItem extends Item {
         }
       }
     });
+    return true;
   }
 
   isCompatibleContainer(containerType) {

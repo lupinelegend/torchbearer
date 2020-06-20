@@ -99,7 +99,7 @@ export class TorchbearerItemSheet extends ItemSheet {
         }).then(() => {
           setTimeout(() => {
             this.item._onUpdate();
-            game.grind.updateGrind();
+            this.item.actor._onUpdate({items: true});
           }, 0);
         })
       }
@@ -110,10 +110,13 @@ export class TorchbearerItemSheet extends ItemSheet {
       const li = $(ev.currentTarget).parents(".item");
       if(this.item.actor) {
         let tbItem = this.item.actor.getOwnedItem(li.data("itemId"));
-        tbItem.consumeOne().then(() => {
-          setTimeout(() => {
-            this.item._onUpdate();
-          }, 0);
+        tbItem.consumeOne().then((consumed) => {
+          if(consumed) {
+            setTimeout(() => {
+              this.item._onUpdate();
+              this.item.actor._onUpdate({items: true});
+            }, 0);
+          }
         });
       }
     });
@@ -123,10 +126,12 @@ export class TorchbearerItemSheet extends ItemSheet {
       const li = $(ev.currentTarget).parents(".item");
       if(this.item.actor) {
         let tbItem = this.item.actor.getOwnedItem(li.data("itemId"));
-        tbItem.toggleActive().then(() => {
-          setTimeout(() => {
-            this.item._onUpdate();
-          }, 0);
+        tbItem.toggleActive().then((toggled) => {
+          if(toggled) {
+            setTimeout(() => {
+              this.item._onUpdate();
+            }, 0);
+          }
         });
       }
     });
