@@ -1011,5 +1011,178 @@
       "castingTime": "Free",
       "duration": "One turn"
     }
-  }
+  },
+  {
+    "name": "Eldritch Flames",
+    "type": "Spell",
+    "data": {
+      "name": "Eldritch Flames",
+      "circle": "Second",
+      "description": "The magician rips raw, burning aether out of the Shroud of Worlds and hurls it at those who have offended them.",
+      "effect": "Use Arcanist in place of the Fighter skill for one test in a kill, capture or drive off conﬂict. In addition, Eldritch Flames possesses these qualities at no further cost: (1) After actions are revealed, the magician may convert an independent interaction to a versus test, (2) After rolling for Elritch Flames, the magician may distribute their margin of success between two targets (3 targets at Lvl 5, whole team at Lvl 7), (3) +1D to Attack if the caster has the Angry condition, (4) Mundane armor has no effect on Eldritch Flames; only magical armor and spells or invocations provide protection.",
+      "focus": "A skinning knife or shears that have never been used",
+			"toScribe": {
+				"skill": "Scholar",
+				"ob": 3
+			},
+			"toLearn": {
+				"skill": "Lore Master",
+				"ob": 3
+      },
+      "casting": {
+				"test": "Skill swap",
+        "skill": "Arcanist",
+        "ob": 0,
+        "factorCategories": {}
+      },
+      "castingTime": "Free",
+      "duration": "One test"
+    }
+  },
+  {
+    "name": "Eye of Omens",
+    "type": "Spell",
+    "data": {
+      "name": "Eye of Omens",
+      "circle": "Second",
+      "description": "With words of power, the caster attains sight beyond sight that reveals the past, the future, a creature’s essence and even the truth behind a creature’s words.",
+      "effect": "Using the Eye of Omens, the magician can sense the presence of the past and the future, read a person’s traits or read the thoughts of another. Declare your intended effect when casting. The effect lasts for one turn.",
+      "materials": "The preserved eye of a raven",
+			"toScribe": {
+				"skill": "Scholar",
+				"ob": 3
+			},
+			"toLearn": {
+				"skill": "Lore Master",
+				"ob": 4
+      },
+      "casting": {
+				"test": "Factors",
+        "skill": "Arcanist",
+        "ob": 0,
+        "factorCategories": {
+          "cast": {
+            "sense": {
+              "name": "Sense",
+              "factors": {
+                "deadOrOfAnotherPlane": {
+                  "name": "Dead or of another plane",
+                  "ob": 1
+                },
+                "possessed": {
+                  "name": "Possessed",
+                  "ob": 2
+                },
+                "recentEvent": {
+                  "name": "Recent Event",
+                  "ob": 3
+                },
+                "eventInTheDistantPast": {
+                  "name": "Event in the distant past",
+                  "ob": 4
+                },
+                "theFuture": {
+                  "name": "The Future",
+                  "ob": 5
+                }
+              }
+            },
+            "trueNature": {
+              "name": "True Nature",
+              "factors": {
+                "level3Traits": {
+                  "name": "Level 3 traits",
+                  "ob": 1
+                },
+                "natureDescriptors": {
+                  "name": "Nature descriptors",
+                  "ob": 2
+                },
+                "level2Traits": {
+                  "name": "Level 2 traits",
+                  "ob": 3
+                },
+                "level1Traits": {
+                  "name": "Level 1 traits",
+                  "ob": 4
+                }
+              }
+            },
+            "readThoughts": {
+              "name": "Read Thoughts",
+              "factors": {
+                "senseIntent": {
+                  "name": "Sense intent",
+                  "ob": 1
+                },
+                "seeAnInstinct": {
+                  "name": "See an instinct",
+                  "ob": 2
+                },
+                "seeABeliefOrCreed": {
+                  "name": "See a belief or creed",
+                  "ob": 3
+                }
+              }
+            }
+          }
+        }
+      },
+      "castingTime": "One turn",
+      "duration": "One turn"
+    }
+  },
+  {
+    "name": "Eyes of the Bat",
+    "type": "Spell",
+    "data": {
+      "name": "Eyes of the Bat",
+      "circle": "Second",
+      "description": "This sorcery grants the ability to navigate in darkness like a bat.",
+      "effect": "This spell gives one character the ability to “see” like a bat in complete darkness for one phase. Characters cannot read or determine color without light.",
+      "focus": "A perfectly pitched tuning fork [carried 1 or pack 1]",
+			"toScribe": {
+				"skill": "Scholar",
+				"ob": 3
+			},
+			"toLearn": {
+				"skill": "Lore Master",
+				"ob": 4
+      },
+      "casting": {
+				"test": "Fixed",
+        "skill": "Arcanist",
+        "ob": 3
+      },
+      "castingTime": "Free",
+      "duration": "One phase"
+    }
+  },
+  {
+    "name": "Somnifc Trance",
+    "type": "Spell",
+    "data": {
+      "name": "Somnifc Trance",
+      "circle": "Second",
+      "description": "Piercing the Shroud of Worlds with a crooked fnger, the caster draws forth a faintly luminescent vapor of aether that causes any who breathe it to fall into a deep, unnatural slumber.",
+      "effect": "",
+      "materials": "Pollen of the papaver blossom [pack 1]",
+			"toScribe": {
+				"skill": "Scholar",
+				"ob": 2
+			},
+			"toLearn": {
+				"skill": "Lore Master",
+				"ob": 0
+      },
+      "casting": {
+				"test": "Versus",
+        "skill": "Arcanist",
+        "ob": 0,
+        "versus": "The spell causes a versus test between the target’s Will or Nature and the magician’s Arcanist skill. If the target’s Might is greater than the caster’s, the magician suffers -1s per point of difference. Victims who lose the versus test are drawn to the noise for one turn. Additional successes increase the duration of the distraction or increase the distance the victims travel—from one area or room, to two or three rooms or areas from the caster."
+      },
+      "castingTime": "One turn",
+      "duration": "Variable"
+    }
+  },
 ]
