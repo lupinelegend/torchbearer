@@ -332,7 +332,8 @@ export function arrangeSpells(tbItemsMap) {
     for(const tbSpell of tbItemsMap) {
         if(tbSpell.data.type === 'Spell') {
             tbSpells.push(tbSpell.data);
-            // pushes the item itself when it should push tbSpell.data
+            // Pushes the item data instead of the item itself to prevent breaking tokens
+            // with recursive searches.
         }
     }
 

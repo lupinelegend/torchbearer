@@ -944,7 +944,7 @@
       "circle": "Second",
       "description": "Channeling raw power into the Skein of Destiny and strumming the taut strings like a harp, the magician infuses allies with heroic power.",
       "effect": "Increase Might by one for one turn.",
-      "focus": "The finger bone of a saint [pcket or worn/neck]",
+      "focus": "The finger bone of a saint [pocket or worn/neck]",
 			"toScribe": {
 				"skill": "Scholar",
 				"ob": 3
@@ -1164,8 +1164,8 @@
     "data": {
       "name": "Somnifc Trance",
       "circle": "Second",
-      "description": "Targets who fail the versus test fall into a troubled sleep. The entranced frequently moan or cry out in terror but will awake only if prodded or kicked. Otherwise, they languidly rouse themselves at the start of the next phase. When awakened, victims must pass an Ob 3 Will (or Nature) test. Failure indicates either that they are groggy and may not act for a turn or they gain the afraid condition. If a conﬂict is imminent, magicians must cast Somnifc Trance before the targets roll for disposition. Those who succumb may not participate in the conﬂict. This spell can affect a maximum of four creatures of Might 1 or 2, three creatures of Might 3, two creatures of Might 4 or one creature of Might 5. If cast on a mixed group, put to sleep the lesser creatures first. This spell does not affect undead, spirits or automatons or any creature of Might 6 or greater.",
-      "effect": "",
+      "description": "Piercing the Shroud of Worlds with a crooked fnger, the caster draws forth a faintly luminescent vapor of aether that causes any who breathe it to fall into a deep, unnatural slumber.",
+      "effect": "Targets who fail the versus test fall into a troubled sleep. The entranced frequently moan or cry out in terror but will awake only if prodded or kicked. Otherwise, they languidly rouse themselves at the start of the next phase. When awakened, victims must pass an Ob 3 Will (or Nature) test. Failure indicates either that they are groggy and may not act for a turn or they gain the afraid condition. If a conﬂict is imminent, magicians must cast Somnifc Trance before the targets roll for disposition. Those who succumb may not participate in the conﬂict. This spell can affect a maximum of four creatures of Might 1 or 2, three creatures of Might 3, two creatures of Might 4 or one creature of Might 5. If cast on a mixed group, put to sleep the lesser creatures first. This spell does not affect undead, spirits or automatons or any creature of Might 6 or greater.",
       "materials": "Pollen of the papaver blossom [pack 1]",
 			"toScribe": {
 				"skill": "Scholar",
@@ -1183,6 +1183,451 @@
       },
       "castingTime": "Free",
       "duration": "Variable"
+    }
+  },
+  {
+    "name": "Numinous Sigil",
+    "type": "Spell",
+    "data": {
+      "name": "Numinous Sigil",
+      "circle": "Second",
+      "description": "Mixing blood and aether into ink, the magician inscribes an Otherworldly matrix to hold a spell.",
+      "effect": "This spell allows the caster to inscribe a symbol that holds a spell in a fashion similar to a scroll. Once the sigil is created, the caster must then successfully cast the spell which they wish the sigil to contain and choose a trigger (generally when the sigil is read, touched or destroyed/disfgured). The character who activates the sigil need not be a magician, nor does the character need to voluntarily activate the sigil.",
+      "materials": "A drop of the caster’s blood and a fresh quill",
+			"toScribe": {
+				"skill": "Scholar",
+				"ob": 2
+			},
+			"toLearn": {
+				"skill": "Lore Master",
+				"ob": 4
+      },
+      "casting": {
+				"test": "Factors",
+        "skill": "Arcanist",
+        "ob": 0,
+        "factorCategories": {
+          "cast": {
+            "materialInscribed": {
+              "name": "Material Inscribed",
+              "factors": {
+                "wood": {
+                  "name": "Wood",
+                  "ob": 1
+                },
+                "stoneGlassOrMetal": {
+                  "name": "Stone, glass or metal",
+                  "ob": 2
+                },
+                "livingFlesh": {
+                  "name": "Living flesh",
+                  "ob": 3
+                }
+              }
+            },
+            "+spellCircle": {
+              "name": "+Spell Circle",
+              "factors": {
+                "firstCircle": {
+                  "name": "First Circle",
+                  "ob": 1
+                },
+                "secondCircle": {
+                  "name": "Second Circle",
+                  "ob": 2
+                },
+                "thirdCircle": {
+                  "name": "Third Circle",
+                  "ob": 3
+                },
+                "fourthCircle": {
+                  "name": "Fouth Circle",
+                  "ob": 4
+                },
+                "fifthCircle": {
+                  "name": "Fifth Circle",
+                  "ob": 5
+                }
+              }
+            },
+            "+visibility": {
+              "name": "+Visibility",
+              "factors": {
+                "visible": {
+                  "name": "Visible",
+                  "ob": 0
+                },
+                "invisible": {
+                  "name": "Invisible",
+                  "ob": 1
+                }
+              }
+            }
+          }
+        }
+      },
+      "castingTime": "One turn",
+      "duration": "Variable (until triggered)"
+    }
+  },
+  {
+    "name": "Phantasmal Vision",
+    "type": "Spell",
+    "data": {
+      "name": "Phantasmal Vision",
+      "circle": "Second",
+      "description": "Phantasmal Vision allows the magician to conjure forth mirages and phantasms to beguile and befuddle your enemies.",
+      "effect": "The caster creates an illusion that is utterly convincing to the viewer. Victims who fail the versus test are fooled by the illusion and act accordingly. The spell lasts one turn and cannot do actual harm to the victims. The caster may summon illusions of creatures equal to or less than their Might or spell effects for anything that would fit in their memory palace, whether they know it or not.",
+      "focus": "A metallic sphere [carried 1 or pack 1]",
+			"toScribe": {
+				"skill": "Scholar",
+				"ob": 4
+			},
+			"toLearn": {
+				"skill": "Lore Master",
+				"ob": 4
+      },
+      "casting": {
+				"test": "Versus",
+        "skill": "Arcanist",
+        "ob": 0,
+        "versus": "This spell causes a versus test between the targets’ Will (or Nature for monsters) and the caster’s Arcanist skill. Each target should roll separately. The caster rolls once. When comparing results against a target, the caster suffers -1s to their result for each rank by which the target’s Might exceeds that of the caster."
+      },
+      "castingTime": "Free",
+      "duration": "One turn"
+    }
+  },
+  {
+    "name": "Rhyme of Opening",
+    "type": "Spell",
+    "data": {
+      "name": "Rhyme of Opening",
+      "circle": "Second",
+      "description": "With a whispered word and a gentle knock, knots loosen, bonds burst and gates swing open.",
+      "effect": "Doors, locks and knots fall open and portcullises and the lids of chests rise at the magician’s command.",
+      "focus": "A broken chain link [carried 1 or worn/neck]",
+			"toScribe": {
+				"skill": "Scholar",
+				"ob": 2
+			},
+			"toLearn": {
+				"skill": "Lore Master",
+				"ob": 3
+      },
+      "casting": {
+				"test": "Factors",
+        "skill": "Arcanist",
+        "ob": 0,
+        "factorCategories": {
+          "cast": {
+            "materialsToBeOpened": {
+              "name": "Materials to be Opened",
+              "factors": {
+                "ropesOrStuckDoors": {
+                  "name": "Ropes or stuck doors",
+                  "ob": 1
+                },
+                "chainsLockedDoorsOrLockedChests": {
+                  "name": "Chaines, locked doors or locked chests",
+                  "ob": 2
+                },
+                "steelBandsPotcullisesOrIronGates": {
+                  "name": "Steel bands, portcullises or iron gates",
+                  "ob": 3
+                }
+              }
+            },
+            "+provenance": {
+              "name": "+Provenance",
+              "factors": {
+                "mundane": {
+                  "name": "Mundane",
+                  "ob": 0
+                },
+                "magical": {
+                  "name": "Magical",
+                  "ob": 1
+                },
+                "elven": {
+                  "name": "Elven",
+                  "ob": 3
+                },
+                "dwarven": {
+                  "name": "Dwarven",
+                  "ob": 4
+                }
+              }
+            }
+          }
+        }
+      },
+      "castingTime": "One turn",
+      "duration": "Instantaneous"
+    }
+  },
+  {
+    "name": "Shroud of Shadows",
+    "type": "Spell",
+    "data": {
+      "name": "Shroud of Shadows",
+      "circle": "Second",
+      "description": "With a subtle gesture, the caster calls forth darkness to smother the light.",
+      "effect": "Shroud of Shadows dims lights, creating shadows and darkness—and the opportunity for dastardly knife work. Target a specifc light source when casting the spell. The light source is dimmed according to the spell intensity for the duration, providing only dim light or no light at all. If fuel remains, the source will reignite once the duration expires.",
+      "focus": "A grave shroud, wrapped about the shoulders [worn/head]",
+			"toScribe": {
+				"skill": "Scholar",
+				"ob": 3
+			},
+			"toLearn": {
+				"skill": "Lore Master",
+				"ob": 3
+      },
+      "casting": {
+				"test": "Factors",
+        "skill": "Arcanist",
+        "ob": 0,
+        "factorCategories": {
+          "cast": {
+            "lightSource": {
+              "name": "Light Source",
+              "factors": {
+                "candle": {
+                  "name": "Candle",
+                  "ob": 1
+                },
+                "torch": {
+                  "name": "torch",
+                  "ob": 2
+                },
+                "lamp": {
+                  "name": "Lamp",
+                  "ob": 3
+                },
+                "bonfireOrBlaze": {
+                  "name": "Bonfire or blaze",
+                  "ob": 4
+                },
+                "moonlight": {
+                  "name": "Moonlight",
+                  "ob": 5
+                },
+                "twilightOrSunrise": {
+                  "name": "Twilight or sunrise",
+                  "ob": 6
+                },
+                "daylight": {
+                  "name": "Daylight",
+                  "ob": 7
+                }
+              }
+            },
+            "+intensity": {
+              "name": "+Intensity",
+              "factors": {
+                "dimLight": {
+                  "name": "Dim light",
+                  "ob": 0
+                },
+                "darkness": {
+                  "name": "Darkness",
+                  "ob": 1
+                }
+              }
+            },
+            "+duration": {
+              "name": "+Duration",
+              "factors": {
+                "oneTurn": {
+                  "name": "One turn",
+                  "ob": 0
+                },
+                "phase": {
+                  "name": "Phase",
+                  "ob": 1
+                },
+                "adventure": {
+                  "name": "Adventure",
+                  "ob": 2
+                }
+              }
+            }
+          }
+        }
+      },
+      "castingTime": "One turn",
+      "duration": "Variable"
+    }
+  },
+  {
+    "name": "Veil of the Chameleon",
+    "type": "Spell",
+    "data": {
+      "name": "Veil of the Chameleon",
+      "circle": "Second",
+      "description": "The caster knits a veil of concealment from aetherial threads and vanishes from sight.",
+      "effect": "This spell obscures the recipient’s form for the duration. It grants advantage dice when using the Scout skill. In addition, if standing still, the recipient may not be detected unless specifcally sought out. In that case, the seeker would test Scout versus the recipient’s magically enhanced Scout to evade detection.",
+      "focus": "A widow’s veil [worn/head]",
+			"toScribe": {
+				"skill": "Scholar",
+				"ob": 3
+			},
+			"toLearn": {
+				"skill": "Lore Master",
+				"ob": 4
+      },
+      "casting": {
+				"test": "Factors",
+        "skill": "Arcanist",
+        "ob": 0,
+        "factorCategories": {
+          "cast": {
+            "chameleonAdvantage": {
+              "name": "Chameleon Advantage",
+              "factors": {
+                "+1D": {
+                  "name": "+1D",
+                  "ob": 1
+                },
+                "+2D": {
+                  "name": "+2D",
+                  "ob": 2
+                },
+                "+3D": {
+                  "name": "+3D",
+                  "ob": 3
+                }
+              }
+            },
+            "+recipient": {
+              "name": "+Recipient",
+              "factors": {
+                "self": {
+                  "name": "Self",
+                  "ob": 1
+                },
+                "other": {
+                  "name": "Other",
+                  "ob": 2
+                }
+              }
+            },
+            "+duration": {
+              "name": "+Duration",
+              "factors": {
+                "oneTurn": {
+                  "name": "One turn",
+                  "ob": 0
+                },
+                "twoTurns": {
+                  "name": "Two turns",
+                  "ob": 2
+                },
+                "phase": {
+                  "name": "Phase",
+                  "ob": 3
+                }
+              }
+            }
+          }
+        }
+      },
+      "castingTime": "Free",
+      "duration": "Variable"
+    }
+  },
+  {
+    "name": "Water Lung",
+    "type": "Spell",
+    "data": {
+      "name": "Water Lung",
+      "circle": "Second",
+      "description": "With a gesture, the caster grants the ability to breathe underwater.",
+      "effect": "Those under the effect of this spell may breathe underwater for the spell’s duration. This eliminates the chance of drowning and thus makes navigating underwater obstacles more a matter of darkness and currents than certain death; you may reduce water-related Dungeoneer factors by one.",
+      "materials": "A hollow reed [carried 1]",
+			"toScribe": {
+				"skill": "Scholar",
+				"ob": 2
+			},
+			"toLearn": {
+				"skill": "Lore Master",
+				"ob": 2
+      },
+      "casting": {
+				"test": "Factors",
+        "skill": "Arcanist",
+        "ob": 0,
+        "factorCategories": {
+          "cast": {
+            "breadth": {
+              "name": "Breadth",
+              "factors": {
+                "onePerson": {
+                  "name": "One person",
+                  "ob": 1
+                },
+                "twoPeople": {
+                  "name": "Two people",
+                  "ob": 2
+                },
+                "smallGroup": {
+                  "name": "Small group",
+                  "ob": 3
+                },
+                "largeGroup": {
+                  "name": "Large group",
+                  "ob": 4
+                }
+              }
+            },
+            "+duration": {
+              "name": "+Duration",
+              "factors": {
+                "oneTurn": {
+                  "name": "One turn",
+                  "ob": 0
+                },
+                "twoTurns": {
+                  "name": "Two turns",
+                  "ob": 1
+                },
+                "phase": {
+                  "name": "Phase",
+                  "ob": 2
+                }
+              }
+            }
+          }
+        }
+      },
+      "castingTime": "One turn",
+      "duration": "Variable"
+    }
+  },
+  {
+    "name": "Wizard’s Bane",
+    "type": "Spell",
+    "data": {
+      "name": "Wizard’s Bane",
+      "circle": "Second",
+      "description": "With a twist of the wrist, the magician creates a small snarl in the Skein of Destiny, erasing the memory of a moment.",
+      "effect": "The target permanently forgets the past few moments (about the duration of a short conversation). When successfully used against a magician who recently memorized their spells, Wizard’s Bane triggers an involuntary temerarious discharge.",
+      "materials": "A tuft of gray hair",
+			"toScribe": {
+				"skill": "Scholar",
+				"ob": 3
+			},
+			"toLearn": {
+				"skill": "Lore Master",
+				"ob": 4
+      },
+      "casting": {
+				"test": "Versus",
+        "skill": "Arcanist",
+        "ob": 0,
+        "versus": "This spell causes a versus test between the magician’s Arcanist skill and the targets’ Will (or Nature for monsters). When comparing results against a target, the caster suffers -1s to their result for each rank by which the target’s Might exceeds that of the caster."
+      },
+      "castingTime": "Free",
+      "duration": "Permanent"
     }
   }
 ]
