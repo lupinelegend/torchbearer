@@ -263,7 +263,7 @@ export class GrindSheet extends Application {
 
     async currentGrind() {
         let theGrind = game.settings.get('grind-sheet', 'theGrind');
-        if (theGrind === 'undefined' || theGrind === '' || theGrind.dataType !== 'grind') {
+        if (!theGrind || theGrind.dataType !== 'grind') {
             return await this.resetGrind();
         }
         return theGrind;
@@ -348,12 +348,12 @@ export class GrindSheet extends Application {
         this._hasUpdate = true;
         if(!this._updateSources) this._updateSources = [];
         this._updateSources.push(source);
+        this.onUpdate();
         setTimeout(() => {
             if(this._hasUpdate) {
                 this.sendMessage({type: "grindChanged", source: this._updateSources});
                 this._hasUpdate = false;
                 this._updateSources = [];
-                this.onUpdate();
             }
         }, 1000);
     }
@@ -362,24 +362,24 @@ export class GrindSheet extends Application {
         this.render(false);
     }
 
-    handleMessage(message) {
-        switch(message.type) {
+    handleMessage(payload) {
+        switch(payload.type) {
             case "grindChanged":
                 console.log("Informed of grind change");
-                console.log(message);
+                console.log(payload);
                 this.onUpdate();
                 break;
             case "claimRequest":
-                this.processClaimRequest(message);
+                this.processClaimRequest(payload);
                 break;
         }
     }
 
-    sendMessage(message) {
+    sendMessage(payload) {
         game.socket.emit('system.torchbearer', {
             messageType: "grind",
             name: 'the-grind',
-            payload: message
+            payload: payload
         });
     }
 

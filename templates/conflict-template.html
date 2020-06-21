@@ -3,22 +3,33 @@
   <header class="sheet-header" style="margin-bottom: 5px;">
     <!-- Conflict General Info -->
     <div class="row">
+        {{#if isGM }}
+            <div class="row ddbox" style="padding:8px;border:1px solid black;position:absolute;right:26px;background-color: #eeeeee">
+                <div class="col" style="display:flex;flex-direction: column">
+                    <h3 style="font-family: Souvenir-Demi;text-decoration: underline">GM Tools</h3>
+                    <p class="clickable rollable dd" style="font-family: Souvenir-Demi" id="reloadTemplate">Reload Template</p>
+                    <p class="clickable rollable dd" style="font-family: Souvenir-Demi" id="resetConflict">Reset Conflict</p>
+                    <p class="clickable rollable dd" style="font-family: Souvenir-Demi" id="loadChars">Load Chars</p>
+                    <p class="clickable rollable dd" style="font-family: Souvenir-Demi" id="logConflict">Console.log</p>
+                </div>
+            </div>
+        {{/if}}
       <!-- Party Intent and Conflict Captain -->
       <div class="col">
         <!-- Party Intent Input -->
         <div class="row" style="flex-wrap: nowrap; margin: 8px 0 8px 0; justify-content: flex-end;">
           <label for="partyIntent" style="font-family: Souvenir-Demi; margin-right: 5px; align-self: center;">Party Intent</label>
-          <input type="text" name="partyIntent" id="partyIntent" value="{{partyIntent}}" style="width: 230px;">
+          <input type="text" name="partyIntent" id="partyIntent" class="conflict-field" value="{{conflict.partyIntent}}" style="width: 230px;">
         </div>
         <!-- Conflict Captain Dropdown -->
         <div class="row" style="flex-wrap: nowrap; margin: 8px 0 8px 0; justify-content: flex-end;">
           <label for="conflictCaptain" style="font-family: Souvenir-Demi; margin-right: 5px; align-self: center;">Conflict Captain</label>
-          <select name="conflictCaptain" id="conflictCaptain" style="width: 230px;">
-            {{#select conflictCaptain}}
+          <select name="conflictCaptain" id="conflictCaptain" class="conflict-field" style="width: 230px;">
+            {{#select conflict.conflictCaptain}}
             <option value="" selected disabled hidden>Choose a captain...</option>
-            {{#each actors}}
+            {{#orderedEach conflict.engagedActors conflict.partyOrder}}
             <option name="{{this.name}}" value="{{this.name}}">{{this.name}}</option>
-            {{/each}}
+            {{/orderedEach}}
             {{/select}}
           </select>
         </div>
@@ -33,16 +44,16 @@
         <div class="row" style="flex-wrap: nowrap; margin: 5px 0 5px 0">
           <div class="col" style="border-right: 1px solid #782e22;">
             <div class="row" style="justify-content: center; align-items: center; text-align: center; font-family: Souvenir-Medium;">
-              <input type="text" name="partyDispoCurrent" id="partyDispoCurrent" data-dtype="Number" value="{{partyDispoCurrent}}" style="width: 40px; height: 40px; font-size: large !important;">
+              <input type="text" name="partyDispoCurrent" id="partyDispoCurrent" class="conflict-field" data-dtype="Number" value="{{conflict.partyDispoCurrent}}" style="width: 40px; height: 40px; font-size: large !important;">
               <span>&nbsp/&nbsp</span>
-              <input type="text" name="partyDispoMax" id="partyDispoMax" data-dtype="Number" value="{{partyDispoMax}}" style="width: 40px; height: 40px; font-size: large !important;">
+              <input type="text" name="partyDispoMax" id="partyDispoMax" class="conflict-field" data-dtype="Number" value="{{conflict.partyDispoMax}}" style="width: 40px; height: 40px; font-size: large !important;">
             </div>
           </div>
           <div class="col">
             <div class="row" style="justify-content: center; align-items: center; text-align: center; font-family: Souvenir-Medium;">
-              <input type="text" name="opponentDispoCurrent" id="opponentDispoCurrent" data-dtype="Number" value="{{opponentDispoCurrent}}" style="width: 40px; height: 40px; font-size: large !important;">
+              <input type="text" name="opponentDispoCurrent" id="opponentDispoCurrent" class="conflict-field" data-dtype="Number" value="{{conflict.opponentDispoCurrent}}" style="width: 40px; height: 40px; font-size: large !important;">
               <span>&nbsp/&nbsp</span>
-              <input type="text" name="opponentDispoMax" id="opponentDispoMax" data-dtype="Number" value="{{opponentDispoMax}}" style="width: 40px; height: 40px; font-size: large !important;">
+              <input type="text" name="opponentDispoMax" id="opponentDispoMax" class="conflict-field" data-dtype="Number" value="{{conflict.opponentDispoMax}}" style="width: 40px; height: 40px; font-size: large !important;">
             </div>
           </div>
         </div>
@@ -50,11 +61,11 @@
       <!-- Opponent Intent and Name -->
       <div class="col">
         <div class="row" style="flex-wrap: nowrap; margin: 8px 0 8px 0;">
-          <input type="text" name="opponentIntent" id="opponentIntent" value="{{opponentIntent}}" style="width: 230px;">
+          <input type="text" name="opponentIntent" id="opponentIntent" class="conflict-field" value="{{conflict.opponentIntent}}" style="width: 230px;">
           <label for="opponentIntent" style="font-family: Souvenir-Demi; margin-left: 5px; align-self: center;">Opponent Intent</label>
         </div>
         <div class="row" style="flex-wrap: nowrap; margin: 8px 0 8px 0;">
-          <input type="text" name="opponentName" id="opponentName" value="{{opponentName}}" style="width: 230px;">
+          <input type="text" name="opponentName" id="opponentName" class="conflict-field" value="{{conflict.opponentName}}" style="width: 230px;">
           <label for="opponentName" style="font-family: Souvenir-Demi; margin-left: 5px; align-self: center;">Opponent Name</label>
         </div>
       </div>
@@ -75,28 +86,28 @@
             <th>Disposition</th>
           </thead>
           <tbody>
-            {{#each actors as |actor|}}
-            <tr>
-              <td style="font-family: Souvenir-Medium;">
-                {{name}}
-              </td>
-              <!-- Weapon Dropdown -->
-              <td style="text-align: center;">
-                <select name="{{equipped}}" class="charWeapon" id="{{id}}">
-                  {{#select equipped}}
-                  <option value="" selected disabled hidden>Choose a weapon...</option>
-                  {{#each this.weapons}}
-                  <option name="{{name}}" value="{{name}}">{{name}}</option>
-                  {{/each}}
-                  {{/select}}
-                </select>
-              </td>
-              <td></td>
-              <td style="text-align: center;">
-                <input type="text" style="width: 50px;" id="{{id}}" class="charDispo" value="{{dispo}}">
-              </td>
-            </tr>
-            {{/each}}
+          {{#orderedEach conflict.engagedActors conflict.partyOrder}}
+                <tr class="actor" data-actor-id="{{id}}">
+                    <td style="font-family: Souvenir-Medium;">
+                        {{name}}
+                    </td>
+                    <!-- Weapon Dropdown -->
+                    <td style="text-align: center;">
+                        <select name="equipped" class="conflict-actor-field">
+                            {{#select equipped}}
+                                <option value="" selected disabled hidden>Choose a weapon...</option>
+                                {{#each this.weapons}}
+                                    <option name="{{name}}" value="{{name}}">{{name}}</option>
+                                {{/each}}
+                            {{/select}}
+                        </select>
+                    </td>
+                    <td></td>
+                    <td style="text-align: center;">
+                        <input type="text" style="width: 50px;" name="dispo" class='conflict-actor-field' data-dtype="Number" value="{{dispo}}">
+                    </td>
+                </tr>
+          {{/orderedEach}}
           </tbody>
         </table>
       </div>
