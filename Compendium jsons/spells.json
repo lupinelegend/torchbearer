@@ -1164,25 +1164,25 @@
     "data": {
       "name": "Somnifc Trance",
       "circle": "Second",
-      "description": "Piercing the Shroud of Worlds with a crooked fnger, the caster draws forth a faintly luminescent vapor of aether that causes any who breathe it to fall into a deep, unnatural slumber.",
+      "description": "Targets who fail the versus test fall into a troubled sleep. The entranced frequently moan or cry out in terror but will awake only if prodded or kicked. Otherwise, they languidly rouse themselves at the start of the next phase. When awakened, victims must pass an Ob 3 Will (or Nature) test. Failure indicates either that they are groggy and may not act for a turn or they gain the afraid condition. If a conﬂict is imminent, magicians must cast Somnifc Trance before the targets roll for disposition. Those who succumb may not participate in the conﬂict. This spell can affect a maximum of four creatures of Might 1 or 2, three creatures of Might 3, two creatures of Might 4 or one creature of Might 5. If cast on a mixed group, put to sleep the lesser creatures first. This spell does not affect undead, spirits or automatons or any creature of Might 6 or greater.",
       "effect": "",
       "materials": "Pollen of the papaver blossom [pack 1]",
 			"toScribe": {
 				"skill": "Scholar",
-				"ob": 2
+				"ob": 4
 			},
 			"toLearn": {
 				"skill": "Lore Master",
-				"ob": 0
+				"ob": 4
       },
       "casting": {
 				"test": "Versus",
         "skill": "Arcanist",
         "ob": 0,
-        "versus": "The spell causes a versus test between the target’s Will or Nature and the magician’s Arcanist skill. If the target’s Might is greater than the caster’s, the magician suffers -1s per point of difference. Victims who lose the versus test are drawn to the noise for one turn. Additional successes increase the duration of the distraction or increase the distance the victims travel—from one area or room, to two or three rooms or areas from the caster."
+        "versus": "This spell causes a versus test between the targets’ Will (or Nature for monsters) and the caster’s Arcanist skill. Each target should roll separately. The caster rolls only once. When comparing results against a target, the caster suffers -1s to their result for each rank by which the target’s Might exceeds that of the caster."
       },
-      "castingTime": "One turn",
+      "castingTime": "Free",
       "duration": "Variable"
     }
-  },
+  }
 ]

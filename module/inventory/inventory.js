@@ -331,12 +331,13 @@ export function arrangeSpells(tbItemsMap) {
     const tbSpells = [];
     for(const tbSpell of tbItemsMap) {
         if(tbSpell.data.type === 'Spell') {
-            tbSpells.push(tbSpell);
+            tbSpells.push(tbSpell.data);
+            // pushes the item itself when it should push tbSpell.data
         }
     }
 
     tbSpells.forEach(element => {
-        switch (element.data.data.circle) {
+        switch (element.data.circle) {
             case "First":
                 spellInventory.first.push(element);
                 break;
@@ -363,6 +364,7 @@ Handlebars.registerHelper('renderSpells', function(actorId, spellCircle) {
     if(actorId) {
         const actor = game.actors.get(actorId);
         spells = actor.tbData().computed.spells;
+        console.log(spells);
     }
 
     switch(spellCircle) {
