@@ -4,9 +4,9 @@ export class conflictSheet extends Application {
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       title: "Conflict Sheet",
-      classes: ["torchbearer", "sheet"],
+      classes: ["torchbearer", "sheet", "conflict"],
       template: "systems/torchbearer/templates/conflict-template.html",
-      width: 1000,
+      width: 1050,
       height: 750,
       tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "setup" }]
     });

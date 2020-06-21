@@ -254,6 +254,10 @@ input:checked + .slider:before {
   background: url('../assets/background/TB CharSheet Border 810x612.png');
   background-size: cover;
 }
+.conflict .window-content {
+  background: url('../assets/background/TB Border.png');
+  background-size: cover;
+}
 
 .rollable:hover, .rollable:focus {
   color: #000;
