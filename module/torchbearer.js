@@ -26,6 +26,7 @@ Hooks.once('init', async function() {
     return false;
   }
   game.grind = new GrindSheet();
+  game.conflict = new conflictSheet();
 
   /**
    * Set an initiative formula for the system
@@ -61,75 +62,10 @@ Hooks.once('init', async function() {
     });
   });
 
-  // Conflict sheet variable definitions
-  const sheet = new conflictSheet();
-  game.settings.register('conflict-sheet', 'partyIntent', {
-    name: 'partyIntent',
+  game.settings.register('conflict-sheet', 'currentConflict', {
+    name: 'currentConflict',
     scope: 'world',
-    config: false,
-    default: '',
-    type: String
-  });
-  game.settings.register('conflict-sheet', 'conflictCaptain', {
-    name: 'conflictCaptain',
-    scope: 'world',
-    config: false,
-    default: '',
-    type: String
-  });
-  game.settings.register('conflict-sheet', 'opponentIntent', {
-    name: 'opponentIntent',
-    scope: 'world',
-    config: false,
-    default: '',
-    type: String
-  });
-  game.settings.register('conflict-sheet', 'opponentName', {
-    name: 'opponentName',
-    scope: 'world',
-    config: false,
-    default: '',
-    type: String
-  });
-  game.settings.register('conflict-sheet', 'partyDispoCurrent', {
-    name: 'partyDispoCurrent',
-    scope: 'world',
-    config: false,
-    default: '',
-    type: String
-  });
-  game.settings.register('conflict-sheet', 'partyDispoMax', {
-    name: 'partyDispoMax',
-    scope: 'world',
-    config: false,
-    default: '',
-    type: String
-  });
-  game.settings.register('conflict-sheet', 'opponentDispoCurrent', {
-    name: 'opponentDispoCurrent',
-    scope: 'world',
-    config: false,
-    default: '',
-    type: String
-  });
-  game.settings.register('conflict-sheet', 'opponentDispoMax', {
-    name: 'opponentDispoMax',
-    scope: 'world',
-    config: false,
-    default: '',
-    type: String
-  });
-  game.settings.register('conflict-sheet', 'actorArray', {
-    name: 'actorArray',
-    scope: 'world',
-    config: false,
-    default: [],
-    type: Array
-  });
-  game.settings.register('conflict-sheet', 'conflictState', {
-    name: 'conflictState',
-    scope: 'world',
-    config: false,
+    config: true,
     default: {},
     type: Object
   });
@@ -148,35 +84,8 @@ Hooks.once('init', async function() {
       game.grind.handleMessage(data.payload);
       return;
     }
-    if (game.user.isGM) {
-      switch (data.name) {
-        case 'partyIntent':
-          game.settings.set('conflict-sheet', 'partyIntent', data.payload).then( () => sheet.render(true));
-          break;
-        case 'opponentIntent':
-          game.settings.set('conflict-sheet', 'opponentIntent', data.payload).then( () => sheet.render(true));
-          break;
-        case 'conflictCaptain':
-          game.settings.set('conflict-sheet', 'conflictCaptain', data.payload).then( () => sheet.render(true));
-          break;
-        case 'opponentName':
-          game.settings.set('conflict-sheet', 'opponentName', data.payload).then( () => sheet.render(true));
-          break;
-        case 'partyDispoCurrent':
-          game.settings.set('conflict-sheet', 'partyDispoCurrent', data.payload).then( () => sheet.render(true));
-          break;
-        case 'partyDispoMax':
-          game.settings.set('conflict-sheet', 'partyDispoMax', data.payload).then( () => sheet.render(true));
-          break;
-        case 'opponentDispoCurrent':
-          game.settings.set('conflict-sheet', 'opponentDispoCurrent', data.payload).then( () => sheet.render(true));
-          break;
-        case 'opponentDispoMax':
-          game.settings.set('conflict-sheet', 'opponentDispoMax', data.payload).then( () => sheet.render(true));
-          break;
-      }
-    } else {
-      sheet.render(true);
+    if(data.messageType === 'conflict') {
+      game.conflict.handleMessage(data.payload);
     }
   });
 
@@ -184,7 +93,7 @@ Hooks.once('init', async function() {
   Hooks.on('ready', (app, html, data) => {
     $('#logo').click(ev => {
       console.log('CLICK');
-      sheet.render(true);
+      game.conflict.render(true);
     });
   });
   
@@ -208,6 +117,17 @@ Hooks.once('init', async function() {
       }
     }
     return outStr;
+  });
+
+  Handlebars.registerHelper('orderedEach', function(obj, keys, options) {
+    let accum = '';
+    for(let i = 0; i < keys.length; i++) {
+      let value = obj[keys[i]];
+      if(value) {
+        accum += options.fn(value);
+      }
+    }
+    return accum;
   });
 
   Handlebars.registerHelper('toLowerCase', function(str) {

@@ -13,270 +13,150 @@ export class conflictSheet extends Application {
   }
 
   /** @override */
-  getData() {
-    // https://discordapp.com/channels/170995199584108546/670336275496042502/720685481641246770
-
+  async getData() {
     let data = super.getData();
 
-    let partyIntent;
-    let temp = game.settings.get('conflict-sheet', 'partyIntent');
-    if (temp === 'undefined' || temp === '') {
-      partyIntent = '';
-    } else {
-      //partyIntent = JSON.parse(temp);
-      partyIntent = temp;
-    }
+    data.conflict = await this.currentConflict();
 
-    let opponentIntent;
-    temp = game.settings.get('conflict-sheet', 'opponentIntent');
-    if (temp === 'undefined' || temp === '') {
-      opponentIntent = '';
-    } else {
-      //opponentIntent = JSON.parse(temp);
-      opponentIntent = temp;
+    if(game.user.isGM) {
+      data.isGM = true;
     }
-
-    let conflictCaptain;
-    temp = game.settings.get('conflict-sheet', 'conflictCaptain');
-    if (temp === 'undefined' || temp === '') {
-      conflictCaptain = '';
-    } else {
-      //conflictCaptain = JSON.parse(temp);
-      conflictCaptain = temp;
-    }
-
-    let opponentName;
-    temp = game.settings.get('conflict-sheet', 'opponentName');
-    if (temp === 'undefined' || temp === '') {
-      opponentName = '';
-    } else {
-      //opponentName = JSON.parse(temp);
-      opponentName = temp;
-    }
-
-    let partyDispoCurrent;
-    temp = game.settings.get('conflict-sheet', 'partyDispoCurrent');
-    if (temp === 'undefined' || temp === '') {
-      partyDispoCurrent = '';
-    } else {
-      //partyDispoCurrent = JSON.parse(temp);
-      partyDispoCurrent = temp;
-    }
-
-    let partyDispoMax;
-    temp = game.settings.get('conflict-sheet', 'partyDispoMax');
-    if (temp === 'undefined' || temp === '') {
-      partyDispoMax = '';
-    } else {
-      let temp = game.settings.get('conflict-sheet', 'partyDispoMax');
-      //partyDispoMax = JSON.parse(temp);
-      partyDispoMax = temp;
-    }
-
-    let opponentDispoCurrent;
-    temp = game.settings.get('conflict-sheet', 'opponentDispoCurrent');
-    if (temp === 'undefined' || temp === '') {
-      opponentDispoCurrent = '';
-    } else {
-      //opponentDispoCurrent = JSON.parse(temp);
-      opponentDispoCurrent = temp;
-    }
-
-    let opponentDispoMax;
-    temp = game.settings.get('conflict-sheet', 'opponentDispoMax');
-    if (temp === 'undefined' || temp === '') {
-      opponentDispoMax = '';
-    } else {
-      //opponentDispoMax = JSON.parse(temp);
-      opponentDispoMax = temp;
-    }
-
-    let conflictState;
-    temp = game.settings.get('conflict-sheet', 'conflictState');
-    if (temp === 'undefined' || temp === '') {
-      conflictState = {};
-    } else {
-      conflictState = temp;
-    }
-    console.log(conflictState);
-
+    data.computed = {};
     // Create an array of actor names
-    let actorArray = [];
-    game.actors._source.forEach((element, index) => {
-      if (element.type === 'Character') {
+
+    this._conflictData = data;
+    return data;
+  }
+
+
+  async loadChars() {
+    if(game.user.isGM) {
+      let actorIds = (await game.grind.currentGrind()).actors;
+      if(actorIds.length === 0) {
+        actorIds = [];
+        for(let i = 0; i < game.actors.entities.length; i++) {
+          let actor = game.actors.entities[i];
+          if(actor.data.type === 'Character') {
+            actorIds.push(actor._id);
+          }
+        }
+      }
+      let engagedCharacterActors = {};
+      for(let i = 0; i < actorIds.length; i++) {
+        let actorId = actorIds[i];
+        let tbActor = game.actors.get(actorId);
         let char = {
-          name: element.name,
-          id: element._id,
+          name: tbActor.name,
+          id: actorId,
           weapons: [],
           equipped: '',
-          dispo: '',
-          index: index
+          dispo: 0,
         }
-        let i = 0;
+        let j = 0;
         let weaponArray = [];
-        while (i < element.items.length) {
-          weaponArray.push(element.items[i]);
-          i++;
+
+        while (j < tbActor.tbData().computed.inventory['Hands (Carried)'].slots.length) {
+          weaponArray.push(tbActor.tbData().computed.inventory['Hands (Carried)'].slots[j]);
+          j++;
         }
+        weaponArray = weaponArray.concat(Object.keys(tbActor.tbData().computed.spells).reduce((accum, circle) => {
+          return accum.concat(tbActor.tbData().computed.spells[circle].map(tbItem => tbItem.data))
+        }, []));
+
         char.weapons = weaponArray;
-        actorArray.push(char);
+        engagedCharacterActors[actorId] = char;
       }
-    });
+      let currentConflict = await this.currentConflict();
+      let newEngagedActors = Object.assign({}, duplicate(currentConflict).engagedActors, engagedCharacterActors);
+      await this.updateConflict({partyOrder: actorIds, engagedActors: newEngagedActors}, 'loadChars');
+    }
+  }
+  async currentConflict() {
+    let currentConflict = await game.settings.get('conflict-sheet', 'currentConflict');
+    if (!currentConflict || currentConflict.dataType !== 'conflict') {
+      return await this.resetConflict();
+    }
+    return currentConflict;
+  }
 
-    actorArray.forEach(element => {
-      Object.keys(conflictState).forEach(key => {
-        if (element.id === key) {
-          element.equipped = conflictState[key].equipped;
-          element.dispo = conflictState[key].dispo;
-        }
-      });
-    });
-    console.log(actorArray);
-
-    // Set template variables
-    data.actors = actorArray;
-    data.partyIntent = partyIntent;
-    data.opponentIntent = opponentIntent;
-    data.conflictCaptain = conflictCaptain;
-    data.opponentName = opponentName;
-    data.partyDispoCurrent = partyDispoCurrent;
-    data.partyDispoMax = partyDispoMax;
-    data.opponentDispoCurrent = opponentDispoCurrent;
-    data.opponentDispoMax = opponentDispoMax;
-
-    return data;
+  async resetConflict() {
+    if(game.user.isGM) {
+      const newConflict = {
+        dataType: 'conflict',
+        rounds: [],
+        partyOrder: [],
+        enemyOrder: [],
+        engagedActors: {},
+        partyIntent: '',
+        opponentIntent: '',
+        conflictCaptain: '',
+        opponentName: '',
+        partyDispoCurrent: 0,
+        partyDispoMax: 0,
+        opponentDispoCurrent: 0,
+        opponentDispoMax: 0,
+        active: true,
+      };
+      await this.updateConflict(newConflict, 'resetConflict');
+      return newConflict;
+    }
   }
 
   /** @override */
   activateListeners(html) {
     super.activateListeners(html);
 
-    html.find('#partyIntent').change(ev => {
-      this.updateSheet(ev.currentTarget.value, 'partyIntent');
+    html.find('.conflict-field').change(ev => {
+      let $target = $(ev.target);
+      const fieldName = $target.attr('name');
+      const dtype = $target.data('dtype');
+      let value = $target.val();
+      if('Number' === dtype) {
+        value = parseInt(value);
+      }
+      this.updateConflict({[fieldName]: value}, 'conflict.conflict-field');
     });
 
-    html.find('#opponentIntent').change(ev => {
-      this.updateSheet(ev.currentTarget.value, 'opponentIntent');
-    });
-
-    html.find('#conflictCaptain').change(ev => {
-      this.updateSheet(ev.currentTarget.value, 'conflictCaptain');
-    });
-
-    html.find('#opponentName').change(ev => {
-      this.updateSheet(ev.currentTarget.value, 'opponentName');
-    });
-
-    html.find('#partyDispoCurrent').change(ev => {
-      this.updateSheet(ev.currentTarget.value, 'partyDispoCurrent');
-    });
-
-    html.find('#partyDispoMax').change(ev => {
-      this.updateSheet(ev.currentTarget.value, 'partyDispoMax');
-    });
-
-    html.find('#opponentDispoCurrent').change(ev => {
-      this.updateSheet(ev.currentTarget.value, 'opponentDispoCurrent');
-    });
-
-    html.find('#opponentDispoMax').change(ev => {
-      this.updateSheet(ev.currentTarget.value, 'opponentDispoMax');
-    });
-
-    html.find('.charWeapon').change(ev => {
-
-      // Get actor ID
-      let actorID = ev.currentTarget.id;
-
-      // Get conflictState
-      let conflictState = game.settings.get('conflict-sheet', 'conflictState');
-
-      // If the conflictState is empty, create a new actor entry, else, update the actors
-      if (!conflictState.initialized) {
-        conflictState.initialized = true;
-        conflictState[`${actorID}`] = {
-          equipped: ev.currentTarget.value
-        };
-      } else {
-        let flag = false;
-        Object.keys(conflictState).forEach(key => {
-          if (actorID === key) {
-            conflictState[key].equipped = ev.currentTarget.value;
-            flag = true;
-          }
-        });
-        // If there wasn't an existing actor, add one
-        if (flag === false) {
-          conflictState[`${actorID}`] = {
-            equipped: ev.currentTarget.value
-          };
-        }
+    html.find('.conflict-actor-field').change(ev => {
+      let $target = $(ev.target);
+      const fieldName = $target.attr('name');
+      const dtype = $target.data('dtype');
+      let actorID = $target.closest('.actor').data('actorId');
+      let value = $target.val();
+      if('Number' === dtype) {
+        value = parseInt(value);
       }
 
-      this.updateSheet(conflictState, 'conflictState')
-    });
+      let engagedActors = duplicate(this._conflictData.conflict.engagedActors);
+      engagedActors[actorID][fieldName] = value;
 
-    html.find('.charDispo').change(ev => {
-
-      // Get actor ID
-      let actorID = ev.currentTarget.id;
-
-      // Get conflictState
-      let conflictState = game.settings.get('conflict-sheet', 'conflictState');
-
-      // If the conflictState is empty, create a new actor entry, else, update the actors
-      if (!conflictState.initialized) {
-        conflictState.initialized = true;
-        conflictState[`${actorID}`] = {
-          dispo: ev.currentTarget.value
-        };
-      } else {
-        let flag = false;
-        Object.keys(conflictState).forEach(key => {
-          if (actorID === key) {
-            conflictState[key].dispo = ev.currentTarget.value;
-            flag = true;
-          }
-        });
-        // If there wasn't an existing actor, add one
-        if (flag === false) {
-          conflictState[`${actorID}`] = {
-            dispo: ev.currentTarget.value
-          };
-        }
-      }
-
-      this.updateSheet(conflictState, 'conflictState')
+      this.updateConflict({engagedActors: engagedActors}, 'conflict.actor-field')
     });
 
     html.find('#dispoHeader').click(ev => {
       this.dispoDialog();
     });
-  }
 
-  updateSheet(value, input) {
-    if (game.user.isGM) {
-      game.settings.set('conflict-sheet', input, value).then( () => {
-        this.render(true);
-        game.socket.emit('system.torchbearer', {
-          name: input,
-          payload: value
-        });
-      });
-    } else{
-      game.socket.emit('system.torchbearer', {
-        name: input,
-        payload: value
-      });
-    }
+    html.find('#logConflict').on('click', async () => {
+      console.log(this._conflictData);
+    });
+    html.find('#reloadTemplate').on('click', () => {
+      delete(_templateCache[this.options.template]);
+      this.render(true);
+    });
+    html.find('#resetConflict').on('click', async () => {
+      await this.resetConflict();
+      this.loadChars();
+    });
+    html.find('#loadChars').on('click', async () => {
+      this.loadChars();
+    });
+
   }
 
   dispoDialog() {
     if (game.user.isGM) {
       console.log('Greetings, GM!');
-
-      // Get conflictState
-      let conflictState = game.settings.get('conflict-sheet', 'conflictState');
 
       // Create an array of actors
       let actorArray = [];
@@ -293,7 +173,7 @@ export class conflictSheet extends Application {
       });
 
       // Is anyone Hungry & Thirsty? Is the Conflict Captain exhausted?
-      let conflictCaptain = game.settings.get('conflict-sheet', 'conflictCaptain');
+      let conflictCaptain = this._conflictData.conflict.conflictCaptain;
       let hungry = false;
       let exhausted = false;
       actorArray.forEach(element => {
@@ -784,4 +664,47 @@ export class conflictSheet extends Application {
   //     });
   //   });
   }
+
+  async updateConflict(changes, source) {
+    if(changes) {
+      if(source !== 'resetConflict') {
+        changes = Object.assign({}, await this.currentConflict(), changes);
+      }
+      await game.settings.set('conflict-sheet', 'currentConflict', changes);
+    }
+    this._hasUpdate = true;
+    if(!this._updateSources) this._updateSources = [];
+    this._updateSources.push(source);
+    this.onUpdate();
+    setTimeout(() => {
+      if(this._hasUpdate) {
+        this.sendMessage({type: "conflictChanged", source: this._updateSources});
+        this._hasUpdate = false;
+        this._updateSources = [];
+      }
+    }, 1000);
+  }
+
+  onUpdate() {
+    this.render(false);
+  }
+
+  handleMessage(message) {
+    switch(payload.type) {
+      case "conflictChanged":
+        console.log("Informed of conflict change");
+        console.log(payload);
+        this.onUpdate();
+        break;
+    }
+  }
+
+  sendMessage(message) {
+    game.socket.emit('system.torchbearer', {
+      messageType: "conflict",
+      name: 'conflict',
+      payload: message
+    });
+  }
+
 }
