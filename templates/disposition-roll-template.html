@@ -25,9 +25,22 @@
     <label style="font-family: Souvenir-Medium; margin-bottom: 5px;"><u>If Other</u>:</label>
     <div class="row" style="flex-wrap: nowrap; align-items: center;">
       <label style="font-family: Souvenir-Medium;">Skill: </label>
-      <input type="text" style="width: 128px; margin: 0 10px 0 5px;" id="skill">
+        <select name="skill" id="skill" style="margin: 0 10px 0 5px;">
+            {{#select skill}}
+                <option value="" selected disabled hidden>Choose a skill...</option>
+                {{#each allSkills}}
+                    <option name="this" value="{{this}}">{{this}}</option>
+                {{/each}}
+            {{/select}}
+        </select>
       <label style="font-family: Souvenir-Medium;">Ability: </label>
-      <input type="text" style="width: 128px; margin: 0 0 0 5px;" id="ability">
+        <select name="ability" id="ability" style="margin: 0 0 0 5px;">
+            {{#select ability}}
+                <option value="" selected disabled hidden>Choose an ability...</option>
+                <option value="Will">Will</option>
+                <option value="Health">Health</option>
+            {{/select}}
+        </select>
     </div>
   </div>
   <div class="row" style="align-items: center; margin-bottom: 5px;">
@@ -36,10 +49,10 @@
   </div>
   <div class="row"  style="align-items: center; margin-bottom: 5px;">
     <label style="font-family: Souvenir-Medium;"><u>Is any member of the team hungry and thirsty</u>?</label>
-    <input type="checkbox" name="{{hungry}}" id="hungry" {{checked hungry}} disabled>
+    <input type="checkbox" name="{{hungry}}" id="anyHungry" {{checked hungry}} value="true" disabled>
   </div>
   <div class="row"  style="align-items: center; margin-bottom: 5px;">
     <label style="font-family: Souvenir-Medium;"><u>Is the Conflict Captain exhausted</u>?</label>
-    <input type="checkbox" name="{{exhausted}}" id="hungry" {{checked exhausted}} disabled>
+    <input type="checkbox" name="{{exhausted}}" id="captainExhausted" {{checked exhausted}} value="true" disabled>
   </div>
 </form>

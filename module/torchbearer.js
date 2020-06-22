@@ -3,7 +3,7 @@ import { TorchbearerActor } from "./actor/actor.js";
 import { TorchbearerActorSheet } from "./actor/actor-sheet.js";
 import { TorchbearerItem } from "./item/item.js";
 import { TorchbearerItemSheet } from "./item/item-sheet.js";
-import { conflictSheet } from "./conflict.js";
+import { ConflictSheet } from "./conflict/conflict.js";
 import { GrindSheet } from "./grind.js";
 
 // Import Helpers
@@ -26,7 +26,7 @@ Hooks.once('init', async function() {
     return false;
   }
   game.grind = new GrindSheet();
-  game.conflict = new conflictSheet();
+  game.conflict = new ConflictSheet();
 
   /**
    * Set an initiative formula for the system
