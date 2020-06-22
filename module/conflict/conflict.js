@@ -162,17 +162,15 @@ export class ConflictSheet extends Application {
 
       let {conflictCaptain, partyOrder} = this._conflictData.conflict;
 
-      DispoDialog.create(conflictCaptain, partyOrder, (type, skill, ability, help) => {
-        this.rollDispo(type, skill, ability, help);
-      });
+      DispoDialog.create(conflictCaptain, partyOrder, this.rollDispo.bind(this));
 
     } else {
       console.log('Hey, pleb.');
     }
   }
 
-  rollDispo(type, skill, ability, help) {
-    console.log(type, skill, ability, help);
+  rollDispo(type, skill, ability, help, hungry, exhausted) {
+    console.log(type, skill, ability, help, hungry, exhausted);
     let {conflictCaptain} = this._conflictData.conflict;
     console.log(conflictCaptain);
 

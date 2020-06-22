@@ -82,11 +82,12 @@ export class DispoDialog extends Dialog {
                         let help = parseInt(html.find('#help').val());
                         let otherSkill = html.find('#skill').val();
                         let otherAbility = html.find('#ability').val();
-
+                        let hungry = html.find('#anyHungry').prop('checked');
+                        let exhausted = html.find('#captainExhausted').prop('checked');
                         if(type === 'Other') {
-                            onComplete(type, otherSkill, otherAbility, help);
+                            onComplete(type, otherSkill, otherAbility, help, hungry, exhausted);
                         } else {
-                            onComplete(type, skill, CONFLICT_TYPES.find(t => t.name === type).ability, help)
+                            onComplete(type, skill, CONFLICT_TYPES.find(t => t.name === type).ability, help, hungry, exhausted)
                         }
                     }
                 },
