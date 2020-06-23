@@ -3,7 +3,7 @@
   <!-- Obstacle (Need to make a required field) -->
   <div class="row" style="align-items: center; margin: 0 0 8px 0;">
     <label for="ob"><u>Obstacle</u>:</label>
-    <input type="text" name="ob" id="ob" data-dtype="Number" style="width: 30px; margin-left: 5px;">
+    <input type="number" name="ob" id="ob" data-dtype="Number" style="width: 40px; margin-left: 5px;" value="{{ob}}" />
   </div>
 
   <!-- Action description -->
@@ -24,16 +24,16 @@
     <!-- Helping dice -->
     <div class="row" style="align-items: center; margin-top: 8px;">
       <label for="helpingDice"><u>Helping Dice</u>:</label>
-      <input type="text" name="helpingDice" id="helpingDice" data-dtype="Number" style="width: 30px; margin-left: 5px;">
+      <input type="number" name="helpingDice" id="helpingDice" data-dtype="Number" style="width: 40px; margin-left: 5px;" value="{{helpDice}}" />
 
       <label for="supplies" style="margin-left: 15px;"><u>Supplies and Gear</u>:</label>
-      <input type="text" name="supplies" id="supplies" data-dtype="Number" style="width: 30px; margin-left: 5px;">
+      <input type="number" name="supplies" id="supplies" data-dtype="Number" style="width: 40px; margin-left: 5px;" value="{{supplies}}" />
     </div>
 
     <!-- Persona Advantage -->
     <div class="row" style="align-items: center; margin-top: 8px;">
       <label for="personaAdvantage"><u>Persona Advantage</u>:</label>
-      <input type="text" name="personaAdvantage" id="personaAdvantage" data-dtype="Number" style="width: 30px; margin: 0 5px 0 5px;">
+      <input type="number" name="personaAdvantage" id="personaAdvantage" data-dtype="Number" style="width: 40px; margin: 0 5px 0 5px;" value="{{persona}}" />
       <label style="font-family: Souvenir-MediumItalic;">(+1D/persona spent, up to 3)</label>
     </div>
 

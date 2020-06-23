@@ -134,6 +134,27 @@ export class DispoDialog extends Dialog {
             } else if(skill.bl === 'H') {
                 $otherAbility.val('Health');
             }
-        })
+        });
+
+        //Make sure this one is last
+        html.find('.affects-help-calc').change(ev => {
+            const conflictTypeVal = html.find("#conflictType").val();
+            const conflictType = CONFLICT_TYPES.find(t => t.name === conflictTypeVal);
+            if(conflictType.name !== 'Other') {
+                const skill = html.find('#skillRoll').val();
+                const ability = conflictType.ability;
+                if(skill && ability) {
+                    console.log(skill);
+                    console.log(ability);
+                }
+            } else {
+                const skill = html.find('#otherSkill').val();
+                const ability = html.find('#otherAbility').val();
+                if(skill && ability) {
+                    console.log(skill);
+                    console.log(ability);
+                }
+            }
+        });
     }
 }
