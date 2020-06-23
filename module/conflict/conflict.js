@@ -1,4 +1,6 @@
-export class conflictSheet extends Application {
+import {DispoDialog} from "./dispoDialog.js";
+
+export class ConflictSheet extends Application {
 
   /** @override */
   static get defaultOptions() {
@@ -177,145 +179,26 @@ export class conflictSheet extends Application {
     if (game.user.isGM) {
       console.log('Greetings, GM!');
 
-      // Create an array of actors
-      let actorArray = [];
-      game.actors._source.forEach((element, index) => {
-        if (element.type === 'Character') {
-          let char = {
-            name: element.name,
-            id: element._id,
-            hungry: element.data.hungryandthirsty,
-            exhausted: element.data.exhausted
-          }
-          actorArray.push(char);
-        }
-      });
+      let {conflictCaptain, partyOrder} = this._conflictData.conflict;
 
-      // Is anyone Hungry & Thirsty? Is the Conflict Captain exhausted?
-      let conflictCaptain = this._conflictData.conflict.conflictCaptain;
-      let hungry = false;
-      let exhausted = false;
-      actorArray.forEach(element => {
-        if (element.hungry === true) {
-          hungry = true;
-        }
-        if (element.name === conflictCaptain) {
-          if (element.exhausted === true) {
-            exhausted = true;
-          }
-        }
-      });
+      DispoDialog.create(conflictCaptain, partyOrder, this.rollDispo.bind(this));
 
-      // Create an array of Conflict types and skills/abilities for Disposition
-      let conflictTypes = [
-        {
-          name: 'Banish/Abjure',
-          skill: {
-            1: 'Arcanist',
-            2: 'Ritualist'
-          },
-          ability: 'Will'
-        },
-        {
-          name: 'Capture',
-          skill: {
-            1: 'Fighter',
-            2: 'Hunter'
-          },
-          ability: 'Will'
-        },
-        {
-          name: 'Convince',
-          skill: {
-            1: 'Persuader'
-          },
-          ability: 'Will'
-        },
-        {
-          name: 'Convince Crowd',
-          skill: {
-            1: 'Orator'
-          },
-          ability: 'Will'
-        },
-        {
-          name: 'Drive Off',
-          skill: {
-            1: 'Fighter'
-          },
-          ability: 'Health'
-        },
-        {
-          name: 'Kill',
-          skill: {
-            1: 'Fighter'
-          },
-          ability: 'Health'
-        },
-        {
-          name: 'Pursue/Flee',
-          skill: {
-            1: 'Scout',
-            2: 'Rider'
-          },
-          ability: 'Health'
-        },
-        {
-          name: 'Trick/Riddle',
-          skill: {
-            1: 'Manipulator'
-          },
-          ability: 'Will'
-        },
-        {
-          name: 'Other'
-        }
-      ];
-
-      // Dialog box for roll customization
-      let dialogContent = 'systems/torchbearer/templates/disposition-roll-template.html';
-
-      // Render the roll dialog
-      renderTemplate(dialogContent, {conflictTypes: conflictTypes, hungry: hungry, exhausted: exhausted}).then(template => {
-        new Dialog({
-          title: `Disposition`,
-          content: template,
-          buttons: {
-            yes: {
-              icon: "<i class='fas fa-check'></i>",
-              label: `Roll`,
-              callback: (html) => {
-                let type = html.find('#conflictType')[0].value;
-                let skill = html.find('#skillRoll')[0].value;
-                let help = html.find('#help')[0].value;
-                let otherSkill = html.find('#skill')[0].value;
-                let otherAbility = html.find('#ability')[0].value;
-                this.rollDispo(type, skill, help, otherSkill, otherAbility, hungry, exhausted, conflictCaptain);
-              }
-            },
-            no: {
-              icon: "<i class='fas fa-times'></i>",
-              label: `Cancel`
-            }
-          },
-          default: 'yes'
-        }).render(true);
-      });
     } else {
       console.log('Hey, pleb.');
     }
   }
 
-  rollDispo(type, skill, help, otherSkill, otherAbility, hungry, exhausted, conflictCaptain) {
+  rollDispo(type, skill, ability, help, hungry, exhausted) {
+    console.log(type, skill, ability, help, hungry, exhausted);
+    let {conflictCaptain} = this._conflictData.conflict;
     console.log(conflictCaptain);
 
-    let roller;
+    let roller = null;
     game.actors._source.forEach(element => {
       if (element.name === conflictCaptain) {
         roller = element._id;
       }
     });
-
     console.log(roller);
     
     // Check for any factors due to conditions
