@@ -353,7 +353,7 @@ export class TorchbearerActorSheet extends ActorSheet {
     let natureDesc = this.actor.data.data.natureDescriptors.split(', ');
     natureDesc.push("Acting outside character's nature");
 
-    renderTemplate(dialogContent, {attribute: header, traitList: traits, fresh: freshCheck, natureDoubleTap: doubleTap, natureDesc: natureDesc, ob: 1, helpDice: 0, supplies: 0, persona: 0}).then(template => {
+    renderTemplate(dialogContent, {attribute: header, traitList: traits, fresh: freshCheck, natureDesc: natureDesc, ob: 1, helpDice: 0, supplies: 0, persona: 0}).then(template => {
       new Dialog({
         title: `Test`,
         content: template,

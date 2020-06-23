@@ -1,3 +1,5 @@
+import {Capitalize} from "../misc.js";
+
 export class PlayerRoll {
     constructor(tbCharacter) {
         this.actor = tbCharacter;
@@ -76,39 +78,28 @@ export class PlayerRoll {
                     return false;
                 } else {
                     let blAbility = skill.bl;
-                    if (blAbility === "W") {
-                        // If Will is not zero, roll Beginner's Luck as normal
-                        if (this.actor.data.data.will.value > 0) {
-                            beginnersLuck = "(Beginner's Luck, Will)";
-                            diceToRoll = Math.ceil((adjustedStats.will + supplies + helpDice) / 2) + traitMod + natureMod + freshMod + personaMod;
-                        } else {
-                            // If Will is zero, use Nature instead
-                            beginnersLuck = "(Beginner's Luck, Nature)";
-                            diceToRoll = Math.ceil((adjustedStats.nature + supplies + helpDice) / 2) + traitMod + natureMod + freshMod + personaMod;
-                        }
-                    } else if (blAbility === "H") {
-                        // If Health is not zero, roll Beginner's Luck as normal
-                        if (this.actor.data.data.health.value > 0) {
-                            beginnersLuck = "(Beginner's Luck, Health)";
-                            diceToRoll = Math.ceil((adjustedStats.health + supplies + helpDice) / 2) + traitMod + natureMod + freshMod + personaMod;
-                        } else {
-                            // If Health is zero, use Nature instead
-                            beginnersLuck = "(Beginner's Luck, Nature)";
-                            diceToRoll = Math.ceil((adjustedStats.nature + supplies + helpDice) / 2) + traitMod + natureMod + freshMod + personaMod;
-                        }
+                    let name = '';
+                    if(blAbility === 'W') {
+                        name = 'will';
+                    } else {
+                        name = 'health';
+                    }
+                    if (this.actor.data.data[name].value > 0) {
+                        beginnersLuck = `(Beginner's Luck, ${Capitalize(name)})`;
+                        diceToRoll = Math.ceil((adjustedStats[name] + supplies + helpDice) / 2) + traitMod + natureMod + freshMod + personaMod;
+                    } else {
+                        // If 0, use Nature instead
+                        beginnersLuck = "(Beginner's Luck, Nature)";
+                        diceToRoll = Math.ceil((adjustedStats.nature + supplies + helpDice) / 2) + traitMod + natureMod + freshMod + personaMod;
                     }
                 }
             }
         }
 
         // Otherwise it's an ability
-        if (diceToRoll === undefined) {
+        if (!diceToRoll) {
             this.actor.data.data.isLastTestSkill = false;
-            if (natureDoubleTap === false) {
-                diceToRoll = adjustedStats[skillOrAbility] + traitMod + natureMod + freshMod + supplies + helpDice + personaMod;
-            } else if (natureDoubleTap === true) {
-                diceToRoll = adjustedStats.nature + supplies + helpDice + traitMod + natureMod + freshMod + personaMod;
-            }
+            diceToRoll = adjustedStats[skillOrAbility] + traitMod + natureMod + freshMod + supplies + helpDice + personaMod;
         }
 
         // Build the formula
