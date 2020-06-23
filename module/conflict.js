@@ -8,7 +8,8 @@ export class conflictSheet extends Application {
       template: "systems/torchbearer/templates/conflict-template.html",
       width: 1050,
       height: 750,
-      tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "setup" }]
+      tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "setup" }],
+      dragDrop: [{dragSelector: null, dropSelector: null}]
     });
   }
 
@@ -151,7 +152,25 @@ export class conflictSheet extends Application {
     html.find('#loadChars').on('click', async () => {
       this.loadChars();
     });
+    html.find('.actor .actor-image, .actor .actor-name').on('click', (evt) => {
+      game.actors.get($(evt.target).closest('.actor').data('actorId')).sheet.render(true);
+  });
 
+  }
+
+  /** @override */
+  async _onDrop(event) {
+    // Try to extract the data
+    let data;
+    try {
+        data = JSON.parse(event.dataTransfer.getData('text/plain'));
+        if (data.type !== "Monster") return;
+    } catch (err) {
+        return false;
+    }
+    console.log(data);
+    console.log(event);
+    //await this._onSortPartyMember(event, data.data);
   }
 
   dispoDialog() {

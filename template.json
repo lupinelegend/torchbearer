@@ -3,7 +3,7 @@
     "types": [
       "Character",
       "NPC",
-      "GMPC"
+      "Monster"
     ],
     "templates": {
       "notes": {
@@ -637,22 +637,244 @@
         "wises"
       ]
     },
-    "GMPC": {
-      "templates": [
-        "background",
-        "purpose",
-        "traits",
-        "rewards",
-        "conditions",
-        "abilities",
-        "skills",
-        "wises",
-        "inventory",
-        "allies",
-        "enemies",
-        "common",
-        "notes"
-      ]
+    "Monster": {
+      "templates": [],
+      "name": "",
+      "might": 0,
+      "nature": 0,
+      "type": "",
+      "natureDescriptors": "",
+      "description": "",
+      "goals": "",
+      "conflictTypes": {
+        "banish": {
+          "name": "Banish/Abjure",
+          "disposition": 0,
+          "weapons": {
+            "weapon1": {
+              "attack": "",
+              "defend": "",
+              "maneuver": "",
+              "feint": ""
+            },
+            "weapon2": {
+              "attack": "",
+              "defend": "",
+              "maneuver": "",
+              "feint": ""
+            },
+            "weapon3": {
+              "attack": "",
+              "defend": "",
+              "maneuver": "",
+              "feint": ""
+            },
+            "weapon4": {
+              "attack": "",
+              "defend": "",
+              "maneuver": "",
+              "feint": ""
+            }
+          }
+        },
+        "capture": {
+          "name": "Capture",
+          "disposition": 0,
+          "weapons": {
+            "weapon1": {
+              "attack": "",
+              "defend": "",
+              "maneuver": "",
+              "feint": ""
+            },
+            "weapon2": {
+              "attack": "",
+              "defend": "",
+              "maneuver": "",
+              "feint": ""
+            },
+            "weapon3": {
+              "attack": "",
+              "defend": "",
+              "maneuver": "",
+              "feint": ""
+            },
+            "weapon4": {
+              "attack": "",
+              "defend": "",
+              "maneuver": "",
+              "feint": ""
+            }
+          }
+        },
+        "convinceCrowd": {
+          "name": "Convince Crowd",
+          "disposition": 0,
+          "weapons": {
+            "weapon1": {
+              "attack": "",
+              "defend": "",
+              "maneuver": "",
+              "feint": ""
+            },
+            "weapon2": {
+              "attack": "",
+              "defend": "",
+              "maneuver": "",
+              "feint": ""
+            },
+            "weapon3": {
+              "attack": "",
+              "defend": "",
+              "maneuver": "",
+              "feint": ""
+            },
+            "weapon4": {
+              "attack": "",
+              "defend": "",
+              "maneuver": "",
+              "feint": ""
+            }
+          }
+        },
+        "driveOff": {
+          "name": "Drive Off",
+          "disposition": 0,
+          "weapons": {
+            "weapon1": {
+              "attack": "",
+              "defend": "",
+              "maneuver": "",
+              "feint": ""
+            },
+            "weapon2": {
+              "attack": "",
+              "defend": "",
+              "maneuver": "",
+              "feint": ""
+            },
+            "weapon3": {
+              "attack": "",
+              "defend": "",
+              "maneuver": "",
+              "feint": ""
+            },
+            "weapon4": {
+              "attack": "",
+              "defend": "",
+              "maneuver": "",
+              "feint": ""
+            }
+          }
+        },
+        "kill": {
+          "name": "Kill",
+          "disposition": 0,
+          "weapons": {
+            "weapon1": {
+              "attack": "",
+              "defend": "",
+              "maneuver": "",
+              "feint": ""
+            },
+            "weapon2": {
+              "attack": "",
+              "defend": "",
+              "maneuver": "",
+              "feint": ""
+            },
+            "weapon3": {
+              "attack": "",
+              "defend": "",
+              "maneuver": "",
+              "feint": ""
+            },
+            "weapon4": {
+              "attack": "",
+              "defend": "",
+              "maneuver": "",
+              "feint": ""
+            }
+          }
+        },
+        "pursueFlee": {
+          "name": "Pursue/Flee",
+          "disposition": 0,
+          "weapons": {
+            "weapon1": {
+              "attack": "",
+              "defend": "",
+              "maneuver": "",
+              "feint": ""
+            },
+            "weapon2": {
+              "attack": "",
+              "defend": "",
+              "maneuver": "",
+              "feint": ""
+            },
+            "weapon3": {
+              "attack": "",
+              "defend": "",
+              "maneuver": "",
+              "feint": ""
+            },
+            "weapon4": {
+              "attack": "",
+              "defend": "",
+              "maneuver": "",
+              "feint": ""
+            }
+          }
+        },
+        "trickRiddle": {
+          "name": "Trick/Riddle",
+          "disposition": 0,
+          "weapons": {
+            "weapon1": {
+              "attack": "",
+              "defend": "",
+              "maneuver": "",
+              "feint": ""
+            },
+            "weapon2": {
+              "attack": "",
+              "defend": "",
+              "maneuver": "",
+              "feint": ""
+            },
+            "weapon3": {
+              "attack": "",
+              "defend": "",
+              "maneuver": "",
+              "feint": ""
+            },
+            "weapon4": {
+              "attack": "",
+              "defend": "",
+              "maneuver": "",
+              "feint": ""
+            }
+          }
+        }
+      },
+      "hitpoints": {
+        "first": {
+          "selectedConflictType": "",
+          "hp": 0
+        },
+        "second": {
+          "selectedConflictType": "",
+          "hp": 0
+        },
+        "third": {
+          "selectedConflictType": "",
+          "hp": 0
+        }
+      },
+      "armor": "",
+      "instinct": "",
+      "special": ""
     }
   },
   "Item": {

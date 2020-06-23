@@ -10,7 +10,7 @@ export class TorchbearerActorSheet extends ActorSheet {
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       classes: ["torchbearer", "sheet", "actor"],
-      template: "systems/torchbearer/templates/actor/actor-sheet.html",
+      //template: "systems/torchbearer/templates/actor/actor-sheet.html",
       width: 617,
       height: 848,
       tabs: [
@@ -27,6 +27,19 @@ export class TorchbearerActorSheet extends ActorSheet {
       ],
       dragDrop: [{dragSelector: ".items-list .item", dropSelector: null}]
     });
+  }
+
+  /** @override */
+  get template() {
+    const path = "systems/torchbearer/templates/actor";
+    // Return a single sheet for all item types.
+    // return `${path}/item-sheet.html`;
+    return `${path}/${this.actor.data.type}-sheet.html`;
+
+    // Alternatively, you could use the following return statement to do a
+    // unique item sheet by type, like `weapon-sheet.html`.
+
+    // return `${path}/${this.item.data.type}-sheet.html`;
   }
 
   /* -------------------------------------------- */

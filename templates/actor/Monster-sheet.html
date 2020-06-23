@@ -1,0 +1,195 @@
+<form class="{{cssClass}} {{inventoryContainerClass}}" data-item-id="{{item._id}}" data-container-type="{{containerType}}" autocomplete="off" style="margin: 25px;">
+    <!-- Header -->
+    <div class="row" style="flex-wrap: nowrap; align-items: flex-end;">
+        <div class="col">
+            <input name="data.name" type="text" value="{{data.name}}" placeholder="Name" style="font-family: Souvenir-Demi; height: 48px; font-size: 28px;">
+            <div class="row" style="font-family: Souvenir-MediumItalic; padding: 0; margin: 2px 0 2px 0;">
+                <input name="data.natureDescriptors" type="text" value="{{data.natureDescriptors}}" placeholder="Nature descriptors">
+            </div>
+            <div class="row" style="align-items: center; padding: 0;">
+                <div class="col" style="padding: 0;">
+                    <label for="data.nature" style="font-family: Souvenir-Demi;">Nature: </label>
+                    <input name="data.nature" type="text" value="{{data.nature}}" style="width: 35px; font-family: Souvenir-Medium; text-align: center;">    
+                </div>
+                <div class="col" style="text-align: left; padding: 0;">
+                    <label for="data.might" style="font-family: Souvenir-Demi;">Might: </label>
+                    <input name="data.might" type="text" value="{{data.might}}" style="width: 35px; font-family: Souvenir-Medium; text-align: center;">
+                </div>
+                <div class="col" style="text-align: right; padding: 0; margin-right: 2px;">
+                    <label for="data.type" style="font-family: Souvenir-Demi;">Type: </label>
+                    <input name="data.type" type="text" value="{{data.type}}" style="width: 100px; font-family: Souvenir-Medium; text-align: center;">
+                </div>
+            </div>
+        </div>
+        
+        <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100" style="justify-self: right;"> 
+    </div>
+    <hr style="border-top: 1px solid #782e22; border-bottom: 1px solid #782e22;">
+    <!-- Instict, Goals, Special Rules -->
+    <div class="row" style="flex-wrap: nowrap;">
+        <label for="data.instinct" style="font-family: Souvenir-Demi; margin: 0 3px 0 42px;">Instinct: </label>
+        <input name="data.instinct" type="text" value="{{data.instinct}}" style="font-family: Souvenir-Medium; text-align: left;">
+    </div>
+    <div class="row" style="flex-wrap: nowrap; margin-top: 3px;">
+        <label for="data.goals" style="font-family: Souvenir-Demi; margin: 0 3px 0 54px;">Goals: </label>
+        <!-- <input name="data.goals" type="text" value="{{data.goals}}" style="font-family: Souvenir-Medium; text-align: left;"> -->
+        <textarea name="data.goals" cols="30" rows="2" style="font-family: Souvenir-Medium;">{{data.goals}}</textarea>
+    </div>
+    <div class="row" style="flex-wrap: nowrap; margin-top: 3px;">
+        <label for="data.special" style="font-family: Souvenir-Demi; margin-right: 3px; white-space: nowrap">Special Rules: </label>
+        <!-- <input name="data.special" type="text" value="{{data.special}}" style="font-family: Souvenir-Medium; text-align: left;"> -->
+        <textarea name="data.special" cols="30" rows="3" style="font-family: Souvenir-Medium;">{{data.special}}</textarea>
+    </div>
+    <hr style="border-top: 1px solid #782e22; border-bottom: 1px solid #782e22;">
+    <!-- Hit Points -->
+    <section>
+        <p style="text-align: center; font-family: Souvenir-Demi; font-size: 20px; margin: 5px 0 5px 0;">Hit Points</p>
+        <div class="row" style="text-align: center;">
+            <div class="col">
+                <select name="data.hitpoints.first.selectedConflictType" class="monsterDispoDropdown">
+                {{#select data.hitpoints.first.selectedConflictType}}
+                    <option value="" selected hidden disabled>Choose a conflict...</option>
+                    {{#each data.conflictTypes}}
+                        <option value="{{@key}}">{{this.name}}</option>
+                    {{/each}}
+                {{/select}}
+                </select>
+                <input name="data.hitpoints.first.hp" type="text" value="{{data.hitpoints.first.hp}}" class="conflictDispo" style="width: 48px; height: 48px; font-size: 28px; font-family: Souvenir-Medium; margin-top: 3px;">
+            </div>
+            <div class="col">
+                <select name="data.hitpoints.second.selectedConflictType" class="monsterDispoDropdown">
+                    {{#select data.hitpoints.second.selectedConflictType}}
+                        <option value="" selected hidden disabled>Choose a conflict...</option>
+                        {{#each data.conflictTypes}}
+                            <option value="{{@key}}">{{this.name}}</option>
+                        {{/each}}
+                    {{/select}}
+                </select>
+                <input name="data.hitpoints.second.hp" type="text" value="{{data.hitpoints.second.hp}}" class="conflictDispo" style="width: 48px; height: 48px; font-size: 28px; font-family: Souvenir-Medium; margin-top: 3px;">
+            </div>
+            <div class="col">
+                <select name="data.hitpoints.third.selectedConflictType" class="monsterDispoDropdown">
+                    {{#select data.hitpoints.third.selectedConflictType}}
+                        <option value="" selected hidden disabled>Choose a conflict...</option>
+                        {{#each data.conflictTypes}}
+                            <option value="{{@key}}">{{this.name}}</option>
+                        {{/each}}
+                    {{/select}}
+                </select>
+                <input name="data.hitpoints.third.hp" type="text" value="{{data.hitpoints.third.hp}}" class="conflictDispo" style="width: 48px; height: 48px; font-size: 28px; font-family: Souvenir-Medium; margin-top: 3px;">
+            </div>
+        </div>
+        <div class="row" style="margin: auto;">
+            <p style="text-align: left; font-family: Souvenir-Medium; margin: 8px 0 0px 0; padding: 0 8px;">
+                <b><u>Other Conflict Hit Points</u>:</b> Within Nature: Roll Nature, add successes to Nature rating. Outside of Nature: Roll half Nature, add successes to Nature rating.
+            </p>
+        </div>
+    </section>
+    <hr style="border-top: 1px solid #782e22; border-bottom: 1px solid #782e22;">
+    <!-- Weapons and Armor -->
+    <section>
+        <div class="row" style="flex-wrap: nowrap; align-items: center; margin-bottom: 5px; padding: 0;">
+            <label for="" style="font-family: Souvenir-Demi;">Armor:</label>
+            <input name="data.armor" type="text" value="{{data.armor}}" style="font-family: Souvenir-Medium; margin: 3px;">
+        </div>
+        <table class="tbtable">
+            <thead class="theader" style="font-family: Souvenir-Demi;">
+                <th style="text-align: left;">Weapon</th>
+                <th style="text-align: left;">Conflict</th>
+                <th style="text-align: center;">A</th>
+                <th style="text-align: center;">D</th>
+                <th style="text-align: center;">F</th>
+                <th style="text-align: center;">M</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="text-align: center;">
+                        <input type="text">
+                    </td>
+                    <td style="text-align: center;">
+                        <select name="test" class="weaponDispoDropdown">
+                            {{#select test}}
+                                <option value="" selected hidden disabled>Choose a conflict...</option>
+                                {{#each data.conflictTypes}}
+                                    <option value="{{@key}}">{{this.name}}</option>
+                                {{/each}}
+                            {{/select}}
+                        </select>
+                    </td>
+                    <td style="text-align: center;">
+                        <input type="text" style="width: 35px;">
+                    </td>
+                    <td style="text-align: center;">
+                        <input type="text" style="width: 35px;">
+                    </td>
+                    <td style="text-align: center;">
+                        <input type="text" style="width: 35px;">
+                    </td>
+                    <td style="text-align: center;">
+                        <input type="text" style="width: 35px;">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">
+                        <input type="text">
+                    </td>
+                    <td style="text-align: center;">
+                        <select name="test" class="weaponDispoDropdown">
+                            {{#select test}}
+                                <option value="" selected hidden disabled>Choose a conflict...</option>
+                                {{#each data.conflictTypes}}
+                                    <option value="{{@key}}">{{this.name}}</option>
+                                {{/each}}
+                            {{/select}}
+                        </select>
+                    </td>
+                    <td style="text-align: center;">
+                        <input type="text" style="width: 35px;">
+                    </td>
+                    <td style="text-align: center;">
+                        <input type="text" style="width: 35px;">
+                    </td>
+                    <td style="text-align: center;">
+                        <input type="text" style="width: 35px;">
+                    </td>
+                    <td style="text-align: center;">
+                        <input type="text" style="width: 35px;">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">
+                        <input type="text">
+                    </td>
+                    <td style="text-align: center;">
+                        <select name="test" class="weaponDispoDropdown">
+                            {{#select test}}
+                                <option value="" selected hidden disabled>Choose a conflict...</option>
+                                {{#each data.conflictTypes}}
+                                    <option value="{{@key}}">{{this.name}}</option>
+                                {{/each}}
+                            {{/select}}
+                        </select>
+                    </td>
+                    <td style="text-align: center;">
+                        <input type="text" style="width: 35px;">
+                    </td>
+                    <td style="text-align: center;">
+                        <input type="text" style="width: 35px;">
+                    </td>
+                    <td style="text-align: center;">
+                        <input type="text" style="width: 35px;">
+                    </td>
+                    <td style="text-align: center;">
+                        <input type="text" style="width: 35px;">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+    <hr style="border-top: 1px solid #782e22; border-bottom: 1px solid #782e22;">
+    <!-- Description -->
+    <section>
+        <p style="text-align: center; font-family: Souvenir-Demi; font-size: 20px; margin: 5px 0 5px 0;">Description</p>
+        <textarea name="data.description" cols="30" rows="6" style="font-family: Souvenir-Medium;">{{data.description}}</textarea>
+    </section>
+</form>
