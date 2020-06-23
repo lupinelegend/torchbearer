@@ -235,6 +235,7 @@ export class TorchbearerActor extends Actor {
     let tbData = this.tbData();
     if(amount === 0) return true;
     if(tbData.persona.value < amount) {
+      ui.notifications.error("ERROR: You don't have enough persona to spend.");
       return false;
     } else {
       await this.update({

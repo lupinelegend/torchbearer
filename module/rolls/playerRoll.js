@@ -3,7 +3,7 @@ export class PlayerRoll {
         this.actor = tbCharacter;
     }
 
-    async roll(skillOrAbility, header, flavorText, helpDice, ob, trait, nature, natureDoubleTap, freshCheck, supplies, persona, natureDescriptor) {
+    async roll(skillOrAbility, header, flavorText, helpDice, ob, trait, tapNature, fresh, supplies, persona, natureDescriptor) {
 
         // Check for any factors due to conditions
         let adjustedStats = this.conditionMods();
@@ -11,124 +11,94 @@ export class PlayerRoll {
         // Exhausted is a factor in all tests except Circles and Resources
         if (this.actor.data.data.exhausted === true) {
             if (skillOrAbility !== 'circles' && skillOrAbility !== 'resources') {
-                ob = parseInt(ob) + 1;
+                ob += 1;
             }
         }
 
         // Check to see if the Fresh bonus should be applied
-        let freshMod = 0;
-        if (freshCheck === "checked") {
-            freshMod = 1;
-        }
+        let freshMod = fresh ? 1 : 0;
 
         // Determine if and how a Trait is being used
         let traitMod = 0;
-        let abort = false;
-        if (trait.name !== "") {
-            if (trait.usedFor === true) {
-                let ok = await this.actor.useTraitPositively(trait.name);
-                if(ok) {
-                    traitMod = 1;
-                } else {
-                    abort = true;
-                }
-            } else if (trait.usedAgainst === true) {
-                let ok = await this.actor.addChecks(trait, 1);
-                if(ok) {
-                    traitMod = -1;
-                } else {
-                    abort = true;
-                }
-            } else if (trait.usedAgainstExtra === true) {
-                let ok = await this.actor.addChecks(trait, 2);
-                if(ok) {
-                    traitMod = -2;
-                } else {
-                    abort = true;
-                }
+        if (trait.name) {
+            let ok = false;
+            if (trait.usedFor) {
+                ok = await this.actor.useTraitPositively(trait.name);
+                traitMod = 1;
+            } else if (trait.usedAgainst) {
+                ok = await this.actor.addChecks(trait, 1);
+                traitMod = -1;
+            } else if (trait.usedAgainstExtra) {
+                ok = await this.actor.addChecks(trait, 2);
+                traitMod = -2;
             }
-        }
-
-        // Stop the roll if the user is trying to use a trait that's already been used this session
-        if (abort === true) {
-            return;
+            if (!ok) {
+                return;
+            }
         }
 
         // Check to see if persona points are spent to add +XD
         let personaMod = 0;
-        if(persona > 0) {
-            if(await this.actor.spendPersona(persona)) {
+        if (persona > 0) {
+            if (await this.actor.spendPersona(persona)) {
                 personaMod = persona;
             } else {
-                ui.notifications.error("ERROR: You don't have enough persona to spend.");
                 return;
             }
         }
 
         // Determine if Nature has been tapped. If so, add Nature to roll and deduce 1 persona point.
         let natureMod = 0;
-        if(nature || natureDoubleTap) {
-            if(await this.actor.spendPersona(1)) {
+        if (tapNature) {
+            if (await this.actor.spendPersona(1)) {
                 natureMod = this.actor.data.data.nature.value;
             } else {
-                ui.notifications.error("ERROR: You don't have any persona to spend.");
+                return;
             }
         }
 
         // Create an array of skills for the if check below
-        let skills = [];
         const skillList = this.actor.data.data.skills;
-        Object.keys(skillList).forEach(key => {
-            skills.push(skillList[key].name);
-        });
 
         // Determine number of dice to roll.
         let diceToRoll;
         let beginnersLuck = "";
 
-        // Is the thing being rolled a skill?
-        skills.forEach(key => {
-            if (skillOrAbility === key) {
-                this.actor.data.data.isLastTestSkill = true;
-                if (natureDoubleTap === false) {
-                    // Check for Beginner's Luck
-                    if (this.actor.data.data.skills[skillOrAbility].rating === 0 && this.actor.data.data.afraid === true) {
-                        ui.notifications.error("You can't use Beginner's Luck when you're afraid");
-                        abort = true;
-                    } else if (this.actor.data.data.skills[skillOrAbility].rating === 0 && this.actor.data.data.afraid === false) {
-                        let blAbility = this.actor.data.data.skills[skillOrAbility].bl;
-                        if (blAbility === "W") {
-                            // If Will is not zero, roll Beginner's Luck as normal
-                            if (this.actor.data.data.will.value != 0) {
-                                beginnersLuck = "(Beginner's Luck, Will)";
-                                diceToRoll = Math.ceil((adjustedStats.will + supplies + helpDice)/2) + traitMod + natureMod + freshMod + personaMod;
-                            } else if (this.actor.data.data.will.value === 0) {
-                                // If Will is zero, use Nature instead
-                                beginnersLuck = "(Beginner's Luck, Nature)";
-                                diceToRoll = Math.ceil((adjustedStats.nature + supplies + helpDice)/2) + traitMod + natureMod + freshMod + personaMod;
-                            }
-                        } else if (blAbility === "H") {
-                            // If Health is not zero, roll Beginner's Luck as normal
-                            if (this.actor.data.data.health.value != 0) {
-                                beginnersLuck = "(Beginner's Luck, Health)";
-                                diceToRoll = Math.ceil((adjustedStats.health + supplies + helpDice)/2) + traitMod + natureMod + freshMod + personaMod;
-                            } else if (this.actor.data.data.will.value === 0) {
-                                // If Health is zero, use Nature instead
-                                beginnersLuck = "(Beginner's Luck, Nature)";
-                                diceToRoll = Math.ceil((adjustedStats.nature + supplies + helpDice)/2) + traitMod + natureMod + freshMod + personaMod;
-                            }
+        if (skillList[skillOrAbility]) {
+            let skill = skillList[skillOrAbility];
+            this.actor.data.data.isLastTestSkill = true;
+            if (skill.rating > 0) {
+                diceToRoll = skill.rating + traitMod + natureMod + freshMod + supplies + helpDice + personaMod + adjustedStats.skillMod;
+            } else {
+                //Beginner's Luck
+                if (this.actor.data.data.afraid) {
+                    ui.notifications.error("You can't use Beginner's Luck when you're afraid");
+                    return false;
+                } else {
+                    let blAbility = skill.bl;
+                    if (blAbility === "W") {
+                        // If Will is not zero, roll Beginner's Luck as normal
+                        if (this.actor.data.data.will.value > 0) {
+                            beginnersLuck = "(Beginner's Luck, Will)";
+                            diceToRoll = Math.ceil((adjustedStats.will + supplies + helpDice) / 2) + traitMod + natureMod + freshMod + personaMod;
+                        } else {
+                            // If Will is zero, use Nature instead
+                            beginnersLuck = "(Beginner's Luck, Nature)";
+                            diceToRoll = Math.ceil((adjustedStats.nature + supplies + helpDice) / 2) + traitMod + natureMod + freshMod + personaMod;
                         }
-                    } else {
-                        diceToRoll = this.actor.data.data.skills[skillOrAbility].rating + traitMod + natureMod + freshMod + supplies + helpDice + personaMod + adjustedStats.skillMod;
+                    } else if (blAbility === "H") {
+                        // If Health is not zero, roll Beginner's Luck as normal
+                        if (this.actor.data.data.health.value > 0) {
+                            beginnersLuck = "(Beginner's Luck, Health)";
+                            diceToRoll = Math.ceil((adjustedStats.health + supplies + helpDice) / 2) + traitMod + natureMod + freshMod + personaMod;
+                        } else {
+                            // If Health is zero, use Nature instead
+                            beginnersLuck = "(Beginner's Luck, Nature)";
+                            diceToRoll = Math.ceil((adjustedStats.nature + supplies + helpDice) / 2) + traitMod + natureMod + freshMod + personaMod;
+                        }
                     }
-                } else if (natureDoubleTap === true) {
-                    diceToRoll = adjustedStats.nature + supplies + helpDice + traitMod + natureMod + freshMod + personaMod;
                 }
             }
-        });
-
-        if (abort === true) {
-            return;
         }
 
         // Otherwise it's an ability
@@ -150,7 +120,7 @@ export class PlayerRoll {
         // GM rolls
         let chatData = {
             user: game.user._id,
-            speaker: ChatMessage.getSpeaker({ actor: this.actor })
+            speaker: ChatMessage.getSpeaker({actor: this.actor})
         };
         let templateData = {
             title: header,
@@ -185,17 +155,17 @@ export class PlayerRoll {
             if (key.roll < 4) {
                 scoundrels++;
             }
-            if (helpDice != 0 && index >= (diceToRoll-helpDice-natureMod-personaMod)) {
+            if (helpDice != 0 && index >= (diceToRoll - helpDice - natureMod - personaMod)) {
                 let temp = tempObj.style
                 temp += ' help';
                 tempObj.style = temp;
             }
-            if (natureMod != 0 && index >= (diceToRoll-natureMod-personaMod)) {
+            if (natureMod != 0 && index >= (diceToRoll - natureMod - personaMod)) {
                 let temp = tempObj.style
                 temp += ' nature';
                 tempObj.style = temp;
             }
-            if (personaMod != 0 && index >= (diceToRoll-personaMod)) {
+            if (personaMod != 0 && index >= (diceToRoll - personaMod)) {
                 let temp = tempObj.style
                 temp += ' persona';
                 tempObj.style = temp;
@@ -235,7 +205,14 @@ export class PlayerRoll {
             passFail = ' - Pass!'
             roll.parts[0].options.rollOutcome = 'pass';
         }
-        renderTemplate('systems/torchbearer/templates/roll-template.html', {title: header, results: rollResult, dice: diceToRoll, success: displaySuccesses, flavorText: flavorText, outcome: passFail}).then(t => {
+        renderTemplate('systems/torchbearer/templates/roll-template.html', {
+            title: header,
+            results: rollResult,
+            dice: diceToRoll,
+            success: displaySuccesses,
+            flavorText: flavorText,
+            outcome: passFail
+        }).then(t => {
             // Add the dice roll to the template
             templateData.roll = t,
                 chatData.roll = JSON.stringify(roll);

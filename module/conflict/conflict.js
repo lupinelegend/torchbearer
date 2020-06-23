@@ -86,10 +86,10 @@ export class ConflictSheet extends Application {
     if(game.user.isGM) {
       const newConflict = {
         dataType: 'conflict',
-        rounds: [],
-        partyOrder: [],
-        enemyOrder: [],
-        engagedActors: {},
+        rounds: [], //list of ?
+        partyOrder: [], //list of actor ids in the conflict
+        enemyOrder: [], //list of ?
+        engagedActors: {},  //key: actorId => val {name, id, weapons, equipped, dispo}
         partyIntent: '',
         opponentIntent: '',
         conflictCaptain: '',

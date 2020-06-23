@@ -328,12 +328,6 @@ export class TorchbearerActorSheet extends ActorSheet {
     // Determine if testedSkillOrAbility is a skill
     let skill = this.isSkill(testedSkillOrAbility);
 
-    // Determine if double-tapping Nature is an option
-    let doubleTap = false;
-    if (skill === false || skill.rating === 0) {
-      doubleTap = true;
-    }
-
     // Capitalize first letter for later use in the roll template
     let header = 'Testing: ' + testedSkillOrAbility.charAt(0).toUpperCase() + testedSkillOrAbility.slice(1);
 
@@ -371,25 +365,20 @@ export class TorchbearerActorSheet extends ActorSheet {
               let flavorText = html.find('#flavorText').val();
               let helpDice = SafeNum(html.find('#helpingDice').val());
               let ob = SafeNum(html.find('#ob').val()) || 1;
-              let nature = html.find('#natureYes').prop('checked');
-              let natureDoubleTap;
-              if (html.find('#doubletapYes')[0] === undefined) {
-                natureDoubleTap = false;
-              } else {
-                natureDoubleTap = html.find('#doubletapYes').prop('checked');
-              }
+              let trait = {
+                name: html.find('#traitDropdown').val(),
+                usedFor: !!html.find('#traitFor').prop('checked'),
+                usedAgainst: !!html.find('#traitAgainst').prop('checked'),
+                usedAgainstExtra: !!html.find('#traitAgainstExtra').prop('checked')
+              };
+              let tapNature = !!html.find('#natureYes').prop('checked');
+              let fresh = !!html.find('#fresh').prop('checked')
               let supplies = SafeNum(html.find('#supplies').val());
               let persona = SafeNum(html.find('#personaAdvantage').val());
               let natureDescriptor = html.find('#natureDesc').val();
-              let trait = {
-                name: html.find('#traitDropdown').val(),
-                usedFor: html.find('#traitFor').prop('checked'),
-                usedAgainst: html.find('#traitAgainst').prop('checked'),
-                usedAgainstExtra: html.find('#traitAgainstExtra').prop('checked')
-              };
               new PlayerRoll(this.actor).roll(
-                  testedSkillOrAbility, header, flavorText, helpDice, ob, trait, nature, natureDoubleTap,
-                  freshCheck, supplies, persona, natureDescriptor
+                  testedSkillOrAbility, header, flavorText, helpDice, ob, trait, tapNature,
+                  fresh, supplies, persona, natureDescriptor
               );
             }
           },
