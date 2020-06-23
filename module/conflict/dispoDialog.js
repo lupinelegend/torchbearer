@@ -42,7 +42,8 @@ const CONFLICT_TYPES = [
         ability: 'Will'
     },
     {
-        name: 'Other'
+        name: 'Other',
+        skill: [],
     }
 ];
 
@@ -80,8 +81,8 @@ export class DispoDialog extends Dialog {
                         let type = html.find('#conflictType').val();
                         let skill = html.find('#skillRoll').val();
                         let help = parseInt(html.find('#help').val());
-                        let otherSkill = html.find('#skill').val();
-                        let otherAbility = html.find('#ability').val();
+                        let otherSkill = html.find('#otherSkill').val();
+                        let otherAbility = html.find('#otherAbility').val();
                         let hungry = html.find('#anyHungry').prop('checked');
                         let exhausted = html.find('#captainExhausted').prop('checked');
                         if(type === 'Other') {
@@ -109,14 +110,30 @@ export class DispoDialog extends Dialog {
         super.activateListeners(html);
         html.find("#conflictType").change((ev) => {
             let $target = $(ev.target);
-            console.log($target.val());
             let type = CONFLICT_TYPES.find(t => t.name === $target.val());
             let $skillRoll = html.find('#skillRoll');
             $skillRoll.find('option:gt(0)').remove();
             type.skill.forEach(skill => {
                 $skillRoll.append($("<option></option>")
                     .attr("value", skill).text(skill));
-            })
+            });
+            if(type.name === 'Other') {
+                html.find('#ifNotOther').addClass('hidden');
+                html.find('#ifOther').removeClass('hidden');
+            } else {
+                html.find('#ifOther').addClass('hidden');
+                html.find('#ifNotOther').removeClass('hidden');
+            }
         });
+        html.find("#otherSkill").change((ev) => {
+            let $target = $(ev.target);
+            let $otherAbility = html.find('#otherAbility');
+            let skill = MasterSkillsList()[$target.val()];
+            if(skill.bl === 'W') {
+                $otherAbility.val('Will');
+            } else if(skill.bl === 'H') {
+                $otherAbility.val('Health');
+            }
+        })
     }
 }

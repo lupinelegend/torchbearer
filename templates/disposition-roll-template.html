@@ -10,7 +10,7 @@
       {{/select}}
     </select>
   </div>
-  <div class="row" style="align-items: center; margin-bottom: 5px;">
+  <div class="row" id="ifNotOther" style="align-items: center; margin-bottom: 5px;">
     <label for="skillRoll" style="font-family: Souvenir-Medium;"><u>Skill to Roll</u>:</label>
     <select name="skillRoll" id="skillRoll" style="margin: 0 0 0 5px;">
       {{#select skillRoll}}
@@ -21,27 +21,25 @@
       {{/select}}
     </select>
   </div>
-  <div class="row" style="margin-bottom: 5px;">
-    <label style="font-family: Souvenir-Medium; margin-bottom: 5px;"><u>If Other</u>:</label>
-    <div class="row" style="flex-wrap: nowrap; align-items: center;">
-      <label style="font-family: Souvenir-Medium;">Skill: </label>
-        <select name="skill" id="skill" style="margin: 0 10px 0 5px;">
-            {{#select skill}}
+  <div class="row hidden" id="ifOther" style="align-items:center; margin-bottom: 5px;">
+      <label for="otherSkill" style="font-family: Souvenir-Medium;"><u>Skill</u>: </label>
+        <select name="otherSkill" id="otherSkill" style="margin: 0 10px 0 5px;">
+            {{#select otherSkill}}
                 <option value="" selected disabled hidden>Choose a skill...</option>
                 {{#each allSkills}}
-                    <option name="this" value="{{this}}">{{this}}</option>
+                    <option value="{{this.name}}">{{this.name}}</option>
                 {{/each}}
+                <option value="Nature">Nature</option>
             {{/select}}
         </select>
-      <label style="font-family: Souvenir-Medium;">Ability: </label>
-        <select name="ability" id="ability" style="margin: 0 0 0 5px;">
-            {{#select ability}}
+      <label for="otherAbility" style="font-family: Souvenir-Medium;"><u>Ability</u>: </label>
+        <select name="otherAbility" id="otherAbility" style="margin: 0 0 0 5px;">
+            {{#select otherAbility}}
                 <option value="" selected disabled hidden>Choose an ability...</option>
                 <option value="Will">Will</option>
                 <option value="Health">Health</option>
             {{/select}}
         </select>
-    </div>
   </div>
   <div class="row" style="align-items: center; margin-bottom: 5px;">
     <label style="font-family: Souvenir-Medium;"><u>Helping Dice</u>:</label>
