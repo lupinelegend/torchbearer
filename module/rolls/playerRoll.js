@@ -1,4 +1,5 @@
 import {Capitalize} from "../misc.js";
+import {CharacterAdjustment} from "../actor/character-adjustment.js";
 
 export class PlayerRoll {
     constructor(tbCharacter) {
@@ -9,7 +10,7 @@ export class PlayerRoll {
 
         // Check for any factors due to conditions
         let adjustedStats = this.conditionMods();
-
+        let characterAdjustment = new CharacterAdjustment(this.actor);
         // Exhausted is a factor in all tests except Circles and Resources
         if (this.actor.data.data.exhausted === true) {
             if (skillOrAbility !== 'circles' && skillOrAbility !== 'resources') {
@@ -25,13 +26,13 @@ export class PlayerRoll {
         if (trait.name) {
             let ok = false;
             if (trait.usedFor) {
-                ok = await this.actor.useTraitPositively(trait.name);
+                ok = characterAdjustment.useTraitPositively(trait.name);
                 traitMod = 1;
             } else if (trait.usedAgainst) {
-                ok = await this.actor.addChecks(trait, 1);
+                ok = characterAdjustment.addChecks(trait.name, 1);
                 traitMod = -1;
             } else if (trait.usedAgainstExtra) {
-                ok = await this.actor.addChecks(trait, 2);
+                ok = characterAdjustment.addChecks(trait.name, 2);
                 traitMod = -2;
             }
             if (!ok) {
@@ -42,7 +43,7 @@ export class PlayerRoll {
         // Check to see if persona points are spent to add +XD
         let personaMod = 0;
         if (persona > 0) {
-            if (await this.actor.spendPersona(persona)) {
+            if (characterAdjustment.spendPersona(persona)) {
                 personaMod = persona;
             } else {
                 return;
@@ -52,14 +53,13 @@ export class PlayerRoll {
         // Determine if Nature has been tapped. If so, add Nature to roll and deduce 1 persona point.
         let natureMod = 0;
         if (tapNature) {
-            if (await this.actor.spendPersona(1)) {
+            if (characterAdjustment.spendPersona(1)) {
                 natureMod = this.actor.data.data.nature.value;
             } else {
                 return;
             }
         }
 
-        // Create an array of skills for the if check below
         const skillList = this.actor.data.data.skills;
 
         // Determine number of dice to roll.
@@ -128,6 +128,7 @@ export class PlayerRoll {
         if (rollMode === "blindroll") chatData["blind"] = true;
 
         // Do the roll
+        await characterAdjustment.execute();
         let roll = new Roll(formula);
         roll.roll();
         roll.parts[0].options.ob = ob;
@@ -146,17 +147,17 @@ export class PlayerRoll {
             if (key.roll < 4) {
                 scoundrels++;
             }
-            if (helpDice != 0 && index >= (diceToRoll - helpDice - natureMod - personaMod)) {
+            if (helpDice !== 0 && index >= (diceToRoll - helpDice - natureMod - personaMod)) {
                 let temp = tempObj.style
                 temp += ' help';
                 tempObj.style = temp;
             }
-            if (natureMod != 0 && index >= (diceToRoll - natureMod - personaMod)) {
+            if (natureMod !== 0 && index >= (diceToRoll - natureMod - personaMod)) {
                 let temp = tempObj.style
                 temp += ' nature';
                 tempObj.style = temp;
             }
-            if (personaMod != 0 && index >= (diceToRoll - personaMod)) {
+            if (personaMod !== 0 && index >= (diceToRoll - personaMod)) {
                 let temp = tempObj.style
                 temp += ' persona';
                 tempObj.style = temp;
@@ -166,10 +167,10 @@ export class PlayerRoll {
 
         // Only loads these values if Fate and Persona are available to spend. Without these values
         // being set, the buttons won't show up under the roll.
-        if (this.actor.data.data.fate.value != 0) {
+        if (this.actor.data.data.fate.value !== 0) {
             templateData.rerollsAvailable = sixes;
         }
-        if (this.actor.data.data.persona.value != 0) {
+        if (this.actor.data.data.persona.value !== 0) {
             templateData.scoundrelsAvailable = scoundrels;
         }
 
