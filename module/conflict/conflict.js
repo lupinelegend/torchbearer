@@ -245,19 +245,19 @@ export class ConflictSheet extends Application {
   //               switch (temp) {
   //                 case 'trait1':
   //                   traitMod = 1;
-  //                   this.actor.allUpdates({'data.traits.trait1.uses.level1.use1': true});
+  //                   this.actor.update({'data.traits.trait1.uses.level1.use1': true});
   //                   break;
   //                 case 'trait2':
   //                   traitMod = 1;
-  //                   this.actor.allUpdates({'data.traits.trait2.uses.level1.use1': true});
+  //                   this.actor.update({'data.traits.trait2.uses.level1.use1': true});
   //                   break;
   //                 case 'trait3':
   //                   traitMod = 1;
-  //                   this.actor.allUpdates({'data.traits.trait3.uses.level1.use1': true});
+  //                   this.actor.update({'data.traits.trait3.uses.level1.use1': true});
   //                   break;
   //                 case 'trait4':
   //                 traitMod = 1;
-  //                 this.actor.allUpdates({'data.traits.trait4.uses.level1.use1': true});
+  //                 this.actor.update({'data.traits.trait4.uses.level1.use1': true});
   //                 break;
   //               }
   //             }
@@ -272,19 +272,19 @@ export class ConflictSheet extends Application {
   //               switch (temp) {
   //                 case 'trait1':
   //                   traitMod = 1;
-  //                   this.actor.allUpdates({'data.traits.trait1.uses.level1.use1': true});
+  //                   this.actor.update({'data.traits.trait1.uses.level1.use1': true});
   //                   break;
   //                 case 'trait2':
   //                   traitMod = 1;
-  //                   this.actor.allUpdates({'data.traits.trait2.uses.level1.use1': true});
+  //                   this.actor.update({'data.traits.trait2.uses.level1.use1': true});
   //                   break;
   //                 case 'trait3':
   //                   traitMod = 1;
-  //                   this.actor.allUpdates({'data.traits.trait3.uses.level1.use1': true});
+  //                   this.actor.update({'data.traits.trait3.uses.level1.use1': true});
   //                   break;
   //                 case 'trait4':
   //                 traitMod = 1;
-  //                 this.actor.allUpdates({'data.traits.trait4.uses.level1.use1': true});
+  //                 this.actor.update({'data.traits.trait4.uses.level1.use1': true});
   //                 break;
   //               }
   //             } else if (traitFinder[key].uses.level2.use2 === false) {
@@ -292,19 +292,19 @@ export class ConflictSheet extends Application {
   //               switch (temp) {
   //                 case 'trait1':
   //                   traitMod = 1;
-  //                   this.actor.allUpdates({'data.traits.trait1.uses.level2.use2': true});
+  //                   this.actor.update({'data.traits.trait1.uses.level2.use2': true});
   //                   break;
   //                 case 'trait2':
   //                   traitMod = 1;
-  //                   this.actor.allUpdates({'data.traits.trait2.uses.level2.use2': true});
+  //                   this.actor.update({'data.traits.trait2.uses.level2.use2': true});
   //                   break;
   //                 case 'trait3':
   //                   traitMod = 1;
-  //                   this.actor.allUpdates({'data.traits.trait3.uses.level2.use2': true});
+  //                   this.actor.update({'data.traits.trait3.uses.level2.use2': true});
   //                   break;
   //                 case 'trait4':
   //                 traitMod = 1;
-  //                 this.actor.allUpdates({'data.traits.trait4.uses.level2.use2': true});
+  //                 this.actor.update({'data.traits.trait4.uses.level2.use2': true});
   //                 break;
   //               }
   //             }
@@ -317,16 +317,16 @@ export class ConflictSheet extends Application {
   //       let traitNum = this.whichTrait(trait);
   //       switch(traitNum) {
   //         case 'trait1':
-  //           this.actor.allUpdates({'data.traits.trait1.checks.checksEarned': parseInt(this.actor.data.data.traits.trait1.checks.checksEarned + 1)});
+  //           this.actor.update({'data.traits.trait1.checks.checksEarned': parseInt(this.actor.data.data.traits.trait1.checks.checksEarned + 1)});
   //           break;
   //         case 'trait2':
-  //           this.actor.allUpdates({'data.traits.trait2.checks.checksEarned': parseInt(this.actor.data.data.traits.trait3.checks.checksEarned + 1)});
+  //           this.actor.update({'data.traits.trait2.checks.checksEarned': parseInt(this.actor.data.data.traits.trait3.checks.checksEarned + 1)});
   //           break;
   //         case 'trait3':
-  //           this.actor.allUpdates({'data.traits.trait3.checks.checksEarned': parseInt(this.actor.data.data.traits.trait3.checks.checksEarned + 1)});
+  //           this.actor.update({'data.traits.trait3.checks.checksEarned': parseInt(this.actor.data.data.traits.trait3.checks.checksEarned + 1)});
   //           break;
   //         case 'trait4':
-  //           this.actor.allUpdates({'data.traits.trait4.checks.checksEarned': parseInt(this.actor.data.data.traits.trait4.checks.checksEarned + 1)});
+  //           this.actor.update({'data.traits.trait4.checks.checksEarned': parseInt(this.actor.data.data.traits.trait4.checks.checksEarned + 1)});
   //           break;
   //       }
   //     } else if (trait.usedAgainstExtra === true) {
@@ -335,16 +335,16 @@ export class ConflictSheet extends Application {
   //       let traitNum = this.whichTrait(trait);
   //       switch(traitNum) {
   //         case 'trait1':
-  //           this.actor.allUpdates({'data.traits.trait1.checks.checksEarned': parseInt(this.actor.data.data.traits.trait1.checks.checksEarned + 2)});
+  //           this.actor.update({'data.traits.trait1.checks.checksEarned': parseInt(this.actor.data.data.traits.trait1.checks.checksEarned + 2)});
   //           break;
   //         case 'trait2':
-  //           this.actor.allUpdates({'data.traits.trait2.checks.checksEarned': parseInt(this.actor.data.data.traits.trait3.checks.checksEarned + 2)});
+  //           this.actor.update({'data.traits.trait2.checks.checksEarned': parseInt(this.actor.data.data.traits.trait3.checks.checksEarned + 2)});
   //           break;
   //         case 'trait3':
-  //           this.actor.allUpdates({'data.traits.trait3.checks.checksEarned': parseInt(this.actor.data.data.traits.trait3.checks.checksEarned + 2)});
+  //           this.actor.update({'data.traits.trait3.checks.checksEarned': parseInt(this.actor.data.data.traits.trait3.checks.checksEarned + 2)});
   //           break;
   //         case 'trait4':
-  //           this.actor.allUpdates({'data.traits.trait4.checks.checksEarned': parseInt(this.actor.data.data.traits.trait4.checks.checksEarned + 2)});
+  //           this.actor.update({'data.traits.trait4.checks.checksEarned': parseInt(this.actor.data.data.traits.trait4.checks.checksEarned + 2)});
   //           break;
   //       }
   //     }
@@ -359,8 +359,8 @@ export class ConflictSheet extends Application {
   //   let personaMod = 0;
   //   if (persona != "" && this.actor.data.data.persona.value >= parseInt(persona)) {
   //     personaMod = parseInt(persona);
-  //     this.actor.allUpdates({'data.persona.value': this.actor.data.data.persona.value - personaMod});
-  //     this.actor.allUpdates({'data.persona.spent': this.actor.data.data.persona.spent + personaMod});
+  //     this.actor.update({'data.persona.value': this.actor.data.data.persona.value - personaMod});
+  //     this.actor.update({'data.persona.spent': this.actor.data.data.persona.spent + personaMod});
   //   } else if (persona != "" && this.actor.data.data.persona.value < parseInt(persona)) {
   //     ui.notifications.error("ERROR: You don't have enough persona to spend.");
   //     return;
@@ -373,12 +373,12 @@ export class ConflictSheet extends Application {
   //     return;
   //   } else if (nature === true && this.actor.data.data.persona.value >= 1) {
   //     natureMod = this.actor.data.data.nature.value;
-  //     this.actor.allUpdates({'data.persona.value': this.actor.data.data.persona.value - 1});
-  //     this.actor.allUpdates({'data.persona.spent': this.actor.data.data.persona.spent + 1});
+  //     this.actor.update({'data.persona.value': this.actor.data.data.persona.value - 1});
+  //     this.actor.update({'data.persona.spent': this.actor.data.data.persona.spent + 1});
   //   } else if (natureDoubleTap === true && this.actor.data.data.persona.value >= 1) {
   //     natureMod = this.actor.data.data.nature.value;
-  //     this.actor.allUpdates({'data.persona.value': this.actor.data.data.persona.value - 1});
-  //     this.actor.allUpdates({'data.persona.spent': this.actor.data.data.persona.spent + 1});
+  //     this.actor.update({'data.persona.value': this.actor.data.data.persona.value - 1});
+  //     this.actor.update({'data.persona.spent': this.actor.data.data.persona.spent + 1});
   //   }
     
   //   // Create an array of skills for the if check below
