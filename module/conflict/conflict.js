@@ -20,6 +20,7 @@ export class ConflictSheet extends Application {
     let data = super.getData();
 
     data.conflict = await this.currentConflict();
+    console.log(data.conflict);
 
     if(game.user.isGM) {
       data.isGM = true;
@@ -90,6 +91,7 @@ export class ConflictSheet extends Application {
         partyOrder: [],
         enemyOrder: [],
         engagedActors: {},
+        engagedEnemies: {},
         partyIntent: '',
         opponentIntent: '',
         conflictCaptain: '',
@@ -165,14 +167,52 @@ export class ConflictSheet extends Application {
     // Try to extract the data
     let data;
     try {
-        data = JSON.parse(event.dataTransfer.getData('text/plain'));
-        if (data.type !== "Monster") return;
+      data = JSON.parse(event.dataTransfer.getData('text/plain'));
     } catch (err) {
         return false;
     }
-    console.log(data);
-    console.log(event);
-    //await this._onSortPartyMember(event, data.data);
+    
+    // Check to see if the dropped entity is a Monster
+    let tbMonster;
+    let flag = false;
+    if(data.id) {
+      let temp = game.actors.get(data.id);
+      if (temp.data.type === 'Monster') {
+        tbMonster = temp.data;
+      } else {
+        console.log('Error: Dropped entity is not a Monster');
+        flag = true;
+      }
+    } else {
+      console.log('Error: Dropped entity has no ID');
+      flag = true;
+    }
+
+    // Return if the dropped entity isn't a Monster
+    if (flag === true) {
+      return;
+    }
+
+    // Update the Conflict object with monster info
+
+    let currentConflict = await this.currentConflict();
+    
+    // Get the list of engagedEnemies
+    let engagedEnemyActors = currentConflict.engagedEnemies;
+    
+    // Add the dropped monster to the list
+    engagedEnemyActors[tbMonster._id] = {
+      name: tbMonster.name,
+      id: tbMonster._id,
+      weapons: "",
+      equipped: "",
+      dispo: 0
+    };
+
+    // Update the currentConflict object with the updated engagedEnemies list
+    let newEngagedEnemies = Object.assign({}, duplicate(currentConflict).engagedEnemies, engagedEnemyActors);
+    // console.log(newEngagedEnemies);
+    await this.updateConflict({engagedEnemies: newEngagedEnemies}, 'onDrop');
   }
 
   dispoDialog() {
