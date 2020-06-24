@@ -168,6 +168,13 @@ export class TorchbearerActor extends Actor {
     return emittedLight;
   }
 
+  getTraitNames() {
+    return Object.values(this.tbData().traits).map(t => t.name).filter(n => n !== '');
+  }
+
+  getNatureDescriptors() {
+    return this.tbData().natureDescriptors.split(', ');
+  }
 
   tbData() {
     return this.data.data;

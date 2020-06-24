@@ -134,6 +134,6 @@ export class DispoDialog extends Dialog {
             } else if(skill.bl === 'H') {
                 $otherAbility.val('Health');
             }
-        })
+        });
     }
 }
