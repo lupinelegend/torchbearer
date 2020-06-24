@@ -648,214 +648,28 @@
       "goals": "",
       "conflictTypes": {
         "banish": {
-          "name": "Banish/Abjure",
-          "disposition": 0,
-          "weapons": {
-            "weapon1": {
-              "attack": "",
-              "defend": "",
-              "maneuver": "",
-              "feint": ""
-            },
-            "weapon2": {
-              "attack": "",
-              "defend": "",
-              "maneuver": "",
-              "feint": ""
-            },
-            "weapon3": {
-              "attack": "",
-              "defend": "",
-              "maneuver": "",
-              "feint": ""
-            },
-            "weapon4": {
-              "attack": "",
-              "defend": "",
-              "maneuver": "",
-              "feint": ""
-            }
-          }
+          "name": "Banish/Abjure"
         },
         "capture": {
-          "name": "Capture",
-          "disposition": 0,
-          "weapons": {
-            "weapon1": {
-              "attack": "",
-              "defend": "",
-              "maneuver": "",
-              "feint": ""
-            },
-            "weapon2": {
-              "attack": "",
-              "defend": "",
-              "maneuver": "",
-              "feint": ""
-            },
-            "weapon3": {
-              "attack": "",
-              "defend": "",
-              "maneuver": "",
-              "feint": ""
-            },
-            "weapon4": {
-              "attack": "",
-              "defend": "",
-              "maneuver": "",
-              "feint": ""
-            }
-          }
+          "name": "Capture"
         },
         "convinceCrowd": {
-          "name": "Convince Crowd",
-          "disposition": 0,
-          "weapons": {
-            "weapon1": {
-              "attack": "",
-              "defend": "",
-              "maneuver": "",
-              "feint": ""
-            },
-            "weapon2": {
-              "attack": "",
-              "defend": "",
-              "maneuver": "",
-              "feint": ""
-            },
-            "weapon3": {
-              "attack": "",
-              "defend": "",
-              "maneuver": "",
-              "feint": ""
-            },
-            "weapon4": {
-              "attack": "",
-              "defend": "",
-              "maneuver": "",
-              "feint": ""
-            }
-          }
+          "name": "Convince Crowd"
         },
         "driveOff": {
-          "name": "Drive Off",
-          "disposition": 0,
-          "weapons": {
-            "weapon1": {
-              "attack": "",
-              "defend": "",
-              "maneuver": "",
-              "feint": ""
-            },
-            "weapon2": {
-              "attack": "",
-              "defend": "",
-              "maneuver": "",
-              "feint": ""
-            },
-            "weapon3": {
-              "attack": "",
-              "defend": "",
-              "maneuver": "",
-              "feint": ""
-            },
-            "weapon4": {
-              "attack": "",
-              "defend": "",
-              "maneuver": "",
-              "feint": ""
-            }
-          }
+          "name": "Drive Off"
         },
         "kill": {
-          "name": "Kill",
-          "disposition": 0,
-          "weapons": {
-            "weapon1": {
-              "attack": "",
-              "defend": "",
-              "maneuver": "",
-              "feint": ""
-            },
-            "weapon2": {
-              "attack": "",
-              "defend": "",
-              "maneuver": "",
-              "feint": ""
-            },
-            "weapon3": {
-              "attack": "",
-              "defend": "",
-              "maneuver": "",
-              "feint": ""
-            },
-            "weapon4": {
-              "attack": "",
-              "defend": "",
-              "maneuver": "",
-              "feint": ""
-            }
-          }
+          "name": "Kill"
         },
         "pursueFlee": {
-          "name": "Pursue/Flee",
-          "disposition": 0,
-          "weapons": {
-            "weapon1": {
-              "attack": "",
-              "defend": "",
-              "maneuver": "",
-              "feint": ""
-            },
-            "weapon2": {
-              "attack": "",
-              "defend": "",
-              "maneuver": "",
-              "feint": ""
-            },
-            "weapon3": {
-              "attack": "",
-              "defend": "",
-              "maneuver": "",
-              "feint": ""
-            },
-            "weapon4": {
-              "attack": "",
-              "defend": "",
-              "maneuver": "",
-              "feint": ""
-            }
-          }
+          "name": "Pursue/Flee"
         },
         "trickRiddle": {
-          "name": "Trick/Riddle",
-          "disposition": 0,
-          "weapons": {
-            "weapon1": {
-              "attack": "",
-              "defend": "",
-              "maneuver": "",
-              "feint": ""
-            },
-            "weapon2": {
-              "attack": "",
-              "defend": "",
-              "maneuver": "",
-              "feint": ""
-            },
-            "weapon3": {
-              "attack": "",
-              "defend": "",
-              "maneuver": "",
-              "feint": ""
-            },
-            "weapon4": {
-              "attack": "",
-              "defend": "",
-              "maneuver": "",
-              "feint": ""
-            }
-          }
+          "name": "Trick/Riddle"
+        },
+        "other": {
+          "name": "Other"
         }
       },
       "hitpoints": {

@@ -158,8 +158,17 @@ export class ConflictSheet extends Application {
     });
     html.find('.actor .actor-image, .actor .actor-name').on('click', (evt) => {
       game.actors.get($(evt.target).closest('.actor').data('actorId')).sheet.render(true);
-  });
+    });
 
+    html.find('.conflict-monster-field').change(ev => {
+      let attrName = ev.currentTarget.name;
+      let monsterID = ev.currentTarget.title;
+      let weaponValue = ev.currentTarget.value;
+
+      let engagedEnemies = duplicate(this._conflictData.conflict.engagedEnemies);
+      engagedEnemies[monsterID][attrName] = weaponValue;
+      this.updateConflict({engagedEnemies: engagedEnemies}, 'conflict-monster-field');
+    });
   }
 
   /** @override */
