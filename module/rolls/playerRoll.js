@@ -1,4 +1,4 @@
-import {Capitalize} from "../misc.js";
+import {Capitalize, SafeNum} from "../misc.js";
 import {CharacterAdjustment} from "../actor/character-adjustment.js";
 
 export class PlayerRoll {
@@ -6,10 +6,13 @@ export class PlayerRoll {
         this.actor = tbCharacter;
     }
 
-    async roll(skillOrAbility, header, flavorText, helpDice, ob, trait, tapNature, fresh, supplies, persona, natureDescriptor) {
+    async roll(opts) {
+        let {skillOrAbility, header, flavorText, helpDice, ob,
+            trait, tapNature, fresh, supplies, persona, natureDescriptor
+        } = opts;
 
         // Check for any factors due to conditions
-        let adjustedStats = this.conditionMods();
+        let modifiedStats = this.modifiedStats();
         let characterAdjustment = new CharacterAdjustment(this.actor);
         // Exhausted is a factor in all tests except Circles and Resources
         if (this.actor.data.data.exhausted === true) {
@@ -70,7 +73,7 @@ export class PlayerRoll {
             let skill = skillList[skillOrAbility];
             this.actor.data.data.isLastTestSkill = true;
             if (skill.rating > 0) {
-                diceToRoll = skill.rating + traitMod + natureMod + freshMod + supplies + helpDice + personaMod + adjustedStats.skillMod;
+                diceToRoll = skill.rating + traitMod + natureMod + freshMod + supplies + helpDice + personaMod + modifiedStats.skillMod;
             } else {
                 //Beginner's Luck
                 if (this.actor.data.data.afraid) {
@@ -86,11 +89,11 @@ export class PlayerRoll {
                     }
                     if (this.actor.data.data[name].value > 0) {
                         beginnersLuck = `(Beginner's Luck, ${Capitalize(name)})`;
-                        diceToRoll = Math.ceil((adjustedStats[name] + supplies + helpDice) / 2) + traitMod + natureMod + freshMod + personaMod;
+                        diceToRoll = Math.ceil((modifiedStats[name] + supplies + helpDice) / 2) + traitMod + natureMod + freshMod + personaMod;
                     } else {
                         // If 0, use Nature instead
                         beginnersLuck = "(Beginner's Luck, Nature)";
-                        diceToRoll = Math.ceil((adjustedStats.nature + supplies + helpDice) / 2) + traitMod + natureMod + freshMod + personaMod;
+                        diceToRoll = Math.ceil((modifiedStats.nature + supplies + helpDice) / 2) + traitMod + natureMod + freshMod + personaMod;
                     }
                 }
             }
@@ -99,7 +102,7 @@ export class PlayerRoll {
         // Otherwise it's an ability
         if (!diceToRoll) {
             this.actor.data.data.isLastTestSkill = false;
-            diceToRoll = adjustedStats[skillOrAbility] + traitMod + natureMod + freshMod + supplies + helpDice + personaMod;
+            diceToRoll = modifiedStats[skillOrAbility] + traitMod + natureMod + freshMod + supplies + helpDice + personaMod;
         }
 
         // Build the formula
@@ -128,6 +131,7 @@ export class PlayerRoll {
         if (rollMode === "blindroll") chatData["blind"] = true;
 
         // Do the roll
+        this.actor.data.data.lastTest = skillOrAbility;
         await characterAdjustment.execute();
         let roll = new Roll(formula);
         roll.roll();
@@ -230,13 +234,67 @@ export class PlayerRoll {
         });
     }
 
-    conditionMods() {
+    modifiedStats() {
+        let tbData = this.actor.tbData();
+        let modifier = 0 - (tbData.injured ? 1 : 0) - (tbData.sick ? 1 : 0)
         return {
-            'will': this.actor.data.data.will.value - (this.actor.data.data.injured ? 1 : 0) - (this.actor.data.data.sick ? 1 : 0),
-            'health': this.actor.data.data.health.value - (this.actor.data.data.injured ? 1 : 0) - (this.actor.data.data.sick ? 1 : 0),
-            'nature': this.actor.data.data.nature.value - (this.actor.data.data.injured ? 1 : 0) - (this.actor.data.data.sick ? 1 : 0),
-            'skillMod': 0 - (this.actor.data.data.injured ? 1 : 0) - (this.actor.data.data.sick ? 1 : 0)
+            'will': tbData.will.value - modifier,
+            'health': tbData.health.value - modifier,
+            'nature': tbData.nature.value - modifier,
+            'skillMod': modifier
         };
     }
 
+    async showDialog(skillOrAbility) {
+        let fresh = !!this.actor.tbData().fresh;
+
+        let dialogContent = 'systems/torchbearer/templates/roll-dialog-content.html';
+
+        // Build an actor trait list to be passed to the dialog box
+        let traits = this.actor.getTraitNames();
+
+        // Build a Nature descriptor list to be passed to the dialog box
+        let natureDesc = this.actor.getNatureDescriptors();
+        natureDesc.push("Acting outside character's nature");
+
+        let header = 'Testing: ' + Capitalize(skillOrAbility);
+        let template = await renderTemplate(dialogContent, {
+            header, traits, fresh, natureDesc: natureDesc, ob: 1, helpDice: 0, supplies: 0, persona: 0
+        });
+        new Dialog({
+            title: `Test`,
+            content: template,
+            buttons: {
+                yes: {
+                    icon: "<i class='fas fa-check'></i>",
+                    label: `Roll`,
+                    callback: (html) => {
+                        let flavorText = html.find('#flavorText').val();
+                        let helpDice = SafeNum(html.find('#helpingDice').val());
+                        let ob = SafeNum(html.find('#ob').val()) || 1;
+                        let trait = {
+                            name: html.find('#traitDropdown').val(),
+                            usedFor: !!html.find('#traitFor').prop('checked'),
+                            usedAgainst: !!html.find('#traitAgainst').prop('checked'),
+                            usedAgainstExtra: !!html.find('#traitAgainstExtra').prop('checked')
+                        };
+                        let tapNature = !!html.find('#natureYes').prop('checked');
+                        let fresh = !!html.find('#fresh').prop('checked')
+                        let supplies = SafeNum(html.find('#supplies').val());
+                        let persona = SafeNum(html.find('#personaAdvantage').val());
+                        let natureDescriptor = html.find('#natureDesc').val();
+                        this.roll({
+                            skillOrAbility, header, flavorText, helpDice, ob, trait, tapNature,
+                            fresh, supplies, persona, natureDescriptor
+                        });
+                    }
+                },
+                no: {
+                    icon: "<i class='fas fa-times'></i>",
+                    label: `Cancel`
+                }
+            },
+            default: 'yes'
+        }).render(true);
+    }
 }

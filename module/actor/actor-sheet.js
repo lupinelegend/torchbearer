@@ -4,7 +4,6 @@
  */
 import {alternateContainerType, canFit} from "../inventory/inventory.js";
 import {PlayerRoll} from "../rolls/playerRoll.js";
-import {SafeNum} from "../misc.js";
 
 export class TorchbearerActorSheet extends ActorSheet {
 
@@ -322,104 +321,11 @@ export class TorchbearerActorSheet extends ActorSheet {
     const dataset = element.dataset;
     
     // Determine attribute/skill to roll
-    let testedSkillOrAbility = dataset.label;
-    this.actor.data.data.lastTest = testedSkillOrAbility;
+    let skillOrAbility = dataset.label;
 
-    // Determine if testedSkillOrAbility is a skill
-    let skill = this.isSkill(testedSkillOrAbility);
-
-    // Capitalize first letter for later use in the roll template
-    let header = 'Testing: ' + testedSkillOrAbility.charAt(0).toUpperCase() + testedSkillOrAbility.slice(1);
-
-    // Determine if the actor is Fresh
-    let freshCheck = "";
-    if (this.actor.data.data.fresh === true) {
-      freshCheck = "checked";
-    }
-
-    // Dialog box for roll customization
-    let dialogContent = 'systems/torchbearer/templates/roll-dialog-content.html';
-    
-    // Build an actor trait list to be passed to the dialog box
-    let traits = [];
-    const traitList = this.actor.data.data.traits;
-    Object.keys(traitList).forEach(key => {
-      if (traitList[key].name !== "") {
-        traits.push(traitList[key].name);
-      }
-    });
-
-    // Build a Nature descriptor list to be passed to the dialog box
-    let natureDesc = this.actor.data.data.natureDescriptors.split(', ');
-    natureDesc.push("Acting outside character's nature");
-
-    renderTemplate(dialogContent, {attribute: header, traitList: traits, fresh: freshCheck, natureDesc: natureDesc, ob: 1, helpDice: 0, supplies: 0, persona: 0}).then(template => {
-      new Dialog({
-        title: `Test`,
-        content: template,
-        buttons: {
-          yes: {
-            icon: "<i class='fas fa-check'></i>",
-            label: `Roll`,
-            callback: (html) => {
-              let flavorText = html.find('#flavorText').val();
-              let helpDice = SafeNum(html.find('#helpingDice').val());
-              let ob = SafeNum(html.find('#ob').val()) || 1;
-              let trait = {
-                name: html.find('#traitDropdown').val(),
-                usedFor: !!html.find('#traitFor').prop('checked'),
-                usedAgainst: !!html.find('#traitAgainst').prop('checked'),
-                usedAgainstExtra: !!html.find('#traitAgainstExtra').prop('checked')
-              };
-              let tapNature = !!html.find('#natureYes').prop('checked');
-              let fresh = !!html.find('#fresh').prop('checked')
-              let supplies = SafeNum(html.find('#supplies').val());
-              let persona = SafeNum(html.find('#personaAdvantage').val());
-              let natureDescriptor = html.find('#natureDesc').val();
-              new PlayerRoll(this.actor).roll(
-                  testedSkillOrAbility, header, flavorText, helpDice, ob, trait, tapNature,
-                  fresh, supplies, persona, natureDescriptor
-              );
-            }
-          },
-          no: {
-            icon: "<i class='fas fa-times'></i>",
-            label: `Cancel`
-          }
-        },
-        default: 'yes'
-      }).render(true);
-    });
+    new PlayerRoll(this.actor).showDialog(skillOrAbility);
   }
 
-  isSkill(rollTarget) {
-    // Create an array of skills for the if check below
-    let skills = [];
-    const skillList = this.actor.data.data.skills;
-    Object.keys(skillList).forEach(key => {
-      skills.push(skillList[key].name);
-    });
-
-    let skillInfo = {
-      "name": "",
-      "rating": 0,
-      "blAbility": ""
-    };
-
-    skills.forEach(key => {
-      if (rollTarget === key) {
-        skillInfo.name = rollTarget;
-        skillInfo.rating = this.actor.data.data.skills[rollTarget].rating;
-        skillInfo.blAbility = this.actor.data.data.skills[rollTarget].bl;
-      }
-    });
-
-    if (skillInfo.name === "") {
-      return false;
-    } else {
-      return skillInfo;
-    }
-  }
 
   closestCompatibleContainer(tbItem, target) {
     let $closestContainer = $(target).closest('.inventory-container');
