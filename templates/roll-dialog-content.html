@@ -3,7 +3,7 @@
   <!-- Obstacle (Need to make a required field) -->
   <div class="row" style="align-items: center; margin: 0 0 8px 0;">
     <label for="ob"><u>Obstacle</u>:</label>
-    <input type="text" name="ob" id="ob" data-dtype="Number" style="width: 30px; margin-left: 5px;">
+    <input type="number" min="0" name="ob" id="ob" data-dtype="Number" style="width: 40px; margin-left: 5px;" value="{{ob}}" />
   </div>
 
   <!-- Action description -->
@@ -24,16 +24,16 @@
     <!-- Helping dice -->
     <div class="row" style="align-items: center; margin-top: 8px;">
       <label for="helpingDice"><u>Helping Dice</u>:</label>
-      <input type="text" name="helpingDice" id="helpingDice" data-dtype="Number" style="width: 30px; margin-left: 5px;">
+      <input type="number" min="0" name="helpingDice" id="helpingDice" data-dtype="Number" style="width: 40px; margin-left: 5px;" value="{{helpDice}}" />
 
       <label for="supplies" style="margin-left: 15px;"><u>Supplies and Gear</u>:</label>
-      <input type="text" name="supplies" id="supplies" data-dtype="Number" style="width: 30px; margin-left: 5px;">
+      <input type="number" min="0" name="supplies" id="supplies" data-dtype="Number" style="width: 40px; margin-left: 5px;" value="{{supplies}}" />
     </div>
 
     <!-- Persona Advantage -->
     <div class="row" style="align-items: center; margin-top: 8px;">
       <label for="personaAdvantage"><u>Persona Advantage</u>:</label>
-      <input type="text" name="personaAdvantage" id="personaAdvantage" data-dtype="Number" style="width: 30px; margin: 0 5px 0 5px;">
+      <input type="number" min="0" name="personaAdvantage" id="personaAdvantage" data-dtype="Number" style="width: 40px; margin: 0 5px 0 5px;" value="{{persona}}" />
       <label style="font-family: Souvenir-MediumItalic;">(+1D/persona spent, up to 3)</label>
     </div>
 
@@ -60,17 +60,6 @@
         <span> / </span>
         <label for="nature" style="margin: 0 0 0 4px;">No</label>
         <input type="radio" name="nature" id="natureNo" value="natureNo" checked>
-
-        {{#if natureDoubleTap}}
-        <div class="row" style="align-items: center; margin: 4px 0 0 0; padding: 0 0 0 0;">
-        <label><u>Double-Tap</u>:</label>
-        <label for="doubletap" style="margin: 0 0 0 8px;">Yes <em>(1 persona)</em></label>
-        <input type="radio" name="doubletap" id="doubletapYes" value="doubletapYes">
-        <span> / </span>
-        <label for="doubletap" style="margin: 0 0 0 4px;">No</label>
-        <input type="radio" name="doubletap" id="doubletapNo" value="doubletapNo" checked>
-        </div>
-        {{/if}}
       </div>
     </div>
 
@@ -78,7 +67,6 @@
     <div class="row" style="align-items: center; margin: 8px 0 5px 0; padding-right: 0px;">
       <div class="col" style="padding: 0 0 0 0;">
         <label for="trait"><u>Use Trait</u>:</label>
-        <!-- <input type="text" name="trait" id="trait" data-dtype="Number" style="width: 80px; margin-left: 5px;"> -->
         <select name="traitList" id="traitDropdown" style="margin: 5px 0 0 5px; font-family: Souvenir-Medium;">
         {{#select traitList}}
         <option value="" selected disabled hidden>Choose a trait...</option>

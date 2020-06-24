@@ -168,7 +168,6 @@ export class TorchbearerActor extends Actor {
     return emittedLight;
   }
 
-
   tbData() {
     return this.data.data;
   }
