@@ -187,7 +187,7 @@ export class ConflictSheet extends Application {
       console.log('Error: Dropped entity has no ID');
       flag = true;
     }
-
+    console.log(tbMonster);
     // Return if the dropped entity isn't a Monster
     if (flag === true) {
       return;
@@ -204,7 +204,7 @@ export class ConflictSheet extends Application {
     engagedEnemyActors[tbMonster._id] = {
       name: tbMonster.name,
       id: tbMonster._id,
-      weapons: "",
+      weapons: tbMonster.data.weapons,
       equipped: "",
       dispo: 0
     };

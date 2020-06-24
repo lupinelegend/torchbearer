@@ -15,7 +15,7 @@
                     <label for="data.might" style="font-family: Souvenir-Demi;">Might: </label>
                     <input name="data.might" type="text" value="{{data.might}}" style="width: 35px; font-family: Souvenir-Medium; text-align: center;">
                 </div>
-                <div class="col" style="text-align: right; padding: 0; margin-right: 2px;">
+                <div class="col" style="text-align: right; padding: 0; margin-right: 2px; white-space: nowrap;">
                     <label for="data.type" style="font-family: Souvenir-Demi;">Type: </label>
                     <input name="data.type" type="text" value="{{data.type}}" style="width: 100px; font-family: Souvenir-Medium; text-align: center;">
                 </div>
@@ -92,23 +92,29 @@
             <label for="" style="font-family: Souvenir-Demi;">Armor:</label>
             <input name="data.armor" type="text" value="{{data.armor}}" style="font-family: Souvenir-Medium; margin: 3px;">
         </div>
-        <table class="tbtable">
+        <table class="tbtable" id="monsterWeaponsTable">
             <thead class="theader" style="font-family: Souvenir-Demi;">
-                <th style="text-align: left;">Weapon</th>
-                <th style="text-align: left;">Conflict</th>
+                <th style="text-align: left;">
+                    Weapon
+                    <div class="item-controls" style="float: right; margin: 0 5px 0 0;">
+                        <a class="item-control weapon-create" title="Create weapon" data-type="weapon"><i class="fas fa-plus"></i></a>
+                    </div>
+                </th>
+                <th style="text-align: center;">Conflict</th>
                 <th style="text-align: center;">A</th>
                 <th style="text-align: center;">D</th>
                 <th style="text-align: center;">F</th>
                 <th style="text-align: center;">M</th>
             </thead>
             <tbody>
+                <!-- Weapon 1 -->
                 <tr>
-                    <td style="text-align: center;">
-                        <input type="text">
+                    <td>
+                        <input type="text" name="data.weapons.weapon1.name" value="{{data.weapons.weapon1.name}}">
                     </td>
                     <td style="text-align: center;">
-                        <select name="test" class="weaponDispoDropdown">
-                            {{#select test}}
+                        <select name="data.weapons.weapon1.conflict" class="weaponDispoDropdown">
+                            {{#select data.weapons.weapon1.conflict}}
                                 <option value="" selected hidden disabled>Choose a conflict...</option>
                                 {{#each data.conflictTypes}}
                                     <option value="{{@key}}">{{this.name}}</option>
@@ -117,25 +123,26 @@
                         </select>
                     </td>
                     <td style="text-align: center;">
-                        <input type="text" style="width: 35px;">
+                        <input type="text" style="width: 35px;" name="data.weapons.weapon1.a" value="{{data.weapons.weapon1.a}}">
                     </td>
                     <td style="text-align: center;">
-                        <input type="text" style="width: 35px;">
+                        <input type="text" style="width: 35px;" name="data.weapons.weapon1.d" value="{{data.weapons.weapon1.d}}">
                     </td>
-                    <td style="text-align: center;">
-                        <input type="text" style="width: 35px;">
+                    <td style="text-align: center;" class="weaponTableCell">
+                        <input type="text" style="width: 35px;" name="data.weapons.weapon1.f" value="{{data.weapons.weapon1.f}}">
                     </td>
-                    <td style="text-align: center;">
-                        <input type="text" style="width: 35px;">
+                    <td style="text-align: center;" class="weaponTableCell">
+                        <input type="text" style="width: 35px;" name="data.weapons.weapon1.m" value="{{data.weapons.weapon1.m}}">
                     </td>
                 </tr>
+                <!-- Weapon 2 -->
                 <tr>
-                    <td style="text-align: center;">
-                        <input type="text">
+                    <td>
+                        <input type="text" name="data.weapons.weapon2.name" value="{{data.weapons.weapon2.name}}">
                     </td>
                     <td style="text-align: center;">
-                        <select name="test" class="weaponDispoDropdown">
-                            {{#select test}}
+                        <select name="data.weapons.weapon2.conflict" class="weaponDispoDropdown">
+                            {{#select data.weapons.weapon2.conflict}}
                                 <option value="" selected hidden disabled>Choose a conflict...</option>
                                 {{#each data.conflictTypes}}
                                     <option value="{{@key}}">{{this.name}}</option>
@@ -144,25 +151,26 @@
                         </select>
                     </td>
                     <td style="text-align: center;">
-                        <input type="text" style="width: 35px;">
+                        <input type="text" style="width: 35px;" name="data.weapons.weapon2.a" value="{{data.weapons.weapon2.a}}">
                     </td>
                     <td style="text-align: center;">
-                        <input type="text" style="width: 35px;">
+                        <input type="text" style="width: 35px;" name="data.weapons.weapon2.d" value="{{data.weapons.weapon2.d}}">
                     </td>
-                    <td style="text-align: center;">
-                        <input type="text" style="width: 35px;">
+                    <td style="text-align: center;" class="weaponTableCell">
+                        <input type="text" style="width: 35px;" name="data.weapons.weapon2.f" value="{{data.weapons.weapon2.f}}">
                     </td>
-                    <td style="text-align: center;">
-                        <input type="text" style="width: 35px;">
+                    <td style="text-align: center;" class="weaponTableCell">
+                        <input type="text" style="width: 35px;" name="data.weapons.weapon2.m" value="{{data.weapons.weapon2.m}}">
                     </td>
                 </tr>
+                <!-- Weapon 3 -->
                 <tr>
-                    <td style="text-align: center;">
-                        <input type="text">
+                    <td>
+                        <input type="text" name="data.weapons.weapon3.name" value="{{data.weapons.weapon3.name}}">
                     </td>
                     <td style="text-align: center;">
-                        <select name="test" class="weaponDispoDropdown">
-                            {{#select test}}
+                        <select name="data.weapons.weapon3.conflict" class="weaponDispoDropdown">
+                            {{#select data.weapons.weapon3.conflict}}
                                 <option value="" selected hidden disabled>Choose a conflict...</option>
                                 {{#each data.conflictTypes}}
                                     <option value="{{@key}}">{{this.name}}</option>
@@ -171,16 +179,100 @@
                         </select>
                     </td>
                     <td style="text-align: center;">
-                        <input type="text" style="width: 35px;">
+                        <input type="text" style="width: 35px;" name="data.weapons.weapon3.a" value="{{data.weapons.weapon3.a}}">
                     </td>
                     <td style="text-align: center;">
-                        <input type="text" style="width: 35px;">
+                        <input type="text" style="width: 35px;" name="data.weapons.weapon3.d" value="{{data.weapons.weapon3.d}}">
+                    </td>
+                    <td style="text-align: center;" class="weaponTableCell">
+                        <input type="text" style="width: 35px;" name="data.weapons.weapon3.f" value="{{data.weapons.weapon3.f}}">
+                    </td>
+                    <td style="text-align: center;" class="weaponTableCell">
+                        <input type="text" style="width: 35px;" name="data.weapons.weapon3.m" value="{{data.weapons.weapon3.m}}">
+                    </td>
+                </tr>
+                <!-- Weapon 4 -->
+                <tr>
+                    <td>
+                        <input type="text" name="data.weapons.weapon4.name" value="{{data.weapons.weapon4.name}}">
                     </td>
                     <td style="text-align: center;">
-                        <input type="text" style="width: 35px;">
+                        <select name="data.weapons.weapon4.conflict" class="weaponDispoDropdown">
+                            {{#select data.weapons.weapon4.conflict}}
+                                <option value="" selected hidden disabled>Choose a conflict...</option>
+                                {{#each data.conflictTypes}}
+                                    <option value="{{@key}}">{{this.name}}</option>
+                                {{/each}}
+                            {{/select}}
+                        </select>
                     </td>
                     <td style="text-align: center;">
-                        <input type="text" style="width: 35px;">
+                        <input type="text" style="width: 35px;" name="data.weapons.weapon4.a" value="{{data.weapons.weapon4.a}}">
+                    </td>
+                    <td style="text-align: center;">
+                        <input type="text" style="width: 35px;" name="data.weapons.weapon4.d" value="{{data.weapons.weapon4.d}}">
+                    </td>
+                    <td style="text-align: center;" class="weaponTableCell">
+                        <input type="text" style="width: 35px;" name="data.weapons.weapon4.f" value="{{data.weapons.weapon4.f}}">
+                    </td>
+                    <td style="text-align: center;" class="weaponTableCell">
+                        <input type="text" style="width: 35px;" name="data.weapons.weapon4.m" value="{{data.weapons.weapon4.m}}">
+                    </td>
+                </tr>
+                <!-- Weapon 5 -->
+                <tr>
+                    <td>
+                        <input type="text" name="data.weapons.weapon5.name" value="{{data.weapons.weapon5.name}}">
+                    </td>
+                    <td style="text-align: center;">
+                        <select name="data.weapons.weapon5.conflict" class="weaponDispoDropdown">
+                            {{#select data.weapons.weapon5.conflict}}
+                                <option value="" selected hidden disabled>Choose a conflict...</option>
+                                {{#each data.conflictTypes}}
+                                    <option value="{{@key}}">{{this.name}}</option>
+                                {{/each}}
+                            {{/select}}
+                        </select>
+                    </td>
+                    <td style="text-align: center;">
+                        <input type="text" style="width: 35px;" name="data.weapons.weapon5.a" value="{{data.weapons.weapon5.a}}">
+                    </td>
+                    <td style="text-align: center;">
+                        <input type="text" style="width: 35px;" name="data.weapons.weapon5.d" value="{{data.weapons.weapon5.d}}">
+                    </td>
+                    <td style="text-align: center;" class="weaponTableCell">
+                        <input type="text" style="width: 35px;" name="data.weapons.weapon5.f" value="{{data.weapons.weapon5.f}}">
+                    </td>
+                    <td style="text-align: center;" class="weaponTableCell">
+                        <input type="text" style="width: 35px;" name="data.weapons.weapon5.m" value="{{data.weapons.weapon5.m}}">
+                    </td>
+                </tr>
+                <!-- Weapon 6 -->
+                <tr>
+                    <td>
+                        <input type="text" name="data.weapons.weapon6.name" value="{{data.weapons.weapon6.name}}">
+                    </td>
+                    <td style="text-align: center;">
+                        <select name="data.weapons.weapon6.conflict" class="weaponDispoDropdown">
+                            {{#select data.weapons.weapon6.conflict}}
+                                <option value="" selected hidden disabled>Choose a conflict...</option>
+                                {{#each data.conflictTypes}}
+                                    <option value="{{@key}}">{{this.name}}</option>
+                                {{/each}}
+                            {{/select}}
+                        </select>
+                    </td>
+                    <td style="text-align: center;">
+                        <input type="text" style="width: 35px;" name="data.weapons.weapon6.a" value="{{data.weapons.weapon6.a}}">
+                    </td>
+                    <td style="text-align: center;">
+                        <input type="text" style="width: 35px;" name="data.weapons.weapon6.d" value="{{data.weapons.weapon6.d}}">
+                    </td>
+                    <td style="text-align: center;" class="weaponTableCell">
+                        <input type="text" style="width: 35px;" name="data.weapons.weapon6.f" value="{{data.weapons.weapon6.f}}">
+                    </td>
+                    <td style="text-align: center;" class="weaponTableCell">
+                        <input type="text" style="width: 35px;" name="data.weapons.weapon6.m" value="{{data.weapons.weapon6.m}}">
                     </td>
                 </tr>
             </tbody>

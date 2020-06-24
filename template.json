@@ -872,6 +872,56 @@
           "hp": 0
         }
       },
+      "weapons": {
+        "weapon1": {
+          "name": "",
+          "conflict": "",
+          "a": "",
+          "d": "",
+          "f": "",
+          "m": ""
+        },
+        "weapon2": {
+          "name": "",
+          "conflict": "",
+          "a": "",
+          "d": "",
+          "f": "",
+          "m": ""
+        },
+        "weapon3": {
+          "name": "",
+          "conflict": "",
+          "a": "",
+          "d": "",
+          "f": "",
+          "m": ""
+        },
+        "weapon4": {
+          "name": "",
+          "conflict": "",
+          "a": "",
+          "d": "",
+          "f": "",
+          "m": ""
+        },
+        "weapon5": {
+          "name": "",
+          "conflict": "",
+          "a": "",
+          "d": "",
+          "f": "",
+          "m": ""
+        },
+        "weapon6": {
+          "name": "",
+          "conflict": "",
+          "a": "",
+          "d": "",
+          "f": "",
+          "m": ""
+        }
+      },
       "armor": "",
       "instinct": "",
       "special": ""
