@@ -20,7 +20,6 @@ export class ConflictSheet extends Application {
     let data = super.getData();
 
     data.conflict = await this.currentConflict();
-    console.log(data.conflict);
 
     if(game.user.isGM) {
       data.isGM = true;
@@ -161,7 +160,9 @@ export class ConflictSheet extends Application {
     });
 
     html.find('.conflict-monster-field').change(ev => {
+      console.log(ev);
       let attrName = ev.currentTarget.name;
+      // Not the actorID, just the key associated with this monster in the conflict object
       let monsterID = ev.currentTarget.title;
       let weaponValue = ev.currentTarget.value;
 
@@ -204,23 +205,41 @@ export class ConflictSheet extends Application {
 
     // Update the Conflict object with monster info
 
-    let currentConflict = await this.currentConflict();
-    
     // Get the list of engagedEnemies
+    let currentConflict = await this.currentConflict();
     let engagedEnemyActors = currentConflict.engagedEnemies;
+    console.log(engagedEnemyActors);
     
-    // Add the dropped monster to the list
-    engagedEnemyActors[tbMonster._id] = {
-      name: tbMonster.name,
-      id: tbMonster._id,
-      weapons: tbMonster.data.weapons,
-      equipped: "",
-      dispo: 0
-    };
+    let added = false;
+    Object.keys(engagedEnemyActors).forEach(element => {
+      if (element === tbMonster._id) {
+        let keyID = tbMonster._id + (Object.keys(engagedEnemyActors).length);
+
+        // Add the dropped monster to the list
+        engagedEnemyActors[keyID] = {
+        name: tbMonster.name,
+        id: tbMonster._id,
+        weapons: tbMonster.data.weapons,
+        equipped: "",
+        dispo: 0
+        };
+        added = true;
+      }
+    });
+
+    if (added !== true) {
+      // Add the dropped monster to the list
+      engagedEnemyActors[tbMonster._id] = {
+        name: tbMonster.name,
+        id: tbMonster._id,
+        weapons: tbMonster.data.weapons,
+        equipped: "",
+        dispo: 0
+      };
+    }
 
     // Update the currentConflict object with the updated engagedEnemies list
     let newEngagedEnemies = Object.assign({}, duplicate(currentConflict).engagedEnemies, engagedEnemyActors);
-    // console.log(newEngagedEnemies);
     await this.updateConflict({engagedEnemies: newEngagedEnemies}, 'onDrop');
   }
 
