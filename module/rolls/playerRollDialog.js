@@ -19,7 +19,7 @@ export class PlayerRollDialog extends Dialog {
                     callback: (html) => {
                         let flavorText = html.find('#flavorText').val();
                         let helpDice = SafeNum(html.find('#helpingDice').val());
-                        let ob = SafeNum(html.find('#ob').val()) || 1;
+                        let ob = SafeNum(html.find('#ob').val());
                         let trait = {
                             name: html.find('#traitDropdown').val(),
                             usedFor: !!html.find('#traitFor').prop('checked'),
@@ -30,9 +30,18 @@ export class PlayerRollDialog extends Dialog {
                         let supplies = SafeNum(html.find('#supplies').val());
                         let persona = SafeNum(html.find('#personaAdvantage').val());
                         let natureDescriptor = html.find('#natureDesc').val();
+
+                        let rollTypeIndependent = !!html.find('#rollTypeIndependent').prop('checked');
+                        let rollTypeVersus = !!html.find('#rollTypeVersus').prop('checked');
+                        let rollTypeDisposition = !!html.find('#rollTypeDisposition').prop('checked');
+                        let rollType = rollTypeIndependent ? 'independent' : (
+                            rollTypeVersus ? 'versus' : (
+                                rollTypeDisposition ? 'disposition' : 'independent'
+                            )
+                        );
                         onComplete(Object.assign({}, opts, {
                             flavorText, helpDice, ob, trait, tapNature,
-                            supplies, persona, natureDescriptor,
+                            supplies, persona, natureDescriptor, rollType
                         }));
                     }
                 },
@@ -48,6 +57,16 @@ export class PlayerRollDialog extends Dialog {
 
     activateListeners(html) {
         super.activateListeners(html);
+        let origDice = SafeNum(html.find('#rolling').data('orig'));
+        if(origDice < 1) {
+            html.find('button').each((i, el) => {
+                let $el = $(el);
+                if($el.data('button') === 'yes') {
+                    $el.prop('disabled', true);
+                }
+            });
+        }
+
         html.find('.dice-modifier').change(ev => {
             let sum = 0;
             html.find('.dice-modifier').each((i, el) => {
@@ -62,6 +81,16 @@ export class PlayerRollDialog extends Dialog {
             let $rolling = html.find('#rolling');
             let newRolling = SafeNum($rolling.data('orig')) + sum;
             $rolling.text(`${newRolling}D`);
+            html.find('button').each((i, el) => {
+                let $el = $(el);
+                if($el.data('button') === 'yes') {
+                    if(newRolling < 1) {
+                        $el.prop('disabled', true);
+                    } else {
+                        $el.prop('disabled', false);
+                    }
+                }
+            });
         });
     }
 }

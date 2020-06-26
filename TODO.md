@@ -2,6 +2,7 @@
 
 Inventory
 -
+- 2h weapons can be carried in 1h but are only wieldable if in 2
 - Filling out the equipment databases with base 1st ed content
   - Magic Items
 - Update items for 2e
@@ -11,15 +12,15 @@ Dice Rolls
 - 
 - Add buttons to spend fate and persona after the roll
 - Add visualization to indicate die source
+- Incorporate light as a factor
+- Help builder dialog
+- GM Ob builder dialog
 
 Magic
 - 
 
 Conflict
 -
-- Only include players that are part of the grind
-- Weapon drop downs should sort weapons first
-- Weapon drop downs should only show unique items
 
 Grind
 -

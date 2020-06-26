@@ -3,6 +3,8 @@ import { TorchbearerActor } from "./actor/actor.js";
 export const fateForLuck = function(app, html, data) {
   let actor = game.actors.get(data.message.speaker.actor);
   let ob = app.roll.parts[0].options.ob;
+  let rollType = app.roll.parts[0].options.rollType;
+  let advanceable = app.roll.parts[0].options.advanceable;
 
   // Return if the actor doesn't have any fate points to spend
   if (actor.data.data.fate.value < 1) {
@@ -25,7 +27,7 @@ export const fateForLuck = function(app, html, data) {
       originalSuccesses++;
     }
   });
-  if (app.roll.parts[0].options.currentSuccesses != undefined) {
+  if (app.roll.parts[0].options.currentSuccesses !== undefined) {
     originalSuccesses = app.roll.parts[0].options.currentSuccesses
   }
 
@@ -37,12 +39,14 @@ export const fateForLuck = function(app, html, data) {
   let header = 'Lucky Reroll';
   let formula = `${rerolls}d6`;
   let explode = true;
-  reRoll(header, formula, explode, actor, originalSuccesses, ob);
+  reRoll(header, formula, explode, actor, originalSuccesses, ob, rollType, advanceable);
 }
 
 export const ofCourse = function(app, html, data) {
   let actor = game.actors.get(data.message.speaker.actor);
   let ob = app.roll.parts[0].options.ob;
+  let rollType = app.roll.parts[0].options.rollType;
+  let advanceable = app.roll.parts[0].options.advanceable;
 
   // Return if the actor doesn't have any persona points to spend
   if (actor.data.data.persona.value < 1) {
@@ -65,6 +69,9 @@ export const ofCourse = function(app, html, data) {
       originalSuccesses++;
     }
   });
+  if (app.roll.parts[0].options.currentSuccesses !== undefined) {
+    originalSuccesses = app.roll.parts[0].options.currentSuccesses
+  }
 
   // Return if there aren't any scoundrels to reroll
   if (scoundrels === 0) {
@@ -75,12 +82,14 @@ export const ofCourse = function(app, html, data) {
   let header = 'Of Course!';
   let formula = `${scoundrels}d6`;
   let explode = false;
-  reRoll(header, formula, explode, actor, originalSuccesses, ob);
+  reRoll(header, formula, explode, actor, originalSuccesses, ob, rollType, advanceable);
 }
 
 export const deeperUnderstanding = function(app, html, data) {
   let actor = game.actors.get(data.message.speaker.actor);
   let ob = app.roll.parts[0].options.ob;
+  let rollType = app.roll.parts[0].options.rollType;
+  let advanceable = app.roll.parts[0].options.advanceable;
 
   // Return if the actor doesn't have any fate points to spend
   if (actor.data.data.fate.value < 1) {
@@ -103,7 +112,7 @@ export const deeperUnderstanding = function(app, html, data) {
       originalSuccesses++;
     }
   });
-  if (app.roll.parts[0].options.currentSuccesses != undefined) {
+  if (app.roll.parts[0].options.currentSuccesses !== undefined) {
     originalSuccesses = app.roll.parts[0].options.currentSuccesses
   }
 
@@ -116,12 +125,25 @@ export const deeperUnderstanding = function(app, html, data) {
   let header = 'Deeper Understanding';
   let formula = `1d6`;
   let explode = false;
-  reRoll(header, formula, explode, actor, originalSuccesses, ob);
+  reRoll(header, formula, explode, actor, originalSuccesses, ob, rollType, advanceable);
 }
 
 export const logTest = function(app, html, data) {
   let actor = game.actors.get(data.message.speaker.actor);
   let test = actor.data.data.lastTest;
+
+  if(app.roll.parts[0].options.rollType === 'versus') {
+    ui.notifications.error("You must log the Pass/Fail of Versus tests manually.");
+    return;
+  }
+  if(app.roll.parts[0].options.rollType === 'disposition') {
+    ui.notifications.error("Disposition tests are not logged for advancement.");
+    return;
+  }
+  if(app.roll.parts[0].options.ob === 0) {
+    ui.notifications.error("Ob 0 tests are not logged for advancement.");
+    return;
+  }
 
   if (actor.data.data.isLastTestSkill === true) {
     if (app.roll.parts[0].options.rollOutcome === 'pass') {
@@ -138,7 +160,7 @@ export const logTest = function(app, html, data) {
   }
 }
 
-function reRoll(header, formula, explode, actor, originalSuccesses, ob) {
+function reRoll(header, formula, explode, actor, originalSuccesses, ob, rollType, advanceable) {
   // Prep the roll template
   let template;
   if (header === 'Lucky Reroll') {
@@ -211,24 +233,38 @@ function reRoll(header, formula, explode, actor, originalSuccesses, ob) {
 
   // Reassign the ob
   roll.parts[0].options.ob = ob;
+  roll.parts[0].options.rollType = rollType;
   roll.parts[0].options.currentSuccesses = totalSuccesses;
+  roll.parts[0].options.advanceable = advanceable;
 
-  if (totalSuccesses < ob) {
-    if (totalSuccesses === 1) {
-      displaySuccesses = `${originalSuccesses} + ${rolledSuccesses} = ${totalSuccesses} Success - Fail!`;
-      roll.parts[0].options.rollOutcome = 'fail';
-    } else {
-      displaySuccesses = `${originalSuccesses} + ${rolledSuccesses} = ${totalSuccesses} Successes - Fail!`;
-      roll.parts[0].options.rollOutcome = 'fail';
+  if(rollType === 'independent') {
+    if (totalSuccesses < ob) {
+      if (totalSuccesses === 1) {
+        displaySuccesses = `${originalSuccesses} + ${rolledSuccesses} = ${totalSuccesses} Success - Fail!`;
+        roll.parts[0].options.rollOutcome = 'fail';
+      } else {
+        displaySuccesses = `${originalSuccesses} + ${rolledSuccesses} = ${totalSuccesses} Successes - Fail!`;
+        roll.parts[0].options.rollOutcome = 'fail';
+      }
+    } else if (totalSuccesses >= ob) {
+      if (totalSuccesses === 1) {
+        displaySuccesses = `${originalSuccesses} + ${rolledSuccesses} = ${totalSuccesses} Success - Pass!`;
+        roll.parts[0].options.rollOutcome = 'pass';
+      } else {
+        displaySuccesses = `${originalSuccesses} + ${rolledSuccesses} = ${totalSuccesses} Successes - Pass!`;
+        roll.parts[0].options.rollOutcome = 'pass';
+      }
     }
-  } else if (totalSuccesses >= ob) {
+  } else if(rollType === 'versus') {
+    roll.parts[0].options.rollOutcome = 'versus';
     if (totalSuccesses === 1) {
-      displaySuccesses = `${originalSuccesses} + ${rolledSuccesses} = ${totalSuccesses} Success - Pass!`;
-      roll.parts[0].options.rollOutcome = 'pass';
+      displaySuccesses = `${originalSuccesses} + ${rolledSuccesses} = ${totalSuccesses} Successes`;
     } else {
-      displaySuccesses = `${originalSuccesses} + ${rolledSuccesses} = ${totalSuccesses} Successes - Pass!`;
-      roll.parts[0].options.rollOutcome = 'pass';
+      displaySuccesses = `${originalSuccesses} + ${rolledSuccesses} = ${totalSuccesses} Successes`;
     }
+  } else if(rollType === 'disposition') {
+    roll.parts[0].options.rollOutcome = 'disposition';
+    displaySuccesses = `${originalSuccesses} + ${rolledSuccesses} = ${totalSuccesses} Total Disposition`;
   }
 
   renderTemplate('systems/torchbearer/templates/roll-template.html', {title: header, results: rollResult, success: displaySuccesses}).then(t => {

@@ -3,7 +3,9 @@
     <div>
       <h2 style="font-family: Souvenir-Demi;">
         {{title}}
-        <a class="button" id="logTestBtn"><i class="fas fa-file-signature" style="float: right; font-size: smaller; margin-top: 5.5px; color: rgb(75, 74, 68);"></i></a>
+          {{#if advanceable}}
+              <a class="button" id="logTestBtn"><i class="fas fa-file-signature" style="float: right; font-size: smaller; margin-top: 5.5px; color: rgb(75, 74, 68);"></i></a>
+          {{/if}}
       </h2>
     </div>
     {{#if rollDetails}}
