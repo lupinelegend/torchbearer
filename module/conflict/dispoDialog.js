@@ -107,7 +107,7 @@ export class DispoDialog extends Dialog {
     activateListeners(html) {
         super.activateListeners(html);
         html.find("#conflictType").change((ev) => {
-            let $target = $(ev.target);
+            let $target = $(ev.currentTarget);
             let type = CONFLICT_TYPES.find(t => t.name === $target.val());
             let $skillRoll = html.find('#skillRoll');
             $skillRoll.find('option:gt(0)').remove();
@@ -124,7 +124,7 @@ export class DispoDialog extends Dialog {
             }
         });
         html.find("#otherSkill").change((ev) => {
-            let $target = $(ev.target);
+            let $target = $(ev.currentTarget);
             let $otherAbility = html.find('#otherAbility');
             let skill = MasterSkillsList()[$target.val()];
             if(skill.bl === 'W') {

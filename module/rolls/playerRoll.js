@@ -64,7 +64,6 @@ export class PlayerRoll {
 
         if (skillList[skillOrAbility]) {
             let skill = skillList[skillOrAbility];
-            this.actor.data.data.isLastTestSkill = true;
             if (skill.rating > 0) {
                 diceToRoll = skill.rating + traitMod + natureMod + modifiers.dice.total + supplies + helpDice + personaMod + modifiedStats.skillMod;
             } else {
@@ -94,7 +93,6 @@ export class PlayerRoll {
 
         // Otherwise it's an ability
         if (!diceToRoll && diceToRoll !== 0) {
-            this.actor.data.data.isLastTestSkill = false;
             diceToRoll = modifiedStats[skillOrAbility] + traitMod + natureMod + modifiers.dice.total + supplies + helpDice + personaMod;
         }
 
@@ -123,6 +121,7 @@ export class PlayerRoll {
         let rollResult = [];
         let templateData = {
             title: header,
+            skillOrAbility: skillOrAbility,
             flavorText: flavorText,
             rollDetails: rollDetails,
             bL: beginnersLuck,
@@ -131,7 +130,6 @@ export class PlayerRoll {
         };
         if(diceToRoll > 0) {
             // Build the formula
-            this.actor.data.data.lastTest = skillOrAbility;
             await characterAdjustment.execute();
             roll.roll();
             roll.parts[0].options.ob = ob;

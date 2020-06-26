@@ -1,10 +1,9 @@
-import { TorchbearerActor } from "./actor/actor.js";
-
 export const fateForLuck = function(app, html, data) {
   let actor = game.actors.get(data.message.speaker.actor);
   let ob = app.roll.parts[0].options.ob;
   let rollType = app.roll.parts[0].options.rollType;
   let advanceable = app.roll.parts[0].options.advanceable;
+  let skillOrAbility = html.find('.tb-roll-data').data('skillOrAbility');
 
   // Return if the actor doesn't have any fate points to spend
   if (actor.data.data.fate.value < 1) {
@@ -39,7 +38,7 @@ export const fateForLuck = function(app, html, data) {
   let header = 'Lucky Reroll';
   let formula = `${rerolls}d6`;
   let explode = true;
-  reRoll(header, formula, explode, actor, originalSuccesses, ob, rollType, advanceable);
+  reRoll(header, formula, explode, actor, originalSuccesses, ob, rollType, skillOrAbility, advanceable);
 }
 
 export const ofCourse = function(app, html, data) {
@@ -47,6 +46,7 @@ export const ofCourse = function(app, html, data) {
   let ob = app.roll.parts[0].options.ob;
   let rollType = app.roll.parts[0].options.rollType;
   let advanceable = app.roll.parts[0].options.advanceable;
+  let skillOrAbility = html.find('.tb-roll-data').data('skillOrAbility');
 
   // Return if the actor doesn't have any persona points to spend
   if (actor.data.data.persona.value < 1) {
@@ -82,7 +82,7 @@ export const ofCourse = function(app, html, data) {
   let header = 'Of Course!';
   let formula = `${scoundrels}d6`;
   let explode = false;
-  reRoll(header, formula, explode, actor, originalSuccesses, ob, rollType, advanceable);
+  reRoll(header, formula, explode, actor, originalSuccesses, ob, rollType, skillOrAbility, advanceable);
 }
 
 export const deeperUnderstanding = function(app, html, data) {
@@ -90,6 +90,7 @@ export const deeperUnderstanding = function(app, html, data) {
   let ob = app.roll.parts[0].options.ob;
   let rollType = app.roll.parts[0].options.rollType;
   let advanceable = app.roll.parts[0].options.advanceable;
+  let skillOrAbility = html.find('.tb-roll-data').data('skillOrAbility');
 
   // Return if the actor doesn't have any fate points to spend
   if (actor.data.data.fate.value < 1) {
@@ -125,12 +126,13 @@ export const deeperUnderstanding = function(app, html, data) {
   let header = 'Deeper Understanding';
   let formula = `1d6`;
   let explode = false;
-  reRoll(header, formula, explode, actor, originalSuccesses, ob, rollType, advanceable);
+  reRoll(header, formula, explode, actor, originalSuccesses, ob, rollType, skillOrAbility, advanceable);
 }
 
-export const logTest = function(app, html, data) {
+export const logTest = async function(app, html, skillOrAbility, data) {
   let actor = game.actors.get(data.message.speaker.actor);
-  let test = actor.data.data.lastTest;
+  let test = skillOrAbility;
+  console.log(skillOrAbility);
 
   if(app.roll.parts[0].options.rollType === 'versus') {
     ui.notifications.error("You must log the Pass/Fail of Versus tests manually.");
@@ -145,22 +147,22 @@ export const logTest = function(app, html, data) {
     return;
   }
 
-  if (actor.data.data.isLastTestSkill === true) {
+  if (actor.tbData().skills.hasOwnProperty(test)) {
     if (app.roll.parts[0].options.rollOutcome === 'pass') {
-      actor.update({'data.skills[test].pass': parseInt(actor.data.data.skills[test].pass += 1)});
+      actor.update({[`data.skills.${test}.pass`]: parseInt(actor.data.data.skills[test].pass + 1)});
     } else if (app.roll.parts[0].options.rollOutcome === 'fail') {
-      actor.update({'data.skills[test].fail': parseInt(actor.data.data.skills[test].fail += 1)});
+      actor.update({[`data.skills.${test}.fail`]: parseInt(actor.data.data.skills[test].fail + 1)});
     }
-  } else if (actor.data.data.isLastTestSkill === false) {
+  } else {
     if (app.roll.parts[0].options.rollOutcome === 'pass') {
-      actor.update({'data[test].pass': parseInt(actor.data.data[test].pass += 1)});
+      actor.update({[`data.${test}.pass`]: parseInt(actor.data.data[test].pass + 1)});
     } else if (app.roll.parts[0].options.rollOutcome === 'fail') {
-      actor.update({'data[test].fail': parseInt(actor.data.data[test].fail += 1)});
+      actor.update({[`data.${test}.fail`]: parseInt(actor.data.data[test].fail + 1)});
     }
   }
 }
 
-function reRoll(header, formula, explode, actor, originalSuccesses, ob, rollType, advanceable) {
+function reRoll(header, formula, explode, actor, originalSuccesses, ob, rollType, skillOrAbility, advanceable) {
   // Prep the roll template
   let template;
   if (header === 'Lucky Reroll') {
@@ -181,7 +183,9 @@ function reRoll(header, formula, explode, actor, originalSuccesses, ob, rollType
   let templateData = {
     title: header,
     ob: ob,
-    roll: {}
+    roll: {},
+    skillOrAbility: skillOrAbility,
+    advanceable: advanceable,
   };
 
   // Handle roll visibility. Blind doesn't work; you'll need a render hook to hide it.
