@@ -373,7 +373,7 @@ export class TorchbearerActorSheet extends ActorSheet {
         await tbItem.syncEquipVariables();
   
         let oldContainerId = tbItem.data.data.containerId;
-        let {containerType, containerId, slotsTaken} = this.closestCompatibleContainer(tbItem, event.currentTarget);
+        let {containerType, containerId, slotsTaken} = this.closestCompatibleContainer(tbItem, event.target);
         if(!containerType) {
           //No closest container specified, so pick one.
           // First, we know it's not pack w/o a containerId, so if it is the item's gonna need

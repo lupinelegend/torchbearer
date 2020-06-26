@@ -185,6 +185,7 @@ function reRoll(header, formula, explode, actor, originalSuccesses, ob, rollType
     ob: ob,
     roll: {},
     skillOrAbility: skillOrAbility,
+    advanceable: advanceable,
   };
 
   // Handle roll visibility. Blind doesn't work; you'll need a render hook to hide it.

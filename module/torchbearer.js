@@ -58,10 +58,7 @@ Hooks.once('init', async function() {
         ui.notifications.error("You may not log tests when you're sick");
       } else {
         let $target = $(ev.currentTarget);
-        console.log($target.data('logged'));
-        console.log($target);
         if(String($target.data('logged')) === 'false') {
-          console.log($target);
           chat.logTest(app, html, $target.closest('.tb-roll-data').data('skillOrAbility'), data);
           $target.data('logged', 'true');
           $target.find('i').removeClass('fa-file-signature').addClass('fa-check');
@@ -100,7 +97,6 @@ Hooks.once('init', async function() {
   // Event listener which opens the Conflict Sheet when the Foundry icon is clicked
   Hooks.on('ready', (app, html, data) => {
     $('#logo').click(ev => {
-      console.log('CLICK');
       game.conflict.render(true);
     });
   });
