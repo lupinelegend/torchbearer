@@ -113,7 +113,7 @@ export class ConflictSheet extends Application {
     super.activateListeners(html);
 
     html.find('.conflict-field').change(ev => {
-      let $target = $(ev.target);
+      let $target = $(ev.currentTarget);
       const fieldName = $target.attr('name');
       const dtype = $target.data('dtype');
       let value = $target.val();
@@ -124,7 +124,7 @@ export class ConflictSheet extends Application {
     });
 
     html.find('.conflict-actor-field').change(ev => {
-      let $target = $(ev.target);
+      let $target = $(ev.currentTarget);
       const fieldName = $target.attr('name');
       const dtype = $target.data('dtype');
       let actorID = $target.closest('.actor').data('actorId');
@@ -158,7 +158,7 @@ export class ConflictSheet extends Application {
       this.loadChars();
     });
     html.find('.actor .actor-image, .actor .actor-name').on('click', (evt) => {
-      game.actors.get($(evt.target).closest('.actor').data('actorId')).sheet.render(true);
+      game.actors.get($(evt.currentTarget).closest('.actor').data('actorId')).sheet.render(true);
     });
 
     html.find('.conflict-monster-field').change(ev => {

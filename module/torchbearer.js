@@ -57,7 +57,15 @@ Hooks.once('init', async function() {
       if (actor.data.data.sick === true) {
         ui.notifications.error("You may not log tests when you're sick");
       } else {
-        chat.logTest(app, html, data);
+        let $target = $(ev.currentTarget);
+        console.log($target.data('logged'));
+        console.log($target);
+        if(String($target.data('logged')) === 'false') {
+          console.log($target);
+          chat.logTest(app, html, $target.closest('.tb-roll-data').data('skillOrAbility'), data);
+          $target.data('logged', 'true');
+          $target.find('i').removeClass('fa-file-signature').addClass('fa-check');
+        }
       }
     });
   });
