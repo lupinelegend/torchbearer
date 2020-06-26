@@ -57,6 +57,16 @@ export class PlayerRollDialog extends Dialog {
 
     activateListeners(html) {
         super.activateListeners(html);
+        let origDice = SafeNum(html.find('#rolling').data('orig'));
+        if(origDice < 1) {
+            html.find('button').each((i, el) => {
+                let $el = $(el);
+                if($el.data('button') === 'yes') {
+                    $el.prop('disabled', true);
+                }
+            });
+        }
+
         html.find('.dice-modifier').change(ev => {
             let sum = 0;
             html.find('.dice-modifier').each((i, el) => {
@@ -71,6 +81,16 @@ export class PlayerRollDialog extends Dialog {
             let $rolling = html.find('#rolling');
             let newRolling = SafeNum($rolling.data('orig')) + sum;
             $rolling.text(`${newRolling}D`);
+            html.find('button').each((i, el) => {
+                let $el = $(el);
+                if($el.data('button') === 'yes') {
+                    if(newRolling < 1) {
+                        $el.prop('disabled', true);
+                    } else {
+                        $el.prop('disabled', false);
+                    }
+                }
+            });
         });
     }
 }
