@@ -1,4 +1,4 @@
-<h2 style="font-family: Souvenir-Demi;">{{header}}</h2>
+<h2 style="font-family: Souvenir-Demi;display:flex;justify-content:space-between;"><span>{{header}}</span><span id="rolling" data-orig="{{rolling}}">{{rolling}}D</span></h2>
 <form style="font-family: Souvenir-Medium;">
   <!-- Obstacle (Need to make a required field) -->
   <div class="row" style="align-items: center; margin: 0 0 8px 0;">
@@ -15,26 +15,48 @@
   <!-- Modifiers -->
   <div style="margin-top: 10px;">
     <h2 style="font-family: Souvenir-Medium;">Modifiers</h2>
-    <!-- Fresh -->
-    <div class="row" style="align-items: center;">
-      <label for="fresh"><u>Fresh</u>:</label>
-      <input type="checkbox" name="fresh" id="fresh" data-dtype="Boolean" disabled {{checked fresh}}>
-    </div>
+      {{#if (gt modifiers.base.components.length 0)}}
+          <div class="row" style="align-items: baseline;">
+              <label><u>Base</u>:</label>
+              <input type="hidden" class="test_modifier" name="mod_base" id="mod_base" value="{{modifiers.base.total}}" />
+              <label style="font-family: Souvenir-MediumItalic;margin-left:4px;">{{modifiers.base.label}}</label>
+          </div>
+      {{/if}} 
+      {{#if (gt modifiers.dice.components.length 0)}}
+          <div class="row" style="align-items: baseline;">
+              <label><u>Dice</u>:</label>
+              <input type="hidden" class="test_modifier" name="mod_dice" id="mod_dice" value="{{modifiers.dice.total}}" />
+              <label style="font-family: Souvenir-MediumItalic;margin-left:4px;">{{modifiers.dice.label}}</label>
+          </div>
+      {{/if}} 
+      {{#if (gt modifiers.minusSuccesses.components.length 0)}}
+          <div class="row" style="align-items: baseline;">
+              <label><u>-Successes</u>:</label>
+              <input type="hidden" class="test_modifier" name="mod_minusSuccesses" id="mod_minusSuccesses" value="{{modifiers.minusSuccesses.total}}" />
+              <label style="font-family: Souvenir-MediumItalic;margin-left:4px;">{{modifiers.minusSuccesses.label}}</label>
+          </div>
+      {{/if}} 
+      {{#if (gt modifiers.plusSuccesses.components.length 0)}}
+          <div class="row" style="align-items: baseline;">
+              <label><u>+Successes</u>:</label>
+              <input type="hidden" class="test_modifier" name="mod_plusSuccesses" id="mod_plusSuccesses" value="{{modifiers.plusSuccesses.total}}" />
+              <label style="font-family: Souvenir-MediumItalic;margin-left:4px;">{{modifiers.plusSuccesses.label}}</label>
+          </div>
+      {{/if}} 
 
     <!-- Helping dice -->
     <div class="row" style="align-items: center; margin-top: 8px;">
       <label for="helpingDice"><u>Helping Dice</u>:</label>
-      <input type="number" min="0" name="helpingDice" id="helpingDice" data-dtype="Number" style="width: 40px; margin-left: 5px;" value="{{helpDice}}" />
+      <input type="number" min="0" name="helpingDice" id="helpingDice" class="dice-modifier" data-dtype="Number" style="width: 40px; margin-left: 5px;" value="{{helpDice}}" />
 
       <label for="supplies" style="margin-left: 15px;"><u>Supplies and Gear</u>:</label>
-      <input type="number" min="0" name="supplies" id="supplies" data-dtype="Number" style="width: 40px; margin-left: 5px;" value="{{supplies}}" />
+      <input type="number" min="0" name="supplies" id="supplies" class="dice-modifier" data-dtype="Number" style="width: 40px; margin-left: 5px;" value="{{supplies}}" />
     </div>
 
     <!-- Persona Advantage -->
     <div class="row" style="align-items: center; margin-top: 8px;">
       <label for="personaAdvantage"><u>Persona Advantage</u>:</label>
-      <input type="number" min="0" name="personaAdvantage" id="personaAdvantage" data-dtype="Number" style="width: 40px; margin: 0 5px 0 5px;" value="{{persona}}" />
-      <label style="font-family: Souvenir-MediumItalic;">(+1D/persona spent, up to 3)</label>
+      <input type="number" min="0" max="3" name="personaAdvantage" id="personaAdvantage" class="dice-modifier" data-dtype="Number" style="width: 40px; margin: 0 5px 0 5px;" value="{{persona}}" />
     </div>
 
     <!-- Tap Nature (Should this be hidden when rolling Resources and Circles?) -->
@@ -56,10 +78,10 @@
       <div class="col">
         <label><u>Tap</u>:</label>
         <label for="nature" style="margin: 0 0 0 8px;">Yes <em>(1 persona)</em></label>
-        <input type="radio" name="nature" id="natureYes" value="natureYes">
+        <input type="radio" name="nature" class="dice-modifier" id="natureYes" value="{{natureRating}}">
         <span> / </span>
         <label for="nature" style="margin: 0 0 0 4px;">No</label>
-        <input type="radio" name="nature" id="natureNo" value="natureNo" checked>
+        <input type="radio" name="nature" class="dice-modifier" id="natureNo" value="0" checked>
       </div>
     </div>
 
@@ -81,13 +103,13 @@
     <div class="row" style="align-items: center; margin: 5px 0 8px 0; padding-right: 0px;">
       <div class="col" style="flex: 0 0 65px"></div>
       <div class="col">
-      <input type="radio" name="trait" id="traitFor" value="for">
+      <input type="radio" name="trait" id="traitFor" class="dice-modifier" value="1">
       <label for="for" style="margin: 0 0 0 0;">Help (+1D)</label>
       <br>
-      <input type="radio" name="trait" id="traitAgainst" value="against">
+      <input type="radio" name="trait" id="traitAgainst" class="dice-modifier" value="-1">
       <label for="against" style="margin: 0 0 0 0;">Hinder (-1D, 1 Check)</label>
       <br>
-      <input type="radio" name="trait" id="traitAgainstExtra" value="againstExtra">
+      <input type="radio" name="trait" id="traitAgainstExtra" class="dice-modifier" value="0">
       <label for="againstExtra" style="margin: 0 0 0 0;">Help Enemy (+2D, 2 Checks)</label>
       </div>
     </div>
