@@ -56,8 +56,7 @@ export class DispoDialog extends Dialog {
             if(tbActor.tbData().hungryandthirsty) {
                 hungry = true;
             }
-            //TODO should really by an id comparison...probably should store conflictCaptain as Id
-            if(tbActor.name === conflictCaptain && tbActor.tbData().exhausted) {
+            if(tbActor.tbData().exhausted) {
                 exhausted = true;
             }
         });
@@ -78,17 +77,16 @@ export class DispoDialog extends Dialog {
                     label: `Roll`,
                     callback: (html) => {
                         console.log("Yes clicked");
-                        let type = html.find('#conflictType').val();
+                        let conflictType = html.find('#conflictType').val();
                         let skill = html.find('#skillRoll').val();
-                        let help = parseInt(html.find('#help').val());
                         let otherSkill = html.find('#otherSkill').val();
                         let otherAbility = html.find('#otherAbility').val();
-                        let hungry = html.find('#anyHungry').prop('checked');
-                        let exhausted = html.find('#captainExhausted').prop('checked');
-                        if(type === 'Other') {
-                            onComplete(type, otherSkill, otherAbility, help, hungry, exhausted);
+                        let hungry = !!html.find('#anyHungry').prop('checked');
+                        let exhausted = !!html.find('#anyExhausted').prop('checked');
+                        if(conflictType === 'Other') {
+                            onComplete(conflictType, otherSkill, otherAbility, hungry, exhausted);
                         } else {
-                            onComplete(type, skill, CONFLICT_TYPES.find(t => t.name === type).ability, help, hungry, exhausted)
+                            onComplete(conflictType, skill, CONFLICT_TYPES.find(t => t.name === conflictType).ability, hungry, exhausted)
                         }
                     }
                 },

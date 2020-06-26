@@ -19,7 +19,7 @@ export class PlayerRollDialog extends Dialog {
                     callback: (html) => {
                         let flavorText = html.find('#flavorText').val();
                         let helpDice = SafeNum(html.find('#helpingDice').val());
-                        let ob = SafeNum(html.find('#ob').val()) || 1;
+                        let ob = SafeNum(html.find('#ob').val());
                         let trait = {
                             name: html.find('#traitDropdown').val(),
                             usedFor: !!html.find('#traitFor').prop('checked'),
@@ -30,9 +30,18 @@ export class PlayerRollDialog extends Dialog {
                         let supplies = SafeNum(html.find('#supplies').val());
                         let persona = SafeNum(html.find('#personaAdvantage').val());
                         let natureDescriptor = html.find('#natureDesc').val();
+
+                        let rollTypeIndependent = !!html.find('#rollTypeIndependent').prop('checked');
+                        let rollTypeVersus = !!html.find('#rollTypeVersus').prop('checked');
+                        let rollTypeDisposition = !!html.find('#rollTypeDisposition').prop('checked');
+                        let rollType = rollTypeIndependent ? 'independent' : (
+                            rollTypeVersus ? 'versus' : (
+                                rollTypeDisposition ? 'disposition' : 'independent'
+                            )
+                        );
                         onComplete(Object.assign({}, opts, {
                             flavorText, helpDice, ob, trait, tapNature,
-                            supplies, persona, natureDescriptor,
+                            supplies, persona, natureDescriptor, rollType
                         }));
                     }
                 },

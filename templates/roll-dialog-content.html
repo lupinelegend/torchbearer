@@ -1,19 +1,34 @@
 <h2 style="font-family: Souvenir-Demi;display:flex;justify-content:space-between;"><span>{{header}}</span><span id="rolling" data-orig="{{rolling}}">{{rolling}}D</span></h2>
 <form style="font-family: Souvenir-Medium;">
-  <!-- Obstacle (Need to make a required field) -->
-  <div class="row" style="align-items: center; margin: 0 0 8px 0;">
-    <label for="ob"><u>Obstacle</u>:</label>
-    <input type="number" min="0" name="ob" id="ob" data-dtype="Number" style="width: 40px; margin-left: 5px;" value="{{ob}}" />
-  </div>
 
-  <!-- Action description -->
-  <div class="row" style="align-items: center; flex-wrap: nowrap;">
-    <label for="ob"><u>Description</u>:</label>
-    <input type="text" name="flavorText" id="flavorText" placeholder="What are you trying to do?" style="margin-left: 5px;" required="true">
-  </div>
-  
+    {{#if (eq rollType "disposition")}}
+        <!-- Action description -->
+        <div class="row" style="align-items: center; flex-wrap: nowrap; margin:0;">
+            <input type="text" name="flavorText" id="flavorText" style="margin-left: 5px;" required="true" value="Roll for Disposition" disabled />
+            <input type="radio" name="rollType" id="rollTypeDisposition" checked style="display:none" />
+        </div>
+    {{else}}
+        <div class="row" style="align-items: center; margin: 0;justify-content:flex-start;">
+            <div>
+                <input type="radio" name="rollType" id="rollTypeIndependent" {{checked (eq rollType "independent")}}>
+                <label style="margin-right:8px;"><u>Independent</u></label>
+                <label for="ob">Ob:</label>
+                <input type="number" min="0" name="ob" id="ob" data-dtype="Number" style="width: 40px; margin-left: 5px;" value="{{ob}}" />
+            </div>
+            <div style="margin-left: 16px;">
+                <input type="radio" name="rollType" id="rollTypeVersus" {{checked (eq rollType "versus")}}>
+                <label for="nature" style="margin: 0 0 0 4px;">Versus</label>
+            </div>
+        </div>
+        <!-- Action description -->
+        <div class="row" style="align-items: center; flex-wrap: nowrap; margin-top:8px;">
+            <input type="text" name="flavorText" id="flavorText" placeholder="What are you trying to do?" style="margin-left: 5px;" required="true">
+        </div>
+    {{/if}}
+
+
   <!-- Modifiers -->
-  <div style="margin-top: 10px;">
+  <div style="margin-top: 16px;">
     <h2 style="font-family: Souvenir-Medium;">Modifiers</h2>
       {{#if (gt modifiers.base.components.length 0)}}
           <div class="row" style="align-items: baseline;">

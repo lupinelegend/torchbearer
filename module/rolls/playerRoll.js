@@ -10,7 +10,7 @@ export class PlayerRoll {
     async roll(opts) {
         let {skillOrAbility, header, flavorText, helpDice, ob,
             trait, tapNature, supplies, persona, natureDescriptor,
-            modifiers
+            rollType, modifiers
         } = opts;
 
         // Check for any factors due to conditions
@@ -103,13 +103,11 @@ export class PlayerRoll {
             user: game.user._id,
             speaker: ChatMessage.getSpeaker({actor: this.actor})
         };
-        let templateData = {
-            title: header,
-            flavorText: flavorText,
-            rollDetails: `${diceToRoll}D vs. Ob ${ob}`,
-            bL: beginnersLuck,
-            roll: {}
-        };
+        let rollDetails = rollType === 'versus' ? `${diceToRoll}D versus test` : (
+            rollType === 'disposition' ? `${diceToRoll}D disposition test` : (
+                `${diceToRoll}D vs. Ob ${ob}`
+            )
+        )
 
         // Handle roll visibility. Blind doesn't work; you'll need a render hook to hide it.
         let rollMode = game.settings.get("core", "rollMode");
@@ -119,15 +117,26 @@ export class PlayerRoll {
 
         // Do the roll
         let rolledSuccesses = 0;
+        let advanceable = rollType === 'independent' && ob > 0;
         let formula = `${diceToRoll}d6`;
         let roll = new Roll(formula);
         let rollResult = [];
+        let templateData = {
+            title: header,
+            flavorText: flavorText,
+            rollDetails: rollDetails,
+            bL: beginnersLuck,
+            advanceable: advanceable,
+            roll: {}
+        };
         if(diceToRoll > 0) {
             // Build the formula
             this.actor.data.data.lastTest = skillOrAbility;
             await characterAdjustment.execute();
             roll.roll();
             roll.parts[0].options.ob = ob;
+            roll.parts[0].options.rollType = rollType;
+            roll.parts[0].options.advanceable = advanceable;
 
             //Create an array of the roll results
             let sixes = 0;
@@ -181,28 +190,40 @@ export class PlayerRoll {
         totalSuccesses += modifiers.base.total;
         totalSuccesses += modifiers.minusSuccesses.total;
 
-        let passFail;
-        let displaySuccesses;
+        let passFail = '';
+        let displaySuccesses = '';
         if(diceToRoll > 0) {
-            passFail = ' - Fail!';
-            roll.parts[0].options.rollOutcome = 'fail';
-            if (ob === 0 && totalSuccesses > ob) {
-                totalSuccesses += modifiers.plusSuccesses.total;
-                passFail = ' - Pass!'
-                roll.parts[0].options.rollOutcome = 'pass';
-            } else if (ob > 0 && totalSuccesses >= ob) {
-                totalSuccesses += modifiers.plusSuccesses.total;
-                passFail = ' - Pass!'
-                roll.parts[0].options.rollOutcome = 'pass';
-            }
-            if (totalSuccesses === 1) {
-                displaySuccesses = `${totalSuccesses} Success`;
-            } else {
-                displaySuccesses = `${totalSuccesses} Successes`;
+            roll.parts[0].options.currentSuccesses = totalSuccesses;
+            if(rollType === 'independent') {
+                passFail = ' - Fail!';
+                roll.parts[0].options.rollOutcome = 'fail';
+                if (ob === 0 && totalSuccesses > ob) {
+                    totalSuccesses += modifiers.plusSuccesses.total;
+                    passFail = ' - Pass!'
+                    roll.parts[0].options.rollOutcome = 'pass';
+                } else if (ob > 0 && totalSuccesses >= ob) {
+                    totalSuccesses += modifiers.plusSuccesses.total;
+                    passFail = ' - Pass!'
+                    roll.parts[0].options.rollOutcome = 'pass';
+                }
+                if (totalSuccesses === 1) {
+                    displaySuccesses = `${totalSuccesses} Success`;
+                } else {
+                    displaySuccesses = `${totalSuccesses} Successes`;
+                }
+            } else if (rollType === 'versus') {
+                roll.parts[0].options.rollOutcome = 'versus';
+                if (totalSuccesses === 1) {
+                    displaySuccesses = `${totalSuccesses} Success`;
+                } else {
+                    displaySuccesses = `${totalSuccesses} Successes`;
+                }
+            } else if (rollType === 'disposition') {
+                roll.parts[0].options.rollOutcome = 'disposition';
+                displaySuccesses = `${totalSuccesses} Total Disposition`;
             }
         } else {
             passFail = 'No Test';
-            displaySuccesses = '';
         }
 
 
@@ -260,10 +281,11 @@ export class PlayerRoll {
 
         for(let i = 0; i < modifiers.length; i++) {
             let modifier = duplicate(modifiers[i]);
-            modifier.amount = parseInt(modifier.effect);
-            if(modifier.effect.indexOf("D")) {
+            let effect = String(modifier.effect);
+            modifier.amount = parseInt(effect);
+            if(effect.toLowerCase().includes("d")) {
                 organized.dice.components.push(modifier);
-            } else if(effect.indexOf("s")) {
+            } else if(effect.toLowerCase().includes("s")) {
                 if(modifier.amount < 0) {
                     organized.minusSuccesses.components.push(modifier);
                 } else if(modifier.amount > 0) {
@@ -286,10 +308,11 @@ export class PlayerRoll {
                 }
             }
         }
+        console.log(organized);
         return organized;
     }
 
-    async showDialog(skillOrAbility, modifierList = []) {
+    async showDialog(skillOrAbility, opts = {}, modifierList = []) {
         modifierList = [].concat(modifierList);
         if(!!this.actor.tbData().fresh) {
             modifierList.push({
@@ -324,8 +347,10 @@ export class PlayerRoll {
         let header = `Testing: ${Capitalize(skillOrAbility)} (${this.actor.getRating(skillOrAbility)})`;
         let rolling = this.actor.getRating(skillOrAbility) + modifiers.dice.total;
         let natureRating = this.actor.getRating('Nature');
-        PlayerRollDialog.create({
-            skillOrAbility, header, rolling, traits, modifiers, natureRating, natureDesc, ob: 1
-        }, this.roll.bind(this));
+        let rollType = 'independent';
+        let ob = 1;
+        PlayerRollDialog.create(Object.assign({
+            skillOrAbility, header, rolling, traits, modifiers, natureRating, natureDesc, rollType, ob,
+        }, opts), this.roll.bind(this));
     }
 }

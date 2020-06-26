@@ -41,16 +41,12 @@
             {{/select}}
         </select>
   </div>
-  <div class="row" style="align-items: center; margin-bottom: 5px;">
-    <label style="font-family: Souvenir-Medium;"><u>Helping Dice</u>:</label>
-    <input type="number" style="width: 30px; margin: 0 10px 0 5px;" id="help">
-  </div>
   <div class="row"  style="align-items: center; margin-bottom: 5px;">
     <label style="font-family: Souvenir-Medium;"><u>Is any member of the team hungry and thirsty</u>?</label>
     <input type="checkbox" name="{{hungry}}" id="anyHungry" {{checked hungry}} value="true" disabled>
   </div>
   <div class="row"  style="align-items: center; margin-bottom: 5px;">
-    <label style="font-family: Souvenir-Medium;"><u>Is the Conflict Captain exhausted</u>?</label>
-    <input type="checkbox" name="{{exhausted}}" id="captainExhausted" {{checked exhausted}} value="true" disabled>
+    <label style="font-family: Souvenir-Medium;"><u>Is any member of the team exhausted</u>?</label>
+    <input type="checkbox" name="{{exhausted}}" id="anyExhausted" {{checked exhausted}} value="true" disabled>
   </div>
 </form>
