@@ -176,6 +176,15 @@ export class TorchbearerActor extends Actor {
     return this.tbData().natureDescriptors.split(', ');
   }
 
+  getRating(skillOrAbility) {
+    let ability = this.tbData()[skillOrAbility.toLowerCase()];
+    if(ability) {
+      return ability.value;
+    } else {
+      return this.tbData().skills[skillOrAbility].rating;
+    }
+  }
+
   tbData() {
     return this.data.data;
   }

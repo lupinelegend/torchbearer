@@ -1,5 +1,6 @@
 import {Capitalize, SafeNum} from "../misc.js";
 import {CharacterAdjustment} from "../actor/character-adjustment.js";
+import {PlayerRollDialog} from "./playerRollDialog.js";
 
 export class PlayerRoll {
     constructor(tbCharacter) {
@@ -8,21 +9,13 @@ export class PlayerRoll {
 
     async roll(opts) {
         let {skillOrAbility, header, flavorText, helpDice, ob,
-            trait, tapNature, fresh, supplies, persona, natureDescriptor
+            trait, tapNature, supplies, persona, natureDescriptor,
+            modifiers
         } = opts;
 
         // Check for any factors due to conditions
         let modifiedStats = this.modifiedStats();
         let characterAdjustment = new CharacterAdjustment(this.actor);
-        // Exhausted is a factor in all tests except Circles and Resources
-        if (this.actor.data.data.exhausted === true) {
-            if (skillOrAbility !== 'circles' && skillOrAbility !== 'resources') {
-                ob += 1;
-            }
-        }
-
-        // Check to see if the Fresh bonus should be applied
-        let freshMod = fresh ? 1 : 0;
 
         // Determine if and how a Trait is being used
         let traitMod = 0;
@@ -73,7 +66,7 @@ export class PlayerRoll {
             let skill = skillList[skillOrAbility];
             this.actor.data.data.isLastTestSkill = true;
             if (skill.rating > 0) {
-                diceToRoll = skill.rating + traitMod + natureMod + freshMod + supplies + helpDice + personaMod + modifiedStats.skillMod;
+                diceToRoll = skill.rating + traitMod + natureMod + modifiers.dice.total + supplies + helpDice + personaMod + modifiedStats.skillMod;
             } else {
                 //Beginner's Luck
                 if (this.actor.data.data.afraid) {
@@ -89,27 +82,21 @@ export class PlayerRoll {
                     }
                     if (this.actor.data.data[name].value > 0) {
                         beginnersLuck = `(Beginner's Luck, ${Capitalize(name)})`;
-                        diceToRoll = Math.ceil((modifiedStats[name] + supplies + helpDice) / 2) + traitMod + natureMod + freshMod + personaMod;
+                        diceToRoll = Math.ceil((modifiedStats[name] + supplies + helpDice) / 2) + traitMod + natureMod + modifiers.dice.total + personaMod;
                     } else {
                         // If 0, use Nature instead
                         beginnersLuck = "(Beginner's Luck, Nature)";
-                        diceToRoll = Math.ceil((modifiedStats.nature + supplies + helpDice) / 2) + traitMod + natureMod + freshMod + personaMod;
+                        diceToRoll = Math.ceil((modifiedStats.nature + supplies + helpDice) / 2) + traitMod + natureMod + modifiers.dice.total + personaMod;
                     }
                 }
             }
         }
 
         // Otherwise it's an ability
-        if (!diceToRoll) {
+        if (!diceToRoll && diceToRoll !== 0) {
             this.actor.data.data.isLastTestSkill = false;
-            diceToRoll = modifiedStats[skillOrAbility] + traitMod + natureMod + freshMod + supplies + helpDice + personaMod;
+            diceToRoll = modifiedStats[skillOrAbility] + traitMod + natureMod + modifiers.dice.total + supplies + helpDice + personaMod;
         }
-
-        // Build the formula
-        let formula = `${diceToRoll}d6`;
-
-        // Prep the roll template
-        let template = 'systems/torchbearer/templates/torchbearer-roll.html';
 
         // GM rolls
         let chatData = {
@@ -131,76 +118,94 @@ export class PlayerRoll {
         if (rollMode === "blindroll") chatData["blind"] = true;
 
         // Do the roll
-        this.actor.data.data.lastTest = skillOrAbility;
-        await characterAdjustment.execute();
-        let roll = new Roll(formula);
-        roll.roll();
-        roll.parts[0].options.ob = ob;
-
-        //Create an array of the roll results
-        let rollResult = [];
-        let sixes = 0;
-        let scoundrels = 0;
-        helpDice += supplies;
-        roll.parts[0].rolls.forEach((key, index) => {
-            let tempObj = {result: key.roll, style: ''};
-            if (key.roll === 6) {
-                tempObj.style = ' max'
-                sixes++;
-            }
-            if (key.roll < 4) {
-                scoundrels++;
-            }
-            if (helpDice !== 0 && index >= (diceToRoll - helpDice - natureMod - personaMod)) {
-                let temp = tempObj.style
-                temp += ' help';
-                tempObj.style = temp;
-            }
-            if (natureMod !== 0 && index >= (diceToRoll - natureMod - personaMod)) {
-                let temp = tempObj.style
-                temp += ' nature';
-                tempObj.style = temp;
-            }
-            if (personaMod !== 0 && index >= (diceToRoll - personaMod)) {
-                let temp = tempObj.style
-                temp += ' persona';
-                tempObj.style = temp;
-            }
-            rollResult.push(tempObj);
-        });
-
-        // Only loads these values if Fate and Persona are available to spend. Without these values
-        // being set, the buttons won't show up under the roll.
-        if (this.actor.data.data.fate.value !== 0) {
-            templateData.rerollsAvailable = sixes;
-        }
-        if (this.actor.data.data.persona.value !== 0) {
-            templateData.scoundrelsAvailable = scoundrels;
-        }
-
-        // Count successes
         let rolledSuccesses = 0;
-        let displaySuccesses;
-        rollResult.forEach((index) => {
-            if (index.result > 3) {
-                rolledSuccesses++;
+        let formula = `${diceToRoll}d6`;
+        let roll = new Roll(formula);
+        let rollResult = [];
+        if(diceToRoll > 0) {
+            // Build the formula
+            this.actor.data.data.lastTest = skillOrAbility;
+            await characterAdjustment.execute();
+            roll.roll();
+            roll.parts[0].options.ob = ob;
+
+            //Create an array of the roll results
+            let sixes = 0;
+            let scoundrels = 0;
+            helpDice += supplies;
+            roll.parts[0].rolls.forEach((key, index) => {
+                let tempObj = {result: key.roll, style: ''};
+                if (key.roll === 6) {
+                    tempObj.style = ' max'
+                    sixes++;
+                }
+                if (key.roll < 4) {
+                    scoundrels++;
+                }
+                if (helpDice !== 0 && index >= (diceToRoll - helpDice - natureMod - personaMod)) {
+                    let temp = tempObj.style
+                    temp += ' help';
+                    tempObj.style = temp;
+                }
+                if (natureMod !== 0 && index >= (diceToRoll - natureMod - personaMod)) {
+                    let temp = tempObj.style
+                    temp += ' nature';
+                    tempObj.style = temp;
+                }
+                if (personaMod !== 0 && index >= (diceToRoll - personaMod)) {
+                    let temp = tempObj.style
+                    temp += ' persona';
+                    tempObj.style = temp;
+                }
+                rollResult.push(tempObj);
+            });
+
+            // Only loads these values if Fate and Persona are available to spend. Without these values
+            // being set, the buttons won't show up under the roll.
+            if (this.actor.data.data.fate.value !== 0) {
+                templateData.rerollsAvailable = sixes;
             }
-        });
-        if (rolledSuccesses === 1) {
-            displaySuccesses = `${rolledSuccesses} Success`;
-        } else {
-            displaySuccesses = `${rolledSuccesses} Successes`;
+            if (this.actor.data.data.persona.value !== 0) {
+                templateData.scoundrelsAvailable = scoundrels;
+            }
+
+            // Count successes
+            rollResult.forEach((index) => {
+                if (index.result > 3) {
+                    rolledSuccesses++;
+                }
+            });
         }
 
-        let passFail = ' - Fail!';
-        roll.parts[0].options.rollOutcome = 'fail';
-        if (ob === 0 && rolledSuccesses > ob) {
-            passFail = ' - Pass!'
-            roll.parts[0].options.rollOutcome = 'pass';
-        } else if (ob > 0 && rolledSuccesses >= ob) {
-            passFail = ' - Pass!'
-            roll.parts[0].options.rollOutcome = 'pass';
+        let totalSuccesses = rolledSuccesses;
+        totalSuccesses += modifiers.base.total;
+        totalSuccesses += modifiers.minusSuccesses.total;
+
+        let passFail;
+        let displaySuccesses;
+        if(diceToRoll > 0) {
+            passFail = ' - Fail!';
+            roll.parts[0].options.rollOutcome = 'fail';
+            if (ob === 0 && totalSuccesses > ob) {
+                totalSuccesses += modifiers.plusSuccesses.total;
+                passFail = ' - Pass!'
+                roll.parts[0].options.rollOutcome = 'pass';
+            } else if (ob > 0 && totalSuccesses >= ob) {
+                totalSuccesses += modifiers.plusSuccesses.total;
+                passFail = ' - Pass!'
+                roll.parts[0].options.rollOutcome = 'pass';
+            }
+            if (totalSuccesses === 1) {
+                displaySuccesses = `${totalSuccesses} Success`;
+            } else {
+                displaySuccesses = `${totalSuccesses} Successes`;
+            }
+        } else {
+            passFail = 'No Test';
+            displaySuccesses = '';
         }
+
+
         renderTemplate('systems/torchbearer/templates/roll-template.html', {
             title: header,
             results: rollResult,
@@ -210,11 +215,11 @@ export class PlayerRoll {
             outcome: passFail
         }).then(t => {
             // Add the dice roll to the template
-            templateData.roll = t,
-                chatData.roll = JSON.stringify(roll);
+            templateData.roll = t;
+            chatData.roll = diceToRoll < 1 ? '{}' : JSON.stringify(roll);
 
             // Render the roll template
-            renderTemplate(template, templateData).then(content => {
+            renderTemplate('systems/torchbearer/templates/torchbearer-roll.html', templateData).then(content => {
 
                 // Update the message content
                 chatData.content = content;
@@ -236,7 +241,7 @@ export class PlayerRoll {
 
     modifiedStats() {
         let tbData = this.actor.tbData();
-        let modifier = 0 - (tbData.injured ? 1 : 0) - (tbData.sick ? 1 : 0)
+        let modifier = 0;
         return {
             'will': tbData.will.value - modifier,
             'health': tbData.health.value - modifier,
@@ -245,10 +250,69 @@ export class PlayerRoll {
         };
     }
 
-    async showDialog(skillOrAbility) {
-        let fresh = !!this.actor.tbData().fresh;
+    organizeModifiers(modifiers) {
+        const organized = {
+            base: {total: 0, label: '', components: []},
+            dice: {total: 0, label: '', components: []},
+            minusSuccesses: {total: 0, label: '', components: []},
+            plusSuccesses: {total: 0, label: '', components: []},
+        }
 
-        let dialogContent = 'systems/torchbearer/templates/roll-dialog-content.html';
+        for(let i = 0; i < modifiers.length; i++) {
+            let modifier = duplicate(modifiers[i]);
+            modifier.amount = parseInt(modifier.effect);
+            if(modifier.effect.indexOf("D")) {
+                organized.dice.components.push(modifier);
+            } else if(effect.indexOf("s")) {
+                if(modifier.amount < 0) {
+                    organized.minusSuccesses.components.push(modifier);
+                } else if(modifier.amount > 0) {
+                    organized.plusSuccesses.components.push(modifier);
+                }
+            } else {
+                organized.base.components.push(modifier);
+            }
+        }
+        for(let key in organized) {
+            if(organized.hasOwnProperty(key)) {
+                let section = organized[key];
+                for(let i = 0; i < section.components.length; i++) {
+                    let modifier = section.components[i];
+                    section.total += modifier.amount;
+                    section.label += `${modifier.label} (${modifier.effect})`;
+                    if(i < section.components.length -1) {
+                        section.label += ', ';
+                    }
+                }
+            }
+        }
+        return organized;
+    }
+
+    async showDialog(skillOrAbility, modifierList = []) {
+        modifierList = [].concat(modifierList);
+        if(!!this.actor.tbData().fresh) {
+            modifierList.push({
+                name: 'fresh',
+                label: 'Fresh',
+                effect: '+1D'
+            });
+        }
+        if(!!this.actor.tbData().injured) {
+            modifierList.push({
+                name: 'injured',
+                label: 'Injured',
+                effect: '-1D'
+            });
+        }
+        if(!!this.actor.tbData().sick) {
+            modifierList.push({
+                name: 'sick',
+                label: 'Sick',
+                effect: '-1D'
+            });
+        }
+        let modifiers = this.organizeModifiers(modifierList);
 
         // Build an actor trait list to be passed to the dialog box
         let traits = this.actor.getTraitNames();
@@ -257,44 +321,11 @@ export class PlayerRoll {
         let natureDesc = this.actor.getNatureDescriptors();
         natureDesc.push("Acting outside character's nature");
 
-        let header = 'Testing: ' + Capitalize(skillOrAbility);
-        let template = await renderTemplate(dialogContent, {
-            header, traits, fresh, natureDesc: natureDesc, ob: 1, helpDice: 0, supplies: 0, persona: 0
-        });
-        new Dialog({
-            title: `Test`,
-            content: template,
-            buttons: {
-                yes: {
-                    icon: "<i class='fas fa-check'></i>",
-                    label: `Roll`,
-                    callback: (html) => {
-                        let flavorText = html.find('#flavorText').val();
-                        let helpDice = SafeNum(html.find('#helpingDice').val());
-                        let ob = SafeNum(html.find('#ob').val()) || 1;
-                        let trait = {
-                            name: html.find('#traitDropdown').val(),
-                            usedFor: !!html.find('#traitFor').prop('checked'),
-                            usedAgainst: !!html.find('#traitAgainst').prop('checked'),
-                            usedAgainstExtra: !!html.find('#traitAgainstExtra').prop('checked')
-                        };
-                        let tapNature = !!html.find('#natureYes').prop('checked');
-                        let fresh = !!html.find('#fresh').prop('checked')
-                        let supplies = SafeNum(html.find('#supplies').val());
-                        let persona = SafeNum(html.find('#personaAdvantage').val());
-                        let natureDescriptor = html.find('#natureDesc').val();
-                        this.roll({
-                            skillOrAbility, header, flavorText, helpDice, ob, trait, tapNature,
-                            fresh, supplies, persona, natureDescriptor
-                        });
-                    }
-                },
-                no: {
-                    icon: "<i class='fas fa-times'></i>",
-                    label: `Cancel`
-                }
-            },
-            default: 'yes'
-        }).render(true);
+        let header = `Testing: ${Capitalize(skillOrAbility)} (${this.actor.getRating(skillOrAbility)})`;
+        let rolling = this.actor.getRating(skillOrAbility) + modifiers.dice.total;
+        let natureRating = this.actor.getRating('Nature');
+        PlayerRollDialog.create({
+            skillOrAbility, header, rolling, traits, modifiers, natureRating, natureDesc, ob: 1
+        }, this.roll.bind(this));
     }
 }
