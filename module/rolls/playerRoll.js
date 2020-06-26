@@ -321,7 +321,7 @@ export class PlayerRoll {
         let natureDesc = this.actor.getNatureDescriptors();
         natureDesc.push("Acting outside character's nature");
 
-        let header = 'Testing: ' + Capitalize(skillOrAbility);
+        let header = `Testing: ${Capitalize(skillOrAbility)} (${this.actor.getRating(skillOrAbility)})`;
         let rolling = this.actor.getRating(skillOrAbility) + modifiers.dice.total;
         let natureRating = this.actor.getRating('Nature');
         PlayerRollDialog.create({
