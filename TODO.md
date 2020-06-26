@@ -15,6 +15,7 @@ Dice Rolls
 - Incorporate light as a factor
 - Help builder dialog
 - GM Ob builder dialog
+- Log when someone does an advance through Chat
 
 Magic
 - 
