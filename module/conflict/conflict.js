@@ -295,35 +295,44 @@ export class ConflictSheet extends Application {
   }
 
   async updateConflict(changes, source) {
-    if(changes) {
-      if(source !== 'resetConflict') {
-        changes = Object.assign({}, await this.currentConflict(), changes);
+    if(!game.user.isGM && changes) {
+      this.sendMessage({type: "requestConflictChange", source: {name: game.user.name}, changes: changes});
+    } else {
+      if(changes) {
+        if(source !== 'resetConflict') {
+          changes = Object.assign({}, await this.currentConflict(), changes);
+        }
+        await game.settings.set('conflict-sheet', 'currentConflict', changes);
       }
-      await game.settings.set('conflict-sheet', 'currentConflict', changes);
+      this._hasUpdate = true;
+      if(!this._updateSources) this._updateSources = [];
+      this._updateSources.push(source);
+      this.onUpdate();
+      setTimeout(() => {
+        if(this._hasUpdate) {
+          this.sendMessage({type: "conflictChanged", source: this._updateSources});
+          this._hasUpdate = false;
+          this._updateSources = [];
+        }
+      }, 1000);
     }
-    this._hasUpdate = true;
-    if(!this._updateSources) this._updateSources = [];
-    this._updateSources.push(source);
-    this.onUpdate();
-    setTimeout(() => {
-      if(this._hasUpdate) {
-        this.sendMessage({type: "conflictChanged", source: this._updateSources});
-        this._hasUpdate = false;
-        this._updateSources = [];
-      }
-    }, 1000);
   }
 
   onUpdate() {
     this.render(false);
   }
 
-  handleMessage(message) {
+  handleMessage(payload) {
     switch(payload.type) {
       case "conflictChanged":
         console.log("Informed of conflict change");
         console.log(payload);
         this.onUpdate();
+        break;
+      case "requestConflictChange":
+        if(game.user.isGM) {
+          this.updateConflict(payload.changes, payload.source).then(() => this.render());
+        }
         break;
     }
   }
