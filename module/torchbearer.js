@@ -97,7 +97,24 @@ Hooks.once('init', async function() {
   // Event listener which opens the Conflict Sheet when the Foundry icon is clicked
   Hooks.on('ready', (app, html, data) => {
     $('#logo').click(ev => {
-      game.conflict.render(true);
+      // game.conflict.render(true);
+      new Dialog({
+        title: "Torchbearer",
+        buttons: {
+          grind: {
+            label: "The Grind",
+            callback: () => {
+              game.grind.render(true);
+            }
+          },
+          conflict: {
+            label: "Conflict",
+            callback: () => {
+              game.conflict.render(true);
+            }
+          }
+        }
+      }).render(true);
     });
   });
   
