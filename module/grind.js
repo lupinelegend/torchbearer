@@ -127,6 +127,14 @@ export class GrindSheet extends Application {
         event.dataTransfer.setData("text/plain", JSON.stringify(dragData));
     }
 
+    _canDragStart(selector) {
+        return true;
+    }
+
+    _canDragDrop(selector) {
+        return true;
+    }
+
     /** @override */
     async _onDrop(event) {
         // Try to extract the data
@@ -339,23 +347,27 @@ export class GrindSheet extends Application {
     }
 
     async updateGrind(changes, source) {
-        if(changes) {
-            if(source !== 'resetGrind') {
-                changes = Object.assign({}, await this.currentGrind(), changes);
+        if(!game.user.isGM) {
+            this.sendMessage({type: "requestGrindChange", source: {name: game.user.name}, changes: changes});
+        } else {
+            if(changes) {
+                if(source !== 'resetGrind') {
+                    changes = Object.assign({}, await this.currentGrind(), changes);
+                }
+                await game.settings.set('grind-sheet', 'theGrind', changes);
             }
-            await game.settings.set('grind-sheet', 'theGrind', changes);
+            this._hasUpdate = true;
+            if(!this._updateSources) this._updateSources = [];
+            this._updateSources.push(source);
+            this.onUpdate();
+            setTimeout(() => {
+                if(this._hasUpdate) {
+                    this.sendMessage({type: "grindChanged", source: this._updateSources});
+                    this._hasUpdate = false;
+                    this._updateSources = [];
+                }
+            }, 1000);
         }
-        this._hasUpdate = true;
-        if(!this._updateSources) this._updateSources = [];
-        this._updateSources.push(source);
-        this.onUpdate();
-        setTimeout(() => {
-            if(this._hasUpdate) {
-                this.sendMessage({type: "grindChanged", source: this._updateSources});
-                this._hasUpdate = false;
-                this._updateSources = [];
-            }
-        }, 1000);
     }
 
     onUpdate() {
@@ -368,6 +380,11 @@ export class GrindSheet extends Application {
                 console.log("Informed of grind change");
                 console.log(payload);
                 this.onUpdate();
+                break;
+            case "requestGrindChange":
+                if(game.user.isGM) {
+                    this.updateGrind(payload.changes, payload.source);
+                }
                 break;
             case "claimRequest":
                 this.processClaimRequest(payload);
