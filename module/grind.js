@@ -347,7 +347,7 @@ export class GrindSheet extends Application {
     }
 
     async updateGrind(changes, source) {
-        if(!game.user.isGM) {
+        if(!game.user.isGM && changes) {
             this.sendMessage({type: "requestGrindChange", source: {name: game.user.name}, changes: changes});
         } else {
             if(changes) {
@@ -383,7 +383,7 @@ export class GrindSheet extends Application {
                 break;
             case "requestGrindChange":
                 if(game.user.isGM) {
-                    this.updateGrind(payload.changes, payload.source);
+                    this.updateGrind(payload.changes, payload.source).then(() => this.render());
                 }
                 break;
             case "claimRequest":
