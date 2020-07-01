@@ -8,6 +8,7 @@ import { GrindSheet } from "./grind.js";
 
 // Import Helpers
 import * as chat from "./chat.js";
+import {Capitalize} from "./misc.js";
 
 Hooks.once('init', async function() {
 
@@ -153,6 +154,10 @@ Hooks.once('init', async function() {
 
   Handlebars.registerHelper('toLowerCase', function(str) {
     return str.toLowerCase();
+  });
+
+  Handlebars.registerHelper('cap', function(str) {
+    return Capitalize(str);
   });
 
   Handlebars.registerHelper("ifeq", function(arg1, arg2, options) {

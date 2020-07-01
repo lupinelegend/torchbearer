@@ -180,8 +180,11 @@ export class TorchbearerActor extends Actor {
     let ability = this.tbData()[skillOrAbility.toLowerCase()];
     if(ability) {
       return ability.value;
-    } else {
+    } else if(this.tbData().skills[skillOrAbility]) {
       return this.tbData().skills[skillOrAbility].rating;
+    } else {
+      console.log("Couldn't find skillOrAbility rating for " +skillOrAbility);
+      return 0;
     }
   }
 

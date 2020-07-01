@@ -1,15 +1,17 @@
 import {SafeNum} from "../misc.js";
+import {HelpingDiceDialog} from "./helpingDiceDialog.js";
+import {SkillSelectionDialog} from "./skillSelectionDialog.js";
 
 export class PlayerRollDialog extends Dialog {
-    static async create(opts, onComplete) {
+    static async create(tbActor, opts, onComplete) {
         let dialogContent = 'systems/torchbearer/templates/roll-dialog-content.html';
         let template = await renderTemplate(dialogContent,
             Object.assign({helpDice: 0, supplies: 0, persona: 0}, opts)
         );
-        new PlayerRollDialog({content: template}, onComplete, opts).render(true);
+        new PlayerRollDialog(tbActor, {content: template}, onComplete, opts).render(true);
     }
 
-    constructor(dialogData, onComplete, opts) {
+    constructor(tbActor, dialogData, onComplete, opts) {
         dialogData = Object.assign({
             title: `Test`,
             buttons: {
@@ -53,6 +55,8 @@ export class PlayerRollDialog extends Dialog {
             default: 'yes'
         }, dialogData);
         super(dialogData);
+        this.actor = tbActor;
+        this.skillOrAbility = opts.skillOrAbility;
     }
 
     activateListeners(html) {
@@ -67,11 +71,11 @@ export class PlayerRollDialog extends Dialog {
             });
         }
 
-        html.find('.dice-modifier').change(ev => {
+        let calcModifiers = function () {
             let sum = 0;
             html.find('.dice-modifier').each((i, el) => {
-                if(el.type ==='radio') {
-                    if(el.checked) {
+                if (el.type === 'radio') {
+                    if (el.checked) {
                         sum += SafeNum($(el).val());
                     }
                 } else {
@@ -83,14 +87,32 @@ export class PlayerRollDialog extends Dialog {
             $rolling.text(`${newRolling}D`);
             html.find('button').each((i, el) => {
                 let $el = $(el);
-                if($el.data('button') === 'yes') {
-                    if(newRolling < 1) {
+                if ($el.data('button') === 'yes') {
+                    if (newRolling < 1) {
                         $el.prop('disabled', true);
                     } else {
                         $el.prop('disabled', false);
                     }
                 }
             });
+        };
+        html.find('.dice-modifier').change(ev => {
+            calcModifiers();
+        });
+        html.find('#helpingDiceLabel').click(() => {
+            if(this.skillOrAbility.toLowerCase() === 'nature') {
+                SkillSelectionDialog.create(this.actor, {}, (skillPayload) => {
+                    HelpingDiceDialog.create(this.actor,{skillOrAbility: skillPayload.skillOrAbility}, (helpPayload) => {
+                        html.find('#helpingDice').val(helpPayload.totalHelpDice);
+                        calcModifiers();
+                    });
+                });
+            } else {
+                HelpingDiceDialog.create(this.actor,{skillOrAbility: this.skillOrAbility}, (payload) => {
+                    html.find('#helpingDice').val(payload.totalHelpDice);
+                    calcModifiers();
+                });
+            }
         });
     }
 }

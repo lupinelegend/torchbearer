@@ -25,7 +25,6 @@ Conflict
 
 Grind
 -
-- Allow players to drag and drop, not just GM
 - Allow GM to remove players from the grind
 
 UI
