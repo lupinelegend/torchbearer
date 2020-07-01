@@ -347,7 +347,7 @@ export class PlayerRoll {
         let natureRating = this.actor.getRating('Nature');
         let rollType = 'independent';
         let ob = 1;
-        PlayerRollDialog.create(Object.assign({
+        PlayerRollDialog.create(this.actor, Object.assign({
             skillOrAbility, header, rolling, traits, modifiers, natureRating, natureDesc, rollType, ob,
         }, opts), this.roll.bind(this));
     }

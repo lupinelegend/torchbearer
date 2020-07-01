@@ -1,6 +1,6 @@
 import {DispoDialog} from "./dispoDialog.js";
 import {PlayerRoll} from "../rolls/playerRoll.js";
-import {Capitalize} from "../misc.js";
+import {Capitalize, CurrentCharacterActorIds} from "../misc.js";
 
 export class ConflictSheet extends Application {
 
@@ -36,16 +36,7 @@ export class ConflictSheet extends Application {
 
   async loadChars() {
     if(game.user.isGM) {
-      let actorIds = (await game.grind.currentGrind()).actors;
-      if(actorIds.length === 0) {
-        actorIds = [];
-        for(let i = 0; i < game.actors.entities.length; i++) {
-          let actor = game.actors.entities[i];
-          if(actor.data.type === 'Character') {
-            actorIds.push(actor._id);
-          }
-        }
-      }
+      let actorIds = await CurrentCharacterActorIds();
       let engagedCharacterActors = {};
       for(let i = 0; i < actorIds.length; i++) {
         let actorId = actorIds[i];

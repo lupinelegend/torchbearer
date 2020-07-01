@@ -594,3 +594,18 @@ input[type="number"] {
   -ms-user-select: text;
   user-select: text;
 }
+
+#helpingDiceForm table {
+  border-collapse: collapse;
+}
+
+#helpingDiceForm table, #helpingDiceForm tr, #helpingDiceForm td {
+  border: 1px solid black;
+}
+
+#helpingDiceForm td {
+  text-align: center;
+}
+#helpingDiceForm td.name {
+  text-align: left;
+}
