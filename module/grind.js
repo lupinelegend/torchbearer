@@ -406,7 +406,7 @@ export class GrindSheet extends Application {
             await this.getData();
         }
         const lightLevels = this._grindData.computed.lightLevels;
-        if(!lightLevels[actorId]) {
+        if(!lightLevels.hasOwnProperty(actorId)) {
             console.log("WARN: Looking up lightlevel for Actor not in grind; returning Bright");
             return LIGHT_LEVELS.Bright;
         }

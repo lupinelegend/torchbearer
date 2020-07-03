@@ -609,3 +609,16 @@ input[type="number"] {
 #helpingDiceForm td.name {
   text-align: left;
 }
+
+.light-level-0 {
+  color: white;
+  background-color: #191813;
+}
+
+.light-level-1 {
+  background-color: #808080;
+}
+
+.light-banner {
+  /*margin: -10px -10px 10px -10px;*/
+}

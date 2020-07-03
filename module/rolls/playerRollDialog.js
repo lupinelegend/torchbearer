@@ -5,8 +5,11 @@ import {SkillSelectionDialog} from "./skillSelectionDialog.js";
 export class PlayerRollDialog extends Dialog {
     static async create(tbActor, opts, onComplete) {
         let dialogContent = 'systems/torchbearer/templates/roll-dialog-content.html';
+
+        let lightLevel = await game.grind.lightLevelFor(tbActor._id);
+
         let template = await renderTemplate(dialogContent,
-            Object.assign({helpDice: 0, supplies: 0, persona: 0}, opts)
+            Object.assign({helpDice: 0, supplies: 0, persona: 0, lightLevel}, opts)
         );
         new PlayerRollDialog(tbActor, {content: template}, onComplete, opts).render(true);
     }
