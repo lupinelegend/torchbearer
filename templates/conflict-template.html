@@ -4,13 +4,13 @@
     <!-- Conflict General Info -->
     <div class="row">
         {{#if isGM }}
-            <div class="row ddbox" style="padding:8px;border:1px solid black;position:absolute;right:26px;background-color: #eeeeee">
+            <div class="row ddbox" style="padding:8px;border:1px solid black;position:absolute;right:0px;top:30px;background-color: #eeeeee">
                 <div class="col" style="display:flex;flex-direction: column">
                     <h3 style="font-family: Souvenir-Demi;text-decoration: underline">GM Tools</h3>
-                    <p class="clickable rollable dd" style="font-family: Souvenir-Demi" id="reloadTemplate">Reload Template</p>
-                    <p class="clickable rollable dd" style="font-family: Souvenir-Demi" id="resetConflict">Reset Conflict</p>
-                    <p class="clickable rollable dd" style="font-family: Souvenir-Demi" id="loadChars">Load Chars</p>
-                    <p class="clickable rollable dd" style="font-family: Souvenir-Demi" id="logConflict">Console.log</p>
+                    <p class="clickable dd" style="font-family: Souvenir-Demi" id="reloadTemplate">Reload Template</p>
+                    <p class="clickable dd" style="font-family: Souvenir-Demi" id="resetConflict">Reset Conflict</p>
+                    <p class="clickable dd" style="font-family: Souvenir-Demi" id="loadChars">Load Chars</p>
+                    <p class="clickable dd" style="font-family: Souvenir-Demi" id="logConflict">Console.log</p>
                 </div>
             </div>
         {{/if}}
@@ -36,12 +36,12 @@
       </div>
       <!-- Disposition -->
       <div class="col" style="flex: 0 0 245px;">
-        <div class="row" style="display: block; text-align: center;">
-          <a id="dispoHeader">
-            <h2 style="margin: auto; font-family: Souvenir-Demi;" id="dispoHeader">Hit Points</h3>
-          </a>
-        </div>
-        <div class="row" style="flex-wrap: nowrap; margin: 5px 0 5px 0">
+          <div class="row" style="display: flex;justify-content: space-around;">
+              <img id="playerDispoRoll" src="systems/torchbearer/assets/icons/d6.png" style="height: 24px;flex-basis: 24px;border: none;margin-left:24px;" class="rollable">
+              <h2 style="margin: auto; font-family: Souvenir-Demi;" id="dispoHeader">Hit Points</h2>
+              <img id="gmDispoRoll" src="systems/torchbearer/assets/icons/d6.png" style="height: 24px;flex-basis: 24px;border: none;margin-right:24px;" class="rollable">
+          </div>
+          <div class="row" style="flex-wrap: nowrap; margin: 5px 0 5px 0">
           <div class="col" style="border-right: 1px solid #782e22;">
             <div class="row" style="justify-content: center; align-items: center; text-align: center; font-family: Souvenir-Medium;">
               <input type="text" name="partyDispoCurrent" id="partyDispoCurrent" class="conflict-field" data-dtype="Number" value="{{conflict.partyDispoCurrent}}" style="width: 40px; height: 40px; font-size: large !important;">

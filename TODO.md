@@ -12,8 +12,6 @@ Dice Rolls
 - 
 - Add buttons to spend fate and persona after the roll
 - Add visualization to indicate die source
-- Incorporate light as a factor
-- Help builder dialog
 - GM Ob builder dialog
 - Log when someone does an advance through Chat
 
