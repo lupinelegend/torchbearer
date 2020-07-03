@@ -130,8 +130,8 @@ export class ConflictSheet extends Application {
       this.updateConflict({engagedActors: engagedActors}, 'conflict.actor-field')
     });
 
-    html.find('#dispoHeader').click(ev => {
-      this.dispoDialog();
+    html.find('#playerDispoRoll').click(ev => {
+      this.playerDispoDialog();
     });
 
     html.find('#logConflict').on('click', async () => {
@@ -236,7 +236,7 @@ export class ConflictSheet extends Application {
     await this.updateConflict({engagedEnemies: newEngagedEnemies}, 'onDrop');
   }
 
-  dispoDialog() {
+  playerDispoDialog() {
     if (game.user.isGM) {
       console.log('Greetings, GM!');
 
