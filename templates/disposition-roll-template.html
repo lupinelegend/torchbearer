@@ -1,46 +1,41 @@
 <form>
   <div class="row" style="align-items: center; margin-bottom: 5px;">
-    <label for="conflictType" style="font-family: Souvenir-Medium;"><u>Conflict Type</u>:</label>
-    <select name="conflictType" class="affects-help-calc" id="conflictType" style="margin: 0 0 0 5px;">
-      {{#select conflictType}}
-      <option value="" selected disabled hidden>Choose a type...</option>
-      {{#each conflictTypes}}
-      <option name="this.name" value="{{this.name}}">{{this.name}}</option>
-      {{/each}}
-      {{/select}}
-    </select>
+    <label for="conflictType" style="font-family: Souvenir-Medium;"><u>Conflict Type</u>: {{conflictType.name}}</label>
   </div>
-  <div class="row" id="ifNotOther" style="align-items: center; margin-bottom: 5px;">
-    <label for="skillRoll" style="font-family: Souvenir-Medium;"><u>Skill to Roll</u>:</label>
-    <select name="skillRoll" class="affects-help-calc" id="skillRoll" style="margin: 0 0 0 5px;">
-      {{#select skillRoll}}
-      <option value="" selected disabled hidden>Choose a skill...</option>
-      {{#each conflictTypes.skill}}
-      <option name="this" value="{{this}}">{{this}}</option>
-      {{/each}}
-      {{/select}}
-    </select>
-  </div>
-  <div class="row hidden" id="ifOther" style="align-items:center; margin-bottom: 5px;">
-      <label for="otherSkill" style="font-family: Souvenir-Medium;"><u>Skill</u>: </label>
-        <select name="otherSkill" class="affects-help-calc" id="otherSkill" style="margin: 0 10px 0 5px;">
-            {{#select otherSkill}}
-                <option value="" selected disabled hidden>Choose a skill...</option>
-                {{#each allSkills}}
-                    <option value="{{this.name}}">{{this.name}}</option>
-                {{/each}}
-                <option value="Nature">Nature</option>
-            {{/select}}
-        </select>
-      <label for="otherAbility" style="font-family: Souvenir-Medium;"><u>Ability</u>: </label>
-        <select name="otherAbility" class="affects-help-calc" id="otherAbility" style="margin: 0 0 0 5px;">
-            {{#select otherAbility}}
-                <option value="" selected disabled hidden>Choose an ability...</option>
-                <option value="Will">Will</option>
-                <option value="Health">Health</option>
-            {{/select}}
-        </select>
-  </div>
+  {{#if (eq conflictType.name 'Other')}}
+      <div class="row" id="ifOther" style="align-items:center; margin-bottom: 5px;">
+          <label for="otherSkill" style="font-family: Souvenir-Medium;"><u>Skill</u>: </label>
+          <select name="otherSkill" class="affects-help-calc" id="otherSkill" style="margin: 0 10px 0 5px;">
+              {{#select otherSkill}}
+                  <option value="" selected disabled hidden>Choose a skill...</option>
+                  {{#each allSkills}}
+                      <option value="{{this.name}}">{{this.name}}</option>
+                  {{/each}}
+                  <option value="Nature">Nature</option>
+              {{/select}}
+          </select>
+          <label for="otherAbility" style="font-family: Souvenir-Medium;"><u>Ability</u>: </label>
+          <select name="otherAbility" class="affects-help-calc" id="otherAbility" style="margin: 0 0 0 5px;">
+              {{#select otherAbility}}
+                  <option value="" selected disabled hidden>Choose an ability...</option>
+                  <option value="Will">Will</option>
+                  <option value="Health">Health</option>
+              {{/select}}
+          </select>
+      </div>
+  {{else}}
+      <div class="row" id="ifNotOther" style="align-items: center; margin-bottom: 5px;">
+          <label for="skillRoll" style="font-family: Souvenir-Medium;"><u>Skill to Roll</u>:</label>
+          <select name="skillRoll" class="affects-help-calc" id="skillRoll" style="margin: 0 0 0 5px;">
+              {{#select skillRoll}}
+                  <option value="" selected disabled hidden>Choose a skill...</option>
+                  {{#each conflictType.skill}}
+                      <option name="this" value="{{this}}">{{this}}</option>
+                  {{/each}}
+              {{/select}}
+          </select>
+      </div>
+  {{/if}}
   <div class="row"  style="align-items: center; margin-bottom: 5px;">
     <label style="font-family: Souvenir-Medium;"><u>Is any member of the team hungry and thirsty</u>?</label>
     <input type="checkbox" name="{{hungry}}" id="anyHungry" {{checked hungry}} value="true" disabled>

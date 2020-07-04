@@ -65,8 +65,15 @@
           <label for="opponentIntent" style="font-family: Souvenir-Demi; margin-left: 5px; align-self: center;">Opponent Intent</label>
         </div>
         <div class="row" style="flex-wrap: nowrap; margin: 8px 0 8px 0;">
-          <input type="text" name="opponentName" id="opponentName" class="conflict-field" value="{{conflict.opponentName}}" style="width: 225px;">
-          <label for="opponentName" style="font-family: Souvenir-Demi; margin-left: 5px; align-self: center;">Opponent Name</label>
+            <select name="conflictType" id="conflictType" class='conflict-field' style="margin: 0 0 0 0;">
+                {{#select conflict.conflictType}}
+                    <option value="" selected disabled hidden>Choose a type...</option>
+                    {{#each conflictTypes}}
+                        <option name="this.name" value="{{this.name}}">{{this.name}}</option>
+                    {{/each}}
+                {{/select}}
+            </select>
+            <label for="conflictType" style="font-family: Souvenir-Demi; margin-left: 5px; align-self: center;">Conflict Type</label>
         </div>
       </div>
     </div>
