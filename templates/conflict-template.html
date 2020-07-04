@@ -58,14 +58,14 @@
           </div>
         </div>
       </div>
-      <!-- Opponent Intent and Name -->
+      <!-- Opponent Intent and Conflict Type -->
       <div class="col">
         <div class="row" style="flex-wrap: nowrap; margin: 8px 0 8px 0;">
           <input type="text" name="opponentIntent" id="opponentIntent" class="conflict-field" value="{{conflict.opponentIntent}}" style="width: 225px;">
           <label for="opponentIntent" style="font-family: Souvenir-Demi; margin-left: 5px; align-self: center;">Opponent Intent</label>
         </div>
         <div class="row" style="flex-wrap: nowrap; margin: 8px 0 8px 0;">
-            <select name="conflictType" id="conflictType" class='conflict-field' style="margin: 0 0 0 0;">
+            <select name="conflictType" id="conflictType" class='conflict-field' style="margin: 0; width:225px;">
                 {{#select conflict.conflictType}}
                     <option value="" selected disabled hidden>Choose a type...</option>
                     {{#each conflictTypes}}
