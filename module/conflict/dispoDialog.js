@@ -1,54 +1,8 @@
 import {MasterSkillsList} from "../misc.js";
-
-const CONFLICT_TYPES = [
-    {
-        name: 'Banish/Abjure',
-        skill: ['Arcanist', 'Ritualist', 'Nature'],
-        ability: 'Will'
-    },
-    {
-        name: 'Capture',
-        skill: ['Fighter', 'Hunter', 'Nature'],
-        ability: 'Will'
-    },
-    {
-        name: 'Convince',
-        skill: ['Persuader', 'Nature'],
-        ability: 'Will'
-    },
-    {
-        name: 'Convince Crowd',
-        skill: ['Orator', 'Nature'],
-        ability: 'Will'
-    },
-    {
-        name: 'Drive Off',
-        skill: ['Fighter', 'Nature'],
-        ability: 'Health'
-    },
-    {
-        name: 'Kill',
-        skill: ['Fighter', 'Nature'],
-        ability: 'Health'
-    },
-    {
-        name: 'Pursue/Flee',
-        skill: ['Scout', 'Rider', 'Nature'],
-        ability: 'Health'
-    },
-    {
-        name: 'Trick/Riddle',
-        skill: ['Manipulator', 'Nature'],
-        ability: 'Will'
-    },
-    {
-        name: 'Other',
-        skill: [],
-    }
-];
+import {ByName} from "./types.js";
 
 export class DispoDialog extends Dialog {
-    static async create(conflictCaptain, partyOrder, onComplete) {
+    static async create(conflictCaptain, partyOrder, conflictType, onComplete) {
         let hungry = false;
         let exhausted = false;
         partyOrder.forEach(actorId => {
@@ -63,12 +17,12 @@ export class DispoDialog extends Dialog {
 
         let dialogContent = 'systems/torchbearer/templates/disposition-roll-template.html';
 
-        renderTemplate(dialogContent, {conflictTypes: CONFLICT_TYPES, hungry: hungry, exhausted: exhausted, allSkills: MasterSkillsList()}).then(template => {
-            new DispoDialog({content: template}, onComplete).render(true);
+        renderTemplate(dialogContent, {conflictType: ByName(conflictType), hungry, exhausted, allSkills: MasterSkillsList()}).then(template => {
+            new DispoDialog(conflictType,{content: template}, onComplete).render(true);
         });
     }
 
-    constructor(dialogData, onComplete) {
+    constructor(conflictType, dialogData, onComplete) {
         dialogData = Object.assign({
             title: `Disposition`,
             buttons: {
@@ -77,7 +31,6 @@ export class DispoDialog extends Dialog {
                     label: `Roll`,
                     callback: (html) => {
                         console.log("Yes clicked");
-                        let conflictType = html.find('#conflictType').val();
                         let skill = html.find('#skillRoll').val();
                         let otherSkill = html.find('#otherSkill').val();
                         let otherAbility = html.find('#otherAbility').val();
@@ -86,7 +39,7 @@ export class DispoDialog extends Dialog {
                         if(conflictType === 'Other') {
                             onComplete(conflictType, otherSkill, otherAbility, hungry, exhausted);
                         } else {
-                            onComplete(conflictType, skill, CONFLICT_TYPES.find(t => t.name === conflictType).ability, hungry, exhausted)
+                            onComplete(conflictType, skill, ByName(conflictType).ability, hungry, exhausted)
                         }
                     }
                 },

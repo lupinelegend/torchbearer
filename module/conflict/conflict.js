@@ -1,3 +1,4 @@
+import {CONFLICT_TYPES} from "./types.js";
 import {DispoDialog} from "./dispoDialog.js";
 import {PlayerRoll} from "../rolls/playerRoll.js";
 import {Capitalize, CurrentCharacterActorIds} from "../misc.js";
@@ -22,6 +23,7 @@ export class ConflictSheet extends Application {
     let data = super.getData();
 
     data.conflict = await this.currentConflict();
+    data.conflictTypes = CONFLICT_TYPES;
 
     if(game.user.isGM) {
       data.isGM = true;
@@ -87,7 +89,7 @@ export class ConflictSheet extends Application {
         partyIntent: '',
         opponentIntent: '',
         conflictCaptain: '',
-        opponentName: '',
+        conflictType: '',
         partyDispoCurrent: 0,
         partyDispoMax: 0,
         opponentDispoCurrent: 0,
@@ -237,31 +239,24 @@ export class ConflictSheet extends Application {
   }
 
   playerDispoDialog() {
-    if (game.user.isGM) {
-      console.log('Greetings, GM!');
-
-      let {conflictCaptain, partyOrder} = this._conflictData.conflict;
-
-      DispoDialog.create(conflictCaptain, partyOrder, this.rollDispo.bind(this));
-
-    } else {
-      console.log('Hey, pleb.');
+    let {conflictCaptain, partyOrder, conflictType} = this._conflictData.conflict;
+    if(!conflictCaptain || !conflictType) {
+      ui.notifications.error("Please select a conflict captain and conflict type");
+      return;
     }
+    if (!game.user.isGM && !this.findConflictCaptain(conflictCaptain).owner) {
+      ui.notifications.error("Only the Conflict Captain or GM can roll Disposition");;
+      return;
+    }
+
+    DispoDialog.create(conflictCaptain, partyOrder, conflictType, this.rollDispo.bind(this));
   }
 
   rollDispo(type, skill, ability, hungry, exhausted) {
     console.log(type, skill, ability, hungry, exhausted);
     let {conflictCaptain} = this._conflictData.conflict;
     console.log(conflictCaptain);
-
-    let roller = null;
-    game.actors._source.forEach(element => {
-      if (element.name === conflictCaptain) {
-        roller = element._id;
-      }
-    });
-    console.log(roller);
-    let tbCharacter = game.actors.get(roller);
+    let tbCharacter = this.findConflictCaptain(conflictCaptain);
     const dispoRollModifiers = [];
     dispoRollModifiers.push({
       name: ability,
@@ -283,6 +278,17 @@ export class ConflictSheet extends Application {
       });
     }
     new PlayerRoll(tbCharacter).showDialog(skill, {ob: 0, rollType: 'disposition'}, dispoRollModifiers);
+  }
+
+  findConflictCaptain(conflictCaptain) {
+    let roller = null;
+    game.actors._source.forEach(element => {
+      if (element.name === conflictCaptain) {
+        roller = element._id;
+      }
+    });
+    console.log(roller);
+    return game.actors.get(roller);
   }
 
   async updateConflict(changes, source) {
