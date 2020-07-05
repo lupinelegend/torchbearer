@@ -73,7 +73,7 @@ export const CONFLICT_TYPES = [
     },
     {
         name: 'Capture',
-        disposition: ['Fighter', 'Hunter', 'Nature'],
+        disposition: ['Fighter', 'Hunter'],
         attack: [],
         defend: [],
         feint: [],
@@ -82,7 +82,7 @@ export const CONFLICT_TYPES = [
     },
     {
         name: 'Convince',
-        disposition: ['Persuader', 'Nature'],
+        disposition: ['Persuader'],
         attack: [],
         defend: [],
         feint: [],
@@ -91,7 +91,7 @@ export const CONFLICT_TYPES = [
     },
     {
         name: 'Convince Crowd',
-        disposition: ['Orator', 'Nature'],
+        disposition: ['Orator'],
         attack: [],
         defend: [],
         feint: [],
@@ -100,7 +100,7 @@ export const CONFLICT_TYPES = [
     },
     {
         name: 'Drive Off',
-        disposition: ['Fighter', 'Nature'],
+        disposition: ['Fighter'],
         attack: [],
         defend: [],
         feint: [],
@@ -109,7 +109,7 @@ export const CONFLICT_TYPES = [
     },
     {
         name: 'Kill',
-        disposition: ['Fighter', 'Nature'],
+        disposition: ['Fighter'],
         attack: [],
         defend: [],
         feint: [],
@@ -118,7 +118,7 @@ export const CONFLICT_TYPES = [
     },
     {
         name: 'Pursue/Flee',
-        disposition: ['Scout', 'Rider', 'Nature'],
+        disposition: ['Scout', 'Rider'],
         attack: [],
         defend: [],
         feint: [],
@@ -127,7 +127,7 @@ export const CONFLICT_TYPES = [
     },
     {
         name: 'Trick/Riddle',
-        disposition: ['Manipulator', 'Nature'],
+        disposition: ['Manipulator'],
         attack: [],
         defend: [],
         feint: [],
