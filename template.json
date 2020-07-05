@@ -130,6 +130,24 @@
             "help": "Alchemist, Smith, Laborer",
             "bl": "H"
           },
+          "Beggar": {
+            "name": "Beggar",
+            "rating": 0,
+            "max": 10,
+            "pass": 0,
+            "fail": 0,
+            "help": "Orator, Manipulator",
+            "bl": "W"
+          },
+          "Butcher": {
+            "name": "Butcher",
+            "rating": 0,
+            "max": 10,
+            "pass": 0,
+            "fail": 0,
+            "help": "Cook, Laborer",
+            "bl": "H"
+          },
           "Carpenter": {
             "name": "Carpenter",
             "rating": 0,
@@ -183,6 +201,15 @@
             "fail": 0,
             "help": "Criminal, Laborer, Scout, Survivalist",
             "bl": "H"
+          },
+          "Enchanter": {
+            "name": "Enchanter",
+            "rating": 0,
+            "max": 10,
+            "pass": 0,
+            "fail": 0,
+            "help": "Alchemist, Arcanist",
+            "bl": "W"
           },
           "Fighter": {
             "name": "Fighter",
@@ -346,6 +373,15 @@
             "help": "Pathfinder, Hunter",
             "bl": "W"
           },
+          "Smith": {
+            "name": "Smith",
+            "rating": 0,
+            "max": 10,
+            "pass": 0,
+            "fail": 0,
+            "help": "Armorer, Laborer",
+            "bl": "H"
+          },
           "Steward": {
             "name": "Steward",
             "rating": 0,
@@ -364,6 +400,15 @@
             "help": "Laborer",
             "bl": "H"
           },
+          "Strategist": {
+            "name": "Strategist",
+            "rating": 0,
+            "max": 10,
+            "pass": 0,
+            "fail": 0,
+            "help": "Commander, Scholar, Cartographer",
+            "bl": "W"
+          },
           "Survivalist": {
             "name": "Survivalist",
             "rating": 0,
@@ -371,6 +416,15 @@
             "pass": 0,
             "fail": 0,
             "help": "Hunter, Laborer",
+            "bl": "H"
+          },
+          "Tanner": {
+            "name": "Tanner",
+            "rating": 0,
+            "max": 10,
+            "pass": 0,
+            "fail": 0,
+            "help": "Armorer, Laborer",
             "bl": "H"
           },
           "Theologian": {
