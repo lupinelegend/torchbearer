@@ -29,7 +29,7 @@
           <select name="skillRoll" class="affects-help-calc" id="skillRoll" style="margin: 0 0 0 5px;">
               {{#select skillRoll}}
                   <option value="" selected disabled hidden>Choose a skill...</option>
-                  {{#each conflictType.skill}}
+                  {{#each conflictType.disposition}}
                       <option name="this" value="{{this}}">{{this}}</option>
                   {{/each}}
               {{/select}}
