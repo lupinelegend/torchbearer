@@ -188,6 +188,10 @@ export class TorchbearerActor extends Actor {
     }
   }
 
+  async getLightLevel() {
+    return await game.grind.lightLevelFor(this._id);
+  }
+
   tbData() {
     return this.data.data;
   }
