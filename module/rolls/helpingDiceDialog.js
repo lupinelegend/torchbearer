@@ -18,7 +18,7 @@ export class HelpingDiceDialog extends Dialog {
         let helpSkillAbility4 = '';
         if(allSkills[Capitalize(skillOrAbility)]) {
             let helps = allSkills[Capitalize(skillOrAbility)].help.split(',').map(x => x.trim());
-            helps.length > 0 ? helpSkillAbility1 = helps[0] : null;
+            helps.length > 0 && helps[0] !== skillOrAbility ? helpSkillAbility1 = helps[0] : null;
             helps.length > 1 ? helpSkillAbility2 = helps[1] : null;
             helps.length > 2 ? helpSkillAbility3 = helps[2] : null;
             helps.length > 3 ? helpSkillAbility4 = helps[3] : null;

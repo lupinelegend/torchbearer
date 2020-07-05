@@ -1,4 +1,4 @@
-import {Capitalize, SafeNum} from "../misc.js";
+import {Capitalize} from "../misc.js";
 import {CharacterAdjustment} from "../actor/character-adjustment.js";
 import {PlayerRollDialog} from "./playerRollDialog.js";
 
@@ -10,7 +10,8 @@ export class PlayerRoll {
     async roll(opts) {
         let {skillOrAbility, header, flavorText, helpDice, ob,
             trait, tapNature, supplies, persona, natureDescriptor,
-            rollType, modifiers
+            rollType, modifiers, miscDice, miscFactors, miscPlusSuccesses,
+            inadequateTools,
         } = opts;
 
         // Check for any factors due to conditions
@@ -56,6 +57,10 @@ export class PlayerRoll {
             }
         }
 
+        if(inadequateTools) {
+            miscFactors += 1;
+        }
+
         const skillList = this.actor.data.data.skills;
 
         // Determine number of dice to roll.
@@ -65,7 +70,7 @@ export class PlayerRoll {
         if (skillList[skillOrAbility]) {
             let skill = skillList[skillOrAbility];
             if (skill.rating > 0) {
-                diceToRoll = skill.rating + traitMod + natureMod + modifiers.dice.total + supplies + helpDice + personaMod + modifiedStats.skillMod;
+                diceToRoll = skill.rating + traitMod + natureMod + modifiers.dice.total + supplies + helpDice + personaMod + modifiedStats.skillMod + miscDice;
             } else {
                 //Beginner's Luck
                 if (this.actor.data.data.afraid) {
@@ -81,11 +86,11 @@ export class PlayerRoll {
                     }
                     if (this.actor.data.data[name].value > 0) {
                         beginnersLuck = `(Beginner's Luck, ${Capitalize(name)})`;
-                        diceToRoll = Math.ceil((modifiedStats[name] + supplies + helpDice) / 2) + traitMod + natureMod + modifiers.dice.total + personaMod;
+                        diceToRoll = Math.ceil((modifiedStats[name] + supplies + helpDice) / 2) + traitMod + natureMod + modifiers.dice.total + personaMod + miscDice;
                     } else {
                         // If 0, use Nature instead
                         beginnersLuck = "(Beginner's Luck, Nature)";
-                        diceToRoll = Math.ceil((modifiedStats.nature + supplies + helpDice) / 2) + traitMod + natureMod + modifiers.dice.total + personaMod;
+                        diceToRoll = Math.ceil((modifiedStats.nature + supplies + helpDice) / 2) + traitMod + natureMod + modifiers.dice.total + personaMod + miscDice;
                     }
                 }
             }
@@ -93,7 +98,7 @@ export class PlayerRoll {
 
         // Otherwise it's an ability
         if (!diceToRoll && diceToRoll !== 0) {
-            diceToRoll = modifiedStats[skillOrAbility] + traitMod + natureMod + modifiers.dice.total + supplies + helpDice + personaMod;
+            diceToRoll = modifiedStats[skillOrAbility.toLowerCase()] + traitMod + natureMod + modifiers.dice.total + supplies + helpDice + personaMod + miscDice;
         }
 
         // GM rolls
@@ -101,11 +106,6 @@ export class PlayerRoll {
             user: game.user._id,
             speaker: ChatMessage.getSpeaker({actor: this.actor})
         };
-        let rollDetails = rollType === 'versus' ? `${diceToRoll}D versus test` : (
-            rollType === 'disposition' ? `${diceToRoll}D disposition test` : (
-                `${diceToRoll}D vs. Ob ${ob}`
-            )
-        )
 
         // Handle roll visibility. Blind doesn't work; you'll need a render hook to hide it.
         let rollMode = game.settings.get("core", "rollMode");
@@ -123,7 +123,6 @@ export class PlayerRoll {
             title: header,
             skillOrAbility: skillOrAbility,
             flavorText: flavorText,
-            rollDetails: rollDetails,
             bL: beginnersLuck,
             advanceable: advanceable,
             roll: {}
@@ -184,9 +183,19 @@ export class PlayerRoll {
             });
         }
 
+        let minusSuccesses = 0;
+        let plusSuccesses = 0;
         let totalSuccesses = rolledSuccesses;
+        //Convert -1s to ob in Independent Tests, vice-versa in Versus/Dispo tests
+        if(rollType === 'independent') {
+            ob += miscFactors;
+            ob += modifiers.minusSuccesses.total * -1;
+        } else {
+            minusSuccesses = modifiers.minusSuccesses.total - miscFactors;
+        }
+
         totalSuccesses += modifiers.base.total;
-        totalSuccesses += modifiers.minusSuccesses.total;
+        totalSuccesses += minusSuccesses;
 
         let passFail = '';
         let displaySuccesses = '';
@@ -195,12 +204,9 @@ export class PlayerRoll {
             if(rollType === 'independent') {
                 passFail = ' - Fail!';
                 roll.parts[0].options.rollOutcome = 'fail';
-                if (ob === 0 && totalSuccesses > ob) {
-                    totalSuccesses += modifiers.plusSuccesses.total;
-                    passFail = ' - Pass!'
-                    roll.parts[0].options.rollOutcome = 'pass';
-                } else if (ob > 0 && totalSuccesses >= ob) {
-                    totalSuccesses += modifiers.plusSuccesses.total;
+                if (totalSuccesses >= ob && totalSuccesses > 0) {
+                    plusSuccesses = modifiers.plusSuccesses.total + miscPlusSuccesses;
+                    totalSuccesses += plusSuccesses;
                     passFail = ' - Pass!'
                     roll.parts[0].options.rollOutcome = 'pass';
                 }
@@ -211,12 +217,18 @@ export class PlayerRoll {
                 }
             } else if (rollType === 'versus') {
                 roll.parts[0].options.rollOutcome = 'versus';
+                plusSuccesses = modifiers.plusSuccesses.total + miscPlusSuccesses;
                 if (totalSuccesses === 1) {
                     displaySuccesses = `${totalSuccesses} Success`;
                 } else {
                     displaySuccesses = `${totalSuccesses} Successes`;
                 }
+                if (modifiers.plusSuccesses.total + miscPlusSuccesses > 0) {
+                    displaySuccesses += ` (+${plusSuccesses}s?)`;
+                }
             } else if (rollType === 'disposition') {
+                plusSuccesses = modifiers.plusSuccesses.total + miscPlusSuccesses;
+                totalSuccesses += plusSuccesses;
                 roll.parts[0].options.rollOutcome = 'disposition';
                 displaySuccesses = `${totalSuccesses} Total Disposition`;
             }
@@ -224,17 +236,23 @@ export class PlayerRoll {
             passFail = 'No Test';
         }
 
-
         renderTemplate('systems/torchbearer/templates/roll-template.html', {
             title: header,
             results: rollResult,
             dice: diceToRoll,
             success: displaySuccesses,
             flavorText: flavorText,
+            minusSuccesses: minusSuccesses,
+            plusSuccesses: plusSuccesses,
             outcome: passFail
         }).then(t => {
             // Add the dice roll to the template
             templateData.roll = t;
+            templateData.rollDetails = rollType === 'versus' ? `${diceToRoll}D versus test` : (
+                rollType === 'disposition' ? `${diceToRoll}D disposition test` : (
+                    `${diceToRoll}D vs. Ob ${ob}`
+                )
+            );
             chatData.roll = diceToRoll < 1 ? '{}' : JSON.stringify(roll);
 
             // Render the roll template
@@ -333,6 +351,7 @@ export class PlayerRoll {
                 effect: '-1D'
             });
         }
+        await this.applyTestSpecificPersonalFactors(skillOrAbility, modifierList);
         let modifiers = this.organizeModifiers(modifierList);
 
         // Build an actor trait list to be passed to the dialog box
@@ -350,5 +369,39 @@ export class PlayerRoll {
         PlayerRollDialog.create(this.actor, Object.assign({
             skillOrAbility, header, rolling, traits, modifiers, natureRating, natureDesc, rollType, ob,
         }, opts), this.roll.bind(this));
+    }
+
+    async applyTestSpecificPersonalFactors(skillOrAbility, modifierList) {
+        let lightLevel = await this.actor.getLightLevel();
+        if(lightLevel === 0) {
+            if(skillOrAbility === 'Cartographer' || skillOrAbility === 'Scholar') {
+                ui.notifications.error('Cannot perform a Cartographer or Scholar test in Darkness');
+                throw 'Cannot perform a Cartographer or Scholar test in Darkness';
+            }
+            modifierList.push({
+                name: 'darkness',
+                label: 'Darkness',
+                effect: '-1s'
+            });
+        }
+        if(lightLevel === 1) {
+            modifierList.push({
+                name: 'dimlight',
+                label: 'Dim Light',
+                effect: '-1s'
+            });
+        }
+        if(skillOrAbility === 'Dungeoneer' || skillOrAbility === 'Fighter') {
+            let torsoSlots = this.actor.tbData().computed.inventory['Torso'].slots;
+            for(let i = 0; i < torsoSlots.length; i++) {
+                if(torsoSlots[i].name === 'Backpack') {
+                    modifierList.push({
+                        name: 'backpack',
+                        label: 'Backpack',
+                        effect: '-1s'
+                    });
+                }
+            }
+        }
     }
 }

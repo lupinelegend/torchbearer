@@ -15,14 +15,14 @@
                 <div>
                     <input type="radio" name="rollType" id="rollTypeIndependent" {{checked
                             (eq rollType "independent")}}>
-                    <label style="margin-right:8px;"><u>Independent</u></label>
+                    <label style="margin-right:8px;" for="independent"><u>Independent</u></label>
                     <label for="ob">Ob:</label>
                     <input type="number" min="0" name="ob" id="ob" data-dtype="Number"
                            style="width: 40px; margin-left: 5px;" value="{{ob}}"/>
                 </div>
                 <div style="margin-left: 16px;">
                     <input type="radio" name="rollType" id="rollTypeVersus" {{checked (eq rollType "versus")}}>
-                    <label for="nature" style="margin: 0 0 0 4px;">Versus</label>
+                    <label for="versus"><u>Versus</u></label>
                 </div>
             </div>
             <!-- Action description -->
@@ -52,7 +52,7 @@
             {{/if}}
             {{#if (gt modifiers.dice.components.length 0)}}
                 <div class="row" style="align-items: baseline;">
-                    <label><u>Dice</u>:</label>
+                    <label><u>+/&dash;D</u>:</label>
                     <input type="hidden" class="test_modifier" name="mod_dice" id="mod_dice"
                            value="{{modifiers.dice.total}}"/>
                     <label style="font-family: Souvenir-MediumItalic;margin-left:4px;">{{modifiers.dice.label}}</label>
@@ -60,7 +60,7 @@
             {{/if}}
             {{#if (gt modifiers.minusSuccesses.components.length 0)}}
                 <div class="row" style="align-items: baseline;">
-                    <label><u>-Successes</u>:</label>
+                    <label><u>Factors / -s</u>:</label>
                     <input type="hidden" class="test_modifier" name="mod_minusSuccesses" id="mod_minusSuccesses"
                            value="{{modifiers.minusSuccesses.total}}"/>
                     <label style="font-family: Souvenir-MediumItalic;margin-left:4px;">{{modifiers.minusSuccesses.label}}</label>
@@ -68,7 +68,7 @@
             {{/if}}
             {{#if (gt modifiers.plusSuccesses.components.length 0)}}
                 <div class="row" style="align-items: baseline;">
-                    <label><u>+Successes</u>:</label>
+                    <label><u>+s</u>:</label>
                     <input type="hidden" class="test_modifier" name="mod_plusSuccesses" id="mod_plusSuccesses"
                            value="{{modifiers.plusSuccesses.total}}"/>
                     <label style="font-family: Souvenir-MediumItalic;margin-left:4px;">{{modifiers.plusSuccesses.label}}</label>
@@ -92,6 +92,10 @@
                 <label for="personaAdvantage"><u>Persona Advantage</u>:</label>
                 <input type="number" min="0" max="3" name="personaAdvantage" id="personaAdvantage" class="dice-modifier"
                        data-dtype="Number" style="width: 40px; margin: 0 5px 0 5px;" value="{{persona}}"/>
+
+                <label for="inadequateTools" style="margin-left: 8px"><u>Inadequate Tools</u>:</label>
+                <input type="checkbox" name="inadequateTools" id="inadequateTools"
+                       data-dtype="Boolean" style="width: 40px; margin: 5px 0 0 4px" {{checked inadequateTools}}/>
             </div>
 
             <!-- Tap Nature (Should this be hidden when rolling Resources and Circles?) -->
@@ -148,6 +152,25 @@
                     <input type="radio" name="trait" id="traitAgainstExtra" class="dice-modifier" value="0">
                     <label for="againstExtra" style="margin: 0 0 0 0;">Help Enemy (+2D, 2 Checks)</label>
                 </div>
+            </div>
+
+            <div class="row" style="align-items:center;margin: 16px 0 8px 0; ">
+                <label><u>Misc</u>:</label>
+
+                <label style="margin-left:16px;">+/-</label>
+                <input type="number" name="miscDice" id="miscDice" class="dice-modifier"
+                       data-dtype="Number" style="width: 40px; margin: 0;" value="{{miscDice}}"/>
+                <label>D</label>
+
+                <label style="margin-left:16px;">&dash;</label>
+                <input type="number" name="miscFactors" id="miscFactors" min="0"
+                       data-dtype="Number" style="width: 40px; margin: 0;" value="{{miscFactors}}"/>
+                <label>s</label>
+
+                <label style="margin-left:16px;">+</label>
+                <input type="number" name="miscPlusSuccesses" id="miscPlusSuccesses" min="0"
+                       data-dtype="Number" style="width: 40px; margin: 0;" value="{{miscPlusSuccesses}}"/>
+                <label>s</label>
             </div>
         </div>
     </form>

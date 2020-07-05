@@ -11,7 +11,7 @@
                   {{#each allSkills}}
                       <option value="{{this.name}}">{{this.name}}</option>
                   {{/each}}
-                  <option value="Nature">Nature</option>
+                  <option value="Nature">Nature (if applicable)</option>
               {{/select}}
           </select>
           <label for="otherAbility" style="font-family: Souvenir-Medium;"><u>Ability</u>: </label>
@@ -32,6 +32,7 @@
                   {{#each conflictType.disposition}}
                       <option name="this" value="{{this}}">{{this}}</option>
                   {{/each}}
+                  <option value="Nature">Nature (if applicable)</option>
               {{/select}}
           </select>
       </div>
