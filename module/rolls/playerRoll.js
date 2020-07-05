@@ -10,7 +10,7 @@ export class PlayerRoll {
     async roll(opts) {
         let {skillOrAbility, header, flavorText, helpDice, ob,
             trait, tapNature, supplies, persona, natureDescriptor,
-            rollType, modifiers, miscDice, miscFactors, miscPlusSuccesses,
+            rollType, modifiers, miscDice, miscMinusSuccesses, miscPlusSuccesses,
             inadequateTools,
         } = opts;
 
@@ -58,7 +58,7 @@ export class PlayerRoll {
         }
 
         if(inadequateTools) {
-            miscFactors += 1;
+            miscMinusSuccesses += 1;
         }
 
         const skillList = this.actor.data.data.skills;
@@ -183,19 +183,19 @@ export class PlayerRoll {
             });
         }
 
-        let minusSuccesses = 0;
-        let plusSuccesses = 0;
+        let minusSuccesses = modifiers.minusSuccesses.total + miscMinusSuccesses;
+        let plusSuccesses = 0; //these are only counted if the roll would pass
         let totalSuccesses = rolledSuccesses;
-        //Convert -1s to ob in Independent Tests, vice-versa in Versus/Dispo tests
+        //Convert Factors to -s in Versus/Dispo tests
         if(rollType === 'independent') {
-            ob += miscFactors;
-            ob += modifiers.minusSuccesses.total * -1;
+            ob += modifiers.factors.total;
         } else {
-            minusSuccesses = modifiers.minusSuccesses.total - miscFactors;
+            minusSuccesses += modifiers.factors.total;
         }
 
         totalSuccesses += modifiers.base.total;
-        totalSuccesses += minusSuccesses;
+        totalSuccesses -= minusSuccesses;
+        if(totalSuccesses < 0) totalSuccesses = 0;
 
         let passFail = '';
         let displaySuccesses = '';
@@ -293,16 +293,21 @@ export class PlayerRoll {
             dice: {total: 0, label: '', components: []},
             minusSuccesses: {total: 0, label: '', components: []},
             plusSuccesses: {total: 0, label: '', components: []},
+            factors: {total: 0, label: '', components: []},
         }
 
         for(let i = 0; i < modifiers.length; i++) {
             let modifier = duplicate(modifiers[i]);
             let effect = String(modifier.effect);
             modifier.amount = parseInt(effect);
-            if(effect.toLowerCase().includes("d")) {
+            if(effect.toLowerCase() === 'factor') {
+                modifier.amount = 1;
+                organized.factors.components.push(modifier);
+            } else if(effect.toLowerCase().includes("d")) {
                 organized.dice.components.push(modifier);
             } else if(effect.toLowerCase().includes("s")) {
                 if(modifier.amount < 0) {
+                    modifier.amount *= -1;
                     organized.minusSuccesses.components.push(modifier);
                 } else if(modifier.amount > 0) {
                     organized.plusSuccesses.components.push(modifier);
@@ -317,7 +322,11 @@ export class PlayerRoll {
                 for(let i = 0; i < section.components.length; i++) {
                     let modifier = section.components[i];
                     section.total += modifier.amount;
-                    section.label += `${modifier.label} (${modifier.effect})`;
+                    if(key !== 'factors') {
+                        section.label += `${modifier.label} (${modifier.effect})`;
+                    } else {
+                        section.label += `${modifier.label}`;
+                    }
                     if(i < section.components.length -1) {
                         section.label += ', ';
                     }
@@ -381,14 +390,14 @@ export class PlayerRoll {
             modifierList.push({
                 name: 'darkness',
                 label: 'Darkness',
-                effect: '-1s'
+                effect: 'Factor'
             });
         }
         if(lightLevel === 1) {
             modifierList.push({
                 name: 'dimlight',
                 label: 'Dim Light',
-                effect: '-1s'
+                effect: 'Factor'
             });
         }
         if(skillOrAbility === 'Dungeoneer' || skillOrAbility === 'Fighter') {
@@ -398,7 +407,7 @@ export class PlayerRoll {
                     modifierList.push({
                         name: 'backpack',
                         label: 'Backpack',
-                        effect: '-1s'
+                        effect: 'Factor'
                     });
                 }
             }

@@ -25,6 +25,14 @@
                     <label for="versus"><u>Versus</u></label>
                 </div>
             </div>
+            {{#if (gt modifiers.factors.components.length 0)}}
+                <div class="row" style="align-items: baseline;margin-top:4px;">
+                    <label style="margin-left:22px;"><u id="factorsLabel">Addtl. Factors</u>:</label>
+                    <input type="hidden" class="test_modifier" name="mod_factors" id="mod_factors"
+                           value="{{modifiers.factors.total}}"/>
+                    <label style="font-family: Souvenir-MediumItalic;margin-left:4px;">{{modifiers.factors.label}}</label>
+                </div>
+            {{/if}}
             <!-- Action description -->
             <div class="row" style="align-items: center; flex-wrap: nowrap; margin-top:8px;">
                 <input type="text" name="flavorText" id="flavorText" placeholder="What are you trying to do?"
@@ -163,8 +171,8 @@
                 <label>D</label>
 
                 <label style="margin-left:16px;">&dash;</label>
-                <input type="number" name="miscFactors" id="miscFactors" min="0"
-                       data-dtype="Number" style="width: 40px; margin: 0;" value="{{miscFactors}}"/>
+                <input type="number" name="miscMinusSuccesses" id="miscMinusSuccesses" min="0"
+                       data-dtype="Number" style="width: 40px; margin: 0;" value="{{miscMinusSuccesses}}"/>
                 <label>s</label>
 
                 <label style="margin-left:16px;">+</label>

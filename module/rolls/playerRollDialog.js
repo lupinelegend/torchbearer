@@ -9,7 +9,7 @@ export class PlayerRollDialog extends Dialog {
         let template = await renderTemplate(dialogContent,
             Object.assign({
                 helpDice: 0, supplies: 0, persona: 0,
-                miscDice:0, miscPlusSuccesses: 0, miscFactors: 0
+                miscDice:0, miscPlusSuccesses: 0, miscMinusSuccesses: 0
             }, opts)
         );
         new PlayerRollDialog(tbActor, {content: template}, onComplete, opts).render(true);
@@ -40,7 +40,7 @@ export class PlayerRollDialog extends Dialog {
                         let inadequateTools = !!html.find('#inadequateTools').prop('checked');
 
                         let miscDice = SafeNum(html.find('#miscDice').val());
-                        let miscFactors = SafeNum(html.find('#miscFactors').val());
+                        let miscMinusSuccesses = SafeNum(html.find('#miscMinusSuccesses').val());
                         let miscPlusSuccesses = SafeNum(html.find('#miscPlusSuccesses').val());
 
                         let rollTypeIndependent = !!html.find('#rollTypeIndependent').prop('checked');
@@ -54,7 +54,7 @@ export class PlayerRollDialog extends Dialog {
                         onComplete(Object.assign({}, opts, {
                             flavorText, helpDice, ob, trait, tapNature,
                             supplies, persona, natureDescriptor, rollType,
-                            miscDice, miscFactors, miscPlusSuccesses,
+                            miscDice, miscMinusSuccesses, miscPlusSuccesses,
                             inadequateTools,
                         }));
                     }
