@@ -10,6 +10,7 @@ Inventory
 
 Dice Rolls
 - 
+- Carry +/-s modifiers through rerolls
 - Add buttons to spend fate and persona after the roll
 - Add visualization to indicate die source
 - GM Ob builder dialog
@@ -20,6 +21,9 @@ Magic
 
 Conflict
 -
+- Add ability to remove participants
+- Add ability to select Boss Monster
+- Add "Other" conflict setup
 
 Grind
 -

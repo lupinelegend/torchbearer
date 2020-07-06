@@ -6,10 +6,11 @@ export class PlayerRollDialog extends Dialog {
     static async create(tbActor, opts, onComplete) {
         let dialogContent = 'systems/torchbearer/templates/roll-dialog-content.html';
 
-        let lightLevel = await game.grind.lightLevelFor(tbActor._id);
-
         let template = await renderTemplate(dialogContent,
-            Object.assign({helpDice: 0, supplies: 0, persona: 0, lightLevel}, opts)
+            Object.assign({
+                helpDice: 0, supplies: 0, persona: 0,
+                miscDice:0, miscPlusSuccesses: 0, miscMinusSuccesses: 0
+            }, opts)
         );
         new PlayerRollDialog(tbActor, {content: template}, onComplete, opts).render(true);
     }
@@ -36,6 +37,12 @@ export class PlayerRollDialog extends Dialog {
                         let persona = SafeNum(html.find('#personaAdvantage').val());
                         let natureDescriptor = html.find('#natureDesc').val();
 
+                        let inadequateTools = !!html.find('#inadequateTools').prop('checked');
+
+                        let miscDice = SafeNum(html.find('#miscDice').val());
+                        let miscMinusSuccesses = SafeNum(html.find('#miscMinusSuccesses').val());
+                        let miscPlusSuccesses = SafeNum(html.find('#miscPlusSuccesses').val());
+
                         let rollTypeIndependent = !!html.find('#rollTypeIndependent').prop('checked');
                         let rollTypeVersus = !!html.find('#rollTypeVersus').prop('checked');
                         let rollTypeDisposition = !!html.find('#rollTypeDisposition').prop('checked');
@@ -46,7 +53,9 @@ export class PlayerRollDialog extends Dialog {
                         );
                         onComplete(Object.assign({}, opts, {
                             flavorText, helpDice, ob, trait, tapNature,
-                            supplies, persona, natureDescriptor, rollType
+                            supplies, persona, natureDescriptor, rollType,
+                            miscDice, miscMinusSuccesses, miscPlusSuccesses,
+                            inadequateTools,
                         }));
                     }
                 },

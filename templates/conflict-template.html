@@ -168,7 +168,12 @@
   <section class="sheet-body" style="height: fit-content;">
     
     {{!-- Conflict Tab --}}
-    <div class="tab" data-group="conflictTabs" data-tab="conflict">Conflict</div>
+    <div class="tab" data-group="conflictTabs" data-tab="conflict">
+        {{#if isGM}}
+            <button id="newRndBtn" type="button" style="font-family: Souvenir-Medium; background: rgba(0, 0, 0, 0.1); border: 1px solid #999; border-radius: 3px; line-height: 24px;">New Round</button>
+        {{/if}}
+        {{{renderConflictRounds conflict.rounds}}}
+    </div>
     
     {{!-- Ability/Skills Reference Tab --}}
     <div class="tab" data-group="conflictTabs" data-tab="abilities" style="text-align: center;">

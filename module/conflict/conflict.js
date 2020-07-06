@@ -81,6 +81,7 @@ export class ConflictSheet extends Application {
     if(game.user.isGM) {
       const newConflict = {
         dataType: 'conflict',
+        state: 'setup',
         rounds: [],
         partyOrder: [],
         enemyOrder: [],
@@ -343,3 +344,7 @@ export class ConflictSheet extends Application {
   }
 
 }
+
+Handlebars.registerHelper('renderConflictRounds', function(rounds) {
+  return `<div>Number of Rounds: ${rounds.length}</div>`;
+});

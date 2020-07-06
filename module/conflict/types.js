@@ -5,7 +5,7 @@ export const CONFLICT_TYPES = [
         attack: ['Haggler'],
         defend: ['Manipulator'],
         feint: ['Manipulator'],
-        Maneuver: ['Haggler'],
+        maneuver: ['Haggler'],
         ability: 'Will'
     },
     {
@@ -14,7 +14,7 @@ export const CONFLICT_TYPES = [
         attack: ['Lore Master'],
         defend: ['Arcanist'],
         feint: ['Lore Master'],
-        Maneuver: ['Arcanist'],
+        maneuver: ['Arcanist'],
         ability: 'Will'
     },
     {
@@ -23,7 +23,7 @@ export const CONFLICT_TYPES = [
         attack: ['Theologian'],
         defend: ['Ritualist'],
         feint: ['Theologian'],
-        Maneuver: ['Ritualist'],
+        maneuver: ['Ritualist'],
         ability: 'Will'
     },
     {
@@ -32,7 +32,7 @@ export const CONFLICT_TYPES = [
         attack: ['Theologian'],
         defend: ['Theologian'],
         feint: ['Lore Master'],
-        Maneuver: ['Lore Master'],
+        maneuver: ['Lore Master'],
         ability: 'Health'
     },
     {
@@ -41,7 +41,7 @@ export const CONFLICT_TYPES = [
         attack: ['Fighter'],
         defend: ['Rider', 'Scout'],
         feint: ['Fighter'],
-        Maneuver: ['Rider', 'Scout'],
+        maneuver: ['Rider', 'Scout'],
         ability: 'Might'
     },
     {
@@ -50,7 +50,7 @@ export const CONFLICT_TYPES = [
         attack: ['Commander'],
         defend: ['Strategist'],
         feint: ['Commander'],
-        Maneuver: ['Strategist'],
+        maneuver: ['Strategist'],
         ability: 'Might'
     },
     {
@@ -59,7 +59,7 @@ export const CONFLICT_TYPES = [
         attack: ['Sapper'],
         defend: ['Strategist'],
         feint: ['Sapper'],
-        Maneuver: ['Strategist'],
+        maneuver: ['Strategist'],
         ability: 'Will'
     },
     {
@@ -68,7 +68,7 @@ export const CONFLICT_TYPES = [
         attack: ['Fighter'],
         defend: ['Commander'],
         feint: ['Fighter'],
-        Maneuver: ['Commander'],
+        maneuver: ['Commander'],
         ability: 'Might'
     },
     {

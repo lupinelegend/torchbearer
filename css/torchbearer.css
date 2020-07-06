@@ -76,6 +76,10 @@
   filter: sepia(0.5) hue-rotate(275deg);
 }
 
+.dice-rolls .roll.mod {
+  background-image: none;
+}
+
 .activePack {
   color: black;
 }
