@@ -1,7 +1,7 @@
 export const CONFLICT_TYPES = [
     {
         name: 'Negotiate',
-        disposition: ['Haggler'],
+        disposition: ['Haggler', 'Nature'],
         attack: ['Haggler'],
         defend: ['Manipulator'],
         feint: ['Manipulator'],
@@ -10,7 +10,7 @@ export const CONFLICT_TYPES = [
     },
     {
         name: 'Abjure',
-        disposition: ['Lore Master'],
+        disposition: ['Lore Master', 'Nature'],
         attack: ['Lore Master'],
         defend: ['Arcanist'],
         feint: ['Lore Master'],
@@ -19,7 +19,7 @@ export const CONFLICT_TYPES = [
     },
     {
         name: 'Banish',
-        disposition: ['Theologian'],
+        disposition: ['Theologian', 'Nature'],
         attack: ['Theologian'],
         defend: ['Ritualist'],
         feint: ['Theologian'],
@@ -28,7 +28,7 @@ export const CONFLICT_TYPES = [
     },
     {
         name: 'Bind',
-        disposition: ['Theologian'],
+        disposition: ['Theologian', 'Nature'],
         attack: ['Theologian'],
         defend: ['Theologian'],
         feint: ['Lore Master'],
@@ -37,7 +37,7 @@ export const CONFLICT_TYPES = [
     },
     {
         name: 'Ambush',
-        disposition: ['Scout'],
+        disposition: ['Scout', 'Nature'],
         attack: ['Fighter'],
         defend: ['Rider', 'Scout'],
         feint: ['Fighter'],
@@ -46,7 +46,7 @@ export const CONFLICT_TYPES = [
     },
     {
         name: 'Battle',
-        disposition: ['Strategist'],
+        disposition: ['Strategist', 'Nature'],
         attack: ['Commander'],
         defend: ['Strategist'],
         feint: ['Commander'],
@@ -55,7 +55,7 @@ export const CONFLICT_TYPES = [
     },
     {
         name: 'Siege',
-        disposition: ['Strategist'],
+        disposition: ['Strategist', 'Nature'],
         attack: ['Sapper'],
         defend: ['Strategist'],
         feint: ['Sapper'],
@@ -64,7 +64,7 @@ export const CONFLICT_TYPES = [
     },
     {
         name: 'Skirmish',
-        disposition: ['Commander'],
+        disposition: ['Commander', 'Nature'],
         attack: ['Fighter'],
         defend: ['Commander'],
         feint: ['Fighter'],
