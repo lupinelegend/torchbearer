@@ -161,7 +161,43 @@
   <section class="sheet-body" style="height: fit-content;">
     
     {{!-- Conflict Tab --}}
-    <div class="tab" data-group="conflictTabs" data-tab="conflict">Conflict</div>
+    <div class="tab" data-group="conflictTabs" data-tab="conflict">
+      <!-- Player Row -->
+      <div class="row" style="margin: 0 0 0 0; height: 150px; border-bottom: 1px solid #7a7971;">
+        <div class="col">
+          <div class="row" style="justify-content: center; flex-wrap: nowrap;">
+            <select name="characterAction1" id="characterAction1" class="action1">
+              {{#select conflict.characterAction1}}
+              <option value="" selected disabled hidden>Character...</option>
+              {{#orderedEach conflict.engagedActors conflict.partyOrder}}
+              <option name="{{this.name}}" value="{{this.name}}">{{this.name}}</option>
+              {{/orderedEach}}
+              {{/select}}
+            </select>
+            <select name="" id="">
+              <option value="" selected disabled hidden>Action...</option>
+              <option value="Attack">Attack</option>
+              <option value="Defend">Defend</option>
+              <option value="Feint">Feint</option>
+              <option value="Maneuver">Maneuver</option>
+            </select>
+            <div class="item-controls" style="align-self: center;">
+              <i class="fas fa-eye"></i>
+            </div>
+            <input type="button" value="Roll">
+          </div>
+          <div class="row" style="justify-content: center;"></div>
+        </div>
+        <div class="col" style="justify-content: center;"></div>
+        <div class="col" style="justify-content: center;"></div>
+      </div>
+      <!-- GM Row -->
+      <div class="row">
+        <div class="col" style="justify-content: center;">Action 1</div>
+        <div class="col" style="justify-content: center;">Action 2</div>
+        <div class="col" style="justify-content: center;">Action 3</div>
+      </div>
+    </div>
     
     {{!-- Ability/Skills Reference Tab --}}
     <div class="tab" data-group="conflictTabs" data-tab="abilities" style="text-align: center;">
