@@ -131,16 +131,19 @@ export class PlayerRoll {
             // Build the formula
             await characterAdjustment.execute();
             roll.roll();
-            roll.parts[0].options.ob = ob;
-            roll.parts[0].options.rollType = rollType;
-            roll.parts[0].options.advanceable = advanceable;
+            roll.terms[0].options.ob = ob;
+            roll.terms[0].options.rollType = rollType;
+            roll.terms[0].options.advanceable = advanceable;
+            // Changed roll.parts to roll.terms due to deprecation
 
             //Create an array of the roll results
             let sixes = 0;
             let scoundrels = 0;
             helpDice += supplies;
-            roll.parts[0].rolls.forEach((key, index) => {
-                let tempObj = {result: key.roll, style: ''};
+            console.log(roll);
+            roll.terms[0].results.forEach((key, index) => {
+                //console.log(key.result);
+                let tempObj = {result: key.result, style: ''};
                 if (key.roll === 6) {
                     tempObj.style = ' max'
                     sixes++;
@@ -165,6 +168,7 @@ export class PlayerRoll {
                 }
                 rollResult.push(tempObj);
             });
+            console.log(rollResult);
 
             // Only loads these values if Fate and Persona are available to spend. Without these values
             // being set, the buttons won't show up under the roll.
@@ -200,15 +204,15 @@ export class PlayerRoll {
         let passFail = '';
         let displaySuccesses = '';
         if(diceToRoll > 0) {
-            roll.parts[0].options.currentSuccesses = totalSuccesses;
+            roll.terms[0].options.currentSuccesses = totalSuccesses;
             if(rollType === 'independent') {
                 passFail = ' - Fail!';
-                roll.parts[0].options.rollOutcome = 'fail';
+                roll.terms[0].options.rollOutcome = 'fail';
                 if (totalSuccesses >= ob && totalSuccesses > 0) {
                     plusSuccesses = modifiers.plusSuccesses.total + miscPlusSuccesses;
                     totalSuccesses += plusSuccesses;
                     passFail = ' - Pass!'
-                    roll.parts[0].options.rollOutcome = 'pass';
+                    roll.terms[0].options.rollOutcome = 'pass';
                 }
                 if (totalSuccesses === 1) {
                     displaySuccesses = `${totalSuccesses} Success`;
@@ -216,7 +220,7 @@ export class PlayerRoll {
                     displaySuccesses = `${totalSuccesses} Successes`;
                 }
             } else if (rollType === 'versus') {
-                roll.parts[0].options.rollOutcome = 'versus';
+                roll.terms[0].options.rollOutcome = 'versus';
                 plusSuccesses = modifiers.plusSuccesses.total + miscPlusSuccesses;
                 if (totalSuccesses === 1) {
                     displaySuccesses = `${totalSuccesses} Success`;
@@ -229,7 +233,7 @@ export class PlayerRoll {
             } else if (rollType === 'disposition') {
                 plusSuccesses = modifiers.plusSuccesses.total + miscPlusSuccesses;
                 totalSuccesses += plusSuccesses;
-                roll.parts[0].options.rollOutcome = 'disposition';
+                roll.terms[0].options.rollOutcome = 'disposition';
                 displaySuccesses = `${totalSuccesses} Total Disposition`;
             }
         } else {

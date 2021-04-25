@@ -1,8 +1,8 @@
 export const fateForLuck = function(app, html, data) {
   let actor = game.actors.get(data.message.speaker.actor);
-  let ob = app.roll.parts[0].options.ob;
-  let rollType = app.roll.parts[0].options.rollType;
-  let advanceable = app.roll.parts[0].options.advanceable;
+  let ob = app.roll.terms[0].options.ob;
+  let rollType = app.roll.terms[0].options.rollType;
+  let advanceable = app.roll.terms[0].options.advanceable;
   let skillOrAbility = html.find('.tb-roll-data').data('skillOrAbility');
 
   // Return if the actor doesn't have any fate points to spend
@@ -18,7 +18,7 @@ export const fateForLuck = function(app, html, data) {
   // Determine how many 6's were rolled
   let rerolls = 0;
   let originalSuccesses = 0;
-  diceRoll.parts[0].rolls.forEach(key => {
+  diceRoll.terms[0].rolls.forEach(key => {
     if (key.roll === 6) {
       rerolls++;
     }
@@ -26,8 +26,8 @@ export const fateForLuck = function(app, html, data) {
       originalSuccesses++;
     }
   });
-  if (app.roll.parts[0].options.currentSuccesses !== undefined) {
-    originalSuccesses = app.roll.parts[0].options.currentSuccesses
+  if (app.roll.terms[0].options.currentSuccesses !== undefined) {
+    originalSuccesses = app.roll.terms[0].options.currentSuccesses
   }
 
   // Return if there aren't any 6's to reroll
@@ -43,9 +43,9 @@ export const fateForLuck = function(app, html, data) {
 
 export const ofCourse = function(app, html, data) {
   let actor = game.actors.get(data.message.speaker.actor);
-  let ob = app.roll.parts[0].options.ob;
-  let rollType = app.roll.parts[0].options.rollType;
-  let advanceable = app.roll.parts[0].options.advanceable;
+  let ob = app.roll.terms[0].options.ob;
+  let rollType = app.roll.terms[0].options.rollType;
+  let advanceable = app.roll.terms[0].options.advanceable;
   let skillOrAbility = html.find('.tb-roll-data').data('skillOrAbility');
 
   // Return if the actor doesn't have any persona points to spend
@@ -61,7 +61,7 @@ export const ofCourse = function(app, html, data) {
   // Determine how many scoundrels were rolled
   let scoundrels = 0;
   let originalSuccesses = 0;
-  diceRoll.parts[0].rolls.forEach(key => {
+  diceRoll.terms[0].rolls.forEach(key => {
     if (key.roll < 4) {
       scoundrels++;
     }
@@ -69,8 +69,8 @@ export const ofCourse = function(app, html, data) {
       originalSuccesses++;
     }
   });
-  if (app.roll.parts[0].options.currentSuccesses !== undefined) {
-    originalSuccesses = app.roll.parts[0].options.currentSuccesses
+  if (app.roll.terms[0].options.currentSuccesses !== undefined) {
+    originalSuccesses = app.roll.terms[0].options.currentSuccesses
   }
 
   // Return if there aren't any scoundrels to reroll
@@ -87,9 +87,9 @@ export const ofCourse = function(app, html, data) {
 
 export const deeperUnderstanding = function(app, html, data) {
   let actor = game.actors.get(data.message.speaker.actor);
-  let ob = app.roll.parts[0].options.ob;
-  let rollType = app.roll.parts[0].options.rollType;
-  let advanceable = app.roll.parts[0].options.advanceable;
+  let ob = app.roll.terms[0].options.ob;
+  let rollType = app.roll.terms[0].options.rollType;
+  let advanceable = app.roll.terms[0].options.advanceable;
   let skillOrAbility = html.find('.tb-roll-data').data('skillOrAbility');
 
   // Return if the actor doesn't have any fate points to spend
@@ -105,7 +105,7 @@ export const deeperUnderstanding = function(app, html, data) {
   // Determine how many scoundrels were rolled
   let scoundrels = 0;
   let originalSuccesses = 0;
-  diceRoll.parts[0].rolls.forEach(key => {
+  diceRoll.terms[0].rolls.forEach(key => {
     if (key.roll < 4) {
       scoundrels++;
     }
@@ -113,8 +113,8 @@ export const deeperUnderstanding = function(app, html, data) {
       originalSuccesses++;
     }
   });
-  if (app.roll.parts[0].options.currentSuccesses !== undefined) {
-    originalSuccesses = app.roll.parts[0].options.currentSuccesses
+  if (app.roll.terms[0].options.currentSuccesses !== undefined) {
+    originalSuccesses = app.roll.terms[0].options.currentSuccesses
   }
 
   // Return if there aren't any scoundrels to reroll
@@ -134,29 +134,29 @@ export const logTest = async function(app, html, skillOrAbility, data) {
   let test = skillOrAbility;
   console.log(skillOrAbility);
 
-  if(app.roll.parts[0].options.rollType === 'versus') {
+  if(app.roll.terms[0].options.rollType === 'versus') {
     ui.notifications.error("You must log the Pass/Fail of Versus tests manually.");
     return;
   }
-  if(app.roll.parts[0].options.rollType === 'disposition') {
+  if(app.roll.terms[0].options.rollType === 'disposition') {
     ui.notifications.error("Disposition tests are not logged for advancement.");
     return;
   }
-  if(app.roll.parts[0].options.ob === 0) {
+  if(app.roll.terms[0].options.ob === 0) {
     ui.notifications.error("Ob 0 tests are not logged for advancement.");
     return;
   }
 
   if (actor.tbData().skills.hasOwnProperty(test)) {
-    if (app.roll.parts[0].options.rollOutcome === 'pass') {
+    if (app.roll.terms[0].options.rollOutcome === 'pass') {
       actor.update({[`data.skills.${test}.pass`]: parseInt(actor.data.data.skills[test].pass + 1)});
-    } else if (app.roll.parts[0].options.rollOutcome === 'fail') {
+    } else if (app.roll.terms[0].options.rollOutcome === 'fail') {
       actor.update({[`data.skills.${test}.fail`]: parseInt(actor.data.data.skills[test].fail + 1)});
     }
   } else {
-    if (app.roll.parts[0].options.rollOutcome === 'pass') {
+    if (app.roll.terms[0].options.rollOutcome === 'pass') {
       actor.update({[`data.${test}.pass`]: parseInt(actor.data.data[test].pass + 1)});
-    } else if (app.roll.parts[0].options.rollOutcome === 'fail') {
+    } else if (app.roll.terms[0].options.rollOutcome === 'fail') {
       actor.update({[`data.${test}.fail`]: parseInt(actor.data.data[test].fail + 1)});
     }
   }
@@ -198,13 +198,13 @@ function reRoll(header, formula, explode, actor, originalSuccesses, ob, rollType
   let roll = new Roll(formula);
   roll.roll();
   if (explode === true) {
-    roll.parts[0].explode([6]);
+    roll.terms[0].explode([6]);
   }
 
   //Create an array of the roll results
   let rollResult = [];
   let sixes = 0;
-  roll.parts[0].rolls.forEach(key => {
+  roll.terms[0].rolls.forEach(key => {
     if (key.roll === 6) {
       sixes++;
       rollResult.push({
@@ -229,45 +229,45 @@ function reRoll(header, formula, explode, actor, originalSuccesses, ob, rollType
   });
 
   let totalSuccesses;
-  if (roll.parts[0].options.currentSuccesses === undefined) {
+  if (roll.terms[0].options.currentSuccesses === undefined) {
     totalSuccesses = originalSuccesses + rolledSuccesses;
   } else {
-    totalSuccesses = roll.parts[0].options.currentSuccesses + rolledSuccesses;
+    totalSuccesses = roll.terms[0].options.currentSuccesses + rolledSuccesses;
   }
 
   // Reassign the ob
-  roll.parts[0].options.ob = ob;
-  roll.parts[0].options.rollType = rollType;
-  roll.parts[0].options.currentSuccesses = totalSuccesses;
-  roll.parts[0].options.advanceable = advanceable;
+  roll.terms[0].options.ob = ob;
+  roll.terms[0].options.rollType = rollType;
+  roll.terms[0].options.currentSuccesses = totalSuccesses;
+  roll.terms[0].options.advanceable = advanceable;
 
   if(rollType === 'independent') {
     if (totalSuccesses < ob) {
       if (totalSuccesses === 1) {
         displaySuccesses = `${originalSuccesses} + ${rolledSuccesses} = ${totalSuccesses} Success - Fail!`;
-        roll.parts[0].options.rollOutcome = 'fail';
+        roll.terms[0].options.rollOutcome = 'fail';
       } else {
         displaySuccesses = `${originalSuccesses} + ${rolledSuccesses} = ${totalSuccesses} Successes - Fail!`;
-        roll.parts[0].options.rollOutcome = 'fail';
+        roll.terms[0].options.rollOutcome = 'fail';
       }
     } else if (totalSuccesses >= ob) {
       if (totalSuccesses === 1) {
         displaySuccesses = `${originalSuccesses} + ${rolledSuccesses} = ${totalSuccesses} Success - Pass!`;
-        roll.parts[0].options.rollOutcome = 'pass';
+        roll.terms[0].options.rollOutcome = 'pass';
       } else {
         displaySuccesses = `${originalSuccesses} + ${rolledSuccesses} = ${totalSuccesses} Successes - Pass!`;
-        roll.parts[0].options.rollOutcome = 'pass';
+        roll.terms[0].options.rollOutcome = 'pass';
       }
     }
   } else if(rollType === 'versus') {
-    roll.parts[0].options.rollOutcome = 'versus';
+    roll.terms[0].options.rollOutcome = 'versus';
     if (totalSuccesses === 1) {
       displaySuccesses = `${originalSuccesses} + ${rolledSuccesses} = ${totalSuccesses} Successes`;
     } else {
       displaySuccesses = `${originalSuccesses} + ${rolledSuccesses} = ${totalSuccesses} Successes`;
     }
   } else if(rollType === 'disposition') {
-    roll.parts[0].options.rollOutcome = 'disposition';
+    roll.terms[0].options.rollOutcome = 'disposition';
     displaySuccesses = `${originalSuccesses} + ${rolledSuccesses} = ${totalSuccesses} Total Disposition`;
   }
 
