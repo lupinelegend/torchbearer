@@ -14,7 +14,7 @@
       "resizes": false,
       "consumable": {
         "consumes": "light",
-        "icon" : "fa-fire",
+        "icon": "fa-fire",
         "iconStyle": "color:#ffd900"
       },
       "activatable": {
@@ -88,7 +88,7 @@
       "resizes": false,
       "consumable": {
         "consumes": "light",
-        "icon" : "fa-fire",
+        "icon": "fa-fire",
         "iconStyle": "color:#ffd900"
       },
       "activatable": {
@@ -162,7 +162,7 @@
       "resizes": false,
       "consumable": {
         "consumes": "light",
-        "icon" : "fa-fire",
+        "icon": "fa-fire",
         "iconStyle": "color:#ffd900"
       },
       "activatable": {

@@ -1,10 +1,6 @@
 {
   "Actor": {
-    "types": [
-      "Character",
-      "NPC",
-      "Monster"
-    ],
+    "types": ["Character", "NPC", "Monster"],
     "templates": {
       "notes": {
         "roleplay": "",
@@ -682,14 +678,7 @@
       }
     },
     "NPC": {
-      "templates": [
-        "purpose",
-        "traits",
-        "rewards",
-        "abilities",
-        "skills",
-        "wises"
-      ]
+      "templates": ["purpose", "traits", "rewards", "abilities", "skills", "wises"]
     },
     "Monster": {
       "templates": [],
@@ -796,13 +785,7 @@
     }
   },
   "Item": {
-    "types": [
-      "Item",
-      "Relic",
-      "Spell",
-      "Class",
-      "Feature"
-    ],
+    "types": ["Item", "Relic", "Spell", "Class", "Feature"],
     "templates": {
       "base": {
         "description": ""
@@ -824,7 +807,7 @@
       "liquid": "",
       "consumable": {
         "consumes": "",
-        "icon" : "",
+        "icon": "",
         "iconStyle": ""
       },
       "activatable": {
