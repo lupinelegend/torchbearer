@@ -2,15 +2,15 @@
 <form style="font-family: Souvenir-Medium;margin-bottom: 16px;">
 
   <div class="row" style="align-items: baseline;">
-      <label><u>Choose Relevant Skill or Ability</u>:</label>
-      <select name="skillOrAbility" id="skillOrAbility">
-          <option name="None" value="None">None</option>
-          <option name="Will" value="Will">Will</option>
-          <option name="Health" value="Health">Health</option>
-          {{#each allSkills}}
-              <option value="{{this.name}}">{{this.name}}</option>
-          {{/each}}
-      </select>
+    <label><u>Choose Relevant Skill or Ability</u>:</label>
+    <select name="skillOrAbility" id="skillOrAbility">
+      <option name="None" value="None">None</option>
+      <option name="Will" value="Will">Will</option>
+      <option name="Health" value="Health">Health</option>
+      {{#each allSkills}}
+        <option value="{{this.name}}">{{this.name}}</option>
+      {{/each}}
+    </select>
   </div>
 
 </form>

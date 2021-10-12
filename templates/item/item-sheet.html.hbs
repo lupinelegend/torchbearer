@@ -1,255 +1,326 @@
-<form class="{{cssClass}} {{inventoryContainerClass}}" data-item-id="{{item.data._id}}" data-container-type="{{containerType}}" autocomplete="off">
-    <header class="sheet-header">
-        <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
-        <div class="header-fields" style="margin-bottom: 5px">
-            <h1 class="charname" style="font-family: Souvenir-Demi;"><input name="name" type="text" value="{{item.name}}" placeholder="Name"/></h1>
-            <div class="row" style="flex-basis: auto;">
-                <div class="col" style="flex: 1 1 auto;">
-                    <label for="data.equip" style="font-family: Souvenir-Demi; font-size: 16px;">Inventory Slots</label>
-                    <div class="row" style="flex-wrap: nowrap; align-items: center; padding-left: 0px;">
-                        <select name="data.equip" id="itemCarriedDropdown" style="font-family: Souvenir-Medium;">
-                            {{#select data.equip}}
-                                {{#each data.equipOptions as |option key|}}
-                                    {{#if option.value}}
-                                <option name="data.equipOptions.{{key}}.value" value="{{option.value}}">{{option.value}}</option>
-                                    {{/if}}
-                                {{/each}}
-                                <option name="data.equipOptions.OnGround.value" value="On Ground">On Ground</option>
-                                <option name="data.equipOptions.Cached.value" value="Cached">Cached</option>
-                                <option name="data.equipOptions.Lost.value" value="Lost">Lost</option>
-                            {{/select}}
-                        </select>
-                        <span>&nbsp/&nbsp</span>
-                        <input type="text" name="data.carried" value="{{data.carried}}" data-dtype="Number" style="font-family: Souvenir-Medium; height: 25px; width: 65px;"/>
-                        <input type="text" name="data.slots" value="{{data.slots}}" data-dtype="Number" style="width: 30px; text-align: center; font-family: Souvenir-Medium; height: 25px;"/>
-                    </div>
-                </div>
-                <!-- Cost -->
-                <div class="col" style="flex-basis: 56px">
-                    <label for="data.cost" style="font-family: Souvenir-Demi; font-size: 16px;">Cost</label>
-                    <br>
-                    <input type="text" name="data.cost" value="{{data.cost}}" data-dtype="String" style="width: 50px; height: 25px; font-family: Souvenir-Medium;"/>
-                </div>
-            </div>
+<form
+  class="{{cssClass}} {{inventoryContainerClass}}"
+  data-item-id="{{item.data._id}}"
+  data-container-type="{{containerType}}"
+  autocomplete="off"
+>
+  <header class="sheet-header">
+    <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" />
+    <div class="header-fields" style="margin-bottom: 5px">
+      <h1 class="charname" style="font-family: Souvenir-Demi;"><input
+          name="name"
+          type="text"
+          value="{{item.name}}"
+          placeholder="Name"
+        /></h1>
+      <div class="row" style="flex-basis: auto;">
+        <div class="col" style="flex: 1 1 auto;">
+          <label for="data.equip" style="font-family: Souvenir-Demi; font-size: 16px;">Inventory Slots</label>
+          <div class="row" style="flex-wrap: nowrap; align-items: center; padding-left: 0px;">
+            <select name="data.equip" id="itemCarriedDropdown" style="font-family: Souvenir-Medium;">
+              {{#select data.equip}}
+                {{#each data.equipOptions as |option key|}}
+                  {{#if option.value}}
+                    <option name="data.equipOptions.{{key}}.value" value="{{option.value}}">{{option.value}}</option>
+                  {{/if}}
+                {{/each}}
+                <option name="data.equipOptions.OnGround.value" value="On Ground">On Ground</option>
+                <option name="data.equipOptions.Cached.value" value="Cached">Cached</option>
+                <option name="data.equipOptions.Lost.value" value="Lost">Lost</option>
+              {{/select}}
+            </select>
+            <span>&nbsp/&nbsp</span>
+            <input
+              type="text"
+              name="data.carried"
+              value="{{data.carried}}"
+              data-dtype="Number"
+              style="font-family: Souvenir-Medium; height: 25px; width: 65px;"
+            />
+            <input
+              type="text"
+              name="data.slots"
+              value="{{data.slots}}"
+              data-dtype="Number"
+              style="width: 30px; text-align: center; font-family: Souvenir-Medium; height: 25px;"
+            />
+          </div>
         </div>
-    </header>
-
-    {{!-- Sheet Tab Navigation --}}
-    <nav class="sheet-tabs tabs" data-group="primary">
-        <a class="item" data-tab="description" style="font-family: Souvenir-Demi;">Description</a>
-        <a class="item" data-tab="attributes" style="font-family: Souvenir-Demi;">Attributes</a>
-        <a class="item" data-tab="notes" style="font-family: Souvenir-Demi;">Notes</a>
-    </nav>
-
-    {{!-- Sheet Body --}}
-    <section class="sheet-body">
-        <!-- <hr style="border-top: 1px solid #AAA; border-bottom: none;"> -->
-
-        {{!-- Description Tab --}}
-        <div class="tab" data-group="primary" data-tab="description" style="font-family: Souvenir-Medium;">
-            <!-- <textarea name="data.description" value="{{data.description}}" data-dtype="String" style="font-family: Souvenir-Medium;" rows="12">{{data.description}}</textarea> -->
-            <div class="row" style="flex-basis: auto; margin-bottom: 8px;">
-                <div class="col" style="flex: 1 1 auto;">
-                    <div style="margin-top: 5px;">
-                        {{editor content=data.description target="data.description" button=true owner=owner editable=editable}}
-                    </div>
-                </div>
-            </div>
-            {{#if data.capacity}}
-            {{!-- Inventory Tab --}}
-            <div class="row" style="flex-basis: auto;">
-                <div class="col" style="flex: 1 1 auto;">
-                    <span style="font-family: Souvenir-Demi">Inventory</span>
-                </div>
-            </div>
-            <div class="row" style="flex-basis: auto;">
-                <div class="col" style="flex: 1 1 auto;">
-                    <ol id="itemSlot" class="items-list col" style="margin: 0 3px 0 3px;">
-                        {{{renderInventory data.capacity _actor_id item.data._id 'Pack' 'item'}}}
-                    </ol>
-                </div>
-            </div>
-            {{/if}}
-            {{#if data.lightsource.lasts}}
-                <div class="row" style="flex-basis: auto; align-items:center; margin-bottom: 8px;">
-                    <label for="data.light" style="font-family: Souvenir-Demi; margin-right: 8px;">Light Remaining: </label>
-                    <select name="data.lightsource.remaining" data-dtype="Number" style="font-family: Souvenir-Medium;">
-                        {{#select data.lightsource.remaining}}
-                            {{#times (add data.lightsource.lasts 1)}}
-                                <option value="{{this}}">{{this}}</option>
-                            {{/times}}
-                        {{/select}}
-                    </select>
-                </div>
-            {{/if}}
-            {{#if data.maxDraughts}}
-                <div class="row" style="flex-basis: auto; align-items:center; margin-bottom: 8px;">
-                    <label for="data.liquid" style="font-family: Souvenir-Demi; margin-right: 8px;">Holding: </label>
-                    <select name="data.liquid" style="font-family: Souvenir-Medium;">
-                    {{#select data.liquid}}
-                            <option value="Water">Water</option>
-                            <option value="Wine">Wine</option>
-                    {{/select}}
-                    </select>
-                </div>
-                <div class="row" style="flex-basis: auto; align-items:center; margin-bottom: 8px;">
-                    <label for="data.draughts" style="font-family: Souvenir-Demi; margin-right: 8px;">Draughts: </label>
-                    <select name="data.draughts" data-dtype="Number" style="font-family: Souvenir-Medium;">
-                    {{#select data.draughts}}
-                        {{#times (add data.maxDraughts 1)}}
-                            <option value="{{this}}">{{this}}</option>
-                        {{/times}}
-                    {{/select}}
-                    </select>
-                </div>
-                {{#ifeq data.liquid "Water"}}
-                    <div class="row" style="flex-basis: auto; margin-bottom: 8px;">
-                        <div class="col" style="flex: 1 1 auto;">
-                            <div style="margin-top: 5px;">
-                                One draught of water alleviates the hungry and thirsty condition. Requires container like a skin or bottle.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row" style="flex-basis: auto; margin-bottom: 8px;">
-                        <div class="col" style="flex: 1 1 auto;">
-                            <div style="margin-top: 5px;">
-                                Free Refills: When leaving town you may refill your skin, bottle or jug with water (unless otherwise prohibited by a town event) for free.
-                            </div>
-                        </div>
-                    </div>
-                {{/ifeq}}
-                {{#ifeq data.liquid "Wine"}}
-                    <div class="row" style="flex-basis: auto; margin-bottom: 8px;">
-                        <div class="col" style="flex: 1 1 auto;">
-                            <div style="margin-top: 5px;">
-                                When consumed, one draught of wine eliminates the hungry and thirsty condition or grants +1D to recover from angry or afraid. Requires a container like a skin or bottle.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row" style="flex-basis: auto; margin-bottom: 8px;">
-                        <div class="col" style="flex: 1 1 auto;">
-                            <div style="margin-top: 5px;">
-                                Ob1 Resource
-                            </div>
-                        </div>
-                    </div>
-                {{/ifeq}}
-            {{/if}}
+        <!-- Cost -->
+        <div class="col" style="flex-basis: 56px">
+          <label for="data.cost" style="font-family: Souvenir-Demi; font-size: 16px;">Cost</label>
+          <br />
+          <input
+            type="text"
+            name="data.cost"
+            value="{{data.cost}}"
+            data-dtype="String"
+            style="width: 50px; height: 25px; font-family: Souvenir-Medium;"
+          />
         </div>
+      </div>
+    </div>
+  </header>
 
-        {{!-- Attributes Tab --}}
-        <div class="tab attributes" data-group="primary" data-tab="attributes" style="margin: 5px 5px 0 5px;">
-            <div class="row" style="flex-basis: auto;">
-                <div class="col" style="flex: 1 1 auto;">
-                    <span style="font-family: Souvenir-Demi">Id: <input type="text" name="item.data._id" disabled value="{{item.data._id}}" data-dtype="String" style="width: 200px; height: 25px; font-family: Souvenir-Medium;"/></span>
-                </div>
-            </div>
-            <div class="row" style="flex-basis: auto;">
-                <div class="col" style="flex: 1 1 auto;">
-                    <span style="font-family: Souvenir-Demi">Held in <input type="text" name="data.containerId" value="{{data.containerId}}" data-dtype="String" style="width: 200px; height: 25px; font-family: Souvenir-Medium;"/></span>
-                </div>
-            </div>
-            <label for="data.equipOptions.option1.value" style="font-family: Souvenir-Medium;">How can this item be carried?</label>
-            <!-- Option 1 -->
-            <div class="row" style="flex-wrap: nowrap; align-items: center; padding-left: 0px; margin: 3px 0 3px 0;">
-                <select name="data.equipOptions.option1.value" style="font-family: Souvenir-Medium;">
-                    {{#select data.equipOptions.option1.value}}
-                    <option value="" disabled>Choose a slot...</option>
-                    <option value="Head">Head</option>
-                    <option value="Neck">Neck</option>
-                    <option value="Hands (Worn)">Hands (Worn)</option>
-                    <option value="Hands (Carried)">Hands (Carried)</option>
-                    <option value="Feet">Feet</option>
-                    <option value="Torso">Torso</option>
-                    <option value="Belt">Belt</option>
-                    <option value="Pocket">Pocket</option>
-                    <option value="Pack">Pack</option>
-                    <option value="Quiver">Quiver</option>
-                    {{/select}}
-                </select>
-                <span style="font-family: Souvenir-Medium;">&nbsp/&nbsp</span>
-                <select name="data.carryOptions.option1.value" style="font-family: Souvenir-Medium;">
-                    {{#select data.carryOptions.option1.value}}
-                    <option value="" disabled>...</option>
-                    <option value="Worn">Worn</option>
-                    <option value="Carried">Carried</option>
-                    <option value="Pack">Pack</option>
-                    <option value="Weapon">Weapon</option>
-                    {{/select}}
-                </select>
-                <input type="text" name="data.slotOptions.option1.value" value="{{data.slotOptions.option1.value}}" data-dtype="Number" style="width: 30px; text-align: center; font-family: Souvenir-Medium; height: 25px;"/>
-            </div>
-            <!-- Option 2 -->
-            <div class="row" style="flex-wrap: nowrap; align-items: center; padding-left: 0px; margin: 3px 0 3px 0;">
-                <select name="data.equipOptions.option2.value" style="font-family: Souvenir-Medium;">
-                    {{#select data.equipOptions.option2.value}}
-                    <option value="" disabled>Choose a slot...</option>
-                    <option value="Head">Head</option>
-                    <option value="Neck">Neck</option>
-                    <option value="Hands (Worn)">Hands (Worn)</option>
-                    <option value="Hands (Carried)">Hands (Carried)</option>
-                    <option value="Feet">Feet</option>
-                    <option value="Torso">Torso</option>
-                    <option value="Belt">Belt</option>
-                    <option value="Pocket">Pocket</option>
-                    <option value="Pack">Pack</option>
-                    <option value="Quiver">Quiver</option>
-                    {{/select}}
-                </select>
-                <span style="font-family: Souvenir-Medium;">&nbsp/&nbsp</span>
-                <select name="data.carryOptions.option2.value" style="font-family: Souvenir-Medium;">
-                    {{#select data.carryOptions.option2.value}}
-                    <option value="" disabled>...</option>
-                    <option value="Worn">Worn</option>
-                    <option value="Carried">Carried</option>
-                    <option value="Pack">Pack</option>
-                    <option value="Weapon">Weapon</option>
-                    {{/select}}
-                </select>
-                <input type="text" name="data.slotOptions.option2.value" value="{{data.slotOptions.option2.value}}" data-dtype="Number" style="width: 30px; text-align: center; font-family: Souvenir-Medium; height: 25px;"/>
-            </div>
-            <!-- Option 3 -->
-            <div class="row" style="flex-wrap: nowrap; align-items: center; padding-left: 0px; margin: 3px 0 3px 0;">
-                <select name="data.equipOptions.option3.value" style="font-family: Souvenir-Medium;">
-                    {{#select data.equipOptions.option3.value}}
-                    <option value="" disabled>Choose a slot...</option>
-                    <option value="Head">Head</option>
-                    <option value="Neck">Neck</option>
-                    <option value="Hands (Worn)">Hands (Worn)</option>
-                    <option value="Hands (Carried)">Hands (Carried)</option>
-                    <option value="Feet">Feet</option>
-                    <option value="Torso">Torso</option>
-                    <option value="Belt">Belt</option>
-                    <option value="Pocket">Pocket</option>
-                    <option value="Pack">Pack</option>
-                    <option value="Quiver">Quiver</option>
-                    {{/select}}
-                </select>
-                <span style="font-family: Souvenir-Medium;">&nbsp/&nbsp</span>
-                <select name="data.carryOptions.option3.value" style="font-family: Souvenir-Medium;">
-                    {{#select data.carryOptions.option3.value}}
-                    <option value="" disabled>...</option>
-                    <option value="Worn">Worn</option>
-                    <option value="Carried">Carried</option>
-                    <option value="Pack">Pack</option>
-                    <option value="Weapon">Weapon</option>
-                    {{/select}}
-                </select>
-                <input type="text" name="data.slotOptions.option3.value" value="{{data.slotOptions.option3.value}}" data-dtype="Number" style="width: 30px; text-align: center; font-family: Souvenir-Medium; height: 25px;"/>
-            </div>
+  {{! Sheet Tab Navigation }}
+  <nav class="sheet-tabs tabs" data-group="primary">
+    <a class="item" data-tab="description" style="font-family: Souvenir-Demi;">Description</a>
+    <a class="item" data-tab="attributes" style="font-family: Souvenir-Demi;">Attributes</a>
+    <a class="item" data-tab="notes" style="font-family: Souvenir-Demi;">Notes</a>
+  </nav>
 
-            <div class="row" style="flex-basis: auto;">
-                <div class="col" style="flex: 1 1 auto; align-items: center; display:flex">
-                    <label for="damagedCheckbox" style="font-family: Souvenir-Demi">Damaged:</label>
-                    <input style="margin-bottom:-2px;" type="checkbox" name="data.damaged" id="damagedCheckbox" data-dtype="Boolean" {{checked data.damaged}}>
-                </div>
-            </div>
+  {{! Sheet Body }}
+  <section class="sheet-body">
+    <!-- <hr style="border-top: 1px solid #AAA; border-bottom: none;"> -->
 
+    {{! Description Tab }}
+    <div class="tab" data-group="primary" data-tab="description" style="font-family: Souvenir-Medium;">
+      <!-- <textarea name="data.description" value="{{data.description}}" data-dtype="String" style="font-family: Souvenir-Medium;" rows="12">{{data.description}}</textarea> -->
+      <div class="row" style="flex-basis: auto; margin-bottom: 8px;">
+        <div class="col" style="flex: 1 1 auto;">
+          <div style="margin-top: 5px;">
+            {{editor content=data.description target="data.description" button=true owner=owner editable=editable}}
+          </div>
         </div>
-
-        {{!-- Notes Tab --}}
-        <div class="tab notes" data-group="primary" data-tab="notes" style="margin: 5px 0 0 0;">
-            {{editor content=data.notes target="data.notes" button=true owner=owner editable=editable}}
+      </div>
+      {{#if data.capacity}}
+        {{! Inventory Tab }}
+        <div class="row" style="flex-basis: auto;">
+          <div class="col" style="flex: 1 1 auto;">
+            <span style="font-family: Souvenir-Demi">Inventory</span>
+          </div>
         </div>
-    </section>
+        <div class="row" style="flex-basis: auto;">
+          <div class="col" style="flex: 1 1 auto;">
+            <ol id="itemSlot" class="items-list col" style="margin: 0 3px 0 3px;">
+              {{{renderInventory data.capacity _actor_id item.data._id "Pack" "item"}}}
+            </ol>
+          </div>
+        </div>
+      {{/if}}
+      {{#if data.lightsource.lasts}}
+        <div class="row" style="flex-basis: auto; align-items:center; margin-bottom: 8px;">
+          <label for="data.light" style="font-family: Souvenir-Demi; margin-right: 8px;">Light Remaining: </label>
+          <select name="data.lightsource.remaining" data-dtype="Number" style="font-family: Souvenir-Medium;">
+            {{#select data.lightsource.remaining}}
+              {{#times (add data.lightsource.lasts 1)}}
+                <option value="{{this}}">{{this}}</option>
+              {{/times}}
+            {{/select}}
+          </select>
+        </div>
+      {{/if}}
+      {{#if data.maxDraughts}}
+        <div class="row" style="flex-basis: auto; align-items:center; margin-bottom: 8px;">
+          <label for="data.liquid" style="font-family: Souvenir-Demi; margin-right: 8px;">Holding: </label>
+          <select name="data.liquid" style="font-family: Souvenir-Medium;">
+            {{#select data.liquid}}
+              <option value="Water">Water</option>
+              <option value="Wine">Wine</option>
+            {{/select}}
+          </select>
+        </div>
+        <div class="row" style="flex-basis: auto; align-items:center; margin-bottom: 8px;">
+          <label for="data.draughts" style="font-family: Souvenir-Demi; margin-right: 8px;">Draughts: </label>
+          <select name="data.draughts" data-dtype="Number" style="font-family: Souvenir-Medium;">
+            {{#select data.draughts}}
+              {{#times (add data.maxDraughts 1)}}
+                <option value="{{this}}">{{this}}</option>
+              {{/times}}
+            {{/select}}
+          </select>
+        </div>
+        {{#ifeq data.liquid "Water"}}
+          <div class="row" style="flex-basis: auto; margin-bottom: 8px;">
+            <div class="col" style="flex: 1 1 auto;">
+              <div style="margin-top: 5px;">
+                One draught of water alleviates the hungry and thirsty condition. Requires container like a skin or
+                bottle.
+              </div>
+            </div>
+          </div>
+          <div class="row" style="flex-basis: auto; margin-bottom: 8px;">
+            <div class="col" style="flex: 1 1 auto;">
+              <div style="margin-top: 5px;">
+                Free Refills: When leaving town you may refill your skin, bottle or jug with water (unless otherwise
+                prohibited by a town event) for free.
+              </div>
+            </div>
+          </div>
+        {{/ifeq}}
+        {{#ifeq data.liquid "Wine"}}
+          <div class="row" style="flex-basis: auto; margin-bottom: 8px;">
+            <div class="col" style="flex: 1 1 auto;">
+              <div style="margin-top: 5px;">
+                When consumed, one draught of wine eliminates the hungry and thirsty condition or grants +1D to recover
+                from angry or afraid. Requires a container like a skin or bottle.
+              </div>
+            </div>
+          </div>
+          <div class="row" style="flex-basis: auto; margin-bottom: 8px;">
+            <div class="col" style="flex: 1 1 auto;">
+              <div style="margin-top: 5px;">
+                Ob1 Resource
+              </div>
+            </div>
+          </div>
+        {{/ifeq}}
+      {{/if}}
+    </div>
+
+    {{! Attributes Tab }}
+    <div class="tab attributes" data-group="primary" data-tab="attributes" style="margin: 5px 5px 0 5px;">
+      <div class="row" style="flex-basis: auto;">
+        <div class="col" style="flex: 1 1 auto;">
+          <span style="font-family: Souvenir-Demi">Id:
+            <input
+              type="text"
+              name="item.data._id"
+              disabled
+              value="{{item.data._id}}"
+              data-dtype="String"
+              style="width: 200px; height: 25px; font-family: Souvenir-Medium;"
+            /></span>
+        </div>
+      </div>
+      <div class="row" style="flex-basis: auto;">
+        <div class="col" style="flex: 1 1 auto;">
+          <span style="font-family: Souvenir-Demi">Held in
+            <input
+              type="text"
+              name="data.containerId"
+              value="{{data.containerId}}"
+              data-dtype="String"
+              style="width: 200px; height: 25px; font-family: Souvenir-Medium;"
+            /></span>
+        </div>
+      </div>
+      <label for="data.equipOptions.option1.value" style="font-family: Souvenir-Medium;">How can this item be carried?</label>
+      <!-- Option 1 -->
+      <div class="row" style="flex-wrap: nowrap; align-items: center; padding-left: 0px; margin: 3px 0 3px 0;">
+        <select name="data.equipOptions.option1.value" style="font-family: Souvenir-Medium;">
+          {{#select data.equipOptions.option1.value}}
+            <option value="" disabled>Choose a slot...</option>
+            <option value="Head">Head</option>
+            <option value="Neck">Neck</option>
+            <option value="Hands (Worn)">Hands (Worn)</option>
+            <option value="Hands (Carried)">Hands (Carried)</option>
+            <option value="Feet">Feet</option>
+            <option value="Torso">Torso</option>
+            <option value="Belt">Belt</option>
+            <option value="Pocket">Pocket</option>
+            <option value="Pack">Pack</option>
+            <option value="Quiver">Quiver</option>
+          {{/select}}
+        </select>
+        <span style="font-family: Souvenir-Medium;">&nbsp/&nbsp</span>
+        <select name="data.carryOptions.option1.value" style="font-family: Souvenir-Medium;">
+          {{#select data.carryOptions.option1.value}}
+            <option value="" disabled>...</option>
+            <option value="Worn">Worn</option>
+            <option value="Carried">Carried</option>
+            <option value="Pack">Pack</option>
+            <option value="Weapon">Weapon</option>
+          {{/select}}
+        </select>
+        <input
+          type="text"
+          name="data.slotOptions.option1.value"
+          value="{{data.slotOptions.option1.value}}"
+          data-dtype="Number"
+          style="width: 30px; text-align: center; font-family: Souvenir-Medium; height: 25px;"
+        />
+      </div>
+      <!-- Option 2 -->
+      <div class="row" style="flex-wrap: nowrap; align-items: center; padding-left: 0px; margin: 3px 0 3px 0;">
+        <select name="data.equipOptions.option2.value" style="font-family: Souvenir-Medium;">
+          {{#select data.equipOptions.option2.value}}
+            <option value="" disabled>Choose a slot...</option>
+            <option value="Head">Head</option>
+            <option value="Neck">Neck</option>
+            <option value="Hands (Worn)">Hands (Worn)</option>
+            <option value="Hands (Carried)">Hands (Carried)</option>
+            <option value="Feet">Feet</option>
+            <option value="Torso">Torso</option>
+            <option value="Belt">Belt</option>
+            <option value="Pocket">Pocket</option>
+            <option value="Pack">Pack</option>
+            <option value="Quiver">Quiver</option>
+          {{/select}}
+        </select>
+        <span style="font-family: Souvenir-Medium;">&nbsp/&nbsp</span>
+        <select name="data.carryOptions.option2.value" style="font-family: Souvenir-Medium;">
+          {{#select data.carryOptions.option2.value}}
+            <option value="" disabled>...</option>
+            <option value="Worn">Worn</option>
+            <option value="Carried">Carried</option>
+            <option value="Pack">Pack</option>
+            <option value="Weapon">Weapon</option>
+          {{/select}}
+        </select>
+        <input
+          type="text"
+          name="data.slotOptions.option2.value"
+          value="{{data.slotOptions.option2.value}}"
+          data-dtype="Number"
+          style="width: 30px; text-align: center; font-family: Souvenir-Medium; height: 25px;"
+        />
+      </div>
+      <!-- Option 3 -->
+      <div class="row" style="flex-wrap: nowrap; align-items: center; padding-left: 0px; margin: 3px 0 3px 0;">
+        <select name="data.equipOptions.option3.value" style="font-family: Souvenir-Medium;">
+          {{#select data.equipOptions.option3.value}}
+            <option value="" disabled>Choose a slot...</option>
+            <option value="Head">Head</option>
+            <option value="Neck">Neck</option>
+            <option value="Hands (Worn)">Hands (Worn)</option>
+            <option value="Hands (Carried)">Hands (Carried)</option>
+            <option value="Feet">Feet</option>
+            <option value="Torso">Torso</option>
+            <option value="Belt">Belt</option>
+            <option value="Pocket">Pocket</option>
+            <option value="Pack">Pack</option>
+            <option value="Quiver">Quiver</option>
+          {{/select}}
+        </select>
+        <span style="font-family: Souvenir-Medium;">&nbsp/&nbsp</span>
+        <select name="data.carryOptions.option3.value" style="font-family: Souvenir-Medium;">
+          {{#select data.carryOptions.option3.value}}
+            <option value="" disabled>...</option>
+            <option value="Worn">Worn</option>
+            <option value="Carried">Carried</option>
+            <option value="Pack">Pack</option>
+            <option value="Weapon">Weapon</option>
+          {{/select}}
+        </select>
+        <input
+          type="text"
+          name="data.slotOptions.option3.value"
+          value="{{data.slotOptions.option3.value}}"
+          data-dtype="Number"
+          style="width: 30px; text-align: center; font-family: Souvenir-Medium; height: 25px;"
+        />
+      </div>
+
+      <div class="row" style="flex-basis: auto;">
+        <div class="col" style="flex: 1 1 auto; align-items: center; display:flex">
+          <label for="damagedCheckbox" style="font-family: Souvenir-Demi">Damaged:</label>
+          <input
+            style="margin-bottom:-2px;"
+            type="checkbox"
+            name="data.damaged"
+            id="damagedCheckbox"
+            data-dtype="Boolean"
+            {{checked data.damaged}}
+          />
+        </div>
+      </div>
+
+    </div>
+
+    {{! Notes Tab }}
+    <div class="tab notes" data-group="primary" data-tab="notes" style="margin: 5px 0 0 0;">
+      {{editor content=data.notes target="data.notes" button=true owner=owner editable=editable}}
+    </div>
+  </section>
 </form>

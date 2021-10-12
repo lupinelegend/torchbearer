@@ -1,63 +1,82 @@
 <h3 style="font-family: Souvenir-Demi;display:flex;justify-content:space-between;">Helping {{cap skillOrAbility}}</h3>
 <form style="font-family: Souvenir-Medium;margin-bottom: 16px;" id="helpingDiceForm">
-    <table>
-        <thead>
-            <tr>
-                <td></td>
-                <td>None</td>
-                <td id="skillOrAbility" data-val="{{skillOrAbility}}">{{cap skillOrAbility}}</td>
-                {{#if helpSkillAbility1}}
-                    <td id="helpSkillAbility1" data-val="{{helpSkillAbility1}}">{{cap helpSkillAbility1}}</td>
-                {{/if}}
-                {{#if helpSkillAbility2}}
-                    <td id="helpSkillAbility2" data-val="{{helpSkillAbility2}}">{{cap helpSkillAbility2}}</td>
-                {{/if}}
-                {{#if helpSkillAbility3}}
-                    <td id="helpSkillAbility3" data-val="{{helpSkillAbility3}}">{{cap helpSkillAbility3}}</td>
-                {{/if}}
-                {{#if helpSkillAbility4}}
-                    <td id="helpSkillAbility4" data-val="{{helpSkillAbility4}}">{{cap helpSkillAbility4}}</td>
-                {{/if}}
-                <td>
-                    <select name="optionalSkill" id="optionalSkill" style="font-size:14px;color:#f0f0e0">
-                        <option name="None" value="">GM's Optional</option>
-                        {{#each allSkills}}
-                            <option value="{{this.name}}">{{this.name}}</option>
-                        {{/each}}
-                    </select>
-                </td>
-                <td>Nature</td>
-                <td>Wise</td>
-            </tr>
-        </thead>
-        {{#each partyMembers}}
-            <tr class="party-member" id="party-member-{{data._id}}" data-actor-id="{{data._id}}">
-                <td class="name">{{name}}</td>
-                <td class="none">
-                    <input type="radio" name="party-member-{{data._id}}-help" class="dice-modifier" id="party-member-{{data._id}}-help-none" value="0" checked>
-                </td>
-                <td class="skillOrAbility"></td>
-                {{#if ../helpSkillAbility1}}
-                    <td class="helpSkillAbility1"></td>
-                {{/if}}
-                {{#if ../helpSkillAbility2}}
-                    <td class="helpSkillAbility2"></td>
-                {{/if}}
-                {{#if ../helpSkillAbility3}}
-                    <td class="helpSkillAbility3"></td>
-                {{/if}}
-                {{#if ../helpSkillAbility4}}
-                    <td class="helpSkillAbility4"></td>
-                {{/if}}
-                <td class="optionalSkillAbility"></td>
-                <td class="nature">
-                    <input type="radio" name="party-member-{{data._id}}-help" class="dice-modifier" id="party-member-{{data._id}}-help-nature" value="1">
-                </td>
-                <td class="wise">
-                    <input type="radio" name="party-member-{{data._id}}-help" class="dice-modifier" id="party-member-{{data._id}}-help-wise" value="1">
-                </td>
-            </tr>
-        {{/each}}
-    </table>
+  <table>
+    <thead>
+      <tr>
+        <td></td>
+        <td>None</td>
+        <td id="skillOrAbility" data-val="{{skillOrAbility}}">{{cap skillOrAbility}}</td>
+        {{#if helpSkillAbility1}}
+          <td id="helpSkillAbility1" data-val="{{helpSkillAbility1}}">{{cap helpSkillAbility1}}</td>
+        {{/if}}
+        {{#if helpSkillAbility2}}
+          <td id="helpSkillAbility2" data-val="{{helpSkillAbility2}}">{{cap helpSkillAbility2}}</td>
+        {{/if}}
+        {{#if helpSkillAbility3}}
+          <td id="helpSkillAbility3" data-val="{{helpSkillAbility3}}">{{cap helpSkillAbility3}}</td>
+        {{/if}}
+        {{#if helpSkillAbility4}}
+          <td id="helpSkillAbility4" data-val="{{helpSkillAbility4}}">{{cap helpSkillAbility4}}</td>
+        {{/if}}
+        <td>
+          <select name="optionalSkill" id="optionalSkill" style="font-size:14px;color:#f0f0e0">
+            <option name="None" value="">GM's Optional</option>
+            {{#each allSkills}}
+              <option value="{{this.name}}">{{this.name}}</option>
+            {{/each}}
+          </select>
+        </td>
+        <td>Nature</td>
+        <td>Wise</td>
+      </tr>
+    </thead>
+    {{#each partyMembers}}
+      <tr class="party-member" id="party-member-{{data._id}}" data-actor-id="{{data._id}}">
+        <td class="name">{{name}}</td>
+        <td class="none">
+          <input
+            type="radio"
+            name="party-member-{{data._id}}-help"
+            class="dice-modifier"
+            id="party-member-{{data._id}}-help-none"
+            value="0"
+            checked
+          />
+        </td>
+        <td class="skillOrAbility"></td>
+        {{#if ../helpSkillAbility1}}
+          <td class="helpSkillAbility1"></td>
+        {{/if}}
+        {{#if ../helpSkillAbility2}}
+          <td class="helpSkillAbility2"></td>
+        {{/if}}
+        {{#if ../helpSkillAbility3}}
+          <td class="helpSkillAbility3"></td>
+        {{/if}}
+        {{#if ../helpSkillAbility4}}
+          <td class="helpSkillAbility4"></td>
+        {{/if}}
+        <td class="optionalSkillAbility"></td>
+        <td class="nature">
+          <input
+            type="radio"
+            name="party-member-{{data._id}}-help"
+            class="dice-modifier"
+            id="party-member-{{data._id}}-help-nature"
+            value="1"
+          />
+        </td>
+        <td class="wise">
+          <input
+            type="radio"
+            name="party-member-{{data._id}}-help"
+            class="dice-modifier"
+            id="party-member-{{data._id}}-help-wise"
+            value="1"
+          />
+        </td>
+      </tr>
+    {{/each}}
+  </table>
 
 </form>

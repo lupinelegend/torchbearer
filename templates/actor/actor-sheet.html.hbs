@@ -1,132 +1,182 @@
 <form class="{{cssClass}} flexcol tbBackground" autocomplete="off" style="margin: 22px;">
 
-    {{!-- Sheet Header --}}
-    <header class="sheet-header">
+  {{! Sheet Header }}
+  <header class="sheet-header">
 
-      <!-- Actor Image -->
-      <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100">
-      <div class="header-fields">
-        <!-- Actor Name -->
-        <h1 style="font-family: Souvenir-Demi;" class="charname">
-          <input name="name" type="text" value="{{actor.name}}" placeholder="Name"/>
-        </h1>
+    <!-- Actor Image -->
+    <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100" />
+    <div class="header-fields">
+      <!-- Actor Name -->
+      <h1 style="font-family: Souvenir-Demi;" class="charname">
+        <input name="name" type="text" value="{{actor.name}}" placeholder="Name" />
+      </h1>
 
-        <!-- Fate, Persona, and Checks -->
-        <div class="rewards grid grid-3col">
+      <!-- Fate, Persona, and Checks -->
+      <div class="rewards grid grid-3col">
 
-          <div class="resource flex-group-center">
-              <label style="font-family: Souvenir-Demi; font-size: 16px;" for="data.fate.value">Fate</label>
-              <div class="resource-content flexrow flex-center flex-between">
-                <input id="currentFate" type="text" name="data.fate.value" value="{{data.fate.value}}" data-dtype="Number"/>
-                <span> / </span>
-                <input id="spentFate" type="text" name="data.fate.spent" value="{{data.fate.spent}}" data-dtype="Number"/>
-              </div>
-
-          </div>
-
-          <div class="resource flex-group-center">
-
-              <label style="font-family: Souvenir-Demi; font-size: 16px;" for="data.persona.value">Persona</label>
-
-              <div class="resource-content flexrow flex-center flex-between">
-                <input id="currentPersona" type="text" name="data.persona.value" value="{{data.persona.value}}" data-dtype="Number"/>
-                <span> / </span>
-                <input id="spentPersona" type="text" name="data.persona.spent" value="{{data.persona.spent}}" data-dtype="Number"/>
-              </div>
-
-          </div>
-
-          <div class="flex-group-center">
-
-            <label style="font-family: Souvenir-Demi; font-size: 16px;" for="actor.data.computed.totalChecks">Checks</label>
-
-            <div class="resource-content flexrow">
-              <input id="currentChecks" type="text" name="actor.data.computed.totalChecks" disabled value="{{actor.data.computed.totalChecks}}" data-dtype="Number"/>
-            </div>
-
+        <div class="resource flex-group-center">
+          <label style="font-family: Souvenir-Demi; font-size: 16px;" for="data.fate.value">Fate</label>
+          <div class="resource-content flexrow flex-center flex-between">
+            <input
+              id="currentFate"
+              type="text"
+              name="data.fate.value"
+              value="{{data.fate.value}}"
+              data-dtype="Number"
+            />
+            <span> / </span>
+            <input id="spentFate" type="text" name="data.fate.spent" value="{{data.fate.spent}}" data-dtype="Number" />
           </div>
 
         </div>
-      </div>
 
-    </header>
+        <div class="resource flex-group-center">
 
-    <!-- Condition Bar -->
-    <progress max="100" id="conditionBar" name="data.conditionProgress" value="{{data.conditionProgress}}" style="width: 100%;" class="testBar"></progress>
+          <label style="font-family: Souvenir-Demi; font-size: 16px;" for="data.persona.value">Persona</label>
 
-    <!-- Condition Checkboxes -->
-    <div style="flex: none;">
-      <div class="grid grid-8col" style="grid-template-columns: auto auto auto auto auto auto auto auto; justify-items: center; gap: 0px; margin: 0 0 0 0;">
-        <div>
-          <input type="checkbox" name="data.fresh" id="freshCheckbox" data-dtype="Boolean" {{checked data.fresh}}>
+          <div class="resource-content flexrow flex-center flex-between">
+            <input
+              id="currentPersona"
+              type="text"
+              name="data.persona.value"
+              value="{{data.persona.value}}"
+              data-dtype="Number"
+            />
+            <span> / </span>
+            <input
+              id="spentPersona"
+              type="text"
+              name="data.persona.spent"
+              value="{{data.persona.spent}}"
+              data-dtype="Number"
+            />
+          </div>
+
         </div>
-        <div>
-          <input type="checkbox" name="data.hungryandthirsty" id="hungryandthirstyCheckbox" data-dtype="Boolean" {{checked data.hungryandthirsty}}>
+
+        <div class="flex-group-center">
+
+          <label
+            style="font-family: Souvenir-Demi; font-size: 16px;"
+            for="actor.data.computed.totalChecks"
+          >Checks</label>
+
+          <div class="resource-content flexrow">
+            <input
+              id="currentChecks"
+              type="text"
+              name="actor.data.computed.totalChecks"
+              disabled
+              value="{{actor.data.computed.totalChecks}}"
+              data-dtype="Number"
+            />
+          </div>
+
         </div>
-        <div>
-          <input type="checkbox" name="data.angry" id="angryCheckbox" data-dtype="Boolean" {{checked data.angry}}>
-        </div>
-        <div>
-          <input type="checkbox" name="data.afraid" id="afraidCheckbox" data-dtype="Boolean" {{checked data.afraid}}>
-        </div>
-        <div>
-          <input type="checkbox" name="data.exhausted" id="exhaustedCheckbox" data-dtype="Boolean" {{checked data.exhausted}}>
-        </div>
-        <div>
-          <input type="checkbox" name="data.injured" id="injuredCheckbox" data-dtype="Boolean" {{checked data.injured}}>
-        </div>
-        <div>
-          <input type="checkbox" name="data.sick" id="sickCheckbox" data-dtype="Boolean" {{checked data.sick}}>
-        </div>
-        <div>
-          <input type="checkbox" name="data.dead" id="deadCheckbox" data-dtype="Boolean" {{checked data.dead}}>
-        </div>
-      </div>
-      <div class="grid grid-8col" style="justify-items: center; gap: 0px; margin: 0 0 0 0;">
-        <div>
-          <label for="data.fresh" style="font-family: Souvenir-Medium;">Fresh</label>
-        </div>
-        <div style="text-align: center;">
-          <label for="data.hungryandthirsty" style="font-family: Souvenir-Medium;">Hungry & Thirsty</label>
-        </div>
-        <div>
-          <label for="data.angry" style="font-family: Souvenir-Medium;">Angry</label>
-        </div>
-        <div>
-          <label for="data.afraid" style="font-family: Souvenir-Medium;">Afraid</label>
-        </div>
-        <div>
-          <label for="data.exhausted" style="font-family: Souvenir-Medium;">Exhausted</label>
-        </div>
-        <div>
-          <label for="data.injured" style="font-family: Souvenir-Medium;">Injured</label>
-        </div>
-        <div>
-          <label for="data.sick" style="font-family: Souvenir-Medium;">Sick</label>
-        </div>
-        <div>
-          <label for="data.dead" style="font-family: Souvenir-Medium;">Dead</label>
-        </div>
+
       </div>
     </div>
 
-    {{!-- Sheet Tab Navigation --}}
-    <nav class="sheet-tabs tabs" data-group="primary">
-        <a class="item" data-tab="whoYouAre" style="font-family: Souvenir-Demi;">Who You Are</a>
-        <a class="item" data-tab="abilities" style="font-family: Souvenir-Demi;">Abilities</a>
-        <a class="item" data-tab="skills" style="font-family: Souvenir-Demi;">Skills</a>
-        <a class="item" data-tab="inventory" id="primary-tab-inventory" style="font-family: Souvenir-Demi;">Inventory</a>
-        <a class="item" data-tab="magic" style="font-family: Souvenir-Demi;">Magic</a>
-        <a class="item" data-tab="notes" style="font-family: Souvenir-Demi;">Notes</a>
-    </nav>
+  </header>
 
-    {{!-- Sheet Body --}}
-    <section class="sheet-body">
+  <!-- Condition Bar -->
+  <progress
+    max="100"
+    id="conditionBar"
+    name="data.conditionProgress"
+    value="{{data.conditionProgress}}"
+    style="width: 100%;"
+    class="testBar"
+  ></progress>
 
-        {{!-- 'Who You Are' Tab --}}
-        <div class="tab whoYouAre" data-group="primary" data-tab="whoYouAre" style="margin-top: 5px;">
+  <!-- Condition Checkboxes -->
+  <div style="flex: none;">
+    <div
+      class="grid grid-8col"
+      style="grid-template-columns: auto auto auto auto auto auto auto auto; justify-items: center; gap: 0px; margin: 0 0 0 0;"
+    >
+      <div>
+        <input type="checkbox" name="data.fresh" id="freshCheckbox" data-dtype="Boolean" {{checked data.fresh}} />
+      </div>
+      <div>
+        <input
+          type="checkbox"
+          name="data.hungryandthirsty"
+          id="hungryandthirstyCheckbox"
+          data-dtype="Boolean"
+          {{checked data.hungryandthirsty}}
+        />
+      </div>
+      <div>
+        <input type="checkbox" name="data.angry" id="angryCheckbox" data-dtype="Boolean" {{checked data.angry}} />
+      </div>
+      <div>
+        <input type="checkbox" name="data.afraid" id="afraidCheckbox" data-dtype="Boolean" {{checked data.afraid}} />
+      </div>
+      <div>
+        <input
+          type="checkbox"
+          name="data.exhausted"
+          id="exhaustedCheckbox"
+          data-dtype="Boolean"
+          {{checked data.exhausted}}
+        />
+      </div>
+      <div>
+        <input type="checkbox" name="data.injured" id="injuredCheckbox" data-dtype="Boolean" {{checked data.injured}} />
+      </div>
+      <div>
+        <input type="checkbox" name="data.sick" id="sickCheckbox" data-dtype="Boolean" {{checked data.sick}} />
+      </div>
+      <div>
+        <input type="checkbox" name="data.dead" id="deadCheckbox" data-dtype="Boolean" {{checked data.dead}} />
+      </div>
+    </div>
+    <div class="grid grid-8col" style="justify-items: center; gap: 0px; margin: 0 0 0 0;">
+      <div>
+        <label for="data.fresh" style="font-family: Souvenir-Medium;">Fresh</label>
+      </div>
+      <div style="text-align: center;">
+        <label for="data.hungryandthirsty" style="font-family: Souvenir-Medium;">Hungry & Thirsty</label>
+      </div>
+      <div>
+        <label for="data.angry" style="font-family: Souvenir-Medium;">Angry</label>
+      </div>
+      <div>
+        <label for="data.afraid" style="font-family: Souvenir-Medium;">Afraid</label>
+      </div>
+      <div>
+        <label for="data.exhausted" style="font-family: Souvenir-Medium;">Exhausted</label>
+      </div>
+      <div>
+        <label for="data.injured" style="font-family: Souvenir-Medium;">Injured</label>
+      </div>
+      <div>
+        <label for="data.sick" style="font-family: Souvenir-Medium;">Sick</label>
+      </div>
+      <div>
+        <label for="data.dead" style="font-family: Souvenir-Medium;">Dead</label>
+      </div>
+    </div>
+  </div>
 
-          <!-- Tooltip description on hover
+  {{! Sheet Tab Navigation }}
+  <nav class="sheet-tabs tabs" data-group="primary">
+    <a class="item" data-tab="whoYouAre" style="font-family: Souvenir-Demi;">Who You Are</a>
+    <a class="item" data-tab="abilities" style="font-family: Souvenir-Demi;">Abilities</a>
+    <a class="item" data-tab="skills" style="font-family: Souvenir-Demi;">Skills</a>
+    <a class="item" data-tab="inventory" id="primary-tab-inventory" style="font-family: Souvenir-Demi;">Inventory</a>
+    <a class="item" data-tab="magic" style="font-family: Souvenir-Demi;">Magic</a>
+    <a class="item" data-tab="notes" style="font-family: Souvenir-Demi;">Notes</a>
+  </nav>
+
+  {{! Sheet Body }}
+  <section class="sheet-body">
+
+    {{! 'Who You Are' Tab }}
+    <div class="tab whoYouAre" data-group="primary" data-tab="whoYouAre" style="margin-top: 5px;">
+
+      <!-- Tooltip description on hover
             <div>
             <h2 class="tooltip" style="font-family: Souvenir-Demi; border: none; margin: 0 0 0 0rem !important;">Belief
               <span class="tooltiptext" style="font-family: Souvenir-Medium; font-size: 12px !important;">Uphold your belief in your actions and earn a fate point</span>
@@ -134,780 +184,1332 @@
             <textarea name="" id="belief" cols="30" rows="1"></textarea>
           </div> -->
 
-          <!-- Belief -->
-          <div>
-            <div style="display: flex; flex-direction: row; align-items: baseline;">
-              <h2 style="font-family: Souvenir-Demi; border: none; margin: 0 0 0 0rem !important;">Belief</h2>
-              <h5 style="font-family: Souvenir-MediumItalic; margin: 0 0 0 0rem !important; text-align: right; flex-grow: 3;">Uphold your belief in your actions and earn a fate point</h5>
-            </div>
-            <input type="text" name="data.belief" value="{{data.belief}}" id="belief">
-          </div>
+      <!-- Belief -->
+      <div>
+        <div style="display: flex; flex-direction: row; align-items: baseline;">
+          <h2 style="font-family: Souvenir-Demi; border: none; margin: 0 0 0 0rem !important;">Belief</h2>
+          <h5
+            style="font-family: Souvenir-MediumItalic; margin: 0 0 0 0rem !important; text-align: right; flex-grow: 3;"
+          >Uphold your belief in your actions and earn a fate point</h5>
+        </div>
+        <input type="text" name="data.belief" value="{{data.belief}}" id="belief" />
+      </div>
 
-          <!-- Creed -->
-          <div>
-            <div style="display: flex; flex-direction: row; align-items: baseline;">
-              <h2 style="font-family: Souvenir-Demi; border: none; margin: 0 0 0 0rem !important;">Creed</h2>
-              <h5 style="font-family: Souvenir-MediumItalic; margin: 0 0 0 0rem !important; text-align: right; flex-grow: 3;">Endure a moral test driven by your creed and earn a persona point</h5>
-            </div>
-            <input type="text" name="data.creed" value="{{data.creed}}" id="creed">
-          </div>
+      <!-- Creed -->
+      <div>
+        <div style="display: flex; flex-direction: row; align-items: baseline;">
+          <h2 style="font-family: Souvenir-Demi; border: none; margin: 0 0 0 0rem !important;">Creed</h2>
+          <h5
+            style="font-family: Souvenir-MediumItalic; margin: 0 0 0 0rem !important; text-align: right; flex-grow: 3;"
+          >Endure a moral test driven by your creed and earn a persona point</h5>
+        </div>
+        <input type="text" name="data.creed" value="{{data.creed}}" id="creed" />
+      </div>
 
-          <!-- Goal -->
-          <div>
-            <div style="display: flex; flex-direction: row; align-items: baseline;">
-              <h2 style="font-family: Souvenir-Demi; border: none; margin: 0 0 0 0rem !important;">Goal</h2>
-              <h5 style="font-family: Souvenir-MediumItalic; margin: 0 0 0 0rem !important; text-align: right; flex-grow: 3;">Accomplish a goal to earn a persona point</h5>
-            </div>
-            <input type="text" name="data.goal" value="{{data.goal}}" id="goal">
-          </div>
+      <!-- Goal -->
+      <div>
+        <div style="display: flex; flex-direction: row; align-items: baseline;">
+          <h2 style="font-family: Souvenir-Demi; border: none; margin: 0 0 0 0rem !important;">Goal</h2>
+          <h5
+            style="font-family: Souvenir-MediumItalic; margin: 0 0 0 0rem !important; text-align: right; flex-grow: 3;"
+          >Accomplish a goal to earn a persona point</h5>
+        </div>
+        <input type="text" name="data.goal" value="{{data.goal}}" id="goal" />
+      </div>
 
-          <!-- Instinct -->
-          <div>
-            <div style="display: flex; flex-direction: row; align-items: baseline;">
-              <h2 style="font-family: Souvenir-Demi; border: none; margin: 0 0 0 0rem !important;">Instinct</h2>
-              <h5 style="font-family: Souvenir-MediumItalic; margin: 0 0 0 0rem !important; text-align: right; flex-grow: 3;">Use an instinct to aid the group and earn a fate point</h5>
-            </div>
-            <input type="text" name="data.instinct" value="{{data.instinct}}" id="instinct">
-          </div>
+      <!-- Instinct -->
+      <div>
+        <div style="display: flex; flex-direction: row; align-items: baseline;">
+          <h2 style="font-family: Souvenir-Demi; border: none; margin: 0 0 0 0rem !important;">Instinct</h2>
+          <h5
+            style="font-family: Souvenir-MediumItalic; margin: 0 0 0 0rem !important; text-align: right; flex-grow: 3;"
+          >Use an instinct to aid the group and earn a fate point</h5>
+        </div>
+        <input type="text" name="data.instinct" value="{{data.instinct}}" id="instinct" />
+      </div>
 
-          <!-- Nature Descriptors -->
-          <div>
-            <div style="display: flex; flex-direction: row; align-items: baseline;">
-              <h2 style="font-family: Souvenir-Demi; border: none; margin: 0 0 0 0rem !important;">Nature Descriptors</h2>
-              <h5 style="font-family: Souvenir-MediumItalic; margin: 0 0 0 0rem !important; text-align: right; flex-grow: 3;">How your Nature is used in play</h5>
-            </div>
-            <input type="text" name="data.natureDescriptors" value="{{data.natureDescriptors}}" id="natureDescriptors">
-          </div>
+      <!-- Nature Descriptors -->
+      <div>
+        <div style="display: flex; flex-direction: row; align-items: baseline;">
+          <h2 style="font-family: Souvenir-Demi; border: none; margin: 0 0 0 0rem !important;">Nature Descriptors</h2>
+          <h5
+            style="font-family: Souvenir-MediumItalic; margin: 0 0 0 0rem !important; text-align: right; flex-grow: 3;"
+          >How your Nature is used in play</h5>
+        </div>
+        <input type="text" name="data.natureDescriptors" value="{{data.natureDescriptors}}" id="natureDescriptors" />
+      </div>
 
-          <div id="characterDetails" style="margin-top: 5px;">
-            <div class="grid grid-2col" style="gap: 5px; margin: 5px 0;">
-              <div class="resource flexrow flex-group-center">
-                <label style="font-family: Souvenir-Demi; font-size: 16px;" for="data.class.value">Class</label>
-                <select name="data.class.name" id="classDropdown">
-                  {{#select data.class.name}}
-                  <option value="default" selected disabled hidden>Choose a class...</option>
-                  {{#each data.classes as |charClass key|}}
+      <div id="characterDetails" style="margin-top: 5px;">
+        <div class="grid grid-2col" style="gap: 5px; margin: 5px 0;">
+          <div class="resource flexrow flex-group-center">
+            <label style="font-family: Souvenir-Demi; font-size: 16px;" for="data.class.value">Class</label>
+            <select name="data.class.name" id="classDropdown">
+              {{#select data.class.name}}
+                <option value="default" selected disabled hidden>Choose a class...</option>
+                {{#each data.classes as |charClass key|}}
                   <option name="data.classes.{{key}}.value" value="{{charClass.value}}">{{charClass.value}}</option>
-                  {{/each}}
-                  {{/select}}
-                </select>
-              </div>
-              <div class="resource flexrow flex-group-center">
-                <label style="font-family: Souvenir-Demi; font-size: 16px;" for="data.level">Level</label>
-                <input type="text" name="data.level.value" value="{{data.level.value}}" data-dtype="Number"/>
-              </div>
-            </div>
-            <div class="grid grid-2col" style="gap: 5px; margin: 5px 0;">
-              <div class="resource flexrow flex-group-center">
-                <label style="font-family: Souvenir-Demi; font-size: 16px;" for="data.age">Age</label>
-                <input type="text" name="data.age" value="{{data.age}}" data-dtype="Number"/>
-              </div>
-              <div class="resource flexrow flex-group-center">
-                <label style="font-family: Souvenir-Demi; font-size: 16px;" for="data.home">Home</label>
-                <input type="text" name="data.home" value="{{data.home}}" data-dtype="String"/>
-              </div>
-            </div>
-            <div class="grid grid-2col" style="gap: 5px; margin: 5px 0;">
-              <div class="resource flexrow flex-group-center">
-                <label style="font-family: Souvenir-Demi; font-size: 16px;" for="data.parents">Parents</label>
-                <input type="text" name="data.parents" value="{{data.parents}}" data-dtype="String"/>
-              </div>
-              <div class="resource flexrow flex-group-center">
-                <label style="font-family: Souvenir-Demi; font-size: 16px;" for="data.charMentor">Mentor</label>
-                <input type="text" name="data.charMentor" value="{{data.charMentor}}" data-dtype="String"/>
-              </div>
-            </div>
-            <div class="grid grid-2col" style="gap: 5px; margin: 5px 0;">
-              <div class="resource flexrow flex-group-center">
-                <label style="font-family: Souvenir-Demi; font-size: 16px;" for="data.friend">Friend</label>
-                <input type="text" name="data.friend" value="{{data.friend}}" data-dtype="String"/>
-              </div>
-              <div class="resource flexrow flex-group-center">
-                <label style="font-family: Souvenir-Demi; font-size: 16px;" for="data.enemy">Enemy</label>
-                <input type="text" name="data.enemy" value="{{data.enemy}}" data-dtype="String"/>
-              </div>
-            </div>
-            <div class="grid grid-2col" style="gap: 5px; margin: 5px 0;">
-              <div class="resource flexrow flex-group-center">
-                <label style="font-family: Souvenir-Demi; font-size: 16px;" for="data.raiment">Raiment</label>
-                <input type="text" name="data.raiment" value="{{data.raiment}}" data-dtype="String"/>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {{!-- 'Abilities / Wises / Traits' Tab --}}
-        <div class="tab items" data-group="primary" data-tab="abilities">
-          <div class="grid grid-col2" style="gap: 0px; margin: 5px 0 5px 0;">
-            <!-- Abilities Div -->
-            <div id="abilities" style="border-right: 1px solid #AAA;">
-              <!-- Header -->
-              <h2 style="font-family: Souvenir-Demi; border: none; margin: 0 0 0 0rem !important; text-align: center;">Abilities</h2>
-              <!-- Table Start -->
-              <div class="grid grid-3col" style="margin-right: 10px;">
-                <h4 style="font-family: Souvenir-Demi; margin: 0 0 0 0rem !important;"><u>Ability</u></h4>
-                <h4 style="font-family: Souvenir-Demi; margin: 0 0 0 0rem !important; text-align: center"><u>Rating</u></h4>
-                <h4 style="font-family: Souvenir-Demi; margin: 0 0 0 0rem !important; text-align: center"><u>Pass / Fail</u></h4>
-              </div>
-              <!-- Will -->
-              <div class="grid grid-3col" style="margin-right: 10px;">
-                <div style="align-self: center;">
-                  <h4 class="advanceAbility" style="font-family: Souvenir-Medium; margin: 0 0 0 0rem !important;">Will</h4>
-                </div>
-                <div style="display: flex; flex-direction: row; text-align: center;">
-                  <input type="text" name="data.will.value" value="{{data.will.value}}" data-dtype="Number" style="padding: 5px; margin: 0 10px 0 10px; width: 30px"/>
-                  <img src="../systems/torchbearer/assets/icons/d6.png" style="height: 24px; width: 24; border: none; margin-left: 7px;" class="rollable" data-label="will">
-                </div>
-                <div class="resource-content flexrow flex-center flex-between">
-                  <input id="willPass" type="text" name="data.will.pass" value="{{data.will.pass}}" data-dtype="Number"/>
-                  <span> / </span>
-                  <input id="willFail" type="text" name="data.will.fail" value="{{data.will.fail}}" data-dtype="Number"/>
-                </div>
-              </div>
-              <!-- Health -->
-              <div class="grid grid-3col" style="margin-right: 10px;">
-                <h4 class="advanceAbility" style="font-family: Souvenir-Medium; margin: 0 0 0 0rem !important; align-self: center;">Health</h4>
-                <div style="display: flex; flex-direction: row; text-align: center;">
-                  <input type="text" name="data.health.value" value="{{data.health.value}}" data-dtype="Number" style="padding: 5px; margin: 0 10px 0 10px; width: 30px"/>
-                  <img src="../systems/torchbearer/assets/icons/d6.png" style="height: 24px; width: 24; border: none; margin-left: 7px;" class="rollable" data-label="health">
-                </div>
-                <div class="resource-content flexrow flex-center flex-between">
-                  <input id="healthPass" type="text" name="data.health.pass" value="{{data.health.pass}}" data-dtype="Number"/>
-                  <span> / </span>
-                  <input id="healthFail" type="text" name="data.health.fail" value="{{data.health.fail}}" data-dtype="Number"/>
-                </div>
-              </div>
-              <!-- Nature -->
-              <div class="grid grid-3col" style="margin-right: 10px;">
-                <h4 class="advanceAbility" style="font-family: Souvenir-Medium; margin: 0 0 0 0rem !important; align-self: center;">Nature</h4>
-                <div style="display: flex; flex-direction: row; align-items: center;">
-                  <input type="text" name="data.nature.value" value="{{data.nature.value}}" data-dtype="Number" style="padding: 5px; width: 10px"/>
-                  <span>&nbsp/&nbsp</span>
-                  <input type="text" name="data.nature.max" value="{{data.nature.max}}" data-dtype="Number" style="padding: 5px; margin-right: 5px; width: 10px"/>
-                  <img src="../systems/torchbearer/assets/icons/d6.png" style="height: 24px; width: 24; border: none;" class="rollable" data-label="nature">
-                </div>
-                <div class="resource-content flexrow flex-center flex-between">
-                  <input id="naturePass" type="text" name="data.nature.pass" value="{{data.nature.pass}}" data-dtype="Number"/>
-                  <span> / </span>
-                  <input id="natureFail" type="text" name="data.nature.fail" value="{{data.nature.fail}}" data-dtype="Number"/>
-                </div>
-              </div>
-              <!-- Resources -->
-              <div class="grid grid-3col" style="margin-right: 10px;">
-                <h4 class="advanceAbility" style="font-family: Souvenir-Medium; margin: 0 0 0 0rem !important; align-self: center;">Resources</h4>
-                <div style="display: flex; flex-direction: row; text-align: center;">
-                  <input type="text" name="data.resources.value" value="{{data.resources.value}}" data-dtype="Number" style="padding: 5px; margin: 0 10px 0 10px; width: 30px"/>
-                  <img src="../systems/torchbearer/assets/icons/d6.png" style="height: 24px; width: 24; border: none; margin-left: 7px;" class="rollable" data-label="resources">
-                </div>
-                <div class="resource-content flexrow flex-center flex-between">
-                  <input id="resourcesPass" type="text" name="data.resources.pass" value="{{data.resources.pass}}" data-dtype="Number"/>
-                  <span> / </span>
-                  <input id="resourcesFail" type="text" name="data.resources.fail" value="{{data.resources.fail}}" data-dtype="Number"/>
-                </div>
-              </div>
-              <!-- Circles -->
-              <div class="grid grid-3col" style="margin-right: 10px;">
-                <h4 class="advanceAbility" style="font-family: Souvenir-Medium; margin: 0 0 0 0rem !important; align-self: center;">Circles</h4>
-                <div style="display: flex; flex-direction: row; text-align: center;">
-                  <input type="text" name="data.circles.value" value="{{data.circles.value}}" data-dtype="Number" style="padding: 5px; margin: 0 10px 0 10px; width: 30px"/>
-                  <img src="../systems/torchbearer/assets/icons/d6.png" style="height: 24px; width: 24; border: none; margin-left: 7px;" class="rollable" data-label="circles">
-                </div>
-                <div class="resource-content flexrow flex-center flex-between">
-                  <input id="circlesPass" type="text" name="data.circles.pass" value="{{data.circles.pass}}" data-dtype="Number"/>
-                  <span> / </span>
-                  <input id="circlesFail" type="text" name="data.circles.fail" value="{{data.circles.fail}}" data-dtype="Number"/>
-                </div>
-              </div>
-              <!-- Precedence and Might -->
-              <div style="display: flex; flex-direction: row;">
-                <!-- Precedence -->
-                <div style="display: flex; flex-direction: row; text-align: center;">
-                  <h4 style="font-family: Souvenir-Medium; width: 81.66px; margin: 0 10px 0 0 !important; align-self: center;">Precedence</h4>
-                  <input type="text" name="data.precedence.value" value="{{data.precedence.value}}" data-dtype="Number" style="margin: 0 0 0 11px; width: 30px !important; justify-self: end;"/>
-                </div>
-                <!-- Might -->
-                <div style="display: flex; flex-direction: row; text-align: center;">
-                  <h4 style="font-family: Souvenir-Medium; margin: 0 20px 0 48px !important; align-self: center;">Might</h4>
-                  <input type="text" name="data.might.value" value="{{data.might.value}}" data-dtype="Number" style="width: 30px !important; justify-self: end;"/>
-                </div>
-              </div>
-            </div>
-            <!-- Wises Div -->
-            <div id="wises">
-              <h2 style="font-family: Souvenir-Demi; border: none; margin: 0 0 0 0rem !important; text-align: center;">Wises</h2>
-              <div id="wise1">
-                <div style="padding: 0 0 0 10px;">
-                  <input style="margin-top: 10px;" type="text" name="data.wise1.name" value="{{data.wise1.name}}" data-dtype="String"/>
-                </div>
-                <div class="row flex-between" style="align-items: center; padding: 0 0 0 10px;">
-                  <label for="data.wise1.pass" style="font-family: Souvenir-Medium;">Pass</label>
-                  <input type="checkbox" name="data.wise1.pass" id="wise1pass" style="margin: 3px 0 3px 0;" {{checked data.wise1.pass}}>
-                  <span> | </span>
-                  <label for="data.wise1.fail" style="font-family: Souvenir-Medium;">Fail</label>
-                  <input type="checkbox" name="data.wise1.fail" id="wise1fail" style="margin: 3px 0 3px 0;" {{checked data.wise1.fail}}>
-                  <span> | </span>
-                  <label for="data.wise1.fate" style="font-family: Souvenir-Medium;">Fate</label>
-                  <input type="checkbox" name="data.wise1.fate" id="wise1fate" style="margin: 3px 0 3px 0;" {{checked data.wise1.fate}}>
-                  <span> | </span>
-                  <label for="data.wise1.persona" style="font-family: Souvenir-Medium;">Persona</label>
-                  <input type="checkbox" name="data.wise1.persona" id="wise1persona" style="margin: 3px 0 3px 0;" {{checked data.wise1.persona}}>
-                </div>
-              </div>
-              <div id="wise2">
-                <div style="padding: 0 0 0 10px;">
-                  <input style="margin-top: 10px;" type="text" name="data.wise2.name" value="{{data.wise2.name}}" data-dtype="String"/>
-                </div>
-                <div class="row flex-between" style="align-items: center; padding: 0 0 0 10px;">
-                  <label for="data.wise2.pass" style="font-family: Souvenir-Medium;">Pass</label>
-                  <input type="checkbox" name="data.wise2.pass" id="wise2pass" style="margin: 3px 0 3px 0;" {{checked data.wise2.pass}}>
-                  <span> | </span>
-                  <label for="data.wise2.fail" style="font-family: Souvenir-Medium;">Fail</label>
-                  <input type="checkbox" name="data.wise2.fail" id="wise2fail" style="margin: 3px 0 3px 0;" {{checked data.wise2.fail}}>
-                  <span> | </span>
-                  <label for="data.wise2.fate" style="font-family: Souvenir-Medium;">Fate</label>
-                  <input type="checkbox" name="data.wise2.fate" id="wise2fate" style="margin: 3px 0 3px 0;" {{checked data.wise2.fate}}>
-                  <span> | </span>
-                  <label for="data.wise2.persona" style="font-family: Souvenir-Medium;">Persona</label>
-                  <input type="checkbox" name="data.wise2.persona" id="wise2persona" style="margin: 3px 0 3px 0;" {{checked data.wise2.persona}}>
-                </div>
-              </div>
-              <div id="wise3">
-                <div style="padding: 0 0 0 10px;">
-                  <input style="margin-top: 10px;" type="text" name="data.wise3.name" value="{{data.wise3.name}}" data-dtype="String"/>
-                </div>
-                <div class="row flex-between" style="align-items: center; padding: 0 0 0 10px;">
-                  <label for="data.wise3.pass" style="font-family: Souvenir-Medium;">Pass</label>
-                  <input type="checkbox" name="data.wise3.pass" id="wise3pass" style="margin: 3px 0 3px 0;" {{checked data.wise3.pass}}>
-                  <span> | </span>
-                  <label for="data.wise3.fail" style="font-family: Souvenir-Medium;">Fail</label>
-                  <input type="checkbox" name="data.wise3.fail" id="wise3fail" style="margin: 3px 0 3px 0;" {{checked data.wise3.fail}}>
-                  <span> | </span>
-                  <label for="data.wise3.fate" style="font-family: Souvenir-Medium;">Fate</label>
-                  <input type="checkbox" name="data.wise3.fate" id="wise3fate" style="margin: 3px 0 3px 0;" {{checked data.wise3.fate}}>
-                  <span> | </span>
-                  <label for="data.wise3.persona" style="font-family: Souvenir-Medium;">Persona</label>
-                  <input type="checkbox" name="data.wise3.persona" id="wise3persona" style="margin: 3px 0 3px 0;" {{checked data.wise3.persona}}>
-                </div>
-              </div>
-              <div id="wise4">
-                <div style="padding: 0 0 0 10px;">
-                  <input style="margin-top: 10px;" type="text" name="data.wise4.name" value="{{data.wise4.name}}" data-dtype="String"/>
-                </div>
-                <div class="row flex-between" style="align-items: center; padding: 0 0 0 10px;">
-                  <label for="data.wise4.pass" style="font-family: Souvenir-Medium;">Pass</label>
-                  <input type="checkbox" name="data.wise4.pass" id="wise4pass" style="margin: 3px 0 3px 0;" {{checked data.wise4.pass}}>
-                  <span> | </span>
-                  <label for="data.wise4.fail" style="font-family: Souvenir-Medium;">Fail</label>
-                  <input type="checkbox" name="data.wise4.fail" id="wise4fail" style="margin: 3px 0 3px 0;" {{checked data.wise4.fail}}>
-                  <span> | </span>
-                  <label for="data.wise4.fate" style="font-family: Souvenir-Medium;">Fate</label>
-                  <input type="checkbox" name="data.wise4.fate" id="wise4fate" style="margin: 3px 0 3px 0;" {{checked data.wise4.fate}}>
-                  <span> | </span>
-                  <label for="data.wise4.persona" style="font-family: Souvenir-Medium;">Persona</label>
-                  <input type="checkbox" name="data.wise4.persona" id="wise4persona" style="margin: 3px 0 3px 0;" {{checked data.wise4.persona}}>
-                </div>
-              </div>
-            </div>
-          </div>
-          <hr style="border-top: 1px solid #AAA; border-bottom: none;">
-          <!-- Traits Div -->
-          <div>
-            <!-- Traits Header -->
-            <h2 style="font-family: Souvenir-Demi; border: none; margin: 0 0 0 0rem !important; text-align: center;">Traits</h2>
-            <div class="grid grid-4col" style="gap: 5px; margin: 0 0 0 0 !important; grid-template-columns: 270px 70px 150px 50px;">
-              <h4 style="font-family: Souvenir-Demi; margin: 0 0 0 0rem !important;"><u>Trait name</u></h4>
-              <h4 style="font-family: Souvenir-Demi; margin: 0 0 0 0rem !important; justify-self: center;"><u>Trait level</u></h4>
-              <h4 style="font-family: Souvenir-Demi; margin: 0 0 0 0rem !important; justify-self: center;"><u>Beneficial Uses</u></h4>
-              <h4 style="font-family: Souvenir-Demi; margin: 0 0 0 0rem !important; justify-self: center;"><u>Checks</u></h4>
-            </div>
-            <!-- Trait 1 -->
-            <div class="grid grid-4col" style="gap: 5px; align-items: flex-end; grid-template-columns: auto 70px 150px 50px;">
-              <div id="trait1Input">
-                <!-- Need a Traits comendium for this to work -->
-                <!-- <input type="text" id="trait1Dialog" class="clearPulldown" list="traitsList"> -->
-                <input type="text" name="data.traits.trait1.name" value="{{data.traits.trait1.name}}" id="trait1Name">
-              </div>
-              <div id="trait1Data" style="justify-self: center;">
-                <select name="data.traits.trait1.level.value" id="trait1LevelDropdown" title="trait1">
-                  {{#select data.traits.trait1.level.value}}
-                  <option value="1" selected>1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  {{/select}}
-                </select>
-              </div>
-              {{#ifeq data.traits.trait1.level.value "1"}}
-              <div id="trait1Uses" style="display: flex; flex-direction: row; align-items: center;">
-                <input type="checkbox" name="data.traits.trait1.uses.level1.use1" id="trait1Level1Used" {{checked data.traits.trait1.uses.level1.use1}}>
-                <label for="data.traits.trait1.uses.level1.use1" style="font-family: Souvenir-Medium;" id="trait1UseLabel">+1D per session</label>
-              </div>
-              {{/ifeq}}
-              {{#ifeq data.traits.trait1.level.value "2"}}
-              <div id="trait1Uses" style="display: flex; flex-direction: row; align-items: center;">
-                <input type="checkbox" name="data.traits.trait1.uses.level1.use1"   id="trait1Level1Used" {{checked data.traits.trait1.uses.level1.use1}}>
-                <input type="checkbox" name="data.traits.trait1.uses.level2.use2" id="trait1Level2Used" {{checked data.traits.trait1.uses.level2.use2}}>
-                <label for="data.traits.trait1.uses.level1.use1" style="font-family: Souvenir-Medium;" id="trait1UseLabel">+1D</label>
-              </div>
-              {{/ifeq}}
-              {{#ifeq data.traits.trait1.level.value "3"}}
-              <div id="trait1Uses" style="display: flex; flex-direction: row; align-self: center;">
-                <label style="font-family: Souvenir-Medium; margin: auto;" id="trait1UseLabel">All appropriate tests</label>
-              </div>
-              {{/ifeq}}
-              <div id="trait1Checks" style="margin: auto; text-align: center;">
-                <input type="text" name="data.traits.trait1.checks.checksEarned" value="{{data.traits.trait1.checks.checksEarned}}" id="trait1ChecksEarned" style="width: 30px">
-              </div>
-            </div>
-            <!-- Trait 2 -->
-            <div class="grid grid-4col" style="gap: 5px; align-items: flex-end; grid-template-columns: auto 70px 150px 50px;">
-              <div id="trait2Input">
-                <!-- <input type="text" id="trait2Dialog" class="clearPulldown" list="traitsList"> -->
-                <input type="text" name="data.traits.trait2.name" value="{{data.traits.trait2.name}}" id="trait2Name">
-              </div>
-              <div id="trait2Data" style="justify-self: center;">
-                <select name="data.traits.trait2.level.value" id="trait2Level">
-                  {{#select data.traits.trait2.level.value}}
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  {{/select}}
-                </select>
-              </div>
-              {{#ifeq data.traits.trait2.level.value "1"}}
-              <div id="trait2Uses" style="display: flex; flex-direction: row; align-items: center;">
-                <input type="checkbox" name="data.traits.trait2.uses.level1.use1" id="trait2Level1Used" {{checked data.traits.trait2.uses.level1.use1}}>
-                <label for="data.traits.trait2.uses.level1.use1" style="font-family: Souvenir-Medium;" id="trait2UseLabel">+1D per session</label>
-              </div>
-              {{/ifeq}}
-              {{#ifeq data.traits.trait2.level.value "2"}}
-              <div id="trait2Uses" style="display: flex; flex-direction: row; align-items: center;">
-                <input type="checkbox" name="data.traits.trait2.uses.level1.use1"   id="trait2Level1Used" {{checked data.traits.trait2.uses.level1.use1}}>
-                <input type="checkbox" name="data.traits.trait2.uses.level2.use2" id="trait2Level2Used" {{checked data.traits.trait2.uses.level2.use2}}>
-                <label for="data.traits.trait2.uses.level1.use1" style="font-family: Souvenir-Medium;" id="trait2UseLabel">+1D</label>
-              </div>
-              {{/ifeq}}
-              {{#ifeq data.traits.trait2.level.value "3"}}
-              <div id="trait2Uses" style="display: flex; flex-direction: row; align-self: center;">
-                <label style="font-family: Souvenir-Medium; margin: auto;" id="trait2UseLabel">All appropriate tests</label>
-              </div>
-              {{/ifeq}}
-              <div id="trait2Checks" style="margin: auto; text-align: center;">
-                <input type="text" name="data.traits.trait2.checks.checksEarned" value="{{data.traits.trait2.checks.checksEarned}}" id="trait2ChecksEarned" style="width: 30px">
-              </div>
-            </div>
-            <!-- Trait 3 -->
-            <div class="grid grid-4col" style="gap: 5px; align-items: flex-end; grid-template-columns: auto 70px 150px 50px;">
-              <div id="trait3Input">
-                <!-- <input type="text" id="trait3Dialog" class="clearPulldown" list="traitsList"> -->
-                <input type="text" name="data.traits.trait3.name" value="{{data.traits.trait3.name}}" id="trait3Name">
-              </div>
-              <div id="trait3Data" style="justify-self: center;">
-                <select name="data.traits.trait3.level.value" id="trait3Level">
-                  {{#select data.traits.trait3.level.value}}
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  {{/select}}
-                </select>
-              </div>
-              {{#ifeq data.traits.trait3.level.value "1"}}
-              <div id="trait3Uses" style="display: flex; flex-direction: row; align-items: center;">
-                <input type="checkbox" name="data.traits.trait3.uses.level1.use1" id="trait3Level1Used" {{checked data.traits.trait3.uses.level1.use1}}>
-                <label for="data.traits.trait3.uses.level1.use1" style="font-family: Souvenir-Medium;" id="trait3UseLabel">+1D per session</label>
-              </div>
-              {{/ifeq}}
-              {{#ifeq data.traits.trait3.level.value "2"}}
-              <div id="trait3Uses" style="display: flex; flex-direction: row; align-items: center;">
-                <input type="checkbox" name="data.traits.trait3.uses.level1.use1"   id="trait3Level1Used" {{checked data.traits.trait3.uses.level1.use1}}>
-                <input type="checkbox" name="data.traits.trait3.uses.level2.use2" id="trait3Level2Used" {{checked data.traits.trait3.uses.level2.use2}}>
-                <label for="data.traits.trait3.uses.level1.use1" style="font-family: Souvenir-Medium;" id="trait3UseLabel">+1D</label>
-              </div>
-              {{/ifeq}}
-              {{#ifeq data.traits.trait3.level.value "3"}}
-              <div id="trait3Uses" style="display: flex; flex-direction: row; align-self: center;">
-                <label style="font-family: Souvenir-Medium; margin: auto;" id="trait3UseLabel">All appropriate tests</label>
-              </div>
-              {{/ifeq}}
-              <div id="trait3Checks" style="margin: auto; text-align: center;">
-                <input type="text" name="data.traits.trait3.checks.checksEarned" value="{{data.traits.trait3.checks.checksEarned}}" id="trait3ChecksEarned" style="width: 30px">
-              </div>
-            </div>
-            <!-- Trait 4 -->
-            <div class="grid grid-4col" style="gap: 5px; align-items: flex-end; grid-template-columns: auto 70px 150px 50px;">
-              <div id="trait4Input">
-                <!-- <input type="text" id="trait4Dialog" class="clearPulldown" list="traitsList"> -->
-                <input type="text" name="data.traits.trait4.name" value="{{data.traits.trait4.name}}" id="trait4Name">
-              </div>
-              <div id="trait4Data" style="justify-self: center;">
-                <select name="data.traits.trait4.level.value" id="trait4Level">
-                  {{#select data.traits.trait4.level.value}}
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  {{/select}}
-                </select>
-              </div>
-              {{#ifeq data.traits.trait4.level.value "1"}}
-              <div id="trait4Uses" style="display: flex; flex-direction: row; align-items: center;">
-                <input type="checkbox" name="data.traits.trait4.uses.level1.use1" id="trait4Level1Used" {{checked data.traits.trait4.uses.level1.use1}}>
-                <label for="data.traits.trait4.uses.level1.use1" style="font-family: Souvenir-Medium;" id="trait4UseLabel">+1D per session</label>
-              </div>
-              {{/ifeq}}
-              {{#ifeq data.traits.trait4.level.value "2"}}
-              <div id="trait4Uses" style="display: flex; flex-direction: row; align-items: center;">
-                <input type="checkbox" name="data.traits.trait4.uses.level1.use1"   id="trait4Level1Used" {{checked data.traits.trait4.uses.level1.use1}}>
-                <input type="checkbox" name="data.traits.trait4.uses.level2.use2" id="trait4Level2Used" {{checked data.traits.trait4.uses.level2.use2}}>
-                <label for="data.traits.trait4.uses.level1.use1" style="font-family: Souvenir-Medium;" id="trait4UseLabel">+1D</label>
-              </div>
-              {{/ifeq}}
-              {{#ifeq data.traits.trait4.level.value "3"}}
-              <div id="trait4Uses" style="display: flex; flex-direction: row; align-self: center;">
-                <label style="font-family: Souvenir-Medium; margin: auto;" id="trait4UseLabel">All appropriate tests</label>
-              </div>
-              {{/ifeq}}
-              <div id="trait4Checks" style="margin: auto; text-align: center;">
-                <input type="text" name="data.traits.trait4.checks.checksEarned" value="{{data.traits.trait4.checks.checksEarned}}" id="trait4ChecksEarned" style="width: 30px">
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {{!-- 'Skills' Tab --}}
-        <div class="tab items" data-group="primary" data-tab="skills">
-          <div class="container scroll">
-            <table class="tbtable">
-              <thead class="theader" style="font-family: Souvenir-Demi;">
-                <th style="text-align: left;">Skill</th>
-                <th style="text-align: center;">Rating</th>
-                <th style="text-align: center; padding-left: 20px;">Pass / Fail</th>
-                <th style="text-align: center; padding-left: 20px;">BL</th>
-                <th style="text-align: left; padding-left: 20px;">Suggested Help</th>
-              </thead>
-              <tbody style="font-family: Souvenir-Medium;">
-                {{#each data.skills as |skill key|}}
-                <tr>
-                  <td class="advanceSkill" name="data.skills.{{key}}">{{key}}</td>
-                  <td class="resource-content flex-center flexrow">
-                    <input type="text" name="data.skills.{{key}}.rating" value="{{skill.rating}}" data-dtype="Number" style="width: 30px; margin: 0 10px 0 0;"/>
-                    <img src="../systems/torchbearer/assets/icons/d6.png" style="height: auto; width: 24px; border: none;" class="rollable" data-label="{{key}}">
-                  </td>
-                  <td>
-                    <div class="resource-content flexrow flex-center flex-between" style="padding-left: 20px;">
-                      <input type="text" name="data.skills.{{key}}.pass" value="{{skill.pass}}" data-dtype="Number" style="width: 30px; min-width: 30px;"/>
-                      <span> / </span>
-                      <input type="text" name="data.skills.{{key}}.fail" value="{{skill.fail}}" data-dtype="Number" style="width: 30px; min-width: 30px;"/>
-                    </div>
-                  </td>
-                  <td name="data.skills.{{key}}.bl" style="padding-left: 20px;">{{skill.bl}}</td>
-                  <td name="data.skills.{{key}}.help" style="padding-left: 20px;">{{skill.help}}</td>
-                </tr>
                 {{/each}}
-              </tbody>
-            </table>
+              {{/select}}
+            </select>
+          </div>
+          <div class="resource flexrow flex-group-center">
+            <label style="font-family: Souvenir-Demi; font-size: 16px;" for="data.level">Level</label>
+            <input type="text" name="data.level.value" value="{{data.level.value}}" data-dtype="Number" />
           </div>
         </div>
-
-        {{!-- Inventory Tab --}}
-        <div class="tab items" data-group="primary" data-tab="inventory">
-            <nav class="inventory-tabs tabs" data-group="inventory">
-                <a class="item" data-tab="on-person" style="font-family: Souvenir-Demi;">On Person</a>
-                <a class="item" data-tab="elsewhere" style="font-family: Souvenir-Demi;">Elsewhere</a>
-            </nav>
-            <section class="inventory-body">
-                <div class="tab items" data-group="inventory" data-tab="on-person">
-                    <div class="subtabbed container scroll">
-                        <div class="row">
-                            <div class="col">
-                                <ol id="headSlot" class="items-list inventory-container col" data-container-type="Head" style="margin: 0 3px 0 3px;">
-                                    <!-- Section header -->
-                                    <li class="item flexrow item-header" id="headSlotHeader">
-                                        <div class="item-image"></div>
-                                        <div class="item-name" style="font-family: Souvenir-Demi;">Head</div>
-                                        <div class="item-controls">
-                                            <a class="item-control item-create" title="Create item" data-type="item" type="Head"><i class="fas fa-plus"></i></a>
-                                        </div>
-                                    </li>
-                                    {{{renderInventory 1 actor.data._id 'Head' 'Worn' 'actor'}}}
-                                </ol>
-
-                                <ol id="handsWornSlot" class="items-list inventory-container col" data-container-type="Hands (Worn)" style="margin: 0 3px 0 3px;">
-                                    <li class="item flexrow item-header" id="handsWornSlotHeader">
-                                        <div class="item-image"></div>
-                                        <div class="item-name" style="font-family: Souvenir-Demi;">Hands (Worn)</div>
-                                        <div class="item-controls">
-                                            <a class="item-control item-create" title="Create item" data-type="item" type="Hands"><i class="fas fa-plus"></i></a>
-                                        </div>
-                                    </li>
-                                    {{{renderInventory 2 actor.data._id 'Hands (Worn)' 'Worn' 'actor'}}}
-                                </ol>
-
-                                <ol id="handsCarriedSlot" class="items-list inventory-container col" data-container-type="Hands (Carried)" style="margin: 0 3px 0 3px;">
-                                    <li class="item flexrow item-header" id="handsCarriedSlotHeader">
-                                        <div class="item-image"></div>
-                                        <div class="item-name" style="font-family: Souvenir-Demi;">Hands (Carried)</div>
-                                        <div class="item-controls">
-                                            <i class="fas fa-weight-hanging clickable"  title="Overburden" id="overburdenToggle"></i>
-                                            <a class="item-control item-create" title="Create item" data-type="item" type="Hands"><i class="fas fa-plus"></i></a>
-                                        </div>
-                                    </li>
-                                    {{#if data.overburdened}}
-                                        {{{renderInventory 4 actor.data._id 'Hands (Carried)' 'Carried' 'actor'}}}
-                                    {{else}}
-                                        {{{renderInventory 2 actor.data._id 'Hands (Carried)' 'Carried' 'actor'}}}
-                                    {{/if}}
-                                </ol>
-                                <ol id="torsoSlot" class="items-list inventory-container col" data-container-type="Torso" style="margin: 0 3px 0 3px;">
-                                    <li class="item flexrow item-header" id="torsoSlotHeader">
-                                        <div class="item-image"></div>
-                                        <div class="item-name" style="font-family: Souvenir-Demi;">Torso</div>
-                                        <div class="item-controls">
-                                            <a class="item-control item-create" title="Create item" data-type="item" type="Torso"><i class="fas fa-plus"></i></a>
-                                        </div>
-                                    </li>
-
-                                    {{{renderInventory 3 actor.data._id 'Torso' 'Worn' 'actor'}}}
-                                </ol>
-                                <ol id="pocketSlot" class="items-list inventory-container col" data-container-type="Pocket" style="margin: 0 3px 0 3px;">
-                                    <li class="item flexrow item-header" id="pocketSlotHeader">
-                                        <div class="item-image"></div>
-                                        <div class="item-name" style="font-family: Souvenir-Demi;">Pocket</div>
-                                        <div class="item-controls">
-                                            <a class="item-control item-create" title="Create item" data-type="item" type="Pocket"><i class="fas fa-plus"></i></a>
-                                        </div>
-                                    </li>
-
-                                    {{{renderInventory 1 actor.data._id 'Pocket' 'Trinkets' 'actor'}}}
-                                </ol>
-                            </div>
-                            <div class="col">
-                                <ol id="neckSlot" class="items-list inventory-container col" data-container-type="Neck" style="margin: 0 3px 0 3px;">
-                                    <li class="item flexrow item-header" id="neckSlotHeader">
-                                        <div class="item-image"></div>
-                                        <div class="item-name" style="font-family: Souvenir-Demi;">Neck</div>
-                                        <div class="item-controls">
-                                            <a class="item-control item-create" title="Create item" data-type="item" type="Neck"><i class="fas fa-plus"></i></a>
-                                        </div>
-                                    </li>
-
-                                    {{{renderInventory 1 actor.data._id 'Neck' 'Worn' 'actor'}}}
-                                </ol>
-                                <ol id="feetSlot" class="items-list inventory-container col" data-container-type="Feet" style="margin: 0 3px 0 3px;">
-                                    <li class="item flexrow item-header" id="feetSlotHeader">
-                                        <div class="item-image"></div>
-                                        <div class="item-name" style="font-family: Souvenir-Demi;">Feet</div>
-                                        <div class="item-controls">
-                                            <a class="item-control item-create" title="Create item" data-type="item" type="Feet"><i class="fas fa-plus"></i></a>
-                                        </div>
-                                    </li>
-
-                                    {{{renderInventory 1 actor.data._id 'Feet' 'Worn' 'actor'}}}
-                                </ol>
-                                <ol id="beltSlot" class="items-list inventory-container col" data-container-type="Belt" style="margin: 0 3px 0 3px;">
-                                    <li class="item flexrow item-header" id="beltSlotHeader">
-                                        <div class="item-image"></div>
-                                        <div class="item-name" style="font-family: Souvenir-Demi;">Belt</div>
-                                        <div class="item-controls">
-                                            <a class="item-control item-create" title="Create item" data-type="item" type="Belt"><i class="fas fa-plus"></i></a>
-                                        </div>
-                                    </li>
-
-                                    {{{renderInventory 3 actor.data._id 'Belt' 'Worn' 'actor'}}}
-                                </ol>
-
-                                <ol id="groundSlot" class="items-list inventory-container col" data-container-type="On Ground" style="margin: 0 3px 0 3px;">
-                                    <li class="item flexrow item-header" id="groundSlotHeader">
-                                        <div class="item-image"></div>
-                                        <div class="item-name" style="font-family: Souvenir-Demi;">On Ground</div>
-                                        <div class="item-controls">
-                                            <a class="item-control item-create" title="Create item" data-type="item" type="On Ground"><i class="fas fa-plus"></i></a>
-                                        </div>
-                                    </li>
-                                    {{{renderInventory 0 actor.data._id 'On Ground' 'Ground' 'actor'}}}
-                                </ol>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="tab items" data-group="inventory" data-tab="elsewhere">
-                    <div class="subtabbed container scroll">
-                        <div class="row">
-                            <div class="col">
-                                <ol id="cachedSlot" class="items-list inventory-container col" data-container-type="Cached" style="margin: 0 3px 0 3px;">
-                                    <!-- Section header -->
-                                    <li class="item flexrow item-header" id="cachedSlotHeader">
-                                        <div class="item-image"></div>
-                                        <div class="item-name" style="font-family: Souvenir-Demi;">Cached</div>
-                                        <div class="item-controls">
-                                            <a class="item-control item-create" title="Create item" data-type="item" type="Cached"><i class="fas fa-plus"></i></a>
-                                        </div>
-                                    </li>
-                                    {{{renderInventory 0 actor.data._id 'Cached' 'Cached' 'actor'}}}
-                                </ol>
-                            </div>
-                            <div class="col">
-                                <ol id="lostSlot" class="items-list inventory-container col" data-container-type="Lost" style="margin: 0 3px 0 3px;">
-                                    <!-- Section header -->
-                                    <li class="item flexrow item-header" id="cachedSlotHeader">
-                                        <div class="item-image"></div>
-                                        <div class="item-name" style="font-family: Souvenir-Demi;">Lost</div>
-                                        <div class="item-controls">
-                                            <a class="item-control item-create" title="Create item" data-type="item" type="Lost"><i class="fas fa-plus"></i></a>
-                                        </div>
-                                    </li>
-                                    {{{renderInventory 0 actor.data._id 'Lost' 'Lost' 'actor'}}}
-                                </ol>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+        <div class="grid grid-2col" style="gap: 5px; margin: 5px 0;">
+          <div class="resource flexrow flex-group-center">
+            <label style="font-family: Souvenir-Demi; font-size: 16px;" for="data.age">Age</label>
+            <input type="text" name="data.age" value="{{data.age}}" data-dtype="Number" />
+          </div>
+          <div class="resource flexrow flex-group-center">
+            <label style="font-family: Souvenir-Demi; font-size: 16px;" for="data.home">Home</label>
+            <input type="text" name="data.home" value="{{data.home}}" data-dtype="String" />
+          </div>
         </div>
-
-        {{!-- Magic Tab --}}
-        <div class="tab" data-group="primary" data-tab="magic">
-
-          <table class="tbtable">
-            <thead class="theader" style="font-family: Souvenir-Demi;">
-              <th style="text-align: center;">Cast?</th>
-              <th style="text-align: center">Spell</th>
-              <th style="text-align: center;">Library</th>
-              <th style="text-align: center;">Book</th>
-              <th style="text-align: center;">Mem.</th>
-              <th style="text-align: center;">Scroll</th>
-              <th style="text-align: center;">Supplies</th>
-              <th></th>
-            </thead>
-
-            <tbody style="font-family: Souvenir-Medium;">
-              <!-- First Circle Spells -->
-              <tr>
-                <td colspan="8" style="text-align: center; background-color: rgba(0, 0, 0, 0.05); border-bottom: 1px solid gray;">~ First Circle ~</td>
-              </tr>
-              {{#each data.computed.spells.first as |spell|}}
-              <tr id="${element.id}">
-                <td style="text-align: center;">
-                  <input type="checkbox" class="spell-toggle" id="{{_id}}" title="cast" {{checked data.cast}}>
-                </td>
-                <td>
-                  <h4 class="spell-name clickable" style="font-family: Souvenir-Medium; margin-bottom: 0px;" title="{{_id}}">{{name}}</h4>
-                </td>
-                <td style="text-align: center;">
-                  <input type="checkbox" class="spell-toggle" id="{{_id}}" title="library" {{checked data.library}}>
-                </td>
-                <td style="text-align: center;">
-                  <input type="checkbox" class="spell-toggle" id="{{_id}}" title="spellbook" {{checked data.spellbook}}>
-                </td>
-                <td style="text-align: center;">
-                  <input type="checkbox" class="spell-toggle" id="{{_id}}" title="memorized" {{checked data.memorized}}>
-                </td>
-                <td style="text-align: center;">
-                  <input type="checkbox" class="spell-toggle" id="{{_id}}" title="scroll" {{checked data.scroll}}>
-                </td>
-                <td style="text-align: center;">
-                  <input type="checkbox" class="spell-toggle" id="{{_id}}" title="supplies" {{checked data.supplies}}>
-                </td>
-                <td style="text-align: center;">
-                  <a class="item-control spell-delete" title="Delete Item" name="{{_id}}"><i class="fas fa-trash"></i></a>
-                </td>
-              </tr>
-              {{/each}}
-              <!-- Second Circle Spells -->
-              <tr>
-                <td colspan="8" style="text-align: center; background-color: rgba(0, 0, 0, 0.05); border-bottom: 1px solid gray;">~ Second Circle ~</td>
-              </tr>
-              {{#each data.computed.spells.second as |spell|}}
-              <tr id="${element.id}">
-                <td style="text-align: center;">
-                  <input type="checkbox" class="spell-toggle" id="{{_id}}" title="cast" {{checked data.cast}}>
-                </td>
-                <td>
-                  <h4 class="spell-name clickable" style="font-family: Souvenir-Medium; margin-bottom: 0px;" title="{{_id}}">{{name}}</h4>
-                </td>
-                <td style="text-align: center;">
-                  <input type="checkbox" class="spell-toggle" id="{{_id}}" title="library" {{checked data.library}}>
-                </td>
-                <td style="text-align: center;">
-                  <input type="checkbox" class="spell-toggle" id="{{_id}}" title="spellbook" {{checked data.spellbook}}>
-                </td>
-                <td style="text-align: center;">
-                  <input type="checkbox" class="spell-toggle" id="{{_id}}" title="memorized" {{checked data.memorized}}>
-                </td>
-                <td style="text-align: center;">
-                  <input type="checkbox" class="spell-toggle" id="{{_id}}" title="scroll" {{checked data.scroll}}>
-                </td>
-                <td style="text-align: center;">
-                  <input type="checkbox" class="spell-toggle" id="{{_id}}" title="supplies" {{checked data.supplies}}>
-                </td>
-                <td style="text-align: center;">
-                  <a class="item-control spell-delete" title="Delete Item" name="{{_id}}"><i class="fas fa-trash"></i></a>
-                </td>
-              </tr>
-              {{/each}}
-            </tbody>
-          </table>
-
+        <div class="grid grid-2col" style="gap: 5px; margin: 5px 0;">
+          <div class="resource flexrow flex-group-center">
+            <label style="font-family: Souvenir-Demi; font-size: 16px;" for="data.parents">Parents</label>
+            <input type="text" name="data.parents" value="{{data.parents}}" data-dtype="String" />
+          </div>
+          <div class="resource flexrow flex-group-center">
+            <label style="font-family: Souvenir-Demi; font-size: 16px;" for="data.charMentor">Mentor</label>
+            <input type="text" name="data.charMentor" value="{{data.charMentor}}" data-dtype="String" />
+          </div>
         </div>
+        <div class="grid grid-2col" style="gap: 5px; margin: 5px 0;">
+          <div class="resource flexrow flex-group-center">
+            <label style="font-family: Souvenir-Demi; font-size: 16px;" for="data.friend">Friend</label>
+            <input type="text" name="data.friend" value="{{data.friend}}" data-dtype="String" />
+          </div>
+          <div class="resource flexrow flex-group-center">
+            <label style="font-family: Souvenir-Demi; font-size: 16px;" for="data.enemy">Enemy</label>
+            <input type="text" name="data.enemy" value="{{data.enemy}}" data-dtype="String" />
+          </div>
+        </div>
+        <div class="grid grid-2col" style="gap: 5px; margin: 5px 0;">
+          <div class="resource flexrow flex-group-center">
+            <label style="font-family: Souvenir-Demi; font-size: 16px;" for="data.raiment">Raiment</label>
+            <input type="text" name="data.raiment" value="{{data.raiment}}" data-dtype="String" />
+          </div>
+        </div>
+      </div>
+    </div>
 
-        {{!-- Notes Tab --}}
-        <div class="tab items" data-group="primary" data-tab="notes" style="margin-top: 5px;">
-          <div class="container scroll" style="overflow-y: hidden;">
-            <!-- Roleplay Cues -->
-            <div>
-              <div style="display: flex; flex-direction: row; align-items: baseline;">
-                <h2 style="font-family: Souvenir-Demi; border: none; margin: 0 0 0 0rem !important;">Roleplay Cues</h2>
-                <h5 style="font-family: Souvenir-MediumItalic; margin: 0 0 0 0rem !important; text-align: right; flex-grow: 3;">Tics, accent, emotional triggers, etc.</h5>
-              </div>
-              <textarea type="text" name="data.roleplay" value="{{data.roleplay}}" style="font-family: Souvenir-Medium" rows="1" placeholder="I sneeze when I'm scared."></textarea>
+    {{! 'Abilities / Wises / Traits' Tab }}
+    <div class="tab items" data-group="primary" data-tab="abilities">
+      <div class="grid grid-col2" style="gap: 0px; margin: 5px 0 5px 0;">
+        <!-- Abilities Div -->
+        <div id="abilities" style="border-right: 1px solid #AAA;">
+          <!-- Header -->
+          <h2
+            style="font-family: Souvenir-Demi; border: none; margin: 0 0 0 0rem !important; text-align: center;"
+          >Abilities</h2>
+          <!-- Table Start -->
+          <div class="grid grid-3col" style="margin-right: 10px;">
+            <h4 style="font-family: Souvenir-Demi; margin: 0 0 0 0rem !important;"><u>Ability</u></h4>
+            <h4 style="font-family: Souvenir-Demi; margin: 0 0 0 0rem !important; text-align: center"><u>Rating</u></h4>
+            <h4 style="font-family: Souvenir-Demi; margin: 0 0 0 0rem !important; text-align: center"><u>Pass / Fail</u></h4>
+          </div>
+          <!-- Will -->
+          <div class="grid grid-3col" style="margin-right: 10px;">
+            <div style="align-self: center;">
+              <h4 class="advanceAbility" style="font-family: Souvenir-Medium; margin: 0 0 0 0rem !important;">Will</h4>
             </div>
-
-            <!-- Dramatic Arc -->
-            <div>
-              <div style="display: flex; flex-direction: row; align-items: baseline;">
-                <h2 style="font-family: Souvenir-Demi; border: none; margin: 0 0 0 0rem !important;">Dramatic Arc</h2>
-                <h5 style="font-family: Souvenir-MediumItalic; margin: 0 0 0 0rem !important; text-align: right; flex-grow: 3;">Themes and character arc.</h5>
-              </div>
-              <textarea type="text" name="data.arc" value="{{data.arc}}" style="font-family: Souvenir-Medium" rows="1" placeholder="What themes are being explored with this character? What are their dramatic conflicts and arc?"></textarea>
+            <div style="display: flex; flex-direction: row; text-align: center;">
+              <input
+                type="text"
+                name="data.will.value"
+                value="{{data.will.value}}"
+                data-dtype="Number"
+                style="padding: 5px; margin: 0 10px 0 10px; width: 30px"
+              />
+              <img
+                src="../systems/torchbearer/assets/icons/d6.png"
+                style="height: 24px; width: 24; border: none; margin-left: 7px;"
+                class="rollable"
+                data-label="will"
+              />
             </div>
-
-            <!-- Allies & Enemies -->
-            <div class="container scroll">
-              <div style="display: flex; flex-direction: row; align-items: baseline;">
-                <h2 style="font-family: Souvenir-Demi; border: none; margin: 0 0 0 0rem !important;">Allies & Enemies</h2>
-              </div>
-              <div class="row" style="flex-wrap: nowrap; font-family: Souvenir-Demi;">
-                <div class="col" style="flex-grow: 0; flex-shrink: 0; flex-basis: 52px;">Status</div>
-                <div class="col" style="flex-grow: 1; flex-shrink: 1; flex-basis: 100px;">Name</div>
-                <div class="col" style="flex-grow: 1; flex-shrink: 1; flex-basis: 100px;">Location</div>
-                <div class="col">Notes</div>
-              </div>
-              {{#each data.alliesEnemies as |character key|}}
-              <div class="row" style="flex-wrap: nowrap;">
-                <div class="col" style="flex-grow: 0; flex-shrink: 0; flex-basis: 52px; text-align: center;">
-                  <label for="data.alliesEnemies.{{key}}.enemy">
-                    {{#ifeq character.enemy false}}
-                    <img class="ally" id="{{key}}" src="../systems/torchbearer/assets/icons/ally.png" style="height: auto; width: 24px; border: none;">
-                    {{/ifeq}}
-                    {{#ifeq character.enemy true}}
-                    <img class="ally" id="{{key}}" src="../systems/torchbearer/assets/icons/enemy.png" style="height: auto; width: 24px; border: none;">
-                    {{/ifeq}}
-                  </label>
-                  <input type="checkbox" name="data.alliesEnemies.{{key}}.enemy" id="data.alliesEnemies.{{key}}.enemy" hidden {{checked character.enemy}}>
-                </div>
-                <div class="col" style="flex-grow: 1; flex-shrink: 1; flex-basis: 100px;">
-                  <input type="text" name="data.alliesEnemies.{{key}}.name" value="{{character.name}}">
-                </div>
-                <div class="col" style="flex-grow: 1; flex-shrink: 1; flex-basis: 100px;">
-                  <input type="text" name="data.alliesEnemies.{{key}}.location" value="{{character.location}}">
-                </div>
-                <div class="col">
-                  <input type="text" name="data.alliesEnemies.{{key}}.notes" value="{{character.notes}}">
-                </div>
-              </div>
-              {{/each}}
+            <div class="resource-content flexrow flex-center flex-between">
+              <input id="willPass" type="text" name="data.will.pass" value="{{data.will.pass}}" data-dtype="Number" />
+              <span> / </span>
+              <input id="willFail" type="text" name="data.will.fail" value="{{data.will.fail}}" data-dtype="Number" />
+            </div>
+          </div>
+          <!-- Health -->
+          <div class="grid grid-3col" style="margin-right: 10px;">
+            <h4
+              class="advanceAbility"
+              style="font-family: Souvenir-Medium; margin: 0 0 0 0rem !important; align-self: center;"
+            >Health</h4>
+            <div style="display: flex; flex-direction: row; text-align: center;">
+              <input
+                type="text"
+                name="data.health.value"
+                value="{{data.health.value}}"
+                data-dtype="Number"
+                style="padding: 5px; margin: 0 10px 0 10px; width: 30px"
+              />
+              <img
+                src="../systems/torchbearer/assets/icons/d6.png"
+                style="height: 24px; width: 24; border: none; margin-left: 7px;"
+                class="rollable"
+                data-label="health"
+              />
+            </div>
+            <div class="resource-content flexrow flex-center flex-between">
+              <input
+                id="healthPass"
+                type="text"
+                name="data.health.pass"
+                value="{{data.health.pass}}"
+                data-dtype="Number"
+              />
+              <span> / </span>
+              <input
+                id="healthFail"
+                type="text"
+                name="data.health.fail"
+                value="{{data.health.fail}}"
+                data-dtype="Number"
+              />
+            </div>
+          </div>
+          <!-- Nature -->
+          <div class="grid grid-3col" style="margin-right: 10px;">
+            <h4
+              class="advanceAbility"
+              style="font-family: Souvenir-Medium; margin: 0 0 0 0rem !important; align-self: center;"
+            >Nature</h4>
+            <div style="display: flex; flex-direction: row; align-items: center;">
+              <input
+                type="text"
+                name="data.nature.value"
+                value="{{data.nature.value}}"
+                data-dtype="Number"
+                style="padding: 5px; width: 10px"
+              />
+              <span>&nbsp/&nbsp</span>
+              <input
+                type="text"
+                name="data.nature.max"
+                value="{{data.nature.max}}"
+                data-dtype="Number"
+                style="padding: 5px; margin-right: 5px; width: 10px"
+              />
+              <img
+                src="../systems/torchbearer/assets/icons/d6.png"
+                style="height: 24px; width: 24; border: none;"
+                class="rollable"
+                data-label="nature"
+              />
+            </div>
+            <div class="resource-content flexrow flex-center flex-between">
+              <input
+                id="naturePass"
+                type="text"
+                name="data.nature.pass"
+                value="{{data.nature.pass}}"
+                data-dtype="Number"
+              />
+              <span> / </span>
+              <input
+                id="natureFail"
+                type="text"
+                name="data.nature.fail"
+                value="{{data.nature.fail}}"
+                data-dtype="Number"
+              />
+            </div>
+          </div>
+          <!-- Resources -->
+          <div class="grid grid-3col" style="margin-right: 10px;">
+            <h4
+              class="advanceAbility"
+              style="font-family: Souvenir-Medium; margin: 0 0 0 0rem !important; align-self: center;"
+            >Resources</h4>
+            <div style="display: flex; flex-direction: row; text-align: center;">
+              <input
+                type="text"
+                name="data.resources.value"
+                value="{{data.resources.value}}"
+                data-dtype="Number"
+                style="padding: 5px; margin: 0 10px 0 10px; width: 30px"
+              />
+              <img
+                src="../systems/torchbearer/assets/icons/d6.png"
+                style="height: 24px; width: 24; border: none; margin-left: 7px;"
+                class="rollable"
+                data-label="resources"
+              />
+            </div>
+            <div class="resource-content flexrow flex-center flex-between">
+              <input
+                id="resourcesPass"
+                type="text"
+                name="data.resources.pass"
+                value="{{data.resources.pass}}"
+                data-dtype="Number"
+              />
+              <span> / </span>
+              <input
+                id="resourcesFail"
+                type="text"
+                name="data.resources.fail"
+                value="{{data.resources.fail}}"
+                data-dtype="Number"
+              />
+            </div>
+          </div>
+          <!-- Circles -->
+          <div class="grid grid-3col" style="margin-right: 10px;">
+            <h4
+              class="advanceAbility"
+              style="font-family: Souvenir-Medium; margin: 0 0 0 0rem !important; align-self: center;"
+            >Circles</h4>
+            <div style="display: flex; flex-direction: row; text-align: center;">
+              <input
+                type="text"
+                name="data.circles.value"
+                value="{{data.circles.value}}"
+                data-dtype="Number"
+                style="padding: 5px; margin: 0 10px 0 10px; width: 30px"
+              />
+              <img
+                src="../systems/torchbearer/assets/icons/d6.png"
+                style="height: 24px; width: 24; border: none; margin-left: 7px;"
+                class="rollable"
+                data-label="circles"
+              />
+            </div>
+            <div class="resource-content flexrow flex-center flex-between">
+              <input
+                id="circlesPass"
+                type="text"
+                name="data.circles.pass"
+                value="{{data.circles.pass}}"
+                data-dtype="Number"
+              />
+              <span> / </span>
+              <input
+                id="circlesFail"
+                type="text"
+                name="data.circles.fail"
+                value="{{data.circles.fail}}"
+                data-dtype="Number"
+              />
+            </div>
+          </div>
+          <!-- Precedence and Might -->
+          <div style="display: flex; flex-direction: row;">
+            <!-- Precedence -->
+            <div style="display: flex; flex-direction: row; text-align: center;">
+              <h4
+                style="font-family: Souvenir-Medium; width: 81.66px; margin: 0 10px 0 0 !important; align-self: center;"
+              >Precedence</h4>
+              <input
+                type="text"
+                name="data.precedence.value"
+                value="{{data.precedence.value}}"
+                data-dtype="Number"
+                style="margin: 0 0 0 11px; width: 30px !important; justify-self: end;"
+              />
+            </div>
+            <!-- Might -->
+            <div style="display: flex; flex-direction: row; text-align: center;">
+              <h4 style="font-family: Souvenir-Medium; margin: 0 20px 0 48px !important; align-self: center;">Might</h4>
+              <input
+                type="text"
+                name="data.might.value"
+                value="{{data.might.value}}"
+                data-dtype="Number"
+                style="width: 30px !important; justify-self: end;"
+              />
             </div>
           </div>
         </div>
+        <!-- Wises Div -->
+        <div id="wises">
+          <h2
+            style="font-family: Souvenir-Demi; border: none; margin: 0 0 0 0rem !important; text-align: center;"
+          >Wises</h2>
+          <div id="wise1">
+            <div style="padding: 0 0 0 10px;">
+              <input
+                style="margin-top: 10px;"
+                type="text"
+                name="data.wise1.name"
+                value="{{data.wise1.name}}"
+                data-dtype="String"
+              />
+            </div>
+            <div class="row flex-between" style="align-items: center; padding: 0 0 0 10px;">
+              <label for="data.wise1.pass" style="font-family: Souvenir-Medium;">Pass</label>
+              <input
+                type="checkbox"
+                name="data.wise1.pass"
+                id="wise1pass"
+                style="margin: 3px 0 3px 0;"
+                {{checked data.wise1.pass}}
+              />
+              <span> | </span>
+              <label for="data.wise1.fail" style="font-family: Souvenir-Medium;">Fail</label>
+              <input
+                type="checkbox"
+                name="data.wise1.fail"
+                id="wise1fail"
+                style="margin: 3px 0 3px 0;"
+                {{checked data.wise1.fail}}
+              />
+              <span> | </span>
+              <label for="data.wise1.fate" style="font-family: Souvenir-Medium;">Fate</label>
+              <input
+                type="checkbox"
+                name="data.wise1.fate"
+                id="wise1fate"
+                style="margin: 3px 0 3px 0;"
+                {{checked data.wise1.fate}}
+              />
+              <span> | </span>
+              <label for="data.wise1.persona" style="font-family: Souvenir-Medium;">Persona</label>
+              <input
+                type="checkbox"
+                name="data.wise1.persona"
+                id="wise1persona"
+                style="margin: 3px 0 3px 0;"
+                {{checked data.wise1.persona}}
+              />
+            </div>
+          </div>
+          <div id="wise2">
+            <div style="padding: 0 0 0 10px;">
+              <input
+                style="margin-top: 10px;"
+                type="text"
+                name="data.wise2.name"
+                value="{{data.wise2.name}}"
+                data-dtype="String"
+              />
+            </div>
+            <div class="row flex-between" style="align-items: center; padding: 0 0 0 10px;">
+              <label for="data.wise2.pass" style="font-family: Souvenir-Medium;">Pass</label>
+              <input
+                type="checkbox"
+                name="data.wise2.pass"
+                id="wise2pass"
+                style="margin: 3px 0 3px 0;"
+                {{checked data.wise2.pass}}
+              />
+              <span> | </span>
+              <label for="data.wise2.fail" style="font-family: Souvenir-Medium;">Fail</label>
+              <input
+                type="checkbox"
+                name="data.wise2.fail"
+                id="wise2fail"
+                style="margin: 3px 0 3px 0;"
+                {{checked data.wise2.fail}}
+              />
+              <span> | </span>
+              <label for="data.wise2.fate" style="font-family: Souvenir-Medium;">Fate</label>
+              <input
+                type="checkbox"
+                name="data.wise2.fate"
+                id="wise2fate"
+                style="margin: 3px 0 3px 0;"
+                {{checked data.wise2.fate}}
+              />
+              <span> | </span>
+              <label for="data.wise2.persona" style="font-family: Souvenir-Medium;">Persona</label>
+              <input
+                type="checkbox"
+                name="data.wise2.persona"
+                id="wise2persona"
+                style="margin: 3px 0 3px 0;"
+                {{checked data.wise2.persona}}
+              />
+            </div>
+          </div>
+          <div id="wise3">
+            <div style="padding: 0 0 0 10px;">
+              <input
+                style="margin-top: 10px;"
+                type="text"
+                name="data.wise3.name"
+                value="{{data.wise3.name}}"
+                data-dtype="String"
+              />
+            </div>
+            <div class="row flex-between" style="align-items: center; padding: 0 0 0 10px;">
+              <label for="data.wise3.pass" style="font-family: Souvenir-Medium;">Pass</label>
+              <input
+                type="checkbox"
+                name="data.wise3.pass"
+                id="wise3pass"
+                style="margin: 3px 0 3px 0;"
+                {{checked data.wise3.pass}}
+              />
+              <span> | </span>
+              <label for="data.wise3.fail" style="font-family: Souvenir-Medium;">Fail</label>
+              <input
+                type="checkbox"
+                name="data.wise3.fail"
+                id="wise3fail"
+                style="margin: 3px 0 3px 0;"
+                {{checked data.wise3.fail}}
+              />
+              <span> | </span>
+              <label for="data.wise3.fate" style="font-family: Souvenir-Medium;">Fate</label>
+              <input
+                type="checkbox"
+                name="data.wise3.fate"
+                id="wise3fate"
+                style="margin: 3px 0 3px 0;"
+                {{checked data.wise3.fate}}
+              />
+              <span> | </span>
+              <label for="data.wise3.persona" style="font-family: Souvenir-Medium;">Persona</label>
+              <input
+                type="checkbox"
+                name="data.wise3.persona"
+                id="wise3persona"
+                style="margin: 3px 0 3px 0;"
+                {{checked data.wise3.persona}}
+              />
+            </div>
+          </div>
+          <div id="wise4">
+            <div style="padding: 0 0 0 10px;">
+              <input
+                style="margin-top: 10px;"
+                type="text"
+                name="data.wise4.name"
+                value="{{data.wise4.name}}"
+                data-dtype="String"
+              />
+            </div>
+            <div class="row flex-between" style="align-items: center; padding: 0 0 0 10px;">
+              <label for="data.wise4.pass" style="font-family: Souvenir-Medium;">Pass</label>
+              <input
+                type="checkbox"
+                name="data.wise4.pass"
+                id="wise4pass"
+                style="margin: 3px 0 3px 0;"
+                {{checked data.wise4.pass}}
+              />
+              <span> | </span>
+              <label for="data.wise4.fail" style="font-family: Souvenir-Medium;">Fail</label>
+              <input
+                type="checkbox"
+                name="data.wise4.fail"
+                id="wise4fail"
+                style="margin: 3px 0 3px 0;"
+                {{checked data.wise4.fail}}
+              />
+              <span> | </span>
+              <label for="data.wise4.fate" style="font-family: Souvenir-Medium;">Fate</label>
+              <input
+                type="checkbox"
+                name="data.wise4.fate"
+                id="wise4fate"
+                style="margin: 3px 0 3px 0;"
+                {{checked data.wise4.fate}}
+              />
+              <span> | </span>
+              <label for="data.wise4.persona" style="font-family: Souvenir-Medium;">Persona</label>
+              <input
+                type="checkbox"
+                name="data.wise4.persona"
+                id="wise4persona"
+                style="margin: 3px 0 3px 0;"
+                {{checked data.wise4.persona}}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr style="border-top: 1px solid #AAA; border-bottom: none;" />
+      <!-- Traits Div -->
+      <div>
+        <!-- Traits Header -->
+        <h2
+          style="font-family: Souvenir-Demi; border: none; margin: 0 0 0 0rem !important; text-align: center;"
+        >Traits</h2>
+        <div
+          class="grid grid-4col"
+          style="gap: 5px; margin: 0 0 0 0 !important; grid-template-columns: 270px 70px 150px 50px;"
+        >
+          <h4 style="font-family: Souvenir-Demi; margin: 0 0 0 0rem !important;"><u>Trait name</u></h4>
+          <h4 style="font-family: Souvenir-Demi; margin: 0 0 0 0rem !important; justify-self: center;"><u>Trait level</u></h4>
+          <h4 style="font-family: Souvenir-Demi; margin: 0 0 0 0rem !important; justify-self: center;"><u>Beneficial
+              Uses</u></h4>
+          <h4 style="font-family: Souvenir-Demi; margin: 0 0 0 0rem !important; justify-self: center;"><u
+            >Checks</u></h4>
+        </div>
+        <!-- Trait 1 -->
+        <div
+          class="grid grid-4col"
+          style="gap: 5px; align-items: flex-end; grid-template-columns: auto 70px 150px 50px;"
+        >
+          <div id="trait1Input">
+            <!-- Need a Traits comendium for this to work -->
+            <!-- <input type="text" id="trait1Dialog" class="clearPulldown" list="traitsList"> -->
+            <input type="text" name="data.traits.trait1.name" value="{{data.traits.trait1.name}}" id="trait1Name" />
+          </div>
+          <div id="trait1Data" style="justify-self: center;">
+            <select name="data.traits.trait1.level.value" id="trait1LevelDropdown" title="trait1">
+              {{#select data.traits.trait1.level.value}}
+                <option value="1" selected>1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+              {{/select}}
+            </select>
+          </div>
+          {{#ifeq data.traits.trait1.level.value "1"}}
+            <div id="trait1Uses" style="display: flex; flex-direction: row; align-items: center;">
+              <input
+                type="checkbox"
+                name="data.traits.trait1.uses.level1.use1"
+                id="trait1Level1Used"
+                {{checked data.traits.trait1.uses.level1.use1}}
+              />
+              <label
+                for="data.traits.trait1.uses.level1.use1"
+                style="font-family: Souvenir-Medium;"
+                id="trait1UseLabel"
+              >+1D per session</label>
+            </div>
+          {{/ifeq}}
+          {{#ifeq data.traits.trait1.level.value "2"}}
+            <div id="trait1Uses" style="display: flex; flex-direction: row; align-items: center;">
+              <input
+                type="checkbox"
+                name="data.traits.trait1.uses.level1.use1"
+                id="trait1Level1Used"
+                {{checked data.traits.trait1.uses.level1.use1}}
+              />
+              <input
+                type="checkbox"
+                name="data.traits.trait1.uses.level2.use2"
+                id="trait1Level2Used"
+                {{checked data.traits.trait1.uses.level2.use2}}
+              />
+              <label
+                for="data.traits.trait1.uses.level1.use1"
+                style="font-family: Souvenir-Medium;"
+                id="trait1UseLabel"
+              >+1D</label>
+            </div>
+          {{/ifeq}}
+          {{#ifeq data.traits.trait1.level.value "3"}}
+            <div id="trait1Uses" style="display: flex; flex-direction: row; align-self: center;">
+              <label style="font-family: Souvenir-Medium; margin: auto;" id="trait1UseLabel">All appropriate tests</label>
+            </div>
+          {{/ifeq}}
+          <div id="trait1Checks" style="margin: auto; text-align: center;">
+            <input
+              type="text"
+              name="data.traits.trait1.checks.checksEarned"
+              value="{{data.traits.trait1.checks.checksEarned}}"
+              id="trait1ChecksEarned"
+              style="width: 30px"
+            />
+          </div>
+        </div>
+        <!-- Trait 2 -->
+        <div
+          class="grid grid-4col"
+          style="gap: 5px; align-items: flex-end; grid-template-columns: auto 70px 150px 50px;"
+        >
+          <div id="trait2Input">
+            <!-- <input type="text" id="trait2Dialog" class="clearPulldown" list="traitsList"> -->
+            <input type="text" name="data.traits.trait2.name" value="{{data.traits.trait2.name}}" id="trait2Name" />
+          </div>
+          <div id="trait2Data" style="justify-self: center;">
+            <select name="data.traits.trait2.level.value" id="trait2Level">
+              {{#select data.traits.trait2.level.value}}
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+              {{/select}}
+            </select>
+          </div>
+          {{#ifeq data.traits.trait2.level.value "1"}}
+            <div id="trait2Uses" style="display: flex; flex-direction: row; align-items: center;">
+              <input
+                type="checkbox"
+                name="data.traits.trait2.uses.level1.use1"
+                id="trait2Level1Used"
+                {{checked data.traits.trait2.uses.level1.use1}}
+              />
+              <label
+                for="data.traits.trait2.uses.level1.use1"
+                style="font-family: Souvenir-Medium;"
+                id="trait2UseLabel"
+              >+1D per session</label>
+            </div>
+          {{/ifeq}}
+          {{#ifeq data.traits.trait2.level.value "2"}}
+            <div id="trait2Uses" style="display: flex; flex-direction: row; align-items: center;">
+              <input
+                type="checkbox"
+                name="data.traits.trait2.uses.level1.use1"
+                id="trait2Level1Used"
+                {{checked data.traits.trait2.uses.level1.use1}}
+              />
+              <input
+                type="checkbox"
+                name="data.traits.trait2.uses.level2.use2"
+                id="trait2Level2Used"
+                {{checked data.traits.trait2.uses.level2.use2}}
+              />
+              <label
+                for="data.traits.trait2.uses.level1.use1"
+                style="font-family: Souvenir-Medium;"
+                id="trait2UseLabel"
+              >+1D</label>
+            </div>
+          {{/ifeq}}
+          {{#ifeq data.traits.trait2.level.value "3"}}
+            <div id="trait2Uses" style="display: flex; flex-direction: row; align-self: center;">
+              <label style="font-family: Souvenir-Medium; margin: auto;" id="trait2UseLabel">All appropriate tests</label>
+            </div>
+          {{/ifeq}}
+          <div id="trait2Checks" style="margin: auto; text-align: center;">
+            <input
+              type="text"
+              name="data.traits.trait2.checks.checksEarned"
+              value="{{data.traits.trait2.checks.checksEarned}}"
+              id="trait2ChecksEarned"
+              style="width: 30px"
+            />
+          </div>
+        </div>
+        <!-- Trait 3 -->
+        <div
+          class="grid grid-4col"
+          style="gap: 5px; align-items: flex-end; grid-template-columns: auto 70px 150px 50px;"
+        >
+          <div id="trait3Input">
+            <!-- <input type="text" id="trait3Dialog" class="clearPulldown" list="traitsList"> -->
+            <input type="text" name="data.traits.trait3.name" value="{{data.traits.trait3.name}}" id="trait3Name" />
+          </div>
+          <div id="trait3Data" style="justify-self: center;">
+            <select name="data.traits.trait3.level.value" id="trait3Level">
+              {{#select data.traits.trait3.level.value}}
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+              {{/select}}
+            </select>
+          </div>
+          {{#ifeq data.traits.trait3.level.value "1"}}
+            <div id="trait3Uses" style="display: flex; flex-direction: row; align-items: center;">
+              <input
+                type="checkbox"
+                name="data.traits.trait3.uses.level1.use1"
+                id="trait3Level1Used"
+                {{checked data.traits.trait3.uses.level1.use1}}
+              />
+              <label
+                for="data.traits.trait3.uses.level1.use1"
+                style="font-family: Souvenir-Medium;"
+                id="trait3UseLabel"
+              >+1D per session</label>
+            </div>
+          {{/ifeq}}
+          {{#ifeq data.traits.trait3.level.value "2"}}
+            <div id="trait3Uses" style="display: flex; flex-direction: row; align-items: center;">
+              <input
+                type="checkbox"
+                name="data.traits.trait3.uses.level1.use1"
+                id="trait3Level1Used"
+                {{checked data.traits.trait3.uses.level1.use1}}
+              />
+              <input
+                type="checkbox"
+                name="data.traits.trait3.uses.level2.use2"
+                id="trait3Level2Used"
+                {{checked data.traits.trait3.uses.level2.use2}}
+              />
+              <label
+                for="data.traits.trait3.uses.level1.use1"
+                style="font-family: Souvenir-Medium;"
+                id="trait3UseLabel"
+              >+1D</label>
+            </div>
+          {{/ifeq}}
+          {{#ifeq data.traits.trait3.level.value "3"}}
+            <div id="trait3Uses" style="display: flex; flex-direction: row; align-self: center;">
+              <label style="font-family: Souvenir-Medium; margin: auto;" id="trait3UseLabel">All appropriate tests</label>
+            </div>
+          {{/ifeq}}
+          <div id="trait3Checks" style="margin: auto; text-align: center;">
+            <input
+              type="text"
+              name="data.traits.trait3.checks.checksEarned"
+              value="{{data.traits.trait3.checks.checksEarned}}"
+              id="trait3ChecksEarned"
+              style="width: 30px"
+            />
+          </div>
+        </div>
+        <!-- Trait 4 -->
+        <div
+          class="grid grid-4col"
+          style="gap: 5px; align-items: flex-end; grid-template-columns: auto 70px 150px 50px;"
+        >
+          <div id="trait4Input">
+            <!-- <input type="text" id="trait4Dialog" class="clearPulldown" list="traitsList"> -->
+            <input type="text" name="data.traits.trait4.name" value="{{data.traits.trait4.name}}" id="trait4Name" />
+          </div>
+          <div id="trait4Data" style="justify-self: center;">
+            <select name="data.traits.trait4.level.value" id="trait4Level">
+              {{#select data.traits.trait4.level.value}}
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+              {{/select}}
+            </select>
+          </div>
+          {{#ifeq data.traits.trait4.level.value "1"}}
+            <div id="trait4Uses" style="display: flex; flex-direction: row; align-items: center;">
+              <input
+                type="checkbox"
+                name="data.traits.trait4.uses.level1.use1"
+                id="trait4Level1Used"
+                {{checked data.traits.trait4.uses.level1.use1}}
+              />
+              <label
+                for="data.traits.trait4.uses.level1.use1"
+                style="font-family: Souvenir-Medium;"
+                id="trait4UseLabel"
+              >+1D per session</label>
+            </div>
+          {{/ifeq}}
+          {{#ifeq data.traits.trait4.level.value "2"}}
+            <div id="trait4Uses" style="display: flex; flex-direction: row; align-items: center;">
+              <input
+                type="checkbox"
+                name="data.traits.trait4.uses.level1.use1"
+                id="trait4Level1Used"
+                {{checked data.traits.trait4.uses.level1.use1}}
+              />
+              <input
+                type="checkbox"
+                name="data.traits.trait4.uses.level2.use2"
+                id="trait4Level2Used"
+                {{checked data.traits.trait4.uses.level2.use2}}
+              />
+              <label
+                for="data.traits.trait4.uses.level1.use1"
+                style="font-family: Souvenir-Medium;"
+                id="trait4UseLabel"
+              >+1D</label>
+            </div>
+          {{/ifeq}}
+          {{#ifeq data.traits.trait4.level.value "3"}}
+            <div id="trait4Uses" style="display: flex; flex-direction: row; align-self: center;">
+              <label style="font-family: Souvenir-Medium; margin: auto;" id="trait4UseLabel">All appropriate tests</label>
+            </div>
+          {{/ifeq}}
+          <div id="trait4Checks" style="margin: auto; text-align: center;">
+            <input
+              type="text"
+              name="data.traits.trait4.checks.checksEarned"
+              value="{{data.traits.trait4.checks.checksEarned}}"
+              id="trait4ChecksEarned"
+              style="width: 30px"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
 
-    </section>
+    {{! 'Skills' Tab }}
+    <div class="tab items" data-group="primary" data-tab="skills">
+      <div class="container scroll">
+        <table class="tbtable">
+          <thead class="theader" style="font-family: Souvenir-Demi;">
+            <th style="text-align: left;">Skill</th>
+            <th style="text-align: center;">Rating</th>
+            <th style="text-align: center; padding-left: 20px;">Pass / Fail</th>
+            <th style="text-align: center; padding-left: 20px;">BL</th>
+            <th style="text-align: left; padding-left: 20px;">Suggested Help</th>
+          </thead>
+          <tbody style="font-family: Souvenir-Medium;">
+            {{#each data.skills as |skill key|}}
+              <tr>
+                <td class="advanceSkill" name="data.skills.{{key}}">{{key}}</td>
+                <td class="resource-content flex-center flexrow">
+                  <input
+                    type="text"
+                    name="data.skills.{{key}}.rating"
+                    value="{{skill.rating}}"
+                    data-dtype="Number"
+                    style="width: 30px; margin: 0 10px 0 0;"
+                  />
+                  <img
+                    src="../systems/torchbearer/assets/icons/d6.png"
+                    style="height: auto; width: 24px; border: none;"
+                    class="rollable"
+                    data-label="{{key}}"
+                  />
+                </td>
+                <td>
+                  <div class="resource-content flexrow flex-center flex-between" style="padding-left: 20px;">
+                    <input
+                      type="text"
+                      name="data.skills.{{key}}.pass"
+                      value="{{skill.pass}}"
+                      data-dtype="Number"
+                      style="width: 30px; min-width: 30px;"
+                    />
+                    <span> / </span>
+                    <input
+                      type="text"
+                      name="data.skills.{{key}}.fail"
+                      value="{{skill.fail}}"
+                      data-dtype="Number"
+                      style="width: 30px; min-width: 30px;"
+                    />
+                  </div>
+                </td>
+                <td name="data.skills.{{key}}.bl" style="padding-left: 20px;">{{skill.bl}}</td>
+                <td name="data.skills.{{key}}.help" style="padding-left: 20px;">{{skill.help}}</td>
+              </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    {{! Inventory Tab }}
+    <div class="tab items" data-group="primary" data-tab="inventory">
+      <nav class="inventory-tabs tabs" data-group="inventory">
+        <a class="item" data-tab="on-person" style="font-family: Souvenir-Demi;">On Person</a>
+        <a class="item" data-tab="elsewhere" style="font-family: Souvenir-Demi;">Elsewhere</a>
+      </nav>
+      <section class="inventory-body">
+        <div class="tab items" data-group="inventory" data-tab="on-person">
+          <div class="subtabbed container scroll">
+            <div class="row">
+              <div class="col">
+                <ol
+                  id="headSlot"
+                  class="items-list inventory-container col"
+                  data-container-type="Head"
+                  style="margin: 0 3px 0 3px;"
+                >
+                  <!-- Section header -->
+                  <li class="item flexrow item-header" id="headSlotHeader">
+                    <div class="item-image"></div>
+                    <div class="item-name" style="font-family: Souvenir-Demi;">Head</div>
+                    <div class="item-controls">
+                      <a class="item-control item-create" title="Create item" data-type="item" type="Head"><i
+                          class="fas fa-plus"
+                        ></i></a>
+                    </div>
+                  </li>
+                  {{{renderInventory 1 actor.data._id "Head" "Worn" "actor"}}}
+                </ol>
+
+                <ol
+                  id="handsWornSlot"
+                  class="items-list inventory-container col"
+                  data-container-type="Hands (Worn)"
+                  style="margin: 0 3px 0 3px;"
+                >
+                  <li class="item flexrow item-header" id="handsWornSlotHeader">
+                    <div class="item-image"></div>
+                    <div class="item-name" style="font-family: Souvenir-Demi;">Hands (Worn)</div>
+                    <div class="item-controls">
+                      <a class="item-control item-create" title="Create item" data-type="item" type="Hands"><i
+                          class="fas fa-plus"
+                        ></i></a>
+                    </div>
+                  </li>
+                  {{{renderInventory 2 actor.data._id "Hands (Worn)" "Worn" "actor"}}}
+                </ol>
+
+                <ol
+                  id="handsCarriedSlot"
+                  class="items-list inventory-container col"
+                  data-container-type="Hands (Carried)"
+                  style="margin: 0 3px 0 3px;"
+                >
+                  <li class="item flexrow item-header" id="handsCarriedSlotHeader">
+                    <div class="item-image"></div>
+                    <div class="item-name" style="font-family: Souvenir-Demi;">Hands (Carried)</div>
+                    <div class="item-controls">
+                      <i class="fas fa-weight-hanging clickable" title="Overburden" id="overburdenToggle"></i>
+                      <a class="item-control item-create" title="Create item" data-type="item" type="Hands"><i
+                          class="fas fa-plus"
+                        ></i></a>
+                    </div>
+                  </li>
+                  {{#if data.overburdened}}
+                    {{{renderInventory 4 actor.data._id "Hands (Carried)" "Carried" "actor"}}}
+                  {{else}}
+                    {{{renderInventory 2 actor.data._id "Hands (Carried)" "Carried" "actor"}}}
+                  {{/if}}
+                </ol>
+                <ol
+                  id="torsoSlot"
+                  class="items-list inventory-container col"
+                  data-container-type="Torso"
+                  style="margin: 0 3px 0 3px;"
+                >
+                  <li class="item flexrow item-header" id="torsoSlotHeader">
+                    <div class="item-image"></div>
+                    <div class="item-name" style="font-family: Souvenir-Demi;">Torso</div>
+                    <div class="item-controls">
+                      <a class="item-control item-create" title="Create item" data-type="item" type="Torso"><i
+                          class="fas fa-plus"
+                        ></i></a>
+                    </div>
+                  </li>
+
+                  {{{renderInventory 3 actor.data._id "Torso" "Worn" "actor"}}}
+                </ol>
+                <ol
+                  id="pocketSlot"
+                  class="items-list inventory-container col"
+                  data-container-type="Pocket"
+                  style="margin: 0 3px 0 3px;"
+                >
+                  <li class="item flexrow item-header" id="pocketSlotHeader">
+                    <div class="item-image"></div>
+                    <div class="item-name" style="font-family: Souvenir-Demi;">Pocket</div>
+                    <div class="item-controls">
+                      <a class="item-control item-create" title="Create item" data-type="item" type="Pocket"><i
+                          class="fas fa-plus"
+                        ></i></a>
+                    </div>
+                  </li>
+
+                  {{{renderInventory 1 actor.data._id "Pocket" "Trinkets" "actor"}}}
+                </ol>
+              </div>
+              <div class="col">
+                <ol
+                  id="neckSlot"
+                  class="items-list inventory-container col"
+                  data-container-type="Neck"
+                  style="margin: 0 3px 0 3px;"
+                >
+                  <li class="item flexrow item-header" id="neckSlotHeader">
+                    <div class="item-image"></div>
+                    <div class="item-name" style="font-family: Souvenir-Demi;">Neck</div>
+                    <div class="item-controls">
+                      <a class="item-control item-create" title="Create item" data-type="item" type="Neck"><i
+                          class="fas fa-plus"
+                        ></i></a>
+                    </div>
+                  </li>
+
+                  {{{renderInventory 1 actor.data._id "Neck" "Worn" "actor"}}}
+                </ol>
+                <ol
+                  id="feetSlot"
+                  class="items-list inventory-container col"
+                  data-container-type="Feet"
+                  style="margin: 0 3px 0 3px;"
+                >
+                  <li class="item flexrow item-header" id="feetSlotHeader">
+                    <div class="item-image"></div>
+                    <div class="item-name" style="font-family: Souvenir-Demi;">Feet</div>
+                    <div class="item-controls">
+                      <a class="item-control item-create" title="Create item" data-type="item" type="Feet"><i
+                          class="fas fa-plus"
+                        ></i></a>
+                    </div>
+                  </li>
+
+                  {{{renderInventory 1 actor.data._id "Feet" "Worn" "actor"}}}
+                </ol>
+                <ol
+                  id="beltSlot"
+                  class="items-list inventory-container col"
+                  data-container-type="Belt"
+                  style="margin: 0 3px 0 3px;"
+                >
+                  <li class="item flexrow item-header" id="beltSlotHeader">
+                    <div class="item-image"></div>
+                    <div class="item-name" style="font-family: Souvenir-Demi;">Belt</div>
+                    <div class="item-controls">
+                      <a class="item-control item-create" title="Create item" data-type="item" type="Belt"><i
+                          class="fas fa-plus"
+                        ></i></a>
+                    </div>
+                  </li>
+
+                  {{{renderInventory 3 actor.data._id "Belt" "Worn" "actor"}}}
+                </ol>
+
+                <ol
+                  id="groundSlot"
+                  class="items-list inventory-container col"
+                  data-container-type="On Ground"
+                  style="margin: 0 3px 0 3px;"
+                >
+                  <li class="item flexrow item-header" id="groundSlotHeader">
+                    <div class="item-image"></div>
+                    <div class="item-name" style="font-family: Souvenir-Demi;">On Ground</div>
+                    <div class="item-controls">
+                      <a class="item-control item-create" title="Create item" data-type="item" type="On Ground"><i
+                          class="fas fa-plus"
+                        ></i></a>
+                    </div>
+                  </li>
+                  {{{renderInventory 0 actor.data._id "On Ground" "Ground" "actor"}}}
+                </ol>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab items" data-group="inventory" data-tab="elsewhere">
+          <div class="subtabbed container scroll">
+            <div class="row">
+              <div class="col">
+                <ol
+                  id="cachedSlot"
+                  class="items-list inventory-container col"
+                  data-container-type="Cached"
+                  style="margin: 0 3px 0 3px;"
+                >
+                  <!-- Section header -->
+                  <li class="item flexrow item-header" id="cachedSlotHeader">
+                    <div class="item-image"></div>
+                    <div class="item-name" style="font-family: Souvenir-Demi;">Cached</div>
+                    <div class="item-controls">
+                      <a class="item-control item-create" title="Create item" data-type="item" type="Cached"><i
+                          class="fas fa-plus"
+                        ></i></a>
+                    </div>
+                  </li>
+                  {{{renderInventory 0 actor.data._id "Cached" "Cached" "actor"}}}
+                </ol>
+              </div>
+              <div class="col">
+                <ol
+                  id="lostSlot"
+                  class="items-list inventory-container col"
+                  data-container-type="Lost"
+                  style="margin: 0 3px 0 3px;"
+                >
+                  <!-- Section header -->
+                  <li class="item flexrow item-header" id="cachedSlotHeader">
+                    <div class="item-image"></div>
+                    <div class="item-name" style="font-family: Souvenir-Demi;">Lost</div>
+                    <div class="item-controls">
+                      <a class="item-control item-create" title="Create item" data-type="item" type="Lost"><i
+                          class="fas fa-plus"
+                        ></i></a>
+                    </div>
+                  </li>
+                  {{{renderInventory 0 actor.data._id "Lost" "Lost" "actor"}}}
+                </ol>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    {{! Magic Tab }}
+    <div class="tab" data-group="primary" data-tab="magic">
+
+      <table class="tbtable">
+        <thead class="theader" style="font-family: Souvenir-Demi;">
+          <th style="text-align: center;">Cast?</th>
+          <th style="text-align: center">Spell</th>
+          <th style="text-align: center;">Library</th>
+          <th style="text-align: center;">Book</th>
+          <th style="text-align: center;">Mem.</th>
+          <th style="text-align: center;">Scroll</th>
+          <th style="text-align: center;">Supplies</th>
+          <th></th>
+        </thead>
+
+        <tbody style="font-family: Souvenir-Medium;">
+          <!-- First Circle Spells -->
+          <tr>
+            <td
+              colspan="8"
+              style="text-align: center; background-color: rgba(0, 0, 0, 0.05); border-bottom: 1px solid gray;"
+            >~ First Circle ~</td>
+          </tr>
+          {{#each data.computed.spells.first as |spell|}}
+            <tr id="${element.id}">
+              <td style="text-align: center;">
+                <input type="checkbox" class="spell-toggle" id="{{_id}}" title="cast" {{checked data.cast}} />
+              </td>
+              <td>
+                <h4
+                  class="spell-name clickable"
+                  style="font-family: Souvenir-Medium; margin-bottom: 0px;"
+                  title="{{_id}}"
+                >{{name}}</h4>
+              </td>
+              <td style="text-align: center;">
+                <input type="checkbox" class="spell-toggle" id="{{_id}}" title="library" {{checked data.library}} />
+              </td>
+              <td style="text-align: center;">
+                <input type="checkbox" class="spell-toggle" id="{{_id}}" title="spellbook" {{checked data.spellbook}} />
+              </td>
+              <td style="text-align: center;">
+                <input type="checkbox" class="spell-toggle" id="{{_id}}" title="memorized" {{checked data.memorized}} />
+              </td>
+              <td style="text-align: center;">
+                <input type="checkbox" class="spell-toggle" id="{{_id}}" title="scroll" {{checked data.scroll}} />
+              </td>
+              <td style="text-align: center;">
+                <input type="checkbox" class="spell-toggle" id="{{_id}}" title="supplies" {{checked data.supplies}} />
+              </td>
+              <td style="text-align: center;">
+                <a class="item-control spell-delete" title="Delete Item" name="{{_id}}"><i class="fas fa-trash"></i></a>
+              </td>
+            </tr>
+          {{/each}}
+          <!-- Second Circle Spells -->
+          <tr>
+            <td
+              colspan="8"
+              style="text-align: center; background-color: rgba(0, 0, 0, 0.05); border-bottom: 1px solid gray;"
+            >~ Second Circle ~</td>
+          </tr>
+          {{#each data.computed.spells.second as |spell|}}
+            <tr id="${element.id}">
+              <td style="text-align: center;">
+                <input type="checkbox" class="spell-toggle" id="{{_id}}" title="cast" {{checked data.cast}} />
+              </td>
+              <td>
+                <h4
+                  class="spell-name clickable"
+                  style="font-family: Souvenir-Medium; margin-bottom: 0px;"
+                  title="{{_id}}"
+                >{{name}}</h4>
+              </td>
+              <td style="text-align: center;">
+                <input type="checkbox" class="spell-toggle" id="{{_id}}" title="library" {{checked data.library}} />
+              </td>
+              <td style="text-align: center;">
+                <input type="checkbox" class="spell-toggle" id="{{_id}}" title="spellbook" {{checked data.spellbook}} />
+              </td>
+              <td style="text-align: center;">
+                <input type="checkbox" class="spell-toggle" id="{{_id}}" title="memorized" {{checked data.memorized}} />
+              </td>
+              <td style="text-align: center;">
+                <input type="checkbox" class="spell-toggle" id="{{_id}}" title="scroll" {{checked data.scroll}} />
+              </td>
+              <td style="text-align: center;">
+                <input type="checkbox" class="spell-toggle" id="{{_id}}" title="supplies" {{checked data.supplies}} />
+              </td>
+              <td style="text-align: center;">
+                <a class="item-control spell-delete" title="Delete Item" name="{{_id}}"><i class="fas fa-trash"></i></a>
+              </td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+
+    </div>
+
+    {{! Notes Tab }}
+    <div class="tab items" data-group="primary" data-tab="notes" style="margin-top: 5px;">
+      <div class="container scroll" style="overflow-y: hidden;">
+        <!-- Roleplay Cues -->
+        <div>
+          <div style="display: flex; flex-direction: row; align-items: baseline;">
+            <h2 style="font-family: Souvenir-Demi; border: none; margin: 0 0 0 0rem !important;">Roleplay Cues</h2>
+            <h5
+              style="font-family: Souvenir-MediumItalic; margin: 0 0 0 0rem !important; text-align: right; flex-grow: 3;"
+            >Tics, accent, emotional triggers, etc.</h5>
+          </div>
+          <textarea
+            type="text"
+            name="data.roleplay"
+            value="{{data.roleplay}}"
+            style="font-family: Souvenir-Medium"
+            rows="1"
+            placeholder="I sneeze when I'm scared."
+          ></textarea>
+        </div>
+
+        <!-- Dramatic Arc -->
+        <div>
+          <div style="display: flex; flex-direction: row; align-items: baseline;">
+            <h2 style="font-family: Souvenir-Demi; border: none; margin: 0 0 0 0rem !important;">Dramatic Arc</h2>
+            <h5
+              style="font-family: Souvenir-MediumItalic; margin: 0 0 0 0rem !important; text-align: right; flex-grow: 3;"
+            >Themes and character arc.</h5>
+          </div>
+          <textarea
+            type="text"
+            name="data.arc"
+            value="{{data.arc}}"
+            style="font-family: Souvenir-Medium"
+            rows="1"
+            placeholder="What themes are being explored with this character? What are their dramatic conflicts and arc?"
+          ></textarea>
+        </div>
+
+        <!-- Allies & Enemies -->
+        <div class="container scroll">
+          <div style="display: flex; flex-direction: row; align-items: baseline;">
+            <h2 style="font-family: Souvenir-Demi; border: none; margin: 0 0 0 0rem !important;">Allies & Enemies</h2>
+          </div>
+          <div class="row" style="flex-wrap: nowrap; font-family: Souvenir-Demi;">
+            <div class="col" style="flex-grow: 0; flex-shrink: 0; flex-basis: 52px;">Status</div>
+            <div class="col" style="flex-grow: 1; flex-shrink: 1; flex-basis: 100px;">Name</div>
+            <div class="col" style="flex-grow: 1; flex-shrink: 1; flex-basis: 100px;">Location</div>
+            <div class="col">Notes</div>
+          </div>
+          {{#each data.alliesEnemies as |character key|}}
+            <div class="row" style="flex-wrap: nowrap;">
+              <div class="col" style="flex-grow: 0; flex-shrink: 0; flex-basis: 52px; text-align: center;">
+                <label for="data.alliesEnemies.{{key}}.enemy">
+                  {{#ifeq character.enemy false}}
+                    <img
+                      class="ally"
+                      id="{{key}}"
+                      src="../systems/torchbearer/assets/icons/ally.png"
+                      style="height: auto; width: 24px; border: none;"
+                    />
+                  {{/ifeq}}
+                  {{#ifeq character.enemy true}}
+                    <img
+                      class="ally"
+                      id="{{key}}"
+                      src="../systems/torchbearer/assets/icons/enemy.png"
+                      style="height: auto; width: 24px; border: none;"
+                    />
+                  {{/ifeq}}
+                </label>
+                <input
+                  type="checkbox"
+                  name="data.alliesEnemies.{{key}}.enemy"
+                  id="data.alliesEnemies.{{key}}.enemy"
+                  hidden
+                  {{checked character.enemy}}
+                />
+              </div>
+              <div class="col" style="flex-grow: 1; flex-shrink: 1; flex-basis: 100px;">
+                <input type="text" name="data.alliesEnemies.{{key}}.name" value="{{character.name}}" />
+              </div>
+              <div class="col" style="flex-grow: 1; flex-shrink: 1; flex-basis: 100px;">
+                <input type="text" name="data.alliesEnemies.{{key}}.location" value="{{character.location}}" />
+              </div>
+              <div class="col">
+                <input type="text" name="data.alliesEnemies.{{key}}.notes" value="{{character.notes}}" />
+              </div>
+            </div>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+
+  </section>
 
 </form>

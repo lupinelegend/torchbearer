@@ -4,7 +4,10 @@
       <h2 style="font-family: Souvenir-Demi;">
         {{title}}
         {{#if advanceable}}
-            <a class="button" id="logTestBtn" data-logged="false"><i class="fas fa-file-signature" style="float: right; font-size: smaller; margin-top: 5.5px; color: rgb(75, 74, 68);"></i></a>
+          <a class="button" id="logTestBtn" data-logged="false"><i
+              class="fas fa-file-signature"
+              style="float: right; font-size: smaller; margin-top: 5.5px; color: rgb(75, 74, 68);"
+            ></i></a>
         {{/if}}
       </h2>
     </div>
@@ -25,11 +28,15 @@
     {{/if}}
   </div>
   {{#if rerollsAvailable}}
-  <div class="row" style="flex-wrap: nowrap; padding: 0 0 0 0; margin-top: 2px;">
-    <button id="luckBtn" type="button" style="font-family: Souvenir-Medium; background: rgba(0, 0, 0, 0.1); border: 1px solid #999; border-radius: 3px; line-height: 24px;">
-      Luck
-      {{#if rerollsAvailable}} ({{rerollsAvailable}}D){{/if}}
-    </button>
-  </div>
+    <div class="row" style="flex-wrap: nowrap; padding: 0 0 0 0; margin-top: 2px;">
+      <button
+        id="luckBtn"
+        type="button"
+        style="font-family: Souvenir-Medium; background: rgba(0, 0, 0, 0.1); border: 1px solid #999; border-radius: 3px; line-height: 24px;"
+      >
+        Luck
+        {{#if rerollsAvailable}} ({{rerollsAvailable}}D){{/if}}
+      </button>
+    </div>
   {{/if}}
 </section>
