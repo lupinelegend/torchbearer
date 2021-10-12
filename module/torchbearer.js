@@ -121,8 +121,8 @@ Hooks.once('init', async function() {
   
 
   // Define custom Entity classes
-  CONFIG.Actor.entityClass = TorchbearerActor;
-  CONFIG.Item.entityClass = TorchbearerItem;
+  CONFIG.Actor.documentClass = TorchbearerActor;
+  CONFIG.Item.documentClass = TorchbearerItem;
 
   // Register sheet application classes
   Actors.unregisterSheet("core", ActorSheet);
