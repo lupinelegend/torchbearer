@@ -890,28 +890,28 @@
       "invocationpatroncircle": ""
     },
     "Spell": {
-			"name": "",
-			"circle": "",
-			"description": "",
-			"effect": "",
-			"materials": "",
-			"focus": "",
-			"toScribe": {
-				"skill": "",
-				"ob": 0
-			},
-			"toLearn": {
-				"skill": "",
-				"ob": 0
-			},
-			"casting": {
-				"test": "",
-				"skill": "",
-				"ob": 0,
-				"factorCategories": {}
-			},
-			"castingTime": "",
-			"duration": "",
+      "name": "",
+      "circle": "",
+      "description": "",
+      "effect": "",
+      "materials": "",
+      "focus": "",
+      "toScribe": {
+        "skill": "",
+        "ob": 0
+      },
+      "toLearn": {
+        "skill": "",
+        "ob": 0
+      },
+      "casting": {
+        "test": "",
+        "skill": "",
+        "ob": 0,
+        "factorCategories": {}
+      },
+      "castingTime": "",
+      "duration": "",
       "library": false,
       "spellbook": false,
       "memorized": false,

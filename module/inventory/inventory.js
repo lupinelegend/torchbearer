@@ -267,7 +267,7 @@ export function canFit(tbItem, containerType, inventory) {
 
 let currentSubinventoryExcluding = function(container, tbItem) {
     return container.slots.filter((curr) => {
-        return !(tbItem && tbItem.data._id === curr._id);
+        return !(tbItem && tbItem.data._id === curr.data._id);
     });
 }
 
@@ -445,8 +445,8 @@ Handlebars.registerHelper('renderInventory', function(capacity, actorId, contain
             if(item.data.computed.bundledWith && item.data.computed.bundledWith.length > 0) {
                 quantityExpression = `(${item.data.computed.bundledWith.length + 1})`;
             }
-            if(!quantityExpression && inventory[item._id]) {
-                let subContainer = inventory[item._id];
+            if(!quantityExpression && inventory[item.data._id]) {
+                let subContainer = inventory[item.data._id];
                 let capacityConsumed = capacityConsumedIn(subContainer);
                 if(capacityConsumed) {
                     quantityExpression = `[${capacityConsumed}/${subContainer.capacity}]`;
