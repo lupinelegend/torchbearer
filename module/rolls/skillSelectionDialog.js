@@ -2,7 +2,7 @@ import { MasterSkillsList } from "../misc.js";
 
 export class SkillSelectionDialog extends Dialog {
   static async create(tbActor, opts, onComplete) {
-    let dialogContent = "systems/torchbearer/templates/skill-selection-dialog-content.html";
+    let dialogContent = "systems/torchbearer/templates/skill-selection-dialog-content.html.hbs";
     let template = await renderTemplate(dialogContent, Object.assign({ allSkills: MasterSkillsList() }, opts));
     new SkillSelectionDialog(tbActor, { content: template }, onComplete, opts).render(true);
   }

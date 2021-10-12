@@ -281,7 +281,7 @@ export class PlayerRoll {
       passFail = "No Test";
     }
 
-    renderTemplate("systems/torchbearer/templates/roll-template.html", {
+    renderTemplate("systems/torchbearer/templates/roll-template.html.hbs", {
       title: header,
       results: rollResult,
       dice: diceToRoll,
@@ -302,7 +302,7 @@ export class PlayerRoll {
       chatData.roll = diceToRoll < 1 ? "{}" : JSON.stringify(roll);
 
       // Render the roll template
-      renderTemplate("systems/torchbearer/templates/torchbearer-roll.html", templateData).then((content) => {
+      renderTemplate("systems/torchbearer/templates/torchbearer-roll.html.hbs", templateData).then((content) => {
         // Update the message content
         chatData.content = content;
 

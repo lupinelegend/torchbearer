@@ -15,7 +15,7 @@ export class DispoDialog extends Dialog {
       }
     });
 
-    let dialogContent = "systems/torchbearer/templates/disposition-roll-template.html";
+    let dialogContent = "systems/torchbearer/templates/disposition-roll-template.html.hbs";
 
     renderTemplate(dialogContent, {
       conflictType: ByName(conflictType),

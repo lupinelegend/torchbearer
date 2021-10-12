@@ -4,7 +4,7 @@ import { SkillSelectionDialog } from "./skillSelectionDialog.js";
 
 export class PlayerRollDialog extends Dialog {
   static async create(tbActor, opts, onComplete) {
-    let dialogContent = "systems/torchbearer/templates/roll-dialog-content.html";
+    let dialogContent = "systems/torchbearer/templates/roll-dialog-content.html.hbs";
 
     let template = await renderTemplate(
       dialogContent,

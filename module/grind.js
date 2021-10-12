@@ -9,7 +9,7 @@ export class GrindSheet extends Application {
     return mergeObject(super.defaultOptions, {
       title: "Grind Sheet",
       classes: ["torchbearer", "sheet", "grind"],
-      template: "systems/torchbearer/templates/grind-template.html",
+      template: "systems/torchbearer/templates/grind-template.html.hbs",
       width: 850,
       height: 675,
       tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "party" }],

@@ -3,7 +3,7 @@ import { Capitalize, MasterSkillsList, CurrentCharacterActorIds } from "../misc.
 export class HelpingDiceDialog extends Dialog {
   static async create(tbActor, opts, onComplete) {
     let skillOrAbility = opts.skillOrAbility;
-    let dialogContent = "systems/torchbearer/templates/helping-dice-dialog-content.html";
+    let dialogContent = "systems/torchbearer/templates/helping-dice-dialog-content.html.hbs";
 
     let partyMembers = (await CurrentCharacterActorIds())
       .filter((id) => {

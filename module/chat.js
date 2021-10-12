@@ -166,13 +166,13 @@ function reRoll(header, formula, explode, actor, originalSuccesses, ob, rollType
   // Prep the roll template
   let template;
   if (header === "Lucky Reroll") {
-    template = "systems/torchbearer/templates/lucky-reroll.html";
+    template = "systems/torchbearer/templates/lucky-reroll.html.hbs";
   } else if (header === "Of Course!") {
-    template = "systems/torchbearer/templates/ofcourse-reroll.html";
+    template = "systems/torchbearer/templates/ofcourse-reroll.html.hbs";
   } else if (header === "Deeper Understanding") {
-    template = "systems/torchbearer/templates/deeperunderstanding-reroll.html";
+    template = "systems/torchbearer/templates/deeperunderstanding-reroll.html.hbs";
   } else {
-    template = "systems/torchbearer/templates/torchbearer-roll.html";
+    template = "systems/torchbearer/templates/torchbearer-roll.html.hbs";
   }
 
   // GM rolls
@@ -271,7 +271,7 @@ function reRoll(header, formula, explode, actor, originalSuccesses, ob, rollType
     displaySuccesses = `${originalSuccesses} + ${rolledSuccesses} = ${totalSuccesses} Total Disposition`;
   }
 
-  renderTemplate("systems/torchbearer/templates/roll-template.html", {
+  renderTemplate("systems/torchbearer/templates/roll-template.html.hbs", {
     title: header,
     results: rollResult,
     success: displaySuccesses,
