@@ -12,8 +12,6 @@ export class TorchbearerActor extends Actor {
     super.prepareData();
 
     const actorData = this.data;
-    const data = actorData.data;
-    const flags = actorData.flags;
 
     // Make separate methods for each Actor type (character, npc, etc.) to keep
     // things organized.
@@ -40,10 +38,10 @@ export class TorchbearerActor extends Actor {
       data.computed.emittedLight = this.calculateEmittedLight(data.computed.inventory);
     }
 
-    let trait1Checks = parseInt(data.traits.trait1.checks.checksEarned);
-    let trait2Checks = parseInt(data.traits.trait2.checks.checksEarned);
-    let trait3Checks = parseInt(data.traits.trait3.checks.checksEarned);
-    let trait4Checks = parseInt(data.traits.trait4.checks.checksEarned);
+    let trait1Checks = parseInt(data.traits.trait1.checks.checksEarned) || 0;
+    let trait2Checks = parseInt(data.traits.trait2.checks.checksEarned) || 0;
+    let trait3Checks = parseInt(data.traits.trait3.checks.checksEarned) || 0;
+    let trait4Checks = parseInt(data.traits.trait4.checks.checksEarned) || 0;
     data.computed.totalChecks = trait1Checks + trait2Checks + trait3Checks + trait4Checks;
   }
 
