@@ -1,6 +1,6 @@
 // Import Modules
 import { TorchbearerActor } from "./actor/actor.js";
-import { TorchbearerActorSheet } from "./actor/actor-sheet.js";
+import { TorchbearerCharacterSheet } from "./actor/character-sheet.js";
 import { TorchbearerItem } from "./item/item.js";
 import { TorchbearerItemSheet } from "./item/item-sheet.js";
 import { ConflictSheet } from "./conflict/conflict.js";
@@ -118,15 +118,14 @@ Hooks.once('init', async function() {
       }).render(true);
     });
   });
-  
 
   // Define custom Entity classes
-  CONFIG.Actor.entityClass = TorchbearerActor;
-  CONFIG.Item.entityClass = TorchbearerItem;
+  CONFIG.Actor.documentClass = TorchbearerActor;
+  CONFIG.Item.documentClass = TorchbearerItem;
 
   // Register sheet application classes
   Actors.unregisterSheet("core", ActorSheet);
-  Actors.registerSheet("torchbearer", TorchbearerActorSheet, { makeDefault: true });
+  Actors.registerSheet("torchbearer", TorchbearerCharacterSheet, { makeDefault: true });
   Items.unregisterSheet("core", ItemSheet);
   Items.registerSheet("torchbearer", TorchbearerItemSheet, { makeDefault: true });
 

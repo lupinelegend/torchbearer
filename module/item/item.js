@@ -31,7 +31,7 @@ export class TorchbearerItem extends Item {
   tbData() {
     return this.data.data;
   }
-  
+
   async syncEquipVariables() {
     let tbData = this.tbData();
     for(let i = 1; i <= 3; i++) {

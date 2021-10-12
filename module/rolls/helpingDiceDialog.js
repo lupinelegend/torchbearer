@@ -78,7 +78,7 @@ export class HelpingDiceDialog extends Dialog {
                     if(!tbActor.tbData().afraid) {
                         if(opt && tbActor.getRating(opt)) {
                             $row.find('.optionalSkillAbility').html(
-                                `<input type="radio" name="party-member-${tbActor._id}-help" class="dice-modifier" id="party-member-${tbActor._id}-help-opt" value="1" />`
+                                `<input type="radio" name="party-member-${tbActor.data._id}-help" class="dice-modifier" id="party-member-${tbActor.data._id}-help-opt" value="1" />`
                             );
                         } else {
                             $row.find('.optionalSkillAbility').html("");
@@ -107,32 +107,32 @@ export class HelpingDiceDialog extends Dialog {
             } else {
                 if(sab && tbActor.getRating(sab)) {
                     $row.find('.skillOrAbility').html(
-                        `<input type="radio" name="party-member-${tbActor._id}-help" class="dice-modifier" id="party-member-${tbActor._id}-help-sab" value="1" />`
+                        `<input type="radio" name="party-member-${tbActor.data._id}-help" class="dice-modifier" id="party-member-${tbActor.data._id}-help-sab" value="1" />`
                     );
                 }
                 if(ab1 && tbActor.getRating(ab1)) {
                     $row.find('.helpSkillAbility1').html(
-                        `<input type="radio" name="party-member-${tbActor._id}-help" class="dice-modifier" id="party-member-${tbActor._id}-help-ab1" value="1" />`
+                        `<input type="radio" name="party-member-${tbActor.data._id}-help" class="dice-modifier" id="party-member-${tbActor.data._id}-help-ab1" value="1" />`
                     );
                 }
                 if(ab2 && tbActor.getRating(ab2)) {
                     $row.find('.helpSkillAbility2').html(
-                        `<input type="radio" name="party-member-${tbActor._id}-help" class="dice-modifier" id="party-member-${tbActor._id}-help-ab2" value="1" />`
+                        `<input type="radio" name="party-member-${tbActor.data._id}-help" class="dice-modifier" id="party-member-${tbActor.data._id}-help-ab2" value="1" />`
                     );
                 }
                 if(ab3 && tbActor.getRating(ab3)) {
                     $row.find('.helpSkillAbility3').html(
-                        `<input type="radio" name="party-member-${tbActor._id}-help" class="dice-modifier" id="party-member-${tbActor._id}-help-ab3" value="1" />`
+                        `<input type="radio" name="party-member-${tbActor.data._id}-help" class="dice-modifier" id="party-member-${tbActor.data._id}-help-ab3" value="1" />`
                     );
                 }
                 if(ab4 && tbActor.getRating(ab4)) {
                     $row.find('.helpSkillAbility4').html(
-                        `<input type="radio" name="party-member-${tbActor._id}-help" class="dice-modifier" id="party-member-${tbActor._id}-help-ab4" value="1" />`
+                        `<input type="radio" name="party-member-${tbActor.data._id}-help" class="dice-modifier" id="party-member-${tbActor.data._id}-help-ab4" value="1" />`
                     );
                 }
                 if(opt && tbActor.getRating(opt)) {
                     $row.find('.optionalSkillAbility').html(
-                        `<input type="radio" name="party-member-${tbActor._id}-help" class="dice-modifier" id="party-member-${tbActor._id}-help-opt" value="1" />`
+                        `<input type="radio" name="party-member-${tbActor.data._id}-help" class="dice-modifier" id="party-member-${tbActor.data._id}-help-opt" value="1" />`
                     );
                 }
             }

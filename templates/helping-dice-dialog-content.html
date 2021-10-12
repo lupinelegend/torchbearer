@@ -31,10 +31,10 @@
             </tr>
         </thead>
         {{#each partyMembers}}
-            <tr class="party-member" id="party-member-{{_id}}" data-actor-id="{{_id}}">
+            <tr class="party-member" id="party-member-{{data._id}}" data-actor-id="{{data._id}}">
                 <td class="name">{{name}}</td>
                 <td class="none">
-                    <input type="radio" name="party-member-{{_id}}-help" class="dice-modifier" id="party-member-{{_id}}-help-none" value="0" checked>
+                    <input type="radio" name="party-member-{{data._id}}-help" class="dice-modifier" id="party-member-{{data._id}}-help-none" value="0" checked>
                 </td>
                 <td class="skillOrAbility"></td>
                 {{#if ../helpSkillAbility1}}
@@ -51,10 +51,10 @@
                 {{/if}}
                 <td class="optionalSkillAbility"></td>
                 <td class="nature">
-                    <input type="radio" name="party-member-{{_id}}-help" class="dice-modifier" id="party-member-{{_id}}-help-nature" value="1">
+                    <input type="radio" name="party-member-{{data._id}}-help" class="dice-modifier" id="party-member-{{data._id}}-help-nature" value="1">
                 </td>
                 <td class="wise">
-                    <input type="radio" name="party-member-{{_id}}-help" class="dice-modifier" id="party-member-{{_id}}-help-wise" value="1">
+                    <input type="radio" name="party-member-{{data._id}}-help" class="dice-modifier" id="party-member-{{data._id}}-help-wise" value="1">
                 </td>
             </tr>
         {{/each}}

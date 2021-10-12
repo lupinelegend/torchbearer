@@ -1,4 +1,4 @@
-<form class="{{cssClass}} {{inventoryContainerClass}}" data-item-id="{{item._id}}" data-container-type="{{containerType}}" autocomplete="off" style="margin: 25px;">
+<form class="{{cssClass}} {{inventoryContainerClass}}" data-item-id="{{item.data._id}}" data-container-type="{{containerType}}" autocomplete="off" style="margin: 25px;">
     <!-- Header -->
     <div class="row" style="flex-wrap: nowrap; align-items: flex-end;">
         <div class="col">
@@ -9,7 +9,7 @@
             <div class="row" style="align-items: center; padding: 0;">
                 <div class="col" style="padding: 0;">
                     <label for="data.nature" style="font-family: Souvenir-Demi;">Nature: </label>
-                    <input name="data.nature" type="text" value="{{data.nature}}" style="width: 35px; font-family: Souvenir-Medium; text-align: center;">    
+                    <input name="data.nature" type="text" value="{{data.nature}}" style="width: 35px; font-family: Souvenir-Medium; text-align: center;">
                 </div>
                 <div class="col" style="text-align: left; padding: 0;">
                     <label for="data.might" style="font-family: Souvenir-Demi;">Might: </label>
@@ -21,8 +21,8 @@
                 </div>
             </div>
         </div>
-        
-        <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100" style="justify-self: right;"> 
+
+        <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100" style="justify-self: right;">
     </div>
     <hr style="border-top: 1px solid #782e22; border-bottom: 1px solid #782e22;">
     <!-- Instict, Goals, Special Rules -->

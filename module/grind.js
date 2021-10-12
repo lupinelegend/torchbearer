@@ -86,7 +86,7 @@ export class GrindSheet extends Application {
         html.find('.item .item-image, .item .item-name').on('click', (evt) => {
             const itemNode = $(evt.target).closest('.item');
             if(itemNode.data('actorId')) {
-                game.actors.get(itemNode.data('actorId')).getOwnedItem(itemNode.data('itemId')).sheet.render(true);
+                game.actors.get(itemNode.data('actorId')).items.get(itemNode.data('itemId')).sheet.render(true);
             } else {
                 game.items.get(itemNode.data('itemId')).sheet.render(true);
             }
@@ -110,9 +110,9 @@ export class GrindSheet extends Application {
         if(!game.user.isGM) return;
         const toActor = game.actors.get(request.toActor);
         const fromActor = game.actors.get(request.fromActor);
-        const fromItem = fromActor.getOwnedItem(request.itemId);
+        const fromItem = fromActor.items.get(request.itemId);
         await toActor.createEmbeddedEntity("OwnedItem", duplicate(fromItem.data));
-        await fromActor.removeItemFromInventory(fromItem._id);
+        await fromActor.removeItemFromInventory(fromItem.data._id);
         this.sendMessage({type:"grindChanged"});
     }
 
@@ -214,7 +214,7 @@ export class GrindSheet extends Application {
             const tbActor = tbActors[i];
             const container = tbActor.tbData().computed.inventory['On Ground'];
             let target;
-            if(tbActor.owner) {
+            if(tbActor.isOwner) {
                 target = own;
             } else {
                 target = catalog;
@@ -238,7 +238,7 @@ export class GrindSheet extends Application {
         const LIGHT_SEQUENCE = [0, -1, 1, -2, 2, -3, 3, -4, 4, -5, 5, -6, 6, -7, 7];
         let lightLevels = {};
         for(let i = 0; i < tbActors.length; i++) {
-            lightLevels[tbActors[i]._id] = LIGHT_LEVELS[ambientLight];
+            lightLevels[tbActors[i].data._id] = LIGHT_LEVELS[ambientLight];
         }
         if(ambientLight === 'Bright') return lightLevels;
 
@@ -252,7 +252,7 @@ export class GrindSheet extends Application {
                     litCharacterIndex = i + LIGHT_SEQUENCE[sequenceIdx];
                 }
                 if(litCharacterIndex >=0 && litCharacterIndex < tbActors.length) {
-                    lightLevels[tbActors[litCharacterIndex]._id] = 2;
+                    lightLevels[tbActors[litCharacterIndex].data._id] = 2;
                 }
             }
             for(let powerIdx = 0; powerIdx < emittedLight.dim && sequenceIdx < LIGHT_SEQUENCE.length; powerIdx++, sequenceIdx++) {
@@ -262,7 +262,7 @@ export class GrindSheet extends Application {
                     litCharacterIndex = i + LIGHT_SEQUENCE[sequenceIdx];
                 }
                 if(litCharacterIndex >=0 && litCharacterIndex < tbActors.length) {
-                    lightLevels[tbActors[litCharacterIndex]._id] = Math.max(1, lightLevels[tbActors[litCharacterIndex]._id]);
+                    lightLevels[tbActors[litCharacterIndex].data._id] = Math.max(1, lightLevels[tbActors[litCharacterIndex].data._id]);
                 }
             }
         }
@@ -335,14 +335,8 @@ export class GrindSheet extends Application {
 
     async loadChars() {
         if(game.user.isGM) {
-            let actorIds = [];
-            for(let i = 0; i < game.actors.entities.length; i++) {
-                let actor = game.actors.entities[i];
-                if(actor.data.type === 'Character') {
-                    actorIds.push(actor._id);
-                }
-            }
-            await this.updateGrind({actors: actorIds}, 'loadChars');
+            const actorIds = game.actors.contents.filter(actor => actor.data.type === 'Character').map(actor => actor.data._id);
+            await this.updateGrind({ actors: actorIds }, 'loadChars');
         }
     }
 

@@ -12,8 +12,6 @@ export class TorchbearerActor extends Actor {
     super.prepareData();
 
     const actorData = this.data;
-    const data = actorData.data;
-    const flags = actorData.flags;
 
     // Make separate methods for each Actor type (character, npc, etc.) to keep
     // things organized.
@@ -30,7 +28,7 @@ export class TorchbearerActor extends Actor {
 
     // Make a new Object that holds computed data and keeps it separate from anything else
     data.computed = {};
-    
+
     data.computed.spells = arrangeSpells(this.items);
 
     data.computed.inventory = arrangeInventory(this.items, data.overburdened);
@@ -40,10 +38,10 @@ export class TorchbearerActor extends Actor {
       data.computed.emittedLight = this.calculateEmittedLight(data.computed.inventory);
     }
 
-    let trait1Checks = parseInt(data.traits.trait1.checks.checksEarned);
-    let trait2Checks = parseInt(data.traits.trait2.checks.checksEarned);
-    let trait3Checks = parseInt(data.traits.trait3.checks.checksEarned);
-    let trait4Checks = parseInt(data.traits.trait4.checks.checksEarned);
+    let trait1Checks = parseInt(data.traits.trait1.checks.checksEarned) || 0;
+    let trait2Checks = parseInt(data.traits.trait2.checks.checksEarned) || 0;
+    let trait3Checks = parseInt(data.traits.trait3.checks.checksEarned) || 0;
+    let trait4Checks = parseInt(data.traits.trait4.checks.checksEarned) || 0;
     data.computed.totalChecks = trait1Checks + trait2Checks + trait3Checks + trait4Checks;
   }
 
@@ -83,9 +81,9 @@ export class TorchbearerActor extends Actor {
 
   async _dumpContents(tbItem) {
     let {dumpEquip, dumpCarried} = this._determineDumpTarget(tbItem);
-    let slots = this.tbData().computed.inventory[tbItem._id].slots;
+    let slots = this.tbData().computed.inventory[tbItem.data._id].slots;
     for(let i = 0; i < slots.length; i++) {
-      let tbContainedItem = this.items.get(slots[i]._id);
+      let tbContainedItem = this.items.get(slots[i].data._id);
       if(tbContainedItem) {
         await tbContainedItem.update({
           data: {
@@ -107,8 +105,8 @@ export class TorchbearerActor extends Actor {
         await this._dumpContents(tbItem);
       }
     }
-    await this.deleteOwnedItem(itemId);
-    this._onUpdate({items: true});
+    await this.deleteEmbeddedDocuments('Item', [itemId]);
+    this._onUpdate({ items: true }, { render: false });
   }
 
   async takeNextGrindCondition() {
@@ -132,11 +130,11 @@ export class TorchbearerActor extends Actor {
     if(!sources.length) return;
 
     for(let i = 0; i < sources.length; i++) {
-      const tbItem = this.getOwnedItem(sources[i]._id);
+      const tbItem = this.items.get(sources[i].data._id);
       await tbItem.consumeOne();
     }
     setTimeout(() => {
-      this._onUpdate({items: true});
+      this._onUpdate({ items: true }, { render: false });
     }, 0);
   }
 
@@ -189,7 +187,7 @@ export class TorchbearerActor extends Actor {
   }
 
   async getLightLevel() {
-    return await game.grind.lightLevelFor(this._id);
+    return await game.grind.lightLevelFor(this.data._id);
   }
 
   tbData() {

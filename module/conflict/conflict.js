@@ -177,7 +177,7 @@ export class ConflictSheet extends Application {
     } catch (err) {
         return false;
     }
-    
+
     // Check to see if the dropped entity is a Monster
     let tbMonster;
     let flag = false;
@@ -205,16 +205,16 @@ export class ConflictSheet extends Application {
     let currentConflict = await this.currentConflict();
     let engagedEnemyActors = currentConflict.engagedEnemies;
     console.log(engagedEnemyActors);
-    
+
     let added = false;
     Object.keys(engagedEnemyActors).forEach(element => {
-      if (element === tbMonster._id) {
-        let keyID = tbMonster._id + (Object.keys(engagedEnemyActors).length);
+      if (element === tbMonster.data._id) {
+        let keyID = tbMonster.data._id + (Object.keys(engagedEnemyActors).length);
 
         // Add the dropped monster to the list
         engagedEnemyActors[keyID] = {
         name: tbMonster.name,
-        id: tbMonster._id,
+        id: tbMonster.data._id,
         weapons: tbMonster.data.weapons,
         equipped: "",
         dispo: 0
@@ -225,9 +225,9 @@ export class ConflictSheet extends Application {
 
     if (added !== true) {
       // Add the dropped monster to the list
-      engagedEnemyActors[tbMonster._id] = {
+      engagedEnemyActors[tbMonster.data._id] = {
         name: tbMonster.name,
-        id: tbMonster._id,
+        id: tbMonster.data._id,
         weapons: tbMonster.data.weapons,
         equipped: "",
         dispo: 0
@@ -245,7 +245,7 @@ export class ConflictSheet extends Application {
       ui.notifications.error("Please select a conflict captain and conflict type");
       return;
     }
-    if (!game.user.isGM && !this.findConflictCaptain(conflictCaptain).owner) {
+    if (!game.user.isGM && !this.findConflictCaptain(conflictCaptain).isOwner) {
       ui.notifications.error("Only the Conflict Captain or GM can roll Disposition");;
       return;
     }
@@ -285,7 +285,7 @@ export class ConflictSheet extends Application {
     let roller = null;
     game.actors._source.forEach(element => {
       if (element.name === conflictCaptain) {
-        roller = element._id;
+        roller = element.data._id;
       }
     });
     console.log(roller);

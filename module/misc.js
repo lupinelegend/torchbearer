@@ -20,7 +20,7 @@ export const CurrentCharacterActorIds = async () => {
         for (let i = 0; i < game.actors.entities.length; i++) {
             let actor = game.actors.entities[i];
             if (actor.data.type === 'Character') {
-                actorIds.push(actor._id);
+                actorIds.push(actor.data._id);
             }
         }
     }
