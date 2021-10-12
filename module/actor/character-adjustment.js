@@ -84,10 +84,10 @@ export class CharacterAdjustment {
     }
 
     sourceAdjustments(key, value) {
-        if(this.adjustments.hasOwnProperty(key)) return;
+        if(Object.prototype.hasOwnProperty.call(this.adjustments, key)) return;
         this.adjustments[key] = value;
     }
-    
+
     async execute() {
         await this.actor.update(this.adjustments);
     }

@@ -127,11 +127,11 @@ export class GrindSheet extends Application {
         event.dataTransfer.setData("text/plain", JSON.stringify(dragData));
     }
 
-    _canDragStart(selector) {
+    _canDragStart(/* selector */) {
         return true;
     }
 
-    _canDragDrop(selector) {
+    _canDragDrop(/* selector */) {
         return true;
     }
 
@@ -400,7 +400,7 @@ export class GrindSheet extends Application {
             await this.getData();
         }
         const lightLevels = this._grindData.computed.lightLevels;
-        if(!lightLevels.hasOwnProperty(actorId)) {
+        if(!Object.prototype.hasOwnProperty.call(lightLevels, actorId)) {
             console.log("WARN: Looking up lightlevel for Actor not in grind; returning Bright");
             return LIGHT_LEVELS.Bright;
         }

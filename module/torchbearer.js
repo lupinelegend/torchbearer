@@ -41,15 +41,15 @@ Hooks.once('init', async function() {
   // Event listeners for chat message buttons
   Hooks.on("renderChatMessage", (app, html, data) => {
     // Event listener for "Luck"
-    html.find('#luckBtn').click(ev => {
+    html.find('#luckBtn').click(() => {
       chat.fateForLuck(app, html, data);
     });
     // Event listener for "Of Course!"
-    html.find('#ofCourseBtn').click(ev => {
+    html.find('#ofCourseBtn').click(() => {
       chat.ofCourse(app, html, data);
     });
     // Event listener for "Deeper Understanding"
-    html.find('#deeperUnderstandingBtn').click(ev => {
+    html.find('#deeperUnderstandingBtn').click(() => {
       chat.deeperUnderstanding(app, html, data);
     });
     // Event listener for logging tests
@@ -96,8 +96,8 @@ Hooks.once('init', async function() {
   });
 
   // Event listener which opens the Conflict Sheet when the Foundry icon is clicked
-  Hooks.on('ready', (app, html, data) => {
-    $('#logo').click(ev => {
+  Hooks.on('ready', () => {
+    $('#logo').click(() => {
       // game.conflict.render(true);
       new Dialog({
         title: "Torchbearer",

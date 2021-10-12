@@ -36,7 +36,7 @@ Dag.prototype.addEdge = function addEdge(from, to) {
 const validateOnce = (inventory) => {
     const dag = new Dag();
     for(const area in inventory) {
-        if(inventory.hasOwnProperty(area)) {
+        if(Object.prototype.hasOwnProperty.call(inventory, area)) {
             for(let i = 0; i < inventory[area].slots.length; i++) {
                 const tbItem = inventory[area].slots[i];
                 try {

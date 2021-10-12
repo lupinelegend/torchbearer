@@ -1,4 +1,3 @@
-import {cloneInventory, newItemInventory} from "../inventory/inventory.js";
 import {itemExtensions} from "./itemExtensions.js";
 
 /**
@@ -13,7 +12,6 @@ export class TorchbearerItem extends Item {
     super.prepareData();
     // Get the Item's data
     const itemData = this.data;
-    const actorData = this.actor ? this.actor.data : {};
     const data = itemData.data;
 
     data.computed = data.computed || {};
@@ -21,7 +19,7 @@ export class TorchbearerItem extends Item {
     let itemExtension = itemExtensions[this.data.name];
     if(itemExtension) {
       for(const functionName in itemExtension) {
-        if(itemExtension.hasOwnProperty(functionName)) {
+        if(Object.prototype.hasOwnProperty.call(itemExtension, functionName)) {
           this[functionName] = itemExtension[functionName].bind(this);
         }
       }
@@ -125,7 +123,7 @@ export class TorchbearerItem extends Item {
    * @param given: array of items that have already been confirmed
    * @return true if ok to add, false if not and make this object unbundleable
    */
-  onBeforeBundleWith(tbItemOther, given) {
+  onBeforeBundleWith(/* tbItemOther, given */) {
     return true;
   }
   /**
@@ -134,7 +132,7 @@ export class TorchbearerItem extends Item {
    * @param given: array of items that have already been confirmed
    * @return true if ok to add, false if should be put on ground
    */
-  onAfterAddToInventory(container, given) {
+  onAfterAddToInventory(/* container, given */) {
     return true;
   }
 
@@ -152,7 +150,7 @@ export class TorchbearerItem extends Item {
     return true;
   }
 
-  async onAfterEquipped(equippedEvent) {
+  async onAfterEquipped(/* equippedEvent */) {
 
   }
 
@@ -162,6 +160,6 @@ export class TorchbearerItem extends Item {
    * @param given: array of items that have already been confirmed
    * @return nothing but can modify data.data.computed.consumedSlots
    */
-  onCalculateConsumedSlots(container, given) {
+  onCalculateConsumedSlots(/* container, given */) {
   }
 }

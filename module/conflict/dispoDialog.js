@@ -46,7 +46,7 @@ export class DispoDialog extends Dialog {
                 no: {
                     icon: "<i class='fas fa-times'></i>",
                     label: `Cancel`,
-                    callback: (html) => {
+                    callback: (/* html */) => {
                         console.log("No clicked");
                     }
                 }

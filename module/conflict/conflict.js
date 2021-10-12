@@ -133,7 +133,7 @@ export class ConflictSheet extends Application {
       this.updateConflict({engagedActors: engagedActors}, 'conflict.actor-field')
     });
 
-    html.find('#playerDispoRoll').click(ev => {
+    html.find('#playerDispoRoll').click(() => {
       this.playerDispoDialog();
     });
 
@@ -246,7 +246,7 @@ export class ConflictSheet extends Application {
       return;
     }
     if (!game.user.isGM && !this.findConflictCaptain(conflictCaptain).isOwner) {
-      ui.notifications.error("Only the Conflict Captain or GM can roll Disposition");;
+      ui.notifications.error("Only the Conflict Captain or GM can roll Disposition");
       return;
     }
 

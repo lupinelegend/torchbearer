@@ -147,7 +147,7 @@ export const logTest = async function(app, html, skillOrAbility, data) {
     return;
   }
 
-  if (actor.tbData().skills.hasOwnProperty(test)) {
+  if (Object.prototype.hasOwnProperty.call(actor.tbData().skills, test)) {
     if (app.roll.terms[0].options.rollOutcome === 'pass') {
       actor.update({[`data.skills.${test}.pass`]: parseInt(actor.data.data.skills[test].pass + 1)});
     } else if (app.roll.terms[0].options.rollOutcome === 'fail') {
@@ -193,7 +193,7 @@ function reRoll(header, formula, explode, actor, originalSuccesses, ob, rollType
   if (["gmroll", "blindroll"].includes(rollMode)) chatData["whisper"] = ChatMessage.getWhisperRecipients("GM");
   if (rollMode === "selfroll") chatData["whisper"] = [game.user.data._id];
   if (rollMode === "blindroll") chatData["blind"] = true;
-  
+
   // Do the roll
   let roll = new Roll(formula);
   roll.roll();
@@ -278,13 +278,13 @@ function reRoll(header, formula, explode, actor, originalSuccesses, ob, rollType
 
     // Render the roll template
     renderTemplate(template, templateData).then(content => {
-      
+
       // Update the message content
       chatData.content = content;
 
       // Hook into Dice So Nice!
       if (game.dice3d) {
-        game.dice3d.showForRoll(roll, chatData.whisper, chatData.blind).then(displayed => {
+        game.dice3d.showForRoll(roll, chatData.whisper, chatData.blind).then(() => {
           ChatMessage.create(chatData)
         });
       }

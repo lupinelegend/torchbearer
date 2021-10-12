@@ -9,7 +9,7 @@ export class PlayerRoll {
 
     async roll(opts) {
         let {skillOrAbility, header, flavorText, helpDice, ob,
-            trait, tapNature, supplies, persona, natureDescriptor,
+            trait, tapNature, supplies, persona, // natureDescriptor,
             rollType, modifiers, miscDice, miscMinusSuccesses, miscPlusSuccesses,
             inadequateTools,
         } = opts;
@@ -267,7 +267,7 @@ export class PlayerRoll {
 
                 // Hook into Dice So Nice!
                 if (game.dice3d) {
-                    game.dice3d.showForRoll(roll, game.user, true, chatData.whisper, chatData.blind).then(displayed => {
+                    game.dice3d.showForRoll(roll, game.user, true, chatData.whisper, chatData.blind).then(() => {
                         ChatMessage.create(chatData)
                     });
                 }
@@ -321,7 +321,7 @@ export class PlayerRoll {
             }
         }
         for(let key in organized) {
-            if(organized.hasOwnProperty(key)) {
+            if(Object.prototype.hasOwnProperty.call(organized, key)) {
                 let section = organized[key];
                 for(let i = 0; i < section.components.length; i++) {
                     let modifier = section.components[i];
@@ -343,21 +343,21 @@ export class PlayerRoll {
 
     async showDialog(skillOrAbility, opts = {}, modifierList = []) {
         modifierList = [].concat(modifierList);
-        if(!!this.actor.tbData().fresh) {
+        if(this.actor.tbData().fresh) {
             modifierList.push({
                 name: 'fresh',
                 label: 'Fresh',
                 effect: '+1D'
             });
         }
-        if(!!this.actor.tbData().injured) {
+        if(this.actor.tbData().injured) {
             modifierList.push({
                 name: 'injured',
                 label: 'Injured',
                 effect: '-1D'
             });
         }
-        if(!!this.actor.tbData().sick) {
+        if(this.actor.tbData().sick) {
             modifierList.push({
                 name: 'sick',
                 label: 'Sick',

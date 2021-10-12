@@ -108,7 +108,7 @@ export class PlayerRollDialog extends Dialog {
                 }
             });
         };
-        html.find('.dice-modifier').change(ev => {
+        html.find('.dice-modifier').change(() => {
             calcModifiers();
         });
         html.find('#helpingDiceLabel').click(() => {
