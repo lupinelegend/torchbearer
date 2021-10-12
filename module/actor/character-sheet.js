@@ -348,18 +348,9 @@ export class TorchbearerCharacterSheet extends TorchbearerActorSheet {
     }
   }
 
-  /** @override */
-  async _onDrop(event) {
-    let item = await super._onDrop(event);
-    console.log(item);
-    if(this.actor.data.type !== 'Character') return;
-
-    let tbItem;
-    if(item.data._id) {
-      tbItem = this.actor.items.get(item.data._id);
-    } else {
-      tbItem = item;
-    }
+  async handleDropItem(item) {
+    // item.document means we got an ItemData rather than a TorchbearerItem
+    const tbItem = item.document ? item.document : item;
 
     if (tbItem.type === "Spell") {
       console.log('Yer a wizard, Harry');
@@ -408,6 +399,20 @@ export class TorchbearerCharacterSheet extends TorchbearerActorSheet {
     }
 
     return tbItem;
+  }
+
+  /** @override */
+  async _onDrop(event) {
+    let item = await super._onDrop(event);
+    console.log(item);
+    if(this.actor.data.type !== 'Character') return;
+
+    // super._onDrop sometimes returns an array (e.g. drop from compendium) and sometimes not (e.g. move in inventory)
+    if (Array.isArray(item)) {
+      return item.map(async (i) => await this.handleDropItem(i));
+    } else {
+      return await this.handleDropItem(item);
+    }
   }
 
   /** @override */
