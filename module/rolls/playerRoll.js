@@ -130,7 +130,7 @@ export class PlayerRoll {
         if(diceToRoll > 0) {
             // Build the formula
             await characterAdjustment.execute();
-            roll.roll();
+            await roll.roll({ async: true });
             roll.terms[0].options.ob = ob;
             roll.terms[0].options.rollType = rollType;
             roll.terms[0].options.advanceable = advanceable;
