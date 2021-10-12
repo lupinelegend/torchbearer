@@ -118,7 +118,6 @@ Hooks.once('init', async function() {
       }).render(true);
     });
   });
-  
 
   // Define custom Entity classes
   CONFIG.Actor.documentClass = TorchbearerActor;

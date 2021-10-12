@@ -13,13 +13,13 @@ class SharedItemBehaviors {
                 if(item.data.lightsource.remaining < item.data.lightsource.lasts) {
                     lanterns.push({
                         consumed: item.data.lightsource.lasts - item.data.lightsource.remaining,
-                        _id: item._id,
+                        _id: item.data._id,
                     });
                 }
             }
         }
         if(lanterns.length > 0) {
-            return actor.items.get(lanterns.sort(SharedItemBehaviors.compareLanternsByFuel)[0]._id);
+            return actor.items.get(lanterns.sort(SharedItemBehaviors.compareLanternsByFuel)[0].data._id);
         } else return null;
     }
 

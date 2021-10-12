@@ -78,7 +78,6 @@ export class TorchbearerActorSheet extends ActorSheet {
           ui.notifications.info(`You may now advance ${key} to 2`);
         }
       }
-      
     });
 
     // Check abilities to see if any can be advanced
@@ -216,7 +215,7 @@ export class TorchbearerActorSheet extends ActorSheet {
       let skill = ev.currentTarget.innerText;
 
       if (this.actor.data.data.skills[skill].rating > 0) {
-        
+
         // If skill can be advanced, do so then clear passes and failures
         if (this.actor.data.data.skills[skill].pass >= this.actor.data.data.skills[skill].rating && this.actor.data.data.skills[skill].fail >= this.actor.data.data.skills[skill].rating - 1) {
 
@@ -264,7 +263,7 @@ export class TorchbearerActorSheet extends ActorSheet {
     //   let entry;
     //   classPack.getIndex().then(index => classPack.index.find(e => e.name === className)).then(f => {
     //     entry = f;
-    //     classPack.getEntity(entry._id).then(cl => {
+    //     classPack.getEntity(entry.data._id).then(cl => {
     //       console.log(cl);
     //       // I can access compendium classes from here.
     //     });
@@ -282,12 +281,12 @@ export class TorchbearerActorSheet extends ActorSheet {
    */
   _onItemCreate(event) {
     event.preventDefault();
-    
+
     const header = event.currentTarget;
 
     // Get the type of item to create.
     const type = header.dataset.type;
-    
+
     // Grab any data associated with this control.
     const equipSlot = header.type;
     const data = duplicate(header.dataset);
@@ -319,7 +318,7 @@ export class TorchbearerActorSheet extends ActorSheet {
     event.preventDefault();
     const element = event.currentTarget;
     const dataset = element.dataset;
-    
+
     // Determine attribute/skill to roll
     let skillOrAbility = dataset.label;
 
@@ -360,8 +359,8 @@ export class TorchbearerActorSheet extends ActorSheet {
     if(this.actor.data.type !== 'Character') return;
 
     let tbItem;
-    if(item._id) {
-      tbItem = this.actor.items.get(item._id);
+    if(item.data._id) {
+      tbItem = this.actor.items.get(item.data._id);
     } else {
       tbItem = item;
     }
@@ -371,7 +370,7 @@ export class TorchbearerActorSheet extends ActorSheet {
     } else {
       if(tbItem.data) {
         await tbItem.syncEquipVariables();
-  
+
         let oldContainerId = tbItem.data.data.containerId;
         let {containerType, containerId, slotsTaken} = this.closestCompatibleContainer(tbItem, event.target);
         if(!containerType) {

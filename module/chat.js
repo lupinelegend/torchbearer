@@ -177,7 +177,7 @@ function reRoll(header, formula, explode, actor, originalSuccesses, ob, rollType
 
   // GM rolls
   let chatData = {
-    user: game.user._id,
+    user: game.user.data._id,
     speaker: ChatMessage.getSpeaker({ actor: actor })
   };
   let templateData = {
@@ -191,7 +191,7 @@ function reRoll(header, formula, explode, actor, originalSuccesses, ob, rollType
   // Handle roll visibility. Blind doesn't work; you'll need a render hook to hide it.
   let rollMode = game.settings.get("core", "rollMode");
   if (["gmroll", "blindroll"].includes(rollMode)) chatData["whisper"] = ChatMessage.getWhisperRecipients("GM");
-  if (rollMode === "selfroll") chatData["whisper"] = [game.user._id];
+  if (rollMode === "selfroll") chatData["whisper"] = [game.user.data._id];
   if (rollMode === "blindroll") chatData["blind"] = true;
   
   // Do the roll

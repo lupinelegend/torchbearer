@@ -30,7 +30,7 @@ export class TorchbearerActor extends Actor {
 
     // Make a new Object that holds computed data and keeps it separate from anything else
     data.computed = {};
-    
+
     data.computed.spells = arrangeSpells(this.items);
 
     data.computed.inventory = arrangeInventory(this.items, data.overburdened);
@@ -83,9 +83,9 @@ export class TorchbearerActor extends Actor {
 
   async _dumpContents(tbItem) {
     let {dumpEquip, dumpCarried} = this._determineDumpTarget(tbItem);
-    let slots = this.tbData().computed.inventory[tbItem._id].slots;
+    let slots = this.tbData().computed.inventory[tbItem.data._id].slots;
     for(let i = 0; i < slots.length; i++) {
-      let tbContainedItem = this.items.get(slots[i]._id);
+      let tbContainedItem = this.items.get(slots[i].data._id);
       if(tbContainedItem) {
         await tbContainedItem.update({
           data: {
@@ -132,7 +132,7 @@ export class TorchbearerActor extends Actor {
     if(!sources.length) return;
 
     for(let i = 0; i < sources.length; i++) {
-      const tbItem = this.getOwnedItem(sources[i]._id);
+      const tbItem = this.getOwnedItem(sources[i].data._id);
       await tbItem.consumeOne();
     }
     setTimeout(() => {
@@ -189,7 +189,7 @@ export class TorchbearerActor extends Actor {
   }
 
   async getLightLevel() {
-    return await game.grind.lightLevelFor(this._id);
+    return await game.grind.lightLevelFor(this.data._id);
   }
 
   tbData() {
