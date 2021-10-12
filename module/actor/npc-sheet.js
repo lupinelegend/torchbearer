@@ -1,11 +1,10 @@
-import { TorchbearerActorSheet } from "./actor-sheet.js";
+import { TorchbearerCharacterSheet } from "./character-sheet.js";
 
-export class TorchbearerNPCSheet extends TorchbearerActorSheet {
+export class TorchbearerNPCSheet extends TorchbearerCharacterSheet {
   /** @override */
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       classes: ["torchbearer", "sheet", "npc"],
-      template: "systems/torchbearer/templates/actor/npc-sheet.html.hbs",
     });
   }
 }

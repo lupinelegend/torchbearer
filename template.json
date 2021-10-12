@@ -678,7 +678,54 @@
       }
     },
     "NPC": {
-      "templates": ["purpose", "traits", "rewards", "abilities", "skills", "wises"]
+      "templates": [
+        "background",
+        "purpose",
+        "traits",
+        "rewards",
+        "conditions",
+        "abilities",
+        "skills",
+        "wises",
+        "inventory",
+        "allies",
+        "enemies",
+        "common",
+        "notes"
+      ],
+      "class": {
+        "name": "",
+        "startingWill": 0,
+        "startingHealth": 0,
+        "startingSkills": {},
+        "startingTrait": "",
+        "allowedWeapons": [],
+        "restrictedWeapons": [],
+        "allowedArmor": []
+      },
+      "classes": {
+        "outcast": {
+          "value": "Dwarf Adventurer"
+        },
+        "ranger": {
+          "value": "Elf Ranger"
+        },
+        "burglar": {
+          "value": "Halfling Burglar"
+        },
+        "theurge": {
+          "value": "Human Theurge"
+        },
+        "magician": {
+          "value": "Human Magician"
+        },
+        "warrior": {
+          "value": "Human Warrior"
+        }
+      },
+      "level": {
+        "value": 1
+      }
     },
     "Monster": {
       "templates": [],
