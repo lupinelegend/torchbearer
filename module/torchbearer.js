@@ -1,6 +1,8 @@
 // Import Modules
 import { TorchbearerActor } from "./actor/actor.js";
 import { TorchbearerCharacterSheet } from "./actor/character-sheet.js";
+import { TorchbearerMonsterSheet } from "./actor/monster-sheet.js";
+import { TorchbearerNPCSheet } from "./actor/npc-sheet.js";
 import { TorchbearerItem } from "./item/item.js";
 import { TorchbearerItemSheet } from "./item/item-sheet.js";
 import { ConflictSheet } from "./conflict/conflict.js";
@@ -124,7 +126,9 @@ Hooks.once("init", async function () {
 
   // Register sheet application classes
   Actors.unregisterSheet("core", ActorSheet);
-  Actors.registerSheet("torchbearer", TorchbearerCharacterSheet, { makeDefault: true });
+  Actors.registerSheet("torchbearer", TorchbearerCharacterSheet, { types: ["Character"], makeDefault: true });
+  Actors.registerSheet("torchbearer", TorchbearerMonsterSheet, { types: ["Monster"], makeDefault: true });
+  Actors.registerSheet("torchbearer", TorchbearerNPCSheet, { types: ["NPC"], makeDefault: true });
   Items.unregisterSheet("core", ItemSheet);
   Items.registerSheet("torchbearer", TorchbearerItemSheet, { makeDefault: true });
 

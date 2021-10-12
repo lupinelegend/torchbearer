@@ -6,10 +6,8 @@ export class TorchbearerCharacterSheet extends TorchbearerActorSheet {
   /** @override */
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
-      classes: ["torchbearer", "sheet", "actor"],
-      //template: "systems/torchbearer/templates/actor/actor-sheet.html.hbs",
-      width: 617,
-      height: 848,
+      classes: ["torchbearer", "sheet", "character"],
+      template: "systems/torchbearer/templates/actor/character-sheet.html.hbs",
       tabs: [
         {
           navSelector: ".sheet-tabs",
@@ -26,27 +24,12 @@ export class TorchbearerCharacterSheet extends TorchbearerActorSheet {
     });
   }
 
-  /** @override */
-  get template() {
-    const path = "systems/torchbearer/templates/actor";
-    // Return a single sheet for all item types.
-    // return `${path}/item-sheet.html`;
-    return `${path}/${this.actor.data.type}-sheet.html.hbs`;
-
-    // Alternatively, you could use the following return statement to do a
-    // unique item sheet by type, like `weapon-sheet.html.hbs`.
-
-    // return `${path}/${this.item.data.type}-sheet.html.hbs`;
-  }
-
   /* -------------------------------------------- */
 
   /** @override */
   getData() {
     const data = super.getData();
-    if (this.actor.data.type !== "Character") {
-      return data;
-    }
+
     // Condition checkboxes
     const conditionStates = [
       data.data.hungryandthirsty,
@@ -424,7 +407,6 @@ export class TorchbearerCharacterSheet extends TorchbearerActorSheet {
   async _onDrop(event) {
     let item = await super._onDrop(event);
     console.log(item);
-    if (this.actor.data.type !== "Character") return;
 
     // super._onDrop sometimes returns an array (e.g. drop from compendium) and sometimes not (e.g. move in inventory)
     if (Array.isArray(item)) {
