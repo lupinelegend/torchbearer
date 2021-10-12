@@ -4,7 +4,7 @@
     <header class="sheet-header">
 
       <!-- Actor Image -->
-      <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"> 
+      <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100">
       <div class="header-fields">
         <!-- Actor Name -->
         <h1 style="font-family: Souvenir-Demi;" class="charname">
@@ -39,7 +39,7 @@
           <div class="flex-group-center">
 
             <label style="font-family: Souvenir-Demi; font-size: 16px;" for="actor.data.computed.totalChecks">Checks</label>
-            
+
             <div class="resource-content flexrow">
               <input id="currentChecks" type="text" name="actor.data.computed.totalChecks" disabled value="{{actor.data.computed.totalChecks}}" data-dtype="Number"/>
             </div>
@@ -48,7 +48,7 @@
 
         </div>
       </div>
-      
+
     </header>
 
     <!-- Condition Bar -->
@@ -108,7 +108,7 @@
           <label for="data.dead" style="font-family: Souvenir-Medium;">Dead</label>
         </div>
       </div>
-    </div> 
+    </div>
 
     {{!-- Sheet Tab Navigation --}}
     <nav class="sheet-tabs tabs" data-group="primary">
@@ -125,7 +125,7 @@
 
         {{!-- 'Who You Are' Tab --}}
         <div class="tab whoYouAre" data-group="primary" data-tab="whoYouAre" style="margin-top: 5px;">
-          
+
           <!-- Tooltip description on hover
             <div>
             <h2 class="tooltip" style="font-family: Souvenir-Demi; border: none; margin: 0 0 0 0rem !important;">Belief
@@ -173,7 +173,7 @@
           <!-- Nature Descriptors -->
           <div>
             <div style="display: flex; flex-direction: row; align-items: baseline;">
-              <h2 style="font-family: Souvenir-Demi; border: none; margin: 0 0 0 0rem !important;">Nature Descriptors</h2> 
+              <h2 style="font-family: Souvenir-Demi; border: none; margin: 0 0 0 0rem !important;">Nature Descriptors</h2>
               <h5 style="font-family: Souvenir-MediumItalic; margin: 0 0 0 0rem !important; text-align: right; flex-grow: 3;">How your Nature is used in play</h5>
             </div>
             <input type="text" name="data.natureDescriptors" value="{{data.natureDescriptors}}" id="natureDescriptors">
@@ -444,7 +444,7 @@
               {{/ifeq}}
               {{#ifeq data.traits.trait1.level.value "2"}}
               <div id="trait1Uses" style="display: flex; flex-direction: row; align-items: center;">
-                <input type="checkbox" name="data.traits.trait1.uses.level1.use1"   id="trait1Level1Used" {{checked data.traits.trait1.uses.level1.use1}}>  
+                <input type="checkbox" name="data.traits.trait1.uses.level1.use1"   id="trait1Level1Used" {{checked data.traits.trait1.uses.level1.use1}}>
                 <input type="checkbox" name="data.traits.trait1.uses.level2.use2" id="trait1Level2Used" {{checked data.traits.trait1.uses.level2.use2}}>
                 <label for="data.traits.trait1.uses.level1.use1" style="font-family: Souvenir-Medium;" id="trait1UseLabel">+1D</label>
               </div>
@@ -481,7 +481,7 @@
               {{/ifeq}}
               {{#ifeq data.traits.trait2.level.value "2"}}
               <div id="trait2Uses" style="display: flex; flex-direction: row; align-items: center;">
-                <input type="checkbox" name="data.traits.trait2.uses.level1.use1"   id="trait2Level1Used" {{checked data.traits.trait2.uses.level1.use1}}>  
+                <input type="checkbox" name="data.traits.trait2.uses.level1.use1"   id="trait2Level1Used" {{checked data.traits.trait2.uses.level1.use1}}>
                 <input type="checkbox" name="data.traits.trait2.uses.level2.use2" id="trait2Level2Used" {{checked data.traits.trait2.uses.level2.use2}}>
                 <label for="data.traits.trait2.uses.level1.use1" style="font-family: Souvenir-Medium;" id="trait2UseLabel">+1D</label>
               </div>
@@ -518,7 +518,7 @@
               {{/ifeq}}
               {{#ifeq data.traits.trait3.level.value "2"}}
               <div id="trait3Uses" style="display: flex; flex-direction: row; align-items: center;">
-                <input type="checkbox" name="data.traits.trait3.uses.level1.use1"   id="trait3Level1Used" {{checked data.traits.trait3.uses.level1.use1}}>  
+                <input type="checkbox" name="data.traits.trait3.uses.level1.use1"   id="trait3Level1Used" {{checked data.traits.trait3.uses.level1.use1}}>
                 <input type="checkbox" name="data.traits.trait3.uses.level2.use2" id="trait3Level2Used" {{checked data.traits.trait3.uses.level2.use2}}>
                 <label for="data.traits.trait3.uses.level1.use1" style="font-family: Souvenir-Medium;" id="trait3UseLabel">+1D</label>
               </div>
@@ -555,7 +555,7 @@
               {{/ifeq}}
               {{#ifeq data.traits.trait4.level.value "2"}}
               <div id="trait4Uses" style="display: flex; flex-direction: row; align-items: center;">
-                <input type="checkbox" name="data.traits.trait4.uses.level1.use1"   id="trait4Level1Used" {{checked data.traits.trait4.uses.level1.use1}}>  
+                <input type="checkbox" name="data.traits.trait4.uses.level1.use1"   id="trait4Level1Used" {{checked data.traits.trait4.uses.level1.use1}}>
                 <input type="checkbox" name="data.traits.trait4.uses.level2.use2" id="trait4Level2Used" {{checked data.traits.trait4.uses.level2.use2}}>
                 <label for="data.traits.trait4.uses.level1.use1" style="font-family: Souvenir-Medium;" id="trait4UseLabel">+1D</label>
               </div>
@@ -627,7 +627,7 @@
                                             <a class="item-control item-create" title="Create item" data-type="item" type="Head"><i class="fas fa-plus"></i></a>
                                         </div>
                                     </li>
-                                    {{{renderInventory 1 actor._id 'Head' 'Worn' 'actor'}}}
+                                    {{{renderInventory 1 actor.data._id 'Head' 'Worn' 'actor'}}}
                                 </ol>
 
                                 <ol id="handsWornSlot" class="items-list inventory-container col" data-container-type="Hands (Worn)" style="margin: 0 3px 0 3px;">
@@ -638,7 +638,7 @@
                                             <a class="item-control item-create" title="Create item" data-type="item" type="Hands"><i class="fas fa-plus"></i></a>
                                         </div>
                                     </li>
-                                    {{{renderInventory 2 actor._id 'Hands (Worn)' 'Worn' 'actor'}}}
+                                    {{{renderInventory 2 actor.data._id 'Hands (Worn)' 'Worn' 'actor'}}}
                                 </ol>
 
                                 <ol id="handsCarriedSlot" class="items-list inventory-container col" data-container-type="Hands (Carried)" style="margin: 0 3px 0 3px;">
@@ -651,9 +651,9 @@
                                         </div>
                                     </li>
                                     {{#if data.overburdened}}
-                                        {{{renderInventory 4 actor._id 'Hands (Carried)' 'Carried' 'actor'}}}
+                                        {{{renderInventory 4 actor.data._id 'Hands (Carried)' 'Carried' 'actor'}}}
                                     {{else}}
-                                        {{{renderInventory 2 actor._id 'Hands (Carried)' 'Carried' 'actor'}}}
+                                        {{{renderInventory 2 actor.data._id 'Hands (Carried)' 'Carried' 'actor'}}}
                                     {{/if}}
                                 </ol>
                                 <ol id="torsoSlot" class="items-list inventory-container col" data-container-type="Torso" style="margin: 0 3px 0 3px;">
@@ -665,7 +665,7 @@
                                         </div>
                                     </li>
 
-                                    {{{renderInventory 3 actor._id 'Torso' 'Worn' 'actor'}}}
+                                    {{{renderInventory 3 actor.data._id 'Torso' 'Worn' 'actor'}}}
                                 </ol>
                                 <ol id="pocketSlot" class="items-list inventory-container col" data-container-type="Pocket" style="margin: 0 3px 0 3px;">
                                     <li class="item flexrow item-header" id="pocketSlotHeader">
@@ -676,7 +676,7 @@
                                         </div>
                                     </li>
 
-                                    {{{renderInventory 1 actor._id 'Pocket' 'Trinkets' 'actor'}}}
+                                    {{{renderInventory 1 actor.data._id 'Pocket' 'Trinkets' 'actor'}}}
                                 </ol>
                             </div>
                             <div class="col">
@@ -689,7 +689,7 @@
                                         </div>
                                     </li>
 
-                                    {{{renderInventory 1 actor._id 'Neck' 'Worn' 'actor'}}}
+                                    {{{renderInventory 1 actor.data._id 'Neck' 'Worn' 'actor'}}}
                                 </ol>
                                 <ol id="feetSlot" class="items-list inventory-container col" data-container-type="Feet" style="margin: 0 3px 0 3px;">
                                     <li class="item flexrow item-header" id="feetSlotHeader">
@@ -700,7 +700,7 @@
                                         </div>
                                     </li>
 
-                                    {{{renderInventory 1 actor._id 'Feet' 'Worn' 'actor'}}}
+                                    {{{renderInventory 1 actor.data._id 'Feet' 'Worn' 'actor'}}}
                                 </ol>
                                 <ol id="beltSlot" class="items-list inventory-container col" data-container-type="Belt" style="margin: 0 3px 0 3px;">
                                     <li class="item flexrow item-header" id="beltSlotHeader">
@@ -711,7 +711,7 @@
                                         </div>
                                     </li>
 
-                                    {{{renderInventory 3 actor._id 'Belt' 'Worn' 'actor'}}}
+                                    {{{renderInventory 3 actor.data._id 'Belt' 'Worn' 'actor'}}}
                                 </ol>
 
                                 <ol id="groundSlot" class="items-list inventory-container col" data-container-type="On Ground" style="margin: 0 3px 0 3px;">
@@ -722,7 +722,7 @@
                                             <a class="item-control item-create" title="Create item" data-type="item" type="On Ground"><i class="fas fa-plus"></i></a>
                                         </div>
                                     </li>
-                                    {{{renderInventory 0 actor._id 'On Ground' 'Ground' 'actor'}}}
+                                    {{{renderInventory 0 actor.data._id 'On Ground' 'Ground' 'actor'}}}
                                 </ol>
                             </div>
                         </div>
@@ -741,7 +741,7 @@
                                             <a class="item-control item-create" title="Create item" data-type="item" type="Cached"><i class="fas fa-plus"></i></a>
                                         </div>
                                     </li>
-                                    {{{renderInventory 0 actor._id 'Cached' 'Cached' 'actor'}}}
+                                    {{{renderInventory 0 actor.data._id 'Cached' 'Cached' 'actor'}}}
                                 </ol>
                             </div>
                             <div class="col">
@@ -754,7 +754,7 @@
                                             <a class="item-control item-create" title="Create item" data-type="item" type="Lost"><i class="fas fa-plus"></i></a>
                                         </div>
                                     </li>
-                                    {{{renderInventory 0 actor._id 'Lost' 'Lost' 'actor'}}}
+                                    {{{renderInventory 0 actor.data._id 'Lost' 'Lost' 'actor'}}}
                                 </ol>
                             </div>
                         </div>
@@ -765,7 +765,7 @@
 
         {{!-- Magic Tab --}}
         <div class="tab" data-group="primary" data-tab="magic">
-            
+
           <table class="tbtable">
             <thead class="theader" style="font-family: Souvenir-Demi;">
               <th style="text-align: center;">Cast?</th>
