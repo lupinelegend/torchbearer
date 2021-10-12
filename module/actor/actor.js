@@ -105,7 +105,7 @@ export class TorchbearerActor extends Actor {
         await this._dumpContents(tbItem);
       }
     }
-    await this.deleteOwnedItem(itemId);
+    await this.deleteEmbeddedDocuments('Item', [itemId]);
     this._onUpdate({items: true});
   }
 
@@ -130,7 +130,7 @@ export class TorchbearerActor extends Actor {
     if(!sources.length) return;
 
     for(let i = 0; i < sources.length; i++) {
-      const tbItem = this.getOwnedItem(sources[i].data._id);
+      const tbItem = this.items.get(sources[i].data._id);
       await tbItem.consumeOne();
     }
     setTimeout(() => {

@@ -68,7 +68,7 @@ export class TorchbearerItemSheet extends ItemSheet {
     // Roll handlers, click handlers, etc. would go here.
     html.find('.item-name.clickable').click(ev => {
       const li = $(ev.currentTarget).parents(".item");
-      const item = this.actor.getOwnedItem(li.data("itemId"));
+      const item = this.actor.items.get(li.data("itemId"));
       item.sheet.render(true);
     });
 
@@ -88,7 +88,7 @@ export class TorchbearerItemSheet extends ItemSheet {
     html.find('.item-drop').click(ev => {
       const li = $(ev.currentTarget).parents(".item");
       if(this.item.actor) {
-        let tbItem = this.item.actor.getOwnedItem(li.data("itemId"));
+        let tbItem = this.item.actor.items.get(li.data("itemId"));
         tbItem.update({
           data: {
             equip: "On Ground",
@@ -109,7 +109,7 @@ export class TorchbearerItemSheet extends ItemSheet {
     html.find('.item-consume').click(ev => {
       const li = $(ev.currentTarget).parents(".item");
       if(this.item.actor) {
-        let tbItem = this.item.actor.getOwnedItem(li.data("itemId"));
+        let tbItem = this.item.actor.items.get(li.data("itemId"));
         tbItem.consumeOne().then((consumed) => {
           if(consumed) {
             setTimeout(() => {
@@ -125,7 +125,7 @@ export class TorchbearerItemSheet extends ItemSheet {
     html.find('.item-activate').click(ev => {
       const li = $(ev.currentTarget).parents(".item");
       if(this.item.actor) {
-        let tbItem = this.item.actor.getOwnedItem(li.data("itemId"));
+        let tbItem = this.item.actor.items.get(li.data("itemId"));
         tbItem.toggleActive().then((toggled) => {
           if(toggled) {
             setTimeout(() => {
@@ -156,7 +156,7 @@ export class TorchbearerItemSheet extends ItemSheet {
   /** @override */
   _onDragStart(event) {
     const li = event.currentTarget;
-    const item = this.item.actor.getOwnedItem(li.dataset.itemId);
+    const item = this.item.actor.items.get(li.dataset.itemId);
     const dragData = {
       type: "Item",
       actorId: this.item.actor.id,

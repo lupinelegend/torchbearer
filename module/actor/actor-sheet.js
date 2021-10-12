@@ -107,14 +107,14 @@ export class TorchbearerActorSheet extends ActorSheet {
     html.find('.item-name.clickable').click(ev => {
       console.log(ev.currentTarget);
       const li = $(ev.currentTarget).parents(".item");
-      const item = this.actor.getOwnedItem(li.data("itemId"));
+      const item = this.actor.items.get(li.data("itemId"));
       // const equip = item.data.data.equip;
       item.sheet.render(true);
     });
 
     // Update Inventory Item
     html.find('.spell-name.clickable').click(ev => {
-      const spell = this.actor.getOwnedItem(ev.currentTarget.title);
+      const spell = this.actor.items.get(ev.currentTarget.title);
       console.log(spell);
       spell.sheet.render(true);
     });
@@ -138,7 +138,7 @@ export class TorchbearerActorSheet extends ActorSheet {
     // Update spell data
     html.find('.spell-toggle').click(ev => {
       // ev.preventDefault();
-      const spell = this.actor.getOwnedItem(ev.currentTarget.id);
+      const spell = this.actor.items.get(ev.currentTarget.id);
       let checkState = ev.currentTarget.checked;
       console.log(spell);
       switch (ev.currentTarget.title) {
@@ -166,7 +166,7 @@ export class TorchbearerActorSheet extends ActorSheet {
     // Drop Inventory Item
     html.find('.item-drop').click(ev => {
       const li = $(ev.currentTarget).parents(".item");
-      let tbItem = this.actor.getOwnedItem(li.data("itemId"));
+      let tbItem = this.actor.items.get(li.data("itemId"));
       tbItem.update({
         data: {
           equip: "On Ground",
@@ -183,7 +183,7 @@ export class TorchbearerActorSheet extends ActorSheet {
     // Drink Item
     html.find('.item-consume').click(ev => {
       const li = $(ev.currentTarget).parents(".item");
-      let tbItem = this.actor.getOwnedItem(li.data("itemId"));
+      let tbItem = this.actor.items.get(li.data("itemId"));
       tbItem.consumeOne().then(() => {
         setTimeout(() => {
           this.actor._onUpdate({items: true});
@@ -194,7 +194,7 @@ export class TorchbearerActorSheet extends ActorSheet {
     // Activate Item
     html.find('.item-activate').click(ev => {
       const li = $(ev.currentTarget).parents(".item");
-      let tbItem = this.actor.getOwnedItem(li.data("itemId"));
+      let tbItem = this.actor.items.get(li.data("itemId"));
       tbItem.toggleActive().then(() => {
         setTimeout(() => {
           this.actor._onUpdate({items: true});

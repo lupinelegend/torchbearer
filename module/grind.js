@@ -86,7 +86,7 @@ export class GrindSheet extends Application {
         html.find('.item .item-image, .item .item-name').on('click', (evt) => {
             const itemNode = $(evt.target).closest('.item');
             if(itemNode.data('actorId')) {
-                game.actors.get(itemNode.data('actorId')).getOwnedItem(itemNode.data('itemId')).sheet.render(true);
+                game.actors.get(itemNode.data('actorId')).items.get(itemNode.data('itemId')).sheet.render(true);
             } else {
                 game.items.get(itemNode.data('itemId')).sheet.render(true);
             }
@@ -110,7 +110,7 @@ export class GrindSheet extends Application {
         if(!game.user.isGM) return;
         const toActor = game.actors.get(request.toActor);
         const fromActor = game.actors.get(request.fromActor);
-        const fromItem = fromActor.getOwnedItem(request.itemId);
+        const fromItem = fromActor.items.get(request.itemId);
         await toActor.createEmbeddedEntity("OwnedItem", duplicate(fromItem.data));
         await fromActor.removeItemFromInventory(fromItem.data._id);
         this.sendMessage({type:"grindChanged"});
