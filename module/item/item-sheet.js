@@ -3,7 +3,6 @@
  * @extends {ItemSheet}
  */
 export class TorchbearerItemSheet extends ItemSheet {
-
   /** @override */
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
@@ -11,7 +10,7 @@ export class TorchbearerItemSheet extends ItemSheet {
       width: 450,
       height: 450,
       tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description" }],
-      dragDrop: [{dragSelector: ".items-list .item", dropSelector: null}]
+      dragDrop: [{ dragSelector: ".items-list .item", dropSelector: null }],
     });
   }
 
@@ -33,13 +32,13 @@ export class TorchbearerItemSheet extends ItemSheet {
   /** @override */
   getData() {
     const data = super.getData();
-    data.inventoryContainerClass = '';
-    data.containerType = '';
-    if(this.item.data.data.capacity) {
-      data.inventoryContainerClass = 'inventory-container';
-      data.containerType = 'Pack';
+    data.inventoryContainerClass = "";
+    data.containerType = "";
+    if (this.item.data.data.capacity) {
+      data.inventoryContainerClass = "inventory-container";
+      data.containerType = "Pack";
     }
-    if(this.item.actor) {
+    if (this.item.actor) {
       data._actor_id = this.item.actor.data._id;
     }
     return data;
@@ -66,16 +65,16 @@ export class TorchbearerItemSheet extends ItemSheet {
     if (!this.options.editable) return;
 
     // Roll handlers, click handlers, etc. would go here.
-    html.find('.item-name.clickable').click(ev => {
+    html.find(".item-name.clickable").click((ev) => {
       const li = $(ev.currentTarget).parents(".item");
       const item = this.actor.items.get(li.data("itemId"));
       item.sheet.render(true);
     });
 
-    html.find('.item-delete').click(ev => {
+    html.find(".item-delete").click((ev) => {
       const li = $(ev.currentTarget).parents(".item");
 
-      if(this.item.actor) {
+      if (this.item.actor) {
         this.item.actor.removeItemFromInventory(li.data("itemId")).then(() => {
           setTimeout(() => {
             this.item._onUpdate();
@@ -85,33 +84,35 @@ export class TorchbearerItemSheet extends ItemSheet {
     });
 
     // Drop Inventory Item
-    html.find('.item-drop').click(ev => {
+    html.find(".item-drop").click((ev) => {
       const li = $(ev.currentTarget).parents(".item");
-      if(this.item.actor) {
+      if (this.item.actor) {
         let tbItem = this.item.actor.items.get(li.data("itemId"));
-        tbItem.update({
-          data: {
-            equip: "On Ground",
-            carried: "Ground",
-            slots: 1,
-            containerId: '',
-          }
-        }).then(() => {
-          setTimeout(() => {
-            this.item._onUpdate();
-            this.item.actor._onUpdate({ items: true }, { render: false });
-          }, 0);
-        })
+        tbItem
+          .update({
+            data: {
+              equip: "On Ground",
+              carried: "Ground",
+              slots: 1,
+              containerId: "",
+            },
+          })
+          .then(() => {
+            setTimeout(() => {
+              this.item._onUpdate();
+              this.item.actor._onUpdate({ items: true }, { render: false });
+            }, 0);
+          });
       }
     });
 
     // Consume Item
-    html.find('.item-consume').click(ev => {
+    html.find(".item-consume").click((ev) => {
       const li = $(ev.currentTarget).parents(".item");
-      if(this.item.actor) {
+      if (this.item.actor) {
         let tbItem = this.item.actor.items.get(li.data("itemId"));
         tbItem.consumeOne().then((consumed) => {
-          if(consumed) {
+          if (consumed) {
             setTimeout(() => {
               this.item._onUpdate();
               this.item.actor._onUpdate({ items: true }, { render: false });
@@ -122,12 +123,12 @@ export class TorchbearerItemSheet extends ItemSheet {
     });
 
     // Activate Item
-    html.find('.item-activate').click(ev => {
+    html.find(".item-activate").click((ev) => {
       const li = $(ev.currentTarget).parents(".item");
-      if(this.item.actor) {
+      if (this.item.actor) {
         let tbItem = this.item.actor.items.get(li.data("itemId"));
         tbItem.toggleActive().then((toggled) => {
-          if(toggled) {
+          if (toggled) {
             setTimeout(() => {
               this.item._onUpdate();
             }, 0);
@@ -135,8 +136,6 @@ export class TorchbearerItemSheet extends ItemSheet {
         });
       }
     });
-
-
   }
 
   /** @override */
@@ -171,7 +170,7 @@ export class TorchbearerItemSheet extends ItemSheet {
 
   /** @override */
   async _onDrop(event) {
-    if(!this.item.actor) {
+    if (!this.item.actor) {
       return;
     }
     this.item.actor.sheet._onDrop(event).then(() => {

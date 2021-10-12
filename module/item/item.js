@@ -1,4 +1,4 @@
-import {itemExtensions} from "./itemExtensions.js";
+import { itemExtensions } from "./itemExtensions.js";
 
 /**
  * Extend the basic Item with some very simple modifications.
@@ -17,9 +17,9 @@ export class TorchbearerItem extends Item {
     data.computed = data.computed || {};
     data.computed.consumedSlots = itemData.data.slots;
     let itemExtension = itemExtensions[this.data.name];
-    if(itemExtension) {
-      for(const functionName in itemExtension) {
-        if(Object.prototype.hasOwnProperty.call(itemExtension, functionName)) {
+    if (itemExtension) {
+      for (const functionName in itemExtension) {
+        if (Object.prototype.hasOwnProperty.call(itemExtension, functionName)) {
           this[functionName] = itemExtension[functionName].bind(this);
         }
       }
@@ -32,13 +32,13 @@ export class TorchbearerItem extends Item {
 
   async syncEquipVariables() {
     let tbData = this.tbData();
-    for(let i = 1; i <= 3; i++) {
-      if(tbData.equip === tbData.equipOptions['option' + i].value) {
+    for (let i = 1; i <= 3; i++) {
+      if (tbData.equip === tbData.equipOptions["option" + i].value) {
         await this.update({
           data: {
-            carried: tbData.carryOptions['option' + i].value,
-            slots: tbData.slotOptions['option' + i].value,
-          }
+            carried: tbData.carryOptions["option" + i].value,
+            slots: tbData.slotOptions["option" + i].value,
+          },
         });
         return;
       }
@@ -46,31 +46,31 @@ export class TorchbearerItem extends Item {
   }
 
   async consumeOne() {
-    if(!this.actor) {
+    if (!this.actor) {
       return false;
     }
 
-    if(!this.onBeforeConsumed()) {
+    if (!this.onBeforeConsumed()) {
       return false;
     }
 
     let update;
     const tbData = this.tbData();
-    if(tbData.consumable.consumes === 'draughts') {
+    if (tbData.consumable.consumes === "draughts") {
       update = this.update({
         data: {
           draughts: Math.clamped(tbData.draughts - 1, 0, 10),
-        }
+        },
       });
-    } else if(tbData.consumable.consumes === 'self') {
+    } else if (tbData.consumable.consumes === "self") {
       update = this.actor.removeItemFromInventory(this.data._id);
-    } else if(tbData.consumable.consumes === 'light') {
+    } else if (tbData.consumable.consumes === "light") {
       update = this.update({
         data: {
           lightsource: {
             remaining: Math.clamped(tbData.lightsource.remaining - 1, 0, 10),
-          }
-        }
+          },
+        },
       });
     }
     await update;
@@ -82,16 +82,16 @@ export class TorchbearerItem extends Item {
    * @return Whether the item successfully toggled
    */
   async toggleActive() {
-    if(!this.actor) return false;
+    if (!this.actor) return false;
     const tbData = this.tbData();
-    if(!tbData.activatable.activates) return false;
-    if(!this.onBeforeActivate()) return false;
+    if (!tbData.activatable.activates) return false;
+    if (!this.onBeforeActivate()) return false;
     await this.update({
       data: {
         activatable: {
           active: !tbData.activatable.active,
-        }
-      }
+        },
+      },
     });
     return true;
   }
@@ -109,12 +109,12 @@ export class TorchbearerItem extends Item {
   }
 
   slotsTaken(containerType) {
-    for(let i = 1; i <= 3; i++) {
-      if(this.data.data.equipOptions['option' + i].value === containerType) {
-        return this.data.data.slotOptions['option' + i].value;
+    for (let i = 1; i <= 3; i++) {
+      if (this.data.data.equipOptions["option" + i].value === containerType) {
+        return this.data.data.slotOptions["option" + i].value;
       }
     }
-    throw("Invalid slots");
+    throw "Invalid slots";
   }
 
   /**
@@ -143,16 +143,13 @@ export class TorchbearerItem extends Item {
   onBeforeConsumed() {
     return true;
   }
-  async onAfterConsumed() {
-  }
+  async onAfterConsumed() {}
 
   onBeforeActivate() {
     return true;
   }
 
-  async onAfterEquipped(/* equippedEvent */) {
-
-  }
+  async onAfterEquipped(/* equippedEvent */) {}
 
   /**
    * Overridable Callback action
@@ -160,6 +157,5 @@ export class TorchbearerItem extends Item {
    * @param given: array of items that have already been confirmed
    * @return nothing but can modify data.data.computed.consumedSlots
    */
-  onCalculateConsumedSlots(/* container, given */) {
-  }
+  onCalculateConsumedSlots(/* container, given */) {}
 }

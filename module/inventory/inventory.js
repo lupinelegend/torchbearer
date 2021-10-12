@@ -1,377 +1,385 @@
-import {validateContainers} from "./containerValidator.js";
+import { validateContainers } from "./containerValidator.js";
 
 export function newItemInventory(tbItem) {
-    return {
-        name: tbItem.data.data.name,
-        capacity: tbItem.data.data.capacity,
-        slots: [],
-        holdsBundles: true,
-        type: 'Pack',
-    };
+  return {
+    name: tbItem.data.data.name,
+    capacity: tbItem.data.data.capacity,
+    slots: [],
+    holdsBundles: true,
+    type: "Pack",
+  };
 }
 
 let bundleableItem = function (tbItem, container, itemOwnInventory) {
-    //is the container bundleable, is the item bundleable,
-    // and is the item currently holding anything inside it?
-    return container.holdsBundles &&
-        tbItem.tbData().bundleSize > 1 &&
-        (!itemOwnInventory || itemOwnInventory.slots.length === 0);
-        // tbItem.tbData().slots === tbItem.tbData().computed.consumedSlots;
+  //is the container bundleable, is the item bundleable,
+  // and is the item currently holding anything inside it?
+  return (
+    container.holdsBundles &&
+    tbItem.tbData().bundleSize > 1 &&
+    (!itemOwnInventory || itemOwnInventory.slots.length === 0)
+  );
+  // tbItem.tbData().slots === tbItem.tbData().computed.consumedSlots;
 };
 
 export function arrangeInventory(tbItemsMap, overburdened) {
-    //For the most part just arrange item data not
-    // TorchbearerItem objects...is this necessary?
-    if(!tbItemsMap) return;
-    const tbItems = [];
-    for(const tbItem of tbItemsMap) {
-        if(tbItem.data.type === 'Item') {
-            tbItems.push(tbItem);
-        }
+  //For the most part just arrange item data not
+  // TorchbearerItem objects...is this necessary?
+  if (!tbItemsMap) return;
+  const tbItems = [];
+  for (const tbItem of tbItemsMap) {
+    if (tbItem.data.type === "Item") {
+      tbItems.push(tbItem);
     }
-    const inventory = {
-        Head: {
-            name: "Head",
-            capacity: 1,
-            holdsBundles: false,
-            slots: [],
-            type: 'Body',
-        },
-        "Hands (Worn)": {
-            name: "Hands (Worn)",
-            capacity: 2,
-            holdsBundles: false,
-            slots: [],
-            type: 'Body',
-        },
-        "Hands (Carried)": {
-            name: "Hands (Carried)",
-            capacity: overburdened ? 4 : 2,
-            holdsBundles: false,
-            slots: [],
-            type: 'Body',
-        },
-        Torso: {
-            name: "Torso",
-            capacity: 3,
-            holdsBundles: false,
-            slots: [],
-            type: 'Body',
-        },
-        Pocket: {
-            name: "Pocket",
-            capacity: 1,
-            holdsBundles: false,
-            slots: [],
-            type: 'Body',
-        },
-        Neck: {
-            name: "Neck",
-            capacity: 1,
-            holdsBundles: false,
-            slots: [],
-            type: 'Body',
-        },
-        Feet: {
-            name: "Feet",
-            capacity: 1,
-            holdsBundles: false,
-            slots: [],
-            type: 'Body',
-        },
-        Belt: {
-            name: "Belt",
-            capacity: 3,
-            holdsBundles: false,
-            slots: [],
-            type: 'Body',
-        },
-        "On Ground": {
-            name: "On Ground",
-            holdsBundles: false,
-            slots: [],
-            type: 'Body',
-        },
-        "Cached": {
-            name: "Cached",
-            holdsBundles: false,
-            slots: [],
-            type: 'Elsewhere',
-        },
-        "Lost": {
-            name: "Lost",
-            holdsBundles: false,
-            slots: [],
-            type: 'Elsewhere',
-        }
-    };
+  }
+  const inventory = {
+    Head: {
+      name: "Head",
+      capacity: 1,
+      holdsBundles: false,
+      slots: [],
+      type: "Body",
+    },
+    "Hands (Worn)": {
+      name: "Hands (Worn)",
+      capacity: 2,
+      holdsBundles: false,
+      slots: [],
+      type: "Body",
+    },
+    "Hands (Carried)": {
+      name: "Hands (Carried)",
+      capacity: overburdened ? 4 : 2,
+      holdsBundles: false,
+      slots: [],
+      type: "Body",
+    },
+    Torso: {
+      name: "Torso",
+      capacity: 3,
+      holdsBundles: false,
+      slots: [],
+      type: "Body",
+    },
+    Pocket: {
+      name: "Pocket",
+      capacity: 1,
+      holdsBundles: false,
+      slots: [],
+      type: "Body",
+    },
+    Neck: {
+      name: "Neck",
+      capacity: 1,
+      holdsBundles: false,
+      slots: [],
+      type: "Body",
+    },
+    Feet: {
+      name: "Feet",
+      capacity: 1,
+      holdsBundles: false,
+      slots: [],
+      type: "Body",
+    },
+    Belt: {
+      name: "Belt",
+      capacity: 3,
+      holdsBundles: false,
+      slots: [],
+      type: "Body",
+    },
+    "On Ground": {
+      name: "On Ground",
+      holdsBundles: false,
+      slots: [],
+      type: "Body",
+    },
+    Cached: {
+      name: "Cached",
+      holdsBundles: false,
+      slots: [],
+      type: "Elsewhere",
+    },
+    Lost: {
+      name: "Lost",
+      holdsBundles: false,
+      slots: [],
+      type: "Elsewhere",
+    },
+  };
 
-    //Create an "inventory section" for any containers
-    // in the actor's possession
-    tbItems.forEach((tbItem) => {
-        if (tbItem.tbData().capacity) {
-            inventory[tbItem.data._id] = newItemInventory(tbItem)
-        }
-    });
-    //Assign each item to it's inventory section, either
-    // in a base inventory section, inside of another container's
-    // inventory section, or on the ground if it's somehow gotten
-    // disconnected from those places
-    tbItems.forEach((tbItem) => {
-        let tbItemData = tbItem.tbData();
-        if (tbItemData.containerId && inventory[tbItemData.containerId]) {
-            inventory[tbItemData.containerId].slots.push(tbItem);
-        } else if (inventory[tbItemData.equip]) {
-            inventory[tbItemData.equip].slots.push(tbItem);
-        } else {
-            inventory["On Ground"].slots.push(tbItem);
-        }
-    });
+  //Create an "inventory section" for any containers
+  // in the actor's possession
+  tbItems.forEach((tbItem) => {
+    if (tbItem.tbData().capacity) {
+      inventory[tbItem.data._id] = newItemInventory(tbItem);
+    }
+  });
+  //Assign each item to it's inventory section, either
+  // in a base inventory section, inside of another container's
+  // inventory section, or on the ground if it's somehow gotten
+  // disconnected from those places
+  tbItems.forEach((tbItem) => {
+    let tbItemData = tbItem.tbData();
+    if (tbItemData.containerId && inventory[tbItemData.containerId]) {
+      inventory[tbItemData.containerId].slots.push(tbItem);
+    } else if (inventory[tbItemData.equip]) {
+      inventory[tbItemData.equip].slots.push(tbItem);
+    } else {
+      inventory["On Ground"].slots.push(tbItem);
+    }
+  });
 
-    //Validate that no containers refer to each other as parents
-    validateContainers(inventory);
+  //Validate that no containers refer to each other as parents
+  validateContainers(inventory);
 
-    //ensure capacity
-    Object.keys(inventory).forEach((k) => {
-        const sizeCache = {};
-        let container = inventory[k];
-        if (container.name === "Unknown") {
-            container.slots.forEach((tbItem) => {
-                inventory["On Ground"].slots.push(tbItem);
-            });
-            delete inventory[k];
-        } else {
-            const bundles = {};
-            let consumed = 0;
-            const removed = [];
-            const slotted = [];
-            container.slots.forEach((tbItem) => {
-                //first, can the item be bundled? if so, do that and exit the rest
-                // of the process
-                let itemData = tbItem.tbData();
-                itemData.computed.bundledWith = [];
-                let itemName = itemData.name;
-                let existingBundle = bundles[itemName];
-                if(bundleableItem(tbItem, container, inventory[tbItem.data._id])) {
-                    if(existingBundle) {
-                        if(existingBundle.onBeforeBundleWith(tbItem, slotted)) {
-                            //Add this item to the bundle and queue it for removal from this inventory slot set
-                            existingBundle.tbData().computed.bundledWith.push(tbItem);
-                            removed.push(tbItem);
-                            //if the original item is now bundled with enough items to meet the size, it's
-                            // no longer an eligible bundle
-                            if(existingBundle.tbData().computed.bundledWith.length === itemData.bundleSize - 1) {
-                                delete bundles[itemName];
-                            }
-                            //once it's in a bundle we know there's nothing else to do here
-                            return;
-                        } else {
-                            delete bundles[itemName];
-                        }
-                    }
-                }
-                //last, can it be added to the container?
-                //if so, great and start the next bundle if possible
-                //if not, drop it on the ground
-                const size = calculateConsumedSlots(tbItem, inventory, container, slotted, sizeCache);
-                if ((consumed + size) > container.capacity) {
-                    removed.push(tbItem);
-                    inventory["On Ground"].slots.push(tbItem);
-                    if(existingBundle) {
-                        delete bundle[itemName];
-                    }
-                } else {
-                    consumed += size;
-                    if(bundleableItem(tbItem, container, inventory[tbItem.data._id])) {
-                        bundles[itemName] = tbItem;
-                    }
-                    slotted.push(tbItem);
-                }
-            });
-            if (removed.length) {
-                container.slots = container.slots.filter((tbItem) => {
-                    return !removed.includes(tbItem);
-                });
-            }
-        }
-    });
-
-    //OnAfterAddToInventory Callback
-    Object.keys(inventory).forEach((k) => {
-        let container = inventory[k];
-        const removed = [];
-        const validated = [];
-        container.slots.forEach((tbItem) => {
-            if(tbItem.onAfterAddToInventory(container, validated)) {
-                validated.push(tbItem);
+  //ensure capacity
+  Object.keys(inventory).forEach((k) => {
+    const sizeCache = {};
+    let container = inventory[k];
+    if (container.name === "Unknown") {
+      container.slots.forEach((tbItem) => {
+        inventory["On Ground"].slots.push(tbItem);
+      });
+      delete inventory[k];
+    } else {
+      const bundles = {};
+      let consumed = 0;
+      const removed = [];
+      const slotted = [];
+      container.slots.forEach((tbItem) => {
+        //first, can the item be bundled? if so, do that and exit the rest
+        // of the process
+        let itemData = tbItem.tbData();
+        itemData.computed.bundledWith = [];
+        let itemName = itemData.name;
+        let existingBundle = bundles[itemName];
+        if (bundleableItem(tbItem, container, inventory[tbItem.data._id])) {
+          if (existingBundle) {
+            if (existingBundle.onBeforeBundleWith(tbItem, slotted)) {
+              //Add this item to the bundle and queue it for removal from this inventory slot set
+              existingBundle.tbData().computed.bundledWith.push(tbItem);
+              removed.push(tbItem);
+              //if the original item is now bundled with enough items to meet the size, it's
+              // no longer an eligible bundle
+              if (existingBundle.tbData().computed.bundledWith.length === itemData.bundleSize - 1) {
+                delete bundles[itemName];
+              }
+              //once it's in a bundle we know there's nothing else to do here
+              return;
             } else {
-                removed.push(tbItem);
+              delete bundles[itemName];
             }
-        });
-        if (removed.length) {
-            container.slots = container.slots.filter((tbItem) => {
-                return !removed.includes(tbItem);
-            });
-            removed.forEach((tbItem) => {
-                inventory["On Ground"].slots.push(tbItem);
-            });
+          }
         }
-    });
-
-    //Lastly, convert (sadly) from tbItems just to raw
-    // Item data (with a link back to the actor) to stop
-    // infinite recursion problems
-    Object.keys(inventory).forEach((k) => {
-        let container = inventory[k];
-        container.slots = container.slots.map((tbItem) => {
-            const data = duplicate(tbItem.data);
-            data._actor_id = tbItem.actor.data._id;
-            return data;
+        //last, can it be added to the container?
+        //if so, great and start the next bundle if possible
+        //if not, drop it on the ground
+        const size = calculateConsumedSlots(tbItem, inventory, container, slotted, sizeCache);
+        if (consumed + size > container.capacity) {
+          removed.push(tbItem);
+          inventory["On Ground"].slots.push(tbItem);
+          if (existingBundle) {
+            delete bundle[itemName];
+          }
+        } else {
+          consumed += size;
+          if (bundleableItem(tbItem, container, inventory[tbItem.data._id])) {
+            bundles[itemName] = tbItem;
+          }
+          slotted.push(tbItem);
+        }
+      });
+      if (removed.length) {
+        container.slots = container.slots.filter((tbItem) => {
+          return !removed.includes(tbItem);
         });
-    });
+      }
+    }
+  });
 
-    //console.log(inventory);
-    return inventory;
+  //OnAfterAddToInventory Callback
+  Object.keys(inventory).forEach((k) => {
+    let container = inventory[k];
+    const removed = [];
+    const validated = [];
+    container.slots.forEach((tbItem) => {
+      if (tbItem.onAfterAddToInventory(container, validated)) {
+        validated.push(tbItem);
+      } else {
+        removed.push(tbItem);
+      }
+    });
+    if (removed.length) {
+      container.slots = container.slots.filter((tbItem) => {
+        return !removed.includes(tbItem);
+      });
+      removed.forEach((tbItem) => {
+        inventory["On Ground"].slots.push(tbItem);
+      });
+    }
+  });
+
+  //Lastly, convert (sadly) from tbItems just to raw
+  // Item data (with a link back to the actor) to stop
+  // infinite recursion problems
+  Object.keys(inventory).forEach((k) => {
+    let container = inventory[k];
+    container.slots = container.slots.map((tbItem) => {
+      const data = duplicate(tbItem.data);
+      data._actor_id = tbItem.actor.data._id;
+      return data;
+    });
+  });
+
+  //console.log(inventory);
+  return inventory;
 }
 
 function calculateConsumedSlots(tbItem, inventory, container, given, sizeCache) {
-    if(tbItem.tbData().resizes && inventory[tbItem.data._id] && container.type === 'Pack') {
-        if(sizeCache[tbItem.data._id]) {
-            return sizeCache[tbItem.data._id];
-        }
-        let computedSlots = tbItem.tbData().slots;
-        inventory[tbItem.data._id].slots.forEach((containedTbItem) => {
-            computedSlots += calculateConsumedSlots(containedTbItem, inventory, given, sizeCache);
-        });
-        tbItem.tbData().computed.consumedSlots = computedSlots;
-        sizeCache[tbItem.data._id] = computedSlots;
+  if (tbItem.tbData().resizes && inventory[tbItem.data._id] && container.type === "Pack") {
+    if (sizeCache[tbItem.data._id]) {
+      return sizeCache[tbItem.data._id];
     }
-    tbItem.onCalculateConsumedSlots(container, given);
-    return tbItem.tbData().computed.consumedSlots;
+    let computedSlots = tbItem.tbData().slots;
+    inventory[tbItem.data._id].slots.forEach((containedTbItem) => {
+      computedSlots += calculateConsumedSlots(containedTbItem, inventory, given, sizeCache);
+    });
+    tbItem.tbData().computed.consumedSlots = computedSlots;
+    sizeCache[tbItem.data._id] = computedSlots;
+  }
+  tbItem.onCalculateConsumedSlots(container, given);
+  return tbItem.tbData().computed.consumedSlots;
 }
 
 export function cloneInventory(inventory) {
-    const cloned = newItemInventory(inventory);
-    cloned.slots = [].concat(inventory.slots);
-    return cloned;
+  const cloned = newItemInventory(inventory);
+  cloned.slots = [].concat(inventory.slots);
+  return cloned;
 }
 
 //NOTE This doesn't work when testing against packs, only
 // direct carry/worn slots, hence no containerId being passed
 export function canFit(tbItem, containerType, inventory) {
-    if(!containerType || containerType === 'Pack') return true;
-    let container = inventory[containerType];
-    const size = calculateConsumedSlots(tbItem, inventory, container, currentSubinventoryExcluding(container, tbItem), {});
-    return size + currentConsumptionExcluding(container, tbItem) <= container.capacity;
+  if (!containerType || containerType === "Pack") return true;
+  let container = inventory[containerType];
+  const size = calculateConsumedSlots(
+    tbItem,
+    inventory,
+    container,
+    currentSubinventoryExcluding(container, tbItem),
+    {}
+  );
+  return size + currentConsumptionExcluding(container, tbItem) <= container.capacity;
 }
 
-let currentSubinventoryExcluding = function(container, tbItem) {
-    return container.slots.filter((curr) => {
-        return !(tbItem && tbItem.data._id === curr.data._id);
-    });
-}
+let currentSubinventoryExcluding = function (container, tbItem) {
+  return container.slots.filter((curr) => {
+    return !(tbItem && tbItem.data._id === curr.data._id);
+  });
+};
 
-let currentConsumptionExcluding = function(container, tbItem) {
-    return container.slots.reduce((accum, currItemOrTbItem) => {
-        let itemData;
-        if(currItemOrTbItem.tbData) {
-            itemData = currItemOrTbItem.data;
-        } else {
-            itemData = currItemOrTbItem;
-        }
-        if(tbItem && tbItem.data._id === itemData._id) {
-            return accum;
-        }
-        return accum + itemData.data.computed.consumedSlots;
-    }, 0);
-}
+let currentConsumptionExcluding = function (container, tbItem) {
+  return container.slots.reduce((accum, currItemOrTbItem) => {
+    let itemData;
+    if (currItemOrTbItem.tbData) {
+      itemData = currItemOrTbItem.data;
+    } else {
+      itemData = currItemOrTbItem;
+    }
+    if (tbItem && tbItem.data._id === itemData._id) {
+      return accum;
+    }
+    return accum + itemData.data.computed.consumedSlots;
+  }, 0);
+};
 
 export function alternateContainerType(tbItem) {
-    return tbItem.validContainerTypes().reduce((accum, curr) => {
-        if(curr !== tbItem.data.data.equip && curr !== 'Pack' && curr !== '') {
-            return curr;
-        } else {
-            return accum;
-        }
-    }, '');
+  return tbItem.validContainerTypes().reduce((accum, curr) => {
+    if (curr !== tbItem.data.data.equip && curr !== "Pack" && curr !== "") {
+      return curr;
+    } else {
+      return accum;
+    }
+  }, "");
 }
 function renderOptions(containerId) {
-    if(['On Ground', 'Cached', 'Lost'].includes(containerId)) {
-        return {
-            multiSlot: false,
-            droppable: false,
-        };
-    } else {
-        return {
-            multiSlot: true,
-            droppable: true,
-        }
-    }
+  if (["On Ground", "Cached", "Lost"].includes(containerId)) {
+    return {
+      multiSlot: false,
+      droppable: false,
+    };
+  } else {
+    return {
+      multiSlot: true,
+      droppable: true,
+    };
+  }
 }
 
 function capacityConsumedIn(container) {
-    let consumed = 0;
-    container.slots.forEach((item) => {
-        consumed += item.data.computed.consumedSlots;
-    });
-    return consumed;
+  let consumed = 0;
+  container.slots.forEach((item) => {
+    consumed += item.data.computed.consumedSlots;
+  });
+  return consumed;
 }
 
 export function arrangeSpells(tbItemsMap) {
-    if(!tbItemsMap) return;
+  if (!tbItemsMap) return;
 
-    let spellInventory = {
-        first: [],
-        second: [],
-        third: [],
-        fourth: [],
-        fifth: []
-    };
+  let spellInventory = {
+    first: [],
+    second: [],
+    third: [],
+    fourth: [],
+    fifth: [],
+  };
 
-    const tbSpells = [];
-    for(const tbSpell of tbItemsMap) {
-        if(tbSpell.data.type === 'Spell') {
-            tbSpells.push(tbSpell.data);
-            // Pushes the item data instead of the item itself to prevent breaking tokens
-            // with recursive searches.
-        }
+  const tbSpells = [];
+  for (const tbSpell of tbItemsMap) {
+    if (tbSpell.data.type === "Spell") {
+      tbSpells.push(tbSpell.data);
+      // Pushes the item data instead of the item itself to prevent breaking tokens
+      // with recursive searches.
     }
+  }
 
-    tbSpells.forEach(element => {
-        switch (element.data.circle) {
-            case "First":
-                spellInventory.first.push(element);
-                break;
-            case "Second":
-                spellInventory.second.push(element);
-                break;
-            case "Third":
-                spellInventory.third.push(element);
-                break;
-            case "Fourth":
-                spellInventory.fourth.push(element);
-                break;
-            case "Fifth":
-                spellInventory.fifth.push(element);
-                break;
-        }
-    });
-    return spellInventory;
+  tbSpells.forEach((element) => {
+    switch (element.data.circle) {
+      case "First":
+        spellInventory.first.push(element);
+        break;
+      case "Second":
+        spellInventory.second.push(element);
+        break;
+      case "Third":
+        spellInventory.third.push(element);
+        break;
+      case "Fourth":
+        spellInventory.fourth.push(element);
+        break;
+      case "Fifth":
+        spellInventory.fifth.push(element);
+        break;
+    }
+  });
+  return spellInventory;
 }
 
-Handlebars.registerHelper('renderSpells', function(actorId, spellCircle) {
-    let html = "";
-    let spells;
-    if(actorId) {
-        const actor = game.actors.get(actorId);
-        spells = actor.tbData().computed.spells;
-        console.log(spells);
-    }
+Handlebars.registerHelper("renderSpells", function (actorId, spellCircle) {
+  let html = "";
+  let spells;
+  if (actorId) {
+    const actor = game.actors.get(actorId);
+    spells = actor.tbData().computed.spells;
+    console.log(spells);
+  }
 
-    switch(spellCircle) {
-        case "First":
-            spells.first.forEach(element => {
-                html += `
+  switch (spellCircle) {
+    case "First":
+      spells.first.forEach((element) => {
+        html += `
                     <tr id="${element.id}">
                         <td></td>
                         <td><h4 class="spell-name clickable" style="font-family: Souvenir-Medium;" title="${element.id}">${element.data.name}</h4></td>
@@ -383,11 +391,11 @@ Handlebars.registerHelper('renderSpells', function(actorId, spellCircle) {
                         <td style="text-align: center;"><a class="item-control spell-delete" title="Delete Item" name="${element.id}"><i class="fas fa-trash"></i></a></td>
                     </tr>
                 `;
-            });
-            break;
-        case "Second":
-            spells.second.forEach(element => {
-                html += `
+      });
+      break;
+    case "Second":
+      spells.second.forEach((element) => {
+        html += `
                     <tr id="${element.id}">
                         <td></td>
                         <td><h4 class="spell-name clickable" style="font-family: Souvenir-Medium;" title="${element.id}">${element.data.name}</h4></td>
@@ -399,143 +407,132 @@ Handlebars.registerHelper('renderSpells', function(actorId, spellCircle) {
                         <td style="text-align: center;"><a class="item-control spell-delete" title="Delete Item" name="${element.id}"><i class="fas fa-trash"></i></a></td>
                     </tr>
                 `;
-            });
-            break;
-    }
+      });
+      break;
+  }
 
-    return html;
+  return html;
 });
 
-Handlebars.registerHelper('renderInventory', function(capacity, actorId, containerId, placeholder, sheet) {
-    let { multiSlot , droppable } = renderOptions(containerId);
-    let html = "";
-    let consumed = 0;
-    let inventory;
-    let ownerName = '';
-    let deleteable = sheet !== 'grind';
-    let claimable = sheet === 'grind' && game.user.data.character && actorId !== game.user.data.character && game.gmIsActive();
-    if(actorId) {
-        const tbActor = game.actors.get(actorId);
-        inventory = tbActor.tbData().computed.inventory;
-        ownerName = tbActor.name;
-    } else {
-        inventory = {
-            [containerId] : {
-                slots: [],
-            }
-        };
-    }
-    const container = inventory[containerId];
-    container.slots.forEach((item) => {
-        let consumedSlots = item.data.computed.consumedSlots;
-        consumed += consumedSlots;
-        let linesToRender = consumedSlots || 1;
-        for (let i = 0; i < linesToRender; i++) {
-            let inventoryContainerClass = '';
-            let containerType = '';
-            let lastSlotTakenClass = '';
-            if(item.data.capacity) {
-                inventoryContainerClass = 'inventory-container';
-                containerType = 'Pack';
-            }
-            if(multiSlot === false || i === linesToRender - 1) {
-                lastSlotTakenClass = 'last-slot-taken';
-            }
-            let quantityExpression = '';
-            if(item.data.computed.bundledWith && item.data.computed.bundledWith.length > 0) {
-                quantityExpression = `(${item.data.computed.bundledWith.length + 1})`;
-            }
-            if(!quantityExpression && inventory[item.data._id]) {
-                let subContainer = inventory[item.data._id];
-                let capacityConsumed = capacityConsumedIn(subContainer);
-                if(capacityConsumed) {
-                    quantityExpression = `[${capacityConsumed}/${subContainer.capacity}]`;
-                }
-            }
-            let consumeQuantity = 0;
-            let consumeIconStyle = '';
-            let consumeIcon = '';
-            if(item.data.consumable.consumes) {
-                if(item.data.consumable.consumes === 'draughts') {
-                    consumeIcon = 'fa-tint';
-                    consumeIconStyle = 'color:#1e90ff';
-                    if(item.data.liquid === 'Wine') {
-                        consumeIconStyle = 'color:#800080';
-                    }
-                    consumeQuantity = item.data.draughts;
-                } else if(item.data.consumable.consumes === 'self') {
-                    consumeIcon = item.data.consumable.icon;
-                    consumeIconStyle = item.data.consumable.iconStyle;
-                    consumeQuantity = item.data.computed.bundledWith.length + 1;
-                } else if(item.data.consumable.consumes === 'light' && item.data.activatable.active) {
-                    consumeIcon = item.data.consumable.icon;
-                    consumeIconStyle = item.data.consumable.iconStyle;
-                    consumeQuantity = item.data.lightsource.remaining;
-                }
-            }
-            let activateIcon = '';
-            let activateIconStyle = '';
-            if(item.data.activatable.activates) {
-                if(item.data.activatable.active) {
-                    activateIcon = item.data.activatable.activeIcon;
-                    activateIconStyle = item.data.activatable.activeIconStyle;
-                } else {
-                    activateIcon = item.data.activatable.inactiveIcon;
-                    activateIconStyle = item.data.activatable.inactiveIconStyle;
-                }
-            }
-            if(i === 0) {
-                html +=
-                    `<li class="item flexrow primary-slot-consumed ${inventoryContainerClass} ${lastSlotTakenClass}" data-actor-id="${actorId}" data-item-id="${item._id}" data-container-type="${containerType}">
+Handlebars.registerHelper("renderInventory", function (capacity, actorId, containerId, placeholder, sheet) {
+  let { multiSlot, droppable } = renderOptions(containerId);
+  let html = "";
+  let consumed = 0;
+  let inventory;
+  let ownerName = "";
+  let deleteable = sheet !== "grind";
+  let claimable =
+    sheet === "grind" && game.user.data.character && actorId !== game.user.data.character && game.gmIsActive();
+  if (actorId) {
+    const tbActor = game.actors.get(actorId);
+    inventory = tbActor.tbData().computed.inventory;
+    ownerName = tbActor.name;
+  } else {
+    inventory = {
+      [containerId]: {
+        slots: [],
+      },
+    };
+  }
+  const container = inventory[containerId];
+  container.slots.forEach((item) => {
+    let consumedSlots = item.data.computed.consumedSlots;
+    consumed += consumedSlots;
+    let linesToRender = consumedSlots || 1;
+    for (let i = 0; i < linesToRender; i++) {
+      let inventoryContainerClass = "";
+      let containerType = "";
+      let lastSlotTakenClass = "";
+      if (item.data.capacity) {
+        inventoryContainerClass = "inventory-container";
+        containerType = "Pack";
+      }
+      if (multiSlot === false || i === linesToRender - 1) {
+        lastSlotTakenClass = "last-slot-taken";
+      }
+      let quantityExpression = "";
+      if (item.data.computed.bundledWith && item.data.computed.bundledWith.length > 0) {
+        quantityExpression = `(${item.data.computed.bundledWith.length + 1})`;
+      }
+      if (!quantityExpression && inventory[item.data._id]) {
+        let subContainer = inventory[item.data._id];
+        let capacityConsumed = capacityConsumedIn(subContainer);
+        if (capacityConsumed) {
+          quantityExpression = `[${capacityConsumed}/${subContainer.capacity}]`;
+        }
+      }
+      let consumeQuantity = 0;
+      let consumeIconStyle = "";
+      let consumeIcon = "";
+      if (item.data.consumable.consumes) {
+        if (item.data.consumable.consumes === "draughts") {
+          consumeIcon = "fa-tint";
+          consumeIconStyle = "color:#1e90ff";
+          if (item.data.liquid === "Wine") {
+            consumeIconStyle = "color:#800080";
+          }
+          consumeQuantity = item.data.draughts;
+        } else if (item.data.consumable.consumes === "self") {
+          consumeIcon = item.data.consumable.icon;
+          consumeIconStyle = item.data.consumable.iconStyle;
+          consumeQuantity = item.data.computed.bundledWith.length + 1;
+        } else if (item.data.consumable.consumes === "light" && item.data.activatable.active) {
+          consumeIcon = item.data.consumable.icon;
+          consumeIconStyle = item.data.consumable.iconStyle;
+          consumeQuantity = item.data.lightsource.remaining;
+        }
+      }
+      let activateIcon = "";
+      let activateIconStyle = "";
+      if (item.data.activatable.activates) {
+        if (item.data.activatable.active) {
+          activateIcon = item.data.activatable.activeIcon;
+          activateIconStyle = item.data.activatable.activeIconStyle;
+        } else {
+          activateIcon = item.data.activatable.inactiveIcon;
+          activateIconStyle = item.data.activatable.inactiveIconStyle;
+        }
+      }
+      if (i === 0) {
+        html += `<li class="item flexrow primary-slot-consumed ${inventoryContainerClass} ${lastSlotTakenClass}" data-actor-id="${actorId}" data-item-id="${item._id}" data-container-type="${containerType}">
                   <div class="item-image"><img src="${item.img}" title="${item.name}" alt="${item.name}" width="24" height="24"/></div>
-                  <h4 class="item-name clickable" style="font-family: Souvenir-Medium;">${item.name} ${quantityExpression}</h4>`
-                if(sheet === 'grind' && ownerName) {
-                    html+=
-                        `<h4 style="font-family:Souvenir-Medium;">${ownerName}</h4>`;
-                }
-                html +=
-                    `<div class="item-controls">`;
-                for(let consumeIdx = 0; consumeIdx < consumeQuantity; consumeIdx++) {
-                    html +=
-                        `<a class="item-control item-consume" title="Consume" style="margin-right: 5px;"><i style="${consumeIconStyle};" class="fas ${consumeIcon}"></i></a>`;
-                }
-                if(item.data.activatable.activates) {
-                    html +=
-                        `<a class="item-control item-activate" title="Activate" style="margin-right: 5px;"><i style="${activateIconStyle};" class="fas ${activateIcon}"></i></a>`;
-                }
-                if(item.data.damaged) {
-                    html +=
-                        `<a class="item-control item-damaged" title="Damaged" style="margin-right: 5px;"><i style="color:#ff4444;" class="fas fa-exclamation"></i></a>`;
-                }
-                if(droppable) {
-                    html +=
-                        `<a class="item-control item-drop" title="Drop Item" style="margin-right: 5px;"><i class="fas fa-chevron-circle-down"></i></a>`;
-                }
-                if(deleteable) {
-                    html +=
-                        `<a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>`;
-                }
-                if(claimable) {
-                    html +=
-                        `<a class="item-control item-claim" title="Claim Item"><i class="fas fa-scroll"></i></a>`;
-                }
-                html +=
-                  `</div>
+                  <h4 class="item-name clickable" style="font-family: Souvenir-Medium;">${item.name} ${quantityExpression}</h4>`;
+        if (sheet === "grind" && ownerName) {
+          html += `<h4 style="font-family:Souvenir-Medium;">${ownerName}</h4>`;
+        }
+        html += `<div class="item-controls">`;
+        for (let consumeIdx = 0; consumeIdx < consumeQuantity; consumeIdx++) {
+          html += `<a class="item-control item-consume" title="Consume" style="margin-right: 5px;"><i style="${consumeIconStyle};" class="fas ${consumeIcon}"></i></a>`;
+        }
+        if (item.data.activatable.activates) {
+          html += `<a class="item-control item-activate" title="Activate" style="margin-right: 5px;"><i style="${activateIconStyle};" class="fas ${activateIcon}"></i></a>`;
+        }
+        if (item.data.damaged) {
+          html += `<a class="item-control item-damaged" title="Damaged" style="margin-right: 5px;"><i style="color:#ff4444;" class="fas fa-exclamation"></i></a>`;
+        }
+        if (droppable) {
+          html += `<a class="item-control item-drop" title="Drop Item" style="margin-right: 5px;"><i class="fas fa-chevron-circle-down"></i></a>`;
+        }
+        if (deleteable) {
+          html += `<a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>`;
+        }
+        if (claimable) {
+          html += `<a class="item-control item-claim" title="Claim Item"><i class="fas fa-scroll"></i></a>`;
+        }
+        html += `</div>
               </li>`;
-            } else if (multiSlot !== false) {
-                html +=
-                    `<li class="item flexrow secondary-slot-consumed ${inventoryContainerClass} ${lastSlotTakenClass}" data-item-id="${item._id}" data-container-type="${containerType}">
+      } else if (multiSlot !== false) {
+        html += `<li class="item flexrow secondary-slot-consumed ${inventoryContainerClass} ${lastSlotTakenClass}" data-item-id="${item._id}" data-container-type="${containerType}">
                   <div class="item-image" style="width:24px;height:24px"></div>
                   <h4 class="item-name" style="font-family: Souvenir-Medium;"></h4>
               </li>`;
-            }
-        }
-    });
-    for(let i = consumed; i < capacity; i++) {
-        html +=
-            `<li class="flexrow placeholder">
+      }
+    }
+  });
+  for (let i = consumed; i < capacity; i++) {
+    html += `<li class="flexrow placeholder">
               <h4 class="item-name" style="font-family: Souvenir-Medium;">[${placeholder}]</h4>
           </li>`;
-    }
-    return html;
+  }
+  return html;
 });
