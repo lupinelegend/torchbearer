@@ -245,7 +245,7 @@ export class ConflictSheet extends Application {
       ui.notifications.error("Please select a conflict captain and conflict type");
       return;
     }
-    if (!game.user.isGM && !this.findConflictCaptain(conflictCaptain).owner) {
+    if (!game.user.isGM && !this.findConflictCaptain(conflictCaptain).isOwner) {
       ui.notifications.error("Only the Conflict Captain or GM can roll Disposition");;
       return;
     }

@@ -214,7 +214,7 @@ export class GrindSheet extends Application {
             const tbActor = tbActors[i];
             const container = tbActor.tbData().computed.inventory['On Ground'];
             let target;
-            if(tbActor.owner) {
+            if(tbActor.isOwner) {
                 target = own;
             } else {
                 target = catalog;

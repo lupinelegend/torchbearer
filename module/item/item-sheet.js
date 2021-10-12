@@ -141,14 +141,14 @@ export class TorchbearerItemSheet extends ItemSheet {
 
   /** @override */
   _canDragStart(selector) {
-    return this.options.editable && this.item.actor && this.item.actor.owner;
+    return this.options.editable && this.item.actor?.isOwner;
   }
 
   /* -------------------------------------------- */
 
   /** @override */
   _canDragDrop(selector) {
-    return this.options.editable && this.item.actor && this.item.actor.owner;
+    return this.options.editable && this.item.actor?.isOwner;
   }
 
   /* -------------------------------------------- */
