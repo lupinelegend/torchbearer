@@ -1,45 +1,45 @@
 // Import utilities.
-@import 'utils/typography';
-@import 'utils/colors';
-@import 'utils/mixins';
-@import 'utils/variables';
+@import "utils/typography";
+@import "utils/colors";
+@import "utils/mixins";
+@import "utils/variables";
 
 /* Global styles */
-@import 'global/window';
-@import 'global/grid';
-@import 'global/flex';
+@import "global/window";
+@import "global/grid";
+@import "global/flex";
 
 @font-face {
-  font-family: 'Souvenir-Bold';
-  src: url('../assets/fonts/Souvenir-Bold.otf')
-}
-
-@font-face {
-   font-family: 'Souvenir-BoldItalic';
-   src: url('../assets/fonts/Souvenir-BoldItalic.otf');
-}
-@font-face {
-  font-family: 'Souvenir-Demi';
-  src: url('../assets/fonts/Souvenir-Demi.otf')
+  font-family: "Souvenir-Bold";
+  src: url("../assets/fonts/Souvenir-Bold.otf");
 }
 
 @font-face {
-   font-family: 'Souvenir-DemiItalic';
-   src: url('../assets/fonts/Souvenir-DemiItalic.otf');
+  font-family: "Souvenir-BoldItalic";
+  src: url("../assets/fonts/Souvenir-BoldItalic.otf");
 }
 @font-face {
-  font-family: 'Souvenir-Medium';
-  src: url('../assets/fonts/Souvenir-Medium.otf');
+  font-family: "Souvenir-Demi";
+  src: url("../assets/fonts/Souvenir-Demi.otf");
+}
+
+@font-face {
+  font-family: "Souvenir-DemiItalic";
+  src: url("../assets/fonts/Souvenir-DemiItalic.otf");
 }
 @font-face {
-  font-family: 'Souvenir-MediumItalic';
-  src: url('../assets/fonts/Souvenir-MediumItalic.otf');
+  font-family: "Souvenir-Medium";
+  src: url("../assets/fonts/Souvenir-Medium.otf");
+}
+@font-face {
+  font-family: "Souvenir-MediumItalic";
+  src: url("../assets/fonts/Souvenir-MediumItalic.otf");
 }
 
 /* Styles limited to torchbearer sheets */
 .torchbearer {
-  @import 'components/forms';
-  @import 'components/resource';
-  @import 'components/tabs';
-  @import 'components/items';
+  @import "components/forms";
+  @import "components/resource";
+  @import "components/tabs";
+  @import "components/items";
 }
