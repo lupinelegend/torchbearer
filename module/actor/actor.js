@@ -106,7 +106,7 @@ export class TorchbearerActor extends Actor {
       }
     }
     await this.deleteEmbeddedDocuments('Item', [itemId]);
-    this._onUpdate({items: true});
+    this._onUpdate({ items: true }, { render: false });
   }
 
   async takeNextGrindCondition() {
@@ -134,7 +134,7 @@ export class TorchbearerActor extends Actor {
       await tbItem.consumeOne();
     }
     setTimeout(() => {
-      this._onUpdate({items: true});
+      this._onUpdate({ items: true }, { render: false });
     }, 0);
   }
 

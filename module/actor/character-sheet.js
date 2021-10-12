@@ -171,7 +171,7 @@ export class TorchbearerCharacterSheet extends TorchbearerActorSheet {
         }
       }).then(() => {
         setTimeout(() => {
-          this.actor._onUpdate({items: true});
+          this.actor._onUpdate({ items: true }, { render: false });
         }, 0);
       })
     });
@@ -182,7 +182,7 @@ export class TorchbearerCharacterSheet extends TorchbearerActorSheet {
       let tbItem = this.actor.items.get(li.data("itemId"));
       tbItem.consumeOne().then(() => {
         setTimeout(() => {
-          this.actor._onUpdate({items: true});
+          this.actor._onUpdate({ items: true }, { render: false });
         }, 0);
       });
     });
@@ -193,7 +193,7 @@ export class TorchbearerCharacterSheet extends TorchbearerActorSheet {
       let tbItem = this.actor.items.get(li.data("itemId"));
       tbItem.toggleActive().then(() => {
         setTimeout(() => {
-          this.actor._onUpdate({items: true});
+          this.actor._onUpdate({ items: true }, { render: false });
         }, 0);
       });
     });
@@ -390,7 +390,7 @@ export class TorchbearerCharacterSheet extends TorchbearerActorSheet {
           let update = {data: {equip: containerType, containerId: containerId, slots: slotsTaken}};
           await tbItem.update(update);
           await tbItem.onAfterEquipped({containerType, containerId});
-          this.actor._onUpdate({items: true});
+          this.actor._onUpdate({ items: true }, { render: false });
           if(oldContainerId) {
             let oldContainer = this.actor.items.get(oldContainerId);
             setTimeout(() => {

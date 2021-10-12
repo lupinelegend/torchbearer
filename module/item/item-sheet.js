@@ -99,7 +99,7 @@ export class TorchbearerItemSheet extends ItemSheet {
         }).then(() => {
           setTimeout(() => {
             this.item._onUpdate();
-            this.item.actor._onUpdate({items: true});
+            this.item.actor._onUpdate({ items: true }, { render: false });
           }, 0);
         })
       }
@@ -114,7 +114,7 @@ export class TorchbearerItemSheet extends ItemSheet {
           if(consumed) {
             setTimeout(() => {
               this.item._onUpdate();
-              this.item.actor._onUpdate({items: true});
+              this.item.actor._onUpdate({ items: true }, { render: false });
             }, 0);
           }
         });
