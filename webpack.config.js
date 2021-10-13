@@ -28,7 +28,6 @@ module.exports = {
       patterns: [
         { from: "system.json" },
         { from: "static/" },
-        { from: "templates/", to: "templates/" },
         {
           from: "lang/",
           to: "lang/",
