@@ -30,7 +30,6 @@ module.exports = {
         { from: "template.json" },
         { from: "static/" },
         { from: "templates/", to: "templates/" },
-        { from: "packs/", to: "packs/" },
         {
           from: "lang/",
           to: "lang/",
