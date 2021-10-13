@@ -1,30 +1,14 @@
-/**
- * Extend the basic ItemSheet with some very simple modifications
- * @extends {ItemSheet}
- */
-export class TorchbearerItemSheet extends ItemSheet {
+import { TorchbearerBaseItemSheet } from "./base-item-sheet.js";
+
+export class TorchbearerItemSheet extends TorchbearerBaseItemSheet {
   /** @override */
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       classes: ["torchbearer", "sheet", "item"],
-      width: 450,
-      height: 450,
+      template: "systems/torchbearer/templates/item/item-sheet.html.hbs",
       tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description" }],
       dragDrop: [{ dragSelector: ".items-list .item", dropSelector: null }],
     });
-  }
-
-  /** @override */
-  get template() {
-    const path = "systems/torchbearer/templates/item";
-    // Return a single sheet for all item types.
-    // return `${path}/item-sheet.html.hbs`;
-    return `${path}/${this.item.data.type}-sheet.html.hbs`;
-
-    // Alternatively, you could use the following return statement to do a
-    // unique item sheet by type, like `weapon-sheet.html.hbs`.
-
-    // return `${path}/${this.item.data.type}-sheet.html.hbs`;
   }
 
   /* -------------------------------------------- */
@@ -38,21 +22,7 @@ export class TorchbearerItemSheet extends ItemSheet {
       data.inventoryContainerClass = "inventory-container";
       data.containerType = "Pack";
     }
-    if (this.item.actor) {
-      data._actor_id = this.item.actor.data._id;
-    }
     return data;
-  }
-
-  /* -------------------------------------------- */
-
-  /** @override */
-  setPosition(options = {}) {
-    const position = super.setPosition(options);
-    const sheetBody = this.element.find(".sheet-body");
-    const bodyHeight = position.height - 192;
-    sheetBody.css("height", bodyHeight);
-    return position;
   }
 
   /* -------------------------------------------- */
