@@ -246,7 +246,10 @@ input:checked + .slider:before {
 }
 
 /* Adds a custom background image to the actor sheet */
-.actor .window-content {
+.actor .window-content,
+.npc .window-content,
+.character .window-content,
+.monster .window-content {
   background: url("../assets/background/tb-charsheet-border-612x810.png");
   background-size: cover;
 }
