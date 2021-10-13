@@ -1,15 +1,12 @@
 {
   "name": "torchbearer",
-  "version": "1.0.0",
-  "description": "CSS compiler for the Torchbearer system",
+  "version": "1.1.0",
+  "description": "Torchbearer 2E system community character sheet",
   "scripts": {
     "build": "webpack --mode production",
     "build:dev": "webpack",
     "lint": "eslint ./src --ext .js"
   },
-  "browserslist": [
-    "last 3 versions"
-  ],
   "author": "yougotnick",
   "license": "MIT",
   "private": true,
