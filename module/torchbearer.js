@@ -13,6 +13,8 @@ import { GrindSheet } from "./grind.js";
 import * as chat from "./chat.js";
 import { Capitalize } from "./misc.js";
 
+import "../scss/torchbearer.scss";
+
 Hooks.once("init", async function () {
   game.torchbearer = {
     TorchbearerActor,
