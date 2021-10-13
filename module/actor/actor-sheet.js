@@ -5,7 +5,7 @@ export class TorchbearerActorSheet extends ActorSheet {
 
     return {
       actor: data.actor,
-      data: data.actor.data.data
+      data: data.actor.data.data,
     };
   }
 }

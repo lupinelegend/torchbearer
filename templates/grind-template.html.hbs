@@ -1,0 +1,131 @@
+<form class="{{cssClass}} flexcol tbBackground grind" style="margin: 22px;">
+  <header class="sheet-header" style="margin-bottom: 5px;">
+    <div class="container" style="height:auto;">
+      {{#if isGM}}
+        <div class="row ddbox" style="padding:8px;border:1px solid black;position:absolute;right:26px">
+          <div class="col" style="display:flex;flex-direction: column">
+            <h3 style="font-family: Souvenir-Demi;text-decoration: underline">GM Tools</h3>
+            <p class="clickable rollable dd" style="font-family: Souvenir-Demi" id="reloadTemplate">Reload Template</p>
+            <p class="clickable rollable dd" style="font-family: Souvenir-Demi" id="resetGrind">Reset Grind</p>
+            <p class="clickable rollable dd" style="font-family: Souvenir-Demi" id="activateGrind">Unpause Grind</p>
+            <p class="clickable rollable dd" style="font-family: Souvenir-Demi" id="loadChars">Load Chars</p>
+            <p class="clickable rollable dd" style="font-family: Souvenir-Demi" id="tickLight">Tick Light</p>
+            <p class="clickable rollable dd" style="font-family: Souvenir-Demi" id="applyConditions">Apply Conditions</p>
+            <p class="clickable rollable dd" style="font-family: Souvenir-Demi" id="logGrind">Console.log</p>
+            <p class="clickable rollable dd" style="font-family: Souvenir-Demi" id="deactivateGrind">Pause Grind</p>
+          </div>
+        </div>
+      {{/if}}
+      {{#if grind.active}}
+        <div class="row" style="justify-content: center">
+          <h1 style="font-family: Souvenir-Demi;text-align: center">The Grind</h1>
+        </div>
+        <div class="row" style="justify-content: center">
+          <div style="flex-grow:1;flex-basis:100px;display:flex;justify-content: flex-end; align-items: flex-end;">
+            <div style="display:flex;flex-direction: column;align-items: center; padding-right:32px;">
+              {{#ifeq grind.ambientLight "Dark"}}
+                {{#if isGM}}
+                  <i class="fas fa-circle clickable change-light" title="Change Light" style="font-size: 48px;"></i>
+                {{else}}
+                  <i class="fas fa-circle" style="font-size: 48px;"></i>
+                {{/if}}
+              {{/ifeq}}
+              {{#ifeq grind.ambientLight "Dim"}}
+                {{#if isGM}}
+                  <i class="fas fa-adjust clickable change-light" title="Change Light" style="font-size: 48px;"></i>
+                {{else}}
+                  <i class="fas fa-adjust" style="font-size: 48px;"></i>
+                {{/if}}
+              {{/ifeq}}
+              {{#ifeq grind.ambientLight "Bright"}}
+                {{#if isGM}}
+                  <i class="far fa-circle clickable change-light" title="Change Light" style="font-size: 48px;"></i>
+                {{else}}
+                  <i class="far fa-circle" style="font-size: 48px;"></i>
+                {{/if}}
+              {{/ifeq}}
+              <p style="font-family: Souvenir-Demi">{{grind.ambientLight}}</p>
+            </div>
+          </div>
+          {{#if isGM}}
+            <img
+              id="advanceGrind"
+              src="{{computed.grindImage}}"
+              class="clickable"
+              title="Advance Grind"
+              style="border:0;width:160px;height:160px;flex-basis: 160px;"
+            />
+          {{else}}
+            <img src="{{computed.grindImage}}" style="border:0;width:160px;height:160px;" />
+          {{/if}}
+          <div style="flex-grow:1;flex-basis:100px;display:flex;justify-content: flex-start; align-items: flex-end;">
+            <div style="display:flex;flex-direction: column;align-items: center;margin-left:8px;">
+              <span
+                style="font-family: Souvenir-Demi; font-size: 48px;margin-bottom:-10px"
+              >{{computed.partyChecks}}</span>
+              <p style="font-family: Souvenir-Demi">Party Checks</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row" style="font-family: Souvenir-Demi;justify-content: center">
+          Turn:
+          {{grind.turn}}
+        </div>
+      {{else}}
+        <div class="row" style="justify-content: center">
+          <h1 style="font-family: Souvenir-Demi;text-align: center">The Grind</h1>
+        </div>
+        <div class="row" style="justify-content: center">
+          <h2
+            style="font-family: Souvenir-Demi;text-align: center; text-decoration: none; border: 0;margin-top:8px;"
+          >...is currently paused. Enjoy.</h2>
+        </div>
+      {{/if}}
+    </div>
+  </header>
+  {{#if grind.active}}
+    <nav class="sheet-tabs tabs" data-group="primary">
+      <a class="item" data-tab="party" style="font-family: Souvenir-Demi;">The Party</a>
+      <a class="item" data-tab="groundItems" style="font-family: Souvenir-Demi;">Items on Ground ({{computed.groundItems.total}})</a>
+    </nav>
+
+    <section class="sheet-body">
+      <!-- <hr style="border-top: 1px solid #AAA; border-bottom: none;"> -->
+
+      <div
+        class="tab container scroll"
+        data-group="primary"
+        data-tab="party"
+        style="font-family: Souvenir-Medium;height:320px;"
+      >
+        <ol id="grindActors" class="actors-list col">
+          {{#each grind.actors}}
+            {{{renderGrindActor this ../computed.lightLevels}}}
+          {{/each}}
+        </ol>
+      </div>
+      <div class="tab" data-group="primary" data-tab="groundItems" style="font-family: Souvenir-Medium;height:320px;">
+        <ol
+          class="items-list inventory-container col"
+          data-container-type="On Ground"
+          style="margin: 0 3px 32px 3px;overflow-y:inherit;"
+        >
+          {{#each computed.groundItems.own}}
+            {{{renderInventory 0 this._actor_id "On Ground" "Ground" "grind"}}}
+          {{/each}}
+        </ol>
+        <ol
+          class="items-list inventory-container col"
+          data-container-type="On Ground"
+          style="margin: 0 3px 0 3px;overflow-y:inherit;"
+        >
+          {{#each computed.groundItems.catalog}}
+            {{{renderInventory 0 this._actor_id "On Ground" "Ground" "grind"}}}
+          {{/each}}
+        </ol>
+      </div>
+
+    </section>
+  {{/if}}
+</form>

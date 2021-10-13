@@ -1,5 +1,5 @@
 ui.notifications.active.forEach((li) => {
-    li.remove();
+  li.remove();
 });
 game.actors.entities[0].sheet._tabs[0].active = "inventory";
 game.actors.entities[0].sheet.position.left = 10;

@@ -1,0 +1,24 @@
+{
+  "tabWidth": 2,
+  "printWidth": 120,
+  "trailingComma": "es5",
+  "semi": true,
+  "singleQuote": false,
+  "overrides": [
+    {
+      "files": ["*.scss", "*.css"],
+      "options": {
+        "requirePragma": false,
+        "parser": "scss"
+      }
+    },
+    {
+      "files": ["*.html", "*.hbp"],
+      "options": {
+        "requirePragma": false,
+        "parser": "html",
+        "htmlWhitespaceSensitivity": "ignore"
+      }
+    }
+  ]
+}

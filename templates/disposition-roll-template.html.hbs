@@ -1,0 +1,48 @@
+<form>
+  <div class="row" style="align-items: center; margin-bottom: 5px;">
+    <label for="conflictType" style="font-family: Souvenir-Medium;"><u>Conflict Type</u>: {{conflictType.name}}</label>
+  </div>
+  {{#if (eq conflictType.name "Other")}}
+    <div class="row" id="ifOther" style="align-items:center; margin-bottom: 5px;">
+      <label for="otherSkill" style="font-family: Souvenir-Medium;"><u>Skill</u>: </label>
+      <select name="otherSkill" class="affects-help-calc" id="otherSkill" style="margin: 0 10px 0 5px;">
+        {{#select otherSkill}}
+          <option value="" selected disabled hidden>Choose a skill...</option>
+          {{#each allSkills}}
+            <option value="{{this.name}}">{{this.name}}</option>
+          {{/each}}
+          <option value="Nature">Nature (if applicable)</option>
+        {{/select}}
+      </select>
+      <label for="otherAbility" style="font-family: Souvenir-Medium;"><u>Ability</u>: </label>
+      <select name="otherAbility" class="affects-help-calc" id="otherAbility" style="margin: 0 0 0 5px;">
+        {{#select otherAbility}}
+          <option value="" selected disabled hidden>Choose an ability...</option>
+          <option value="Will">Will</option>
+          <option value="Health">Health</option>
+        {{/select}}
+      </select>
+    </div>
+  {{else}}
+    <div class="row" id="ifNotOther" style="align-items: center; margin-bottom: 5px;">
+      <label for="skillRoll" style="font-family: Souvenir-Medium;"><u>Skill to Roll</u>:</label>
+      <select name="skillRoll" class="affects-help-calc" id="skillRoll" style="margin: 0 0 0 5px;">
+        {{#select skillRoll}}
+          <option value="" selected disabled hidden>Choose a skill...</option>
+          {{#each conflictType.disposition}}
+            <option name="this" value="{{this}}">{{this}}</option>
+          {{/each}}
+          <option value="Nature">Nature (if applicable)</option>
+        {{/select}}
+      </select>
+    </div>
+  {{/if}}
+  <div class="row" style="align-items: center; margin-bottom: 5px;">
+    <label style="font-family: Souvenir-Medium;"><u>Is any member of the team hungry and thirsty</u>?</label>
+    <input type="checkbox" name="{{hungry}}" id="anyHungry" {{checked hungry}} value="true" disabled />
+  </div>
+  <div class="row" style="align-items: center; margin-bottom: 5px;">
+    <label style="font-family: Souvenir-Medium;"><u>Is any member of the team exhausted</u>?</label>
+    <input type="checkbox" name="{{exhausted}}" id="anyExhausted" {{checked exhausted}} value="true" disabled />
+  </div>
+</form>

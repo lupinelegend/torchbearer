@@ -1,0 +1,55 @@
+<section>
+  <div class="tb-roll-data" data-skill-or-ability="{{skillOrAbility}}">
+    <div>
+      <h2 style="font-family: Souvenir-Demi;">
+        {{title}}
+        {{#if advanceable}}
+          <a class="button" id="logTestBtn" data-logged="false"><i
+              class="fas fa-file-signature"
+              style="float: right; font-size: smaller; margin-top: 5.5px; color: rgb(75, 74, 68);"
+            ></i></a>
+        {{/if}}
+      </h2>
+    </div>
+    {{#if rollDetails}}
+      <div class="row" style="font-family: Souvenir-Medium; margin: 0 0 5px 0;">
+        <strong>{{rollDetails}} {{bL}}</strong>
+      </div>
+    {{/if}}
+
+    {{#if flavorText}}
+      <div class="row" style="font-family: Souvenir-MediumItalic;">
+        <em>{{flavorText}}</em>
+      </div>
+    {{/if}}
+
+    {{#if roll}}
+      <div class="roll">{{{roll}}}</div>
+    {{/if}}
+  </div>
+  <div class="row" style="flex-wrap: nowrap; padding: 0 0 0 0; margin-top: 2px;">
+    {{#if rerollsAvailable}}
+      <button
+        id="luckBtn"
+        type="button"
+        style="font-family: Souvenir-Medium; background: rgba(0, 0, 0, 0.1); border: 1px solid #999; border-radius: 3px; line-height: 24px;"
+      >Luck ({{rerollsAvailable}}D)</button>
+    {{/if}}
+    {{#if scoundrelsAvailable}}
+      <button
+        id="ofCourseBtn"
+        type="button"
+        style="font-family: Souvenir-Medium; background: rgba(0, 0, 0, 0.1); border: 1px solid #999; border-radius: 3px; line-height: 24px;"
+      >Of Course! ({{scoundrelsAvailable}}D)</button>
+    {{/if}}
+  </div>
+  {{#if scoundrelsAvailable}}
+    <div class="row" style="flex-wrap: nowrap; padding: 0 0 0 0; margin-top: 2px;">
+      <button
+        id="deeperUnderstandingBtn"
+        type="button"
+        style="font-family: Souvenir-Medium; background: rgba(0, 0, 0, 0.1); border: 1px solid #999; border-radius: 3px; line-height: 24px;"
+      >Deeper Understanding (1D)</button>
+    </div>
+  {{/if}}
+</section>

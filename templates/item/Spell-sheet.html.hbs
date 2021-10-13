@@ -1,0 +1,94 @@
+<form
+  class="{{cssClass}} {{inventoryContainerClass}}"
+  data-item-id="{{item.data._id}}"
+  data-container-type="{{containerType}}"
+  autocomplete="off"
+>
+  <h1 style="font-family: Souvenir-Demi;">{{data.name}}</h1>
+  <p style="font-family: Souvenir-MediumItalic;">{{data.description}}</p>
+  <h3 style="font-family: Souvenir-Demi;">Spell Effect</h3>
+  <p style="font-family: Souvenir-Medium;">{{data.effect}}</p>
+
+  {{#if data.materials}}
+    <div
+      class="row"
+      style="align-items: baseline; font-family: Souvenir-Medium; padding: 0; border-bottom: 1px solid black;"
+    >
+      <!-- <p style="font-family: Souvenir-Demi;"><u>Materials</u>:</p> -->
+      <p style="margin-left: 3px;"><b style="font-family: Souvenir-Demi;"><u>Materials</u>:</b> {{data.materials}}</p>
+    </div>
+  {{/if}}
+
+  {{#if data.focus}}
+    <div
+      class="row"
+      style="align-items: baseline; font-family: Souvenir-Medium; padding: 0; border-bottom: 1px solid black;"
+    >
+      <!-- <p style="font-family: Souvenir-Demi;"><u>Focus</u>:</p> -->
+      <p style="margin-left: 3px;"><b style="font-family: Souvenir-Demi;"><u>Focus</u>:</b> {{data.focus}}</p>
+    </div>
+  {{/if}}
+
+  <div
+    class="row"
+    style="align-items: baseline; font-family: Souvenir-Medium; padding: 0; border-bottom: 1px solid black;"
+  >
+    <div class="col" style="border-right: 1px solid black;">
+      <p><b style="font-family: Souvenir-Demi;"><u>To Scribe</u>:</b>
+        {{data.toScribe.skill}}
+        Ob
+        {{data.toScribe.ob}}</p>
+    </div>
+    <div class="col">
+      <p style="margin-left: 3px;"><b style="font-family: Souvenir-Demi;"><u>To Learn</u>:</b>
+        {{data.toLearn.skill}}
+        Ob
+        {{data.toLearn.ob}}</p>
+    </div>
+  </div>
+
+  <div
+    class="row"
+    style="align-items: baseline; font-family: Souvenir-Medium; padding: 0; border-bottom: 1px solid black;"
+  >
+    <div class="col" style="border-right: 1px solid black;">
+      <p><b style="font-family: Souvenir-Demi;"><u>Casting</u>:</b> {{data.casting.test}}</p>
+    </div>
+    <div class="col">
+      <p style="margin-left: 3px;"><b style="font-family: Souvenir-Demi;"><u>Casting Time</u>:</b>
+        {{data.castingTime}}</p>
+    </div>
+  </div>
+
+  <div class="row" style="align-items: baseline; font-family: Souvenir-Medium; padding: 0;">
+    <!-- <p style="font-family: Souvenir-Demi;"><u>Materials</u>:</p> -->
+    <p style="margin-left: 3px;"><b style="font-family: Souvenir-Demi;"><u>Duration</u>:</b> {{data.duration}}</p>
+  </div>
+
+  {{#if data.casting.factorCategories}}
+    <h3 style="font-family: Souvenir-Demi; margin-top: 8px;">Spell Factors</h3>
+  {{/if}}
+
+  {{#each data.casting.factorCategories}}
+    <div class="row" style="align-items: baseline; font-family: Souvenir-Medium; padding: 0;">
+      {{#each this}}
+        <div class="col">
+          <h3 style="font-family: Souvenir-Demi; margin: 0;"><u>{{name}}</u></h3>
+          <ul>
+            {{#each factors}}
+              <li>{{name}} ({{ob}})</li>
+            {{/each}}
+          </ul>
+        </div>
+      {{/each}}
+    </div>
+  {{/each}}
+
+  {{#if data.casting.versus}}
+    <div>
+      <h3 style="font-family: Souvenir-Demi;">Casting Spell</h3>
+      <p style="font-family: Souvenir-Medium;">{{data.casting.versus}}</p>
+    </div>
+  {{/if}}
+
+</form>

@@ -1,4 +1,4 @@
-import { TorchbearerActorSheet } from './actor-sheet.js';
+import { TorchbearerActorSheet } from "./actor-sheet.js";
 import { alternateContainerType, canFit } from "../inventory/inventory.js";
 import { PlayerRoll } from "../rolls/playerRoll.js";
 
@@ -7,22 +7,22 @@ export class TorchbearerCharacterSheet extends TorchbearerActorSheet {
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       classes: ["torchbearer", "sheet", "actor"],
-      //template: "systems/torchbearer/templates/actor/actor-sheet.html",
+      //template: "systems/torchbearer/templates/actor/actor-sheet.html.hbs",
       width: 617,
       height: 848,
       tabs: [
-          {
-            navSelector: ".sheet-tabs",
-            contentSelector: ".sheet-body",
-            initial: "description",
-          },
-          {
-            navSelector: ".inventory-tabs",
-            contentSelector: ".inventory-body",
-            initial: "on-person"
-          },
+        {
+          navSelector: ".sheet-tabs",
+          contentSelector: ".sheet-body",
+          initial: "description",
+        },
+        {
+          navSelector: ".inventory-tabs",
+          contentSelector: ".inventory-body",
+          initial: "on-person",
+        },
       ],
-      dragDrop: [{dragSelector: ".items-list .item", dropSelector: null}]
+      dragDrop: [{ dragSelector: ".items-list .item", dropSelector: null }],
     });
   }
 
@@ -31,12 +31,12 @@ export class TorchbearerCharacterSheet extends TorchbearerActorSheet {
     const path = "systems/torchbearer/templates/actor";
     // Return a single sheet for all item types.
     // return `${path}/item-sheet.html`;
-    return `${path}/${this.actor.data.type}-sheet.html`;
+    return `${path}/${this.actor.data.type}-sheet.html.hbs`;
 
     // Alternatively, you could use the following return statement to do a
-    // unique item sheet by type, like `weapon-sheet.html`.
+    // unique item sheet by type, like `weapon-sheet.html.hbs`.
 
-    // return `${path}/${this.item.data.type}-sheet.html`;
+    // return `${path}/${this.item.data.type}-sheet.html.hbs`;
   }
 
   /* -------------------------------------------- */
@@ -44,14 +44,22 @@ export class TorchbearerCharacterSheet extends TorchbearerActorSheet {
   /** @override */
   getData() {
     const data = super.getData();
-    if(this.actor.data.type !== 'Character') {
+    if (this.actor.data.type !== "Character") {
       return data;
     }
     // Condition checkboxes
-    const conditionStates = [data.data.hungryandthirsty, data.data.angry, data.data.afraid, data.data.exhausted, data.data.injured, data.data.sick, data.data.dead];
-    const inc = (100 / 7);
+    const conditionStates = [
+      data.data.hungryandthirsty,
+      data.data.angry,
+      data.data.afraid,
+      data.data.exhausted,
+      data.data.injured,
+      data.data.sick,
+      data.data.dead,
+    ];
+    const inc = 100 / 7;
     let conditionsTrue = 0;
-    conditionStates.forEach(element => {
+    conditionStates.forEach((element) => {
       if (element === true) {
         conditionsTrue++;
       }
@@ -61,13 +69,18 @@ export class TorchbearerCharacterSheet extends TorchbearerActorSheet {
     // Check skills to see if any can be advanced
     let skillsArray = [];
     const skillList = data.data.skills;
-    Object.keys(skillList).forEach(key => {
+    Object.keys(skillList).forEach((key) => {
       skillsArray.push(skillList[key].name);
     });
-    skillsArray.forEach(key => {
+    skillsArray.forEach((key) => {
       if (data.data.skills[key].rating > 0) {
-        if (data.data.skills[key].pass >= data.data.skills[key].rating && data.data.skills[key].fail >= data.data.skills[key].rating - 1) {
-          ui.notifications.info(`You may now advance ${key} from ${data.data.skills[key].rating} to ${data.data.skills[key].rating + 1}`);
+        if (
+          data.data.skills[key].pass >= data.data.skills[key].rating &&
+          data.data.skills[key].fail >= data.data.skills[key].rating - 1
+        ) {
+          ui.notifications.info(
+            `You may now advance ${key} from ${data.data.skills[key].rating} to ${data.data.skills[key].rating + 1}`
+          );
         }
       } else if (data.data.skills[key].rating === 0 && data.data.nature.max > 0) {
         if (data.data.skills[key].pass + data.data.skills[key].fail >= data.data.nature.max) {
@@ -77,11 +90,13 @@ export class TorchbearerCharacterSheet extends TorchbearerActorSheet {
     });
 
     // Check abilities to see if any can be advanced
-    let abilitiesArray = ['will', 'health', 'nature', 'resources', 'circles'];
-    let displayArray = ['Will', 'Health', 'Nature', 'Resources', 'Circles'];
+    let abilitiesArray = ["will", "health", "nature", "resources", "circles"];
+    let displayArray = ["Will", "Health", "Nature", "Resources", "Circles"];
     abilitiesArray.forEach((key, index) => {
       if (data.data[key].pass === data.data[key].value && data.data[key].fail === data.data[key].value - 1) {
-        ui.notifications.info(`You may now advance ${displayArray[index]} from ${data.data[key].value} to ${data.data[key].value + 1}`);
+        ui.notifications.info(
+          `You may now advance ${displayArray[index]} from ${data.data[key].value} to ${data.data[key].value + 1}`
+        );
       }
     });
 
@@ -100,7 +115,7 @@ export class TorchbearerCharacterSheet extends TorchbearerActorSheet {
     //html.find('.item-create').click(this._onItemCreate.bind(this));
 
     // Update Inventory Item
-    html.find('.item-name.clickable').click(ev => {
+    html.find(".item-name.clickable").click((ev) => {
       console.log(ev.currentTarget);
       const li = $(ev.currentTarget).parents(".item");
       const item = this.actor.items.get(li.data("itemId"));
@@ -109,14 +124,14 @@ export class TorchbearerCharacterSheet extends TorchbearerActorSheet {
     });
 
     // Update Inventory Item
-    html.find('.spell-name.clickable').click(ev => {
+    html.find(".spell-name.clickable").click((ev) => {
       const spell = this.actor.items.get(ev.currentTarget.title);
       console.log(spell);
       spell.sheet.render(true);
     });
 
     // Delete Inventory Item
-    html.find('.item-delete').click(ev => {
+    html.find(".item-delete").click((ev) => {
       const li = $(ev.currentTarget).parents(".item");
 
       this.actor.removeItemFromInventory(li.data("itemId")).then(() => {
@@ -126,58 +141,60 @@ export class TorchbearerCharacterSheet extends TorchbearerActorSheet {
     });
 
     // Delete Spell Item
-    html.find('.spell-delete').click(ev => {
+    html.find(".spell-delete").click((ev) => {
       document.getElementById(ev.currentTarget.name).remove();
       this.actor.removeItemFromInventory(ev.currentTarget.name);
     });
 
     // Update spell data
-    html.find('.spell-toggle').click(ev => {
+    html.find(".spell-toggle").click((ev) => {
       // ev.preventDefault();
       const spell = this.actor.items.get(ev.currentTarget.id);
       let checkState = ev.currentTarget.checked;
       console.log(spell);
       switch (ev.currentTarget.title) {
-        case 'cast':
-          spell.update({"data.cast": checkState});
+        case "cast":
+          spell.update({ "data.cast": checkState });
           break;
-        case 'library':
-          spell.update({"data.library": checkState});
+        case "library":
+          spell.update({ "data.library": checkState });
           break;
-        case 'spellbook':
-          spell.update({"data.spellbook": checkState});
+        case "spellbook":
+          spell.update({ "data.spellbook": checkState });
           break;
-        case 'memorized':
-          spell.update({"data.memorized": checkState});
+        case "memorized":
+          spell.update({ "data.memorized": checkState });
           break;
-        case 'scroll':
-          spell.update({"data.scroll": checkState});
+        case "scroll":
+          spell.update({ "data.scroll": checkState });
           break;
-        case 'supplies':
-          spell.update({"data.supplies": checkState});
+        case "supplies":
+          spell.update({ "data.supplies": checkState });
           break;
       }
     });
 
     // Drop Inventory Item
-    html.find('.item-drop').click(ev => {
+    html.find(".item-drop").click((ev) => {
       const li = $(ev.currentTarget).parents(".item");
       let tbItem = this.actor.items.get(li.data("itemId"));
-      tbItem.update({
-        data: {
-          equip: "On Ground",
-          carried: "Ground",
-          slots: 1,
-        }
-      }).then(() => {
-        setTimeout(() => {
-          this.actor._onUpdate({ items: true }, { render: false });
-        }, 0);
-      })
+      tbItem
+        .update({
+          data: {
+            equip: "On Ground",
+            carried: "Ground",
+            slots: 1,
+          },
+        })
+        .then(() => {
+          setTimeout(() => {
+            this.actor._onUpdate({ items: true }, { render: false });
+          }, 0);
+        });
     });
 
     // Drink Item
-    html.find('.item-consume').click(ev => {
+    html.find(".item-consume").click((ev) => {
       const li = $(ev.currentTarget).parents(".item");
       let tbItem = this.actor.items.get(li.data("itemId"));
       tbItem.consumeOne().then(() => {
@@ -188,7 +205,7 @@ export class TorchbearerCharacterSheet extends TorchbearerActorSheet {
     });
 
     // Activate Item
-    html.find('.item-activate').click(ev => {
+    html.find(".item-activate").click((ev) => {
       const li = $(ev.currentTarget).parents(".item");
       let tbItem = this.actor.items.get(li.data("itemId"));
       tbItem.toggleActive().then(() => {
@@ -199,51 +216,55 @@ export class TorchbearerCharacterSheet extends TorchbearerActorSheet {
     });
 
     // Rollable abilities
-    html.find('.rollable').click(this._onRoll.bind(this));
+    html.find(".rollable").click(this._onRoll.bind(this));
 
     // Event listener for advancing abilities
-    html.find('.advanceAbility').click(ev => {
+    html.find(".advanceAbility").click((ev) => {
       console.log(ev.currentTarget.innerText);
     });
 
     // Event listener for advancing skills
-    html.find('.advanceSkill').click(ev => {
+    html.find(".advanceSkill").click((ev) => {
       let skill = ev.currentTarget.innerText;
 
       if (this.actor.data.data.skills[skill].rating > 0) {
-
         // If skill can be advanced, do so then clear passes and failures
-        if (this.actor.data.data.skills[skill].pass >= this.actor.data.data.skills[skill].rating && this.actor.data.data.skills[skill].fail >= this.actor.data.data.skills[skill].rating - 1) {
-
+        if (
+          this.actor.data.data.skills[skill].pass >= this.actor.data.data.skills[skill].rating &&
+          this.actor.data.data.skills[skill].fail >= this.actor.data.data.skills[skill].rating - 1
+        ) {
           let update = {
-            ['data.skills.' + skill + '.rating']: this.actor.data.data.skills[skill].rating + 1,
-            ['data.skills.' + skill + '.pass']: 0,
-            ['data.skills.' + skill + '.fail']: 0
+            ["data.skills." + skill + ".rating"]: this.actor.data.data.skills[skill].rating + 1,
+            ["data.skills." + skill + ".pass"]: 0,
+            ["data.skills." + skill + ".fail"]: 0,
           };
 
           this.actor.update(update);
         }
       } else if (this.actor.data.data.skills[skill].rating === 0) {
-        if (this.actor.data.data.skills[skill].pass + this.actor.data.data.skills[skill].fail >= this.actor.data.data.nature.max) {
+        if (
+          this.actor.data.data.skills[skill].pass + this.actor.data.data.skills[skill].fail >=
+          this.actor.data.data.nature.max
+        ) {
           let update = {
-            ['data.skills.' + skill + '.rating']: 2,
-            ['data.skills.' + skill + '.pass']: 0,
-            ['data.skills.' + skill + '.fail']: 0
+            ["data.skills." + skill + ".rating"]: 2,
+            ["data.skills." + skill + ".pass"]: 0,
+            ["data.skills." + skill + ".fail"]: 0,
           };
           this.actor.update(update);
         }
       }
     });
 
-    html.find('#overburdenToggle').click(() => {
+    html.find("#overburdenToggle").click(() => {
       this.actor.update({
         data: {
-          overburdened: !this.actor.tbData().overburdened
-        }
+          overburdened: !this.actor.tbData().overburdened,
+        },
       });
     });
 
-    html.find('#primary-tab-inventory').click(() => {
+    html.find("#primary-tab-inventory").click(() => {
       setTimeout(() => {
         this._tabs[1].activate(this._tabs[1].active, true);
       }, 0);
@@ -265,7 +286,6 @@ export class TorchbearerCharacterSheet extends TorchbearerActorSheet {
     //     });
     //   });
     // });
-
   }
 
   /* -------------------------------------------- */
@@ -321,18 +341,17 @@ export class TorchbearerCharacterSheet extends TorchbearerActorSheet {
     new PlayerRoll(this.actor).showDialog(skillOrAbility);
   }
 
-
   closestCompatibleContainer(tbItem, target) {
-    let $closestContainer = $(target).closest('.inventory-container');
-    if(!$closestContainer.length) {
+    let $closestContainer = $(target).closest(".inventory-container");
+    if (!$closestContainer.length) {
       return {};
     }
-    const containerType = $closestContainer.data('containerType');
-    const containerId = $closestContainer.data('itemId');
-    if(tbItem.isCompatibleContainer(containerType)) {
+    const containerType = $closestContainer.data("containerType");
+    const containerId = $closestContainer.data("itemId");
+    if (tbItem.isCompatibleContainer(containerType)) {
       return {
         containerType,
-        containerId: containerId || '',
+        containerId: containerId || "",
         slotsTaken: tbItem.slotsTaken(containerType),
       };
     } else {
@@ -341,8 +360,8 @@ export class TorchbearerCharacterSheet extends TorchbearerActorSheet {
   }
 
   pickAnotherContainerIfNecessaryDueToItemSize(item) {
-    if(!canFit(item, item.data.data.equip, this.actor.data.data.computed.inventory)) {
-      if(canFit(item, alternateContainerType(item), this.actor.data.data.computed.inventory)) {
+    if (!canFit(item, item.data.data.equip, this.actor.data.data.computed.inventory)) {
+      if (canFit(item, alternateContainerType(item), this.actor.data.data.computed.inventory)) {
         return alternateContainerType(item);
       }
     }
@@ -353,18 +372,18 @@ export class TorchbearerCharacterSheet extends TorchbearerActorSheet {
     const tbItem = item.document ? item.document : item;
 
     if (tbItem.type === "Spell") {
-      console.log('Yer a wizard, Harry');
+      console.log("Yer a wizard, Harry");
     } else {
-      if(tbItem.data) {
+      if (tbItem.data) {
         await tbItem.syncEquipVariables();
 
         let oldContainerId = tbItem.data.data.containerId;
-        let {containerType, containerId, slotsTaken} = this.closestCompatibleContainer(tbItem, event.target);
-        if(!containerType) {
+        let { containerType, containerId, slotsTaken } = this.closestCompatibleContainer(tbItem, event.target);
+        if (!containerType) {
           //No closest container specified, so pick one.
           // First, we know it's not pack w/o a containerId, so if it is the item's gonna need
           // updating.
-          if(tbItem.data.data.equip === 'Pack') {
+          if (tbItem.data.data.equip === "Pack") {
             tbItem.data.data.equip = tbItem.data.data.equipOptions.option1.value;
             tbItem.data.data.slots = tbItem.data.data.slotOptions.option1.value;
             containerType = tbItem.data.data.equip;
@@ -372,27 +391,27 @@ export class TorchbearerCharacterSheet extends TorchbearerActorSheet {
             slotsTaken = tbItem.data.data.slots;
           }
           let newContainerType = this.pickAnotherContainerIfNecessaryDueToItemSize(tbItem);
-          if(newContainerType) {
+          if (newContainerType) {
             slotsTaken = tbItem.slotsTaken(newContainerType);
             containerType = newContainerType;
           }
         }
-        if(containerType) {
-          let update = {data: {equip: containerType, containerId: containerId, slots: slotsTaken}};
+        if (containerType) {
+          let update = { data: { equip: containerType, containerId: containerId, slots: slotsTaken } };
           await tbItem.update(update);
-          await tbItem.onAfterEquipped({containerType, containerId});
+          await tbItem.onAfterEquipped({ containerType, containerId });
           this.actor._onUpdate({ items: true }, { render: false });
-          if(oldContainerId) {
+          if (oldContainerId) {
             let oldContainer = this.actor.items.get(oldContainerId);
             setTimeout(() => {
               oldContainer.sheet.render(false);
-            }, 0)
+            }, 0);
           }
-          if(containerId) {
+          if (containerId) {
             let newContainer = this.actor.items.get(containerId);
             setTimeout(() => {
               newContainer.sheet.render(false);
-            }, 0)
+            }, 0);
           }
         }
       }
@@ -405,7 +424,7 @@ export class TorchbearerCharacterSheet extends TorchbearerActorSheet {
   async _onDrop(event) {
     let item = await super._onDrop(event);
     console.log(item);
-    if(this.actor.data.type !== 'Character') return;
+    if (this.actor.data.type !== "Character") return;
 
     // super._onDrop sometimes returns an array (e.g. drop from compendium) and sometimes not (e.g. move in inventory)
     if (Array.isArray(item)) {

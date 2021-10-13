@@ -1,10 +1,9 @@
-import {arrangeInventory} from "../inventory/inventory.js";
-import {arrangeSpells} from "../inventory/inventory.js";
+import { arrangeInventory } from "../inventory/inventory.js";
+import { arrangeSpells } from "../inventory/inventory.js";
 
-const GRIND_CONDITION_SEQUENCE = ['hungryandthirsty', 'exhausted', 'angry', 'sick', 'injured', 'afraid', 'dead'];
+const GRIND_CONDITION_SEQUENCE = ["hungryandthirsty", "exhausted", "angry", "sick", "injured", "afraid", "dead"];
 
 export class TorchbearerActor extends Actor {
-
   /**
    * Augment the basic actor data with additional dynamic data.
    */
@@ -15,9 +14,9 @@ export class TorchbearerActor extends Actor {
 
     // Make separate methods for each Actor type (character, npc, etc.) to keep
     // things organized.
-    if (actorData.type === 'Character') this._prepareCharacterData(actorData);
+    if (actorData.type === "Character") this._prepareCharacterData(actorData);
 
-    if (actorData.type === 'NPC') this._prepareNpcData(actorData);
+    if (actorData.type === "NPC") this._prepareNpcData(actorData);
   }
 
   /**
@@ -34,7 +33,7 @@ export class TorchbearerActor extends Actor {
     data.computed.inventory = arrangeInventory(this.items, data.overburdened);
     //The first time this is executed, Actors don't have their items yet, so there is
     // no inventory
-    if(data.computed.inventory) {
+    if (data.computed.inventory) {
       data.computed.emittedLight = this.calculateEmittedLight(data.computed.inventory);
     }
 
@@ -56,42 +55,43 @@ export class TorchbearerActor extends Actor {
 
   _onUpdate(data, options, userId, context) {
     super._onUpdate(data, options, userId, context);
-    game.grind.updateGrind(null, 'actor._onUpdate');
+    game.grind.updateGrind(null, "actor._onUpdate");
   }
 
   _determineDumpTarget(tbItem, recursions = 0) {
-    let container = (tbItem.tbData().containerId
+    let container =
+      (tbItem.tbData().containerId
         ? this.tbData().computed.inventory[tbItem.tbData().containerId]
         : this.tbData().computed.inventory[tbItem.tbData().equip]) || {};
-    if(container.name === 'Cached') {
-      return {dumpEquip: "Cached", dumpCarried: "Cached"}
+    if (container.name === "Cached") {
+      return { dumpEquip: "Cached", dumpCarried: "Cached" };
     }
-    if(container.name === 'Lost') {
-      return {dumpEquip: "Lost", dumpCarried: "Lost"}
+    if (container.name === "Lost") {
+      return { dumpEquip: "Lost", dumpCarried: "Lost" };
     }
-    if(container.type === 'Pack') {
+    if (container.type === "Pack") {
       let containerTbItem = this.items.get(tbItem.tbData().containerId);
-      if(!containerTbItem || recursions >= 20) {
-        return {dumpEquip: "On Ground", dumpCarried: "Ground"};
+      if (!containerTbItem || recursions >= 20) {
+        return { dumpEquip: "On Ground", dumpCarried: "Ground" };
       }
       return this._determineDumpTarget(containerTbItem, recursions + 1);
     }
-    return {dumpEquip: "On Ground", dumpCarried: "Ground"};
+    return { dumpEquip: "On Ground", dumpCarried: "Ground" };
   }
 
   async _dumpContents(tbItem) {
-    let {dumpEquip, dumpCarried} = this._determineDumpTarget(tbItem);
+    let { dumpEquip, dumpCarried } = this._determineDumpTarget(tbItem);
     let slots = this.tbData().computed.inventory[tbItem.data._id].slots;
-    for(let i = 0; i < slots.length; i++) {
+    for (let i = 0; i < slots.length; i++) {
       let tbContainedItem = this.items.get(slots[i].data._id);
-      if(tbContainedItem) {
+      if (tbContainedItem) {
         await tbContainedItem.update({
           data: {
             equip: dumpEquip,
             carried: dumpCarried,
             slots: 1,
-            containerId: '',
-          }
+            containerId: "",
+          },
         });
       }
     }
@@ -99,25 +99,25 @@ export class TorchbearerActor extends Actor {
 
   async removeItemFromInventory(itemId) {
     let inventoryContainer = this.tbData().computed.inventory[itemId];
-    if(inventoryContainer && inventoryContainer.slots.length > 0) {
+    if (inventoryContainer && inventoryContainer.slots.length > 0) {
       const tbItem = this.items.get(itemId);
-      if(tbItem) {
+      if (tbItem) {
         await this._dumpContents(tbItem);
       }
     }
-    await this.deleteEmbeddedDocuments('Item', [itemId]);
+    await this.deleteEmbeddedDocuments("Item", [itemId]);
     this._onUpdate({ items: true }, { render: false });
   }
 
   async takeNextGrindCondition() {
     const tbData = this.tbData();
-    for(let i = 0; i < GRIND_CONDITION_SEQUENCE.length; i++) {
-      if(!tbData[GRIND_CONDITION_SEQUENCE[i]]) {
+    for (let i = 0; i < GRIND_CONDITION_SEQUENCE.length; i++) {
+      if (!tbData[GRIND_CONDITION_SEQUENCE[i]]) {
         await this.update({
           data: {
             fresh: false,
             [GRIND_CONDITION_SEQUENCE[i]]: true,
-          }
+          },
         });
         return;
       }
@@ -127,9 +127,9 @@ export class TorchbearerActor extends Actor {
   async consumeActiveLightFuel() {
     const emittedLight = this.calculateEmittedLight(this.tbData().computed.inventory);
     const sources = [].concat(emittedLight.held).concat(emittedLight.tossed);
-    if(!sources.length) return;
+    if (!sources.length) return;
 
-    for(let i = 0; i < sources.length; i++) {
+    for (let i = 0; i < sources.length; i++) {
       const tbItem = this.items.get(sources[i].data._id);
       await tbItem.consumeOne();
     }
@@ -146,18 +146,18 @@ export class TorchbearerActor extends Actor {
       tossed: [],
     };
     let heldItems = inventory["Hands (Carried)"].slots;
-    for(let i = 0; i < heldItems.length; i++) {
+    for (let i = 0; i < heldItems.length; i++) {
       let item = heldItems[i];
-      if(item.data.lightsource.remaining && item.data.activatable.active) {
+      if (item.data.lightsource.remaining && item.data.activatable.active) {
         emittedLight.held.push(item);
         emittedLight.characters += item.data.lightsource.held.characters;
         emittedLight.dim += item.data.lightsource.held.dimCharacters;
       }
     }
     let groundItems = inventory["On Ground"].slots;
-    for(let i = 0; i < groundItems.length; i++) {
+    for (let i = 0; i < groundItems.length; i++) {
       let item = groundItems[i];
-      if(item.data.lightsource.remaining && item.data.activatable.active) {
+      if (item.data.lightsource.remaining && item.data.activatable.active) {
         emittedLight.tossed.push(item);
         emittedLight.characters += item.data.lightsource.tossed.characters;
         emittedLight.dim += item.data.lightsource.tossed.dimCharacters;
@@ -167,21 +167,23 @@ export class TorchbearerActor extends Actor {
   }
 
   getTraitNames() {
-    return Object.values(this.tbData().traits).map(t => t.name).filter(n => n !== '');
+    return Object.values(this.tbData().traits)
+      .map((t) => t.name)
+      .filter((n) => n !== "");
   }
 
   getNatureDescriptors() {
-    return this.tbData().natureDescriptors.split(', ');
+    return this.tbData().natureDescriptors.split(", ");
   }
 
   getRating(skillOrAbility) {
     let ability = this.tbData()[skillOrAbility.toLowerCase()];
-    if(ability) {
+    if (ability) {
       return ability.value;
-    } else if(this.tbData().skills[skillOrAbility]) {
+    } else if (this.tbData().skills[skillOrAbility]) {
       return this.tbData().skills[skillOrAbility].rating;
     } else {
-      console.log("Couldn't find skillOrAbility rating for " +skillOrAbility);
+      console.log("Couldn't find skillOrAbility rating for " + skillOrAbility);
       return 0;
     }
   }

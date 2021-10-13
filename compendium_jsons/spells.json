@@ -8,16 +8,16 @@
       "description": "The caster extrudes writhing tentacles of aether from the fngers of one hand, using them to manipulate the material world at a distance.",
       "effect": "For one turn, this spell allows the caster to make appropriate skill or ability tests at range. It can be used to lift, carry and manipulate objects at a distance, as long as the caster can see the object they’re manipulating (a spell like Eye of the Overworld can be used to extend the caster’s sight). For example, it could be used to tie a rope to a tree limb high above, steal a key ring from a jailer’s belt while trapped in a cell or raise the lid of a sarcophagus. To mundane observers, it appears the objects are moving through the air on their own. Observers able to perceive the Otherworld can see the translucent, vaguely luminescent tentacles extending from the caster’s fngers.",
       "materials": "A dried cephalopod",
-			"toScribe": {
-				"skill": "Scholar",
-				"ob": 2
-			},
-			"toLearn": {
-				"skill": "Lore Master",
-				"ob": 3
+      "toScribe": {
+        "skill": "Scholar",
+        "ob": 2
+      },
+      "toLearn": {
+        "skill": "Lore Master",
+        "ob": 3
       },
       "casting": {
-				"test": "Fixed",
+        "test": "Fixed",
         "skill": "Arcanist",
         "ob": 2
       },
@@ -34,16 +34,16 @@
       "description": "The caster sets an aetherial alarm in the Otherworld to provide warning against approaching danger.",
       "effect": "This spell wards a camp, house or the like, creating the sound of a ringing bell in the event of trouble. Cast this spell as you enter camp (before rolling for camp events) and the spell grants +1 to the camp events roll. And any who keep watch are granted +1D to tests to avert disaster",
       "focus": "A silver bell [worn 1]",
-			"toScribe": {
-				"skill": "Scholar",
-				"ob": 2
-			},
-			"toLearn": {
-				"skill": "Lore Master",
-				"ob": 2
+      "toScribe": {
+        "skill": "Scholar",
+        "ob": 2
+      },
+      "toLearn": {
+        "skill": "Lore Master",
+        "ob": 2
       },
       "casting": {
-				"test": "Factors",
+        "test": "Factors",
         "skill": "Arcanist",
         "ob": 0,
         "factorCategories": {
@@ -102,16 +102,16 @@
       "description": "By casting this spell the magician makes the subject’s ﬂesh as malleable as clay, such that it may be shaped and formed according to their whim. Magicians with this spell can make themselves and others appear as someone they are not but no one in particular.",
       "effect": "This spell creates a disguise that allows the subjects to move freely through places they would not otherwise be allowed. Of course, suspicious guards may still question their reasons for passing through. The new form must be humanoid and cannot make the subject taller or shorter by more than two feet. Seeming weight, clothing and carried items may be altered.",
       "materials": "A bit of clay",
-			"toScribe": {
-				"skill": "Scholar",
-				"ob": 2
-			},
-			"toLearn": {
-				"skill": "Lore Master",
-				"ob": 2
+      "toScribe": {
+        "skill": "Scholar",
+        "ob": 2
+      },
+      "toLearn": {
+        "skill": "Lore Master",
+        "ob": 2
       },
       "casting": {
-				"test": "Factors",
+        "test": "Factors",
         "skill": "Arcanist",
         "ob": 0,
         "factorCategories": {
@@ -183,16 +183,16 @@
       "description": "With a series of minute fnger gestures, the caster channels the Music of the Spheres, creating the rumble of thunder or haunting orchestral music. Celestial Music entrances the unwary mind, forcing those affected to seek the source of the bewitching sound.",
       "effect": "This spell distracts and attracts its victims. Creatures who hear its unearthly sounds are drawn to investigate. The caster may target victims within sight and lead them to an area just out of sight. The caster may not move during this process. Creatures entranced by the sounds will seek out their source and listen until the spell ends or until an unaffected creature speaks to them in a voice louder than a whisper. Victims led into a perilous locale make a Nature or Health test to avoid any mishaps intended by the magician. Being lead into danger breaks the enchantment, whether or not the victim passes or fails the test to avoid it.",
       "focus": "A tuning fork or a crystal goblet [pack 1]",
-			"toScribe": {
-				"skill": "Scholar",
-				"ob": 2
-			},
-			"toLearn": {
-				"skill": "Lore Master",
-				"ob": 0
+      "toScribe": {
+        "skill": "Scholar",
+        "ob": 2
+      },
+      "toLearn": {
+        "skill": "Lore Master",
+        "ob": 0
       },
       "casting": {
-				"test": "Versus",
+        "test": "Versus",
         "skill": "Arcanist",
         "ob": 0,
         "versus": "The spell causes a versus test between the target’s Will or Nature and the magician’s Arcanist skill. If the target’s Might is greater than the caster’s, the magician suffers -1s per point of difference. Victims who lose the versus test are drawn to the noise for one turn. Additional successes increase the duration of the distraction or increase the distance the victims travel—from one area or room, to two or three rooms or areas from the caster."
@@ -210,16 +210,16 @@
       "description": "The magician summons bewitching spirits to ﬂy into the mouths of their victims, so they fnd it nearly impossible to speak or to think clearly.",
       "effect": "For one turn, the victim suffers a penalty to tests that require language: -1D to tests, and increase the dice penalty by the margin of success. The caster must target a specifc language.",
       "materials": "A collection of teeth or a draught of alcoholic spirits",
-			"toScribe": {
-				"skill": "Scholar",
-				"ob": 2
-			},
-			"toLearn": {
-				"skill": "Lore Master",
-				"ob": 3
+      "toScribe": {
+        "skill": "Scholar",
+        "ob": 2
+      },
+      "toLearn": {
+        "skill": "Lore Master",
+        "ob": 3
       },
       "casting": {
-				"test": "Factors",
+        "test": "Factors",
         "skill": "Arcanist",
         "ob": 0,
         "factorCategories": {
@@ -295,16 +295,16 @@
       "description": "The magician hooks threads of aether to a bit of scrap and weaves simple tools into being.",
       "effect": "With a fragment of appropriate material, the caster can create appropriate tools or supplies for skills. For example, the caster could create a needle and thread from a sliver of bone and a bit of wool or gut or create paper or sailcloth from a scrap of ﬂax. Dweomercraft can be used to solve material problems, like the lack of rope or a sail, or it can be used to create tools for a skill test. It can also be used to conjure expendable materials and supplies, which grant +1D to an appropriate test.",
       "focus": "Dogwood stick shuttle [carried 1 or pack 1]",
-			"toScribe": {
-				"skill": "Scholar",
-				"ob": 3
-			},
-			"toLearn": {
-				"skill": "Lore Master",
-				"ob": 3
+      "toScribe": {
+        "skill": "Scholar",
+        "ob": 3
+      },
+      "toLearn": {
+        "skill": "Lore Master",
+        "ob": 3
       },
       "casting": {
-				"test": "Factors",
+        "test": "Factors",
         "skill": "Arcanist",
         "ob": 0,
         "factorCategories": {
@@ -399,16 +399,16 @@
       "description": "Speaking a single, sibilant syllable, the magician infuses their being with the lightness of spirit.",
       "effect": "Through concentration, the caster can cause the recipient to rise slowly from the ground or to descend gently from a great height. Success allows the targets to bypass a test involving climbing or descending from a great height. If cast on the unwilling, the spell causes them to ﬂoat gently upward and then descend back to the ground in the span of a turn. If the recipient is yanked or pulled (or stabbed), the spell breaks and they descend to earth.",
       "materials": "A seed pod from a maple or ash tree",
-			"toScribe": {
-				"skill": "Scholar",
-				"ob": 1
-			},
-			"toLearn": {
-				"skill": "Lore Master",
-				"ob": 2
+      "toScribe": {
+        "skill": "Scholar",
+        "ob": 1
+      },
+      "toLearn": {
+        "skill": "Lore Master",
+        "ob": 2
       },
       "casting": {
-				"test": "Factors",
+        "test": "Factors",
         "skill": "Arcanist",
         "ob": 0,
         "factorCategories": {
@@ -459,16 +459,16 @@
       "description": "With a series of intricate, arcane gestures, the caster shapes a faintly luminescent disc of aether to carry their burdens.",
       "effect": "This spell creates an aetheric disc that ﬂoats at waist height. The caster  can control its ponderous movements out to a distance of two paces. The disk provides 8-12 additional inventory slots.",
       "focus": "A trug woven from strips of beech bark [carried 1]",
-			"toScribe": {
-				"skill": "Scholar",
-				"ob": 1
-			},
-			"toLearn": {
-				"skill": "Lore Master",
-				"ob": 2
+      "toScribe": {
+        "skill": "Scholar",
+        "ob": 1
+      },
+      "toLearn": {
+        "skill": "Lore Master",
+        "ob": 2
       },
       "casting": {
-				"test": "Factors",
+        "test": "Factors",
         "skill": "Arcanist",
         "ob": 0,
         "factorCategories": {
@@ -540,16 +540,16 @@
       "description": "Entering a trance, the magician shifts their vision to the Otherworld, attuning to the magical auras of enchanted items, creatures or places within their presence. While in this state, their eyes are covered with a milky whiteness.",
       "effect": "While in this state, the caster may use the Lore Master skill to study magical auras and determine their purpose. Additionally, while under the effects of this spell, the caster gains +1D to Arcanist tests but suffers -1D to all tests requiring physical action. The caster may end this spell at any time. While under the effects of this spell, the caster is able to see nonmaterialized spirits in the Otherworld. However, those spirits are also able to see the caster’s eyes and might choose to investigate…",
       "focus": "A blindfold of pure white silk covering the eyes [worn/head]",
-			"toScribe": {
-				"skill": "Scholar",
-				"ob": 1
-			},
-			"toLearn": {
-				"skill": "Lore Master",
-				"ob": 2
+      "toScribe": {
+        "skill": "Scholar",
+        "ob": 1
+      },
+      "toLearn": {
+        "skill": "Lore Master",
+        "ob": 2
       },
       "casting": {
-				"test": "Factors",
+        "test": "Factors",
         "skill": "Arcanist",
         "ob": 0,
         "factorCategories": {
@@ -591,16 +591,16 @@
       "description": "The magician pulls a swarm of enraged aetherial hornets across the Shroud of Worlds to harry and harass.",
       "effect": "Use Arcanist to Attack in place of the required skill or ability during a kill, capture or drive off conﬂicts. This includes rolling for or helping with the disposition roll. In addition, Swarm provide +1D to Attack if the caster has the Angry condition. Further, mundane armor has no effect on Swarm. Only magical armor and spells or invocations provide protection.",
       "materials": "A flowering blossom [worn/head or neck or carried 1]",
-			"toScribe": {
-				"skill": "Scholar",
-				"ob": 2
-			},
-			"toLearn": {
-				"skill": "Lore Master",
-				"ob": 2
+      "toScribe": {
+        "skill": "Scholar",
+        "ob": 2
+      },
+      "toLearn": {
+        "skill": "Lore Master",
+        "ob": 2
       },
       "casting": {
-				"test": "Skill swap",
+        "test": "Skill swap",
         "skill": "Arcanist",
         "ob": 0
       },
@@ -618,16 +618,16 @@
       "effect": "This spell must be spoken to the victim in a normal voice. Passing the test converts the victim into a friend for the duration of the spell, with all the benefts that entails. This spell does not affect undead or creatures Might of 6 or greater. A creature must have the capacity for language to be targeted by this spell. While it’s not necessary to speak the same language as the target, making your wishes known could be diffcult if you don’t. If your new friend does not understand you, they will still seek to help you if they can. Success temporarily makes the target equivalent to a Town Friend or Adventuring Friend as appropriate. They retain their own beliefs and values, so you will have to use Persuader to get your new friend to do something against those beliefs or values.",
       "materials": "A drop of pure honey smeared on the caster’s lips",
       "focus": "Strands of thread with the victim’s name whispered over them and woven into a ring worn by the caster [worn/hands]",
-			"toScribe": {
-				"skill": "Scholar",
-				"ob": 2
-			},
-			"toLearn": {
-				"skill": "Lore Master",
-				"ob": 3
+      "toScribe": {
+        "skill": "Scholar",
+        "ob": 2
+      },
+      "toLearn": {
+        "skill": "Lore Master",
+        "ob": 3
       },
       "casting": {
-				"test": "Versus",
+        "test": "Versus",
         "skill": "Arcanist",
         "ob": 0,
         "versus": "This spell causes a versus test between the target’s Will (or Nature for monsters) and the caster’s Arcanist skill. The caster suffers a -1s penalty for each rank by which the target’s Might exceeds that of the caster. Record the margin of success when the spell is cast. At the beginning of each phase after the spell was cast, the victim rolls its Will (or Nature for monsters). They are granted +1D for each rank by which their Might exceeds that of the caster, and +1D per phase after the first. The obstacle is equal to the margin of success when the spell was originally cast. Success frees the victim from the spell. If the obstacle is 0, the spell ends at the end of the phase in which it was cast."
@@ -645,16 +645,16 @@
       "description": "The caster peers into the Otherworld for guidance from the spirits of land and sea.",
       "effect": "If the magician is lost in the wilderness, successfully casting the Wayfnder’s Friend will grant them a revelation as to their current location in relation to their desired destination. The spirits of the air, sun and moon will emerge and report! To have the spirits guide them to their destination, the magician may use the Arcanist skill in place of Pathfnder or Sailor (for navigational tests only). The spell doesn’t work underground.",
       "focus": "A sunstone [pack 1]",
-			"toScribe": {
-				"skill": "Scholar",
-				"ob": 2
-			},
-			"toLearn": {
-				"skill": "Lore Master",
-				"ob": 2
+      "toScribe": {
+        "skill": "Scholar",
+        "ob": 2
+      },
+      "toLearn": {
+        "skill": "Lore Master",
+        "ob": 2
       },
       "casting": {
-				"test": "Factors",
+        "test": "Factors",
         "skill": "Arcanist",
         "ob": 0,
         "factorCategories": {
@@ -732,16 +732,16 @@
       "description": "Intoning their true names, the magician summons long-dead sages from beyond the Shroud of Worlds to whisper the translation of spoken or written words.",
       "effect": "Possessed by ghosts, the caster may read, speak or comprehend a foreign or alien tongue. No Scholar test required.",
       "materials": "A scrip inscribed with the true name of a sage",
-			"toScribe": {
-				"skill": "Scholar",
-				"ob": 2
-			},
-			"toLearn": {
-				"skill": "Lore Master",
-				"ob": 2
+      "toScribe": {
+        "skill": "Scholar",
+        "ob": 2
+      },
+      "toLearn": {
+        "skill": "Lore Master",
+        "ob": 2
       },
       "casting": {
-				"test": "Factors",
+        "test": "Factors",
         "skill": "Arcanist",
         "ob": 0,
         "factorCategories": {
@@ -800,16 +800,16 @@
       "description": "The magician summons a luminescent shield of aether bearing their wizard’s sigil.",
       "effect": "Use the Arcanist skill to Defend in place of the required skill or ability during a kill, capture or drive off conﬂict. This includes rolling for or helping with the disposition roll. In addition, Wizard’s Ægis possesses these qualities: +2s to Defend; if your Defend action is successfil, the opposing team suffers -1D to its next action.",
       "materials": "A chrysoprase ring or pendant [worn/hand or neck]",
-			"toScribe": {
-				"skill": "Scholar",
-				"ob": 1
-			},
-			"toLearn": {
-				"skill": "Lore Master",
-				"ob": 2
+      "toScribe": {
+        "skill": "Scholar",
+        "ob": 1
+      },
+      "toLearn": {
+        "skill": "Lore Master",
+        "ob": 2
       },
       "casting": {
-				"test": "Skill swap",
+        "test": "Skill swap",
         "skill": "Arcanist",
         "ob": 0
       },
@@ -826,16 +826,16 @@
       "description": "With a sharp syllable uttered by the magician, invisible webs of aether, stronger than iron, bind portals and chests shut.",
       "effect": "This spell takes existing materials used to close or secure and makes them supernaturally strong. Bonds, a door, a chest or a gate held by the Word of Binding cannot be opened by mundane means. Once bound, only the expiration of the spell, the destruction of the object or the Rhyme of Opening or Sign of Abrogation spells can undo the Word of Binding.",
       "focus": "Iron links in a chain [worn/neck, pack 1 or carried 1]",
-			"toScribe": {
-				"skill": "Scholar",
-				"ob": 1
-			},
-			"toLearn": {
-				"skill": "Lore Master",
-				"ob": 2
+      "toScribe": {
+        "skill": "Scholar",
+        "ob": 1
+      },
+      "toLearn": {
+        "skill": "Lore Master",
+        "ob": 2
       },
       "casting": {
-				"test": "Factors",
+        "test": "Factors",
         "skill": "Arcanist",
         "ob": 0,
         "factorCategories": {
@@ -873,16 +873,16 @@
       "description": "With whispered words, the magician calls forth dancing ﬂames from the aetherial plane.",
       "effect": "The magician summons a number of lights that dance and whirl about the head. Each wisp provides light equivalent to a candle and are unaffected by wind and weather. They can even give light when submerged. With a thought, the caster may send the lights down corridors or around corners, giving the appearance of a party of adventurers carrying candles. The caster may also command each light to hover in a different place or follow a different person. The magician may choose to end the spell at any time.",
       "materials": "A pinch of brimstone blown from the fngertips [pocket]",
-			"toScribe": {
-				"skill": "Scholar",
-				"ob": 2
-			},
-			"toLearn": {
-				"skill": "Lore Master",
-				"ob": 2
+      "toScribe": {
+        "skill": "Scholar",
+        "ob": 2
+      },
+      "toLearn": {
+        "skill": "Lore Master",
+        "ob": 2
       },
       "casting": {
-				"test": "Factors",
+        "test": "Factors",
         "skill": "Arcanist",
         "ob": 0,
         "factorCategories": {
@@ -945,16 +945,16 @@
       "description": "Channeling raw power into the Skein of Destiny and strumming the taut strings like a harp, the magician infuses allies with heroic power.",
       "effect": "Increase Might by one for one turn.",
       "focus": "The finger bone of a saint [pocket or worn/neck]",
-			"toScribe": {
-				"skill": "Scholar",
-				"ob": 3
-			},
-			"toLearn": {
-				"skill": "Lore Master",
-				"ob": 4
+      "toScribe": {
+        "skill": "Scholar",
+        "ob": 3
+      },
+      "toLearn": {
+        "skill": "Lore Master",
+        "ob": 4
       },
       "casting": {
-				"test": "Factors",
+        "test": "Factors",
         "skill": "Arcanist",
         "ob": 0,
         "factorCategories": {
@@ -1021,16 +1021,16 @@
       "description": "The magician rips raw, burning aether out of the Shroud of Worlds and hurls it at those who have offended them.",
       "effect": "Use Arcanist in place of the Fighter skill for one test in a kill, capture or drive off conﬂict. In addition, Eldritch Flames possesses these qualities at no further cost: (1) After actions are revealed, the magician may convert an independent interaction to a versus test, (2) After rolling for Elritch Flames, the magician may distribute their margin of success between two targets (3 targets at Lvl 5, whole team at Lvl 7), (3) +1D to Attack if the caster has the Angry condition, (4) Mundane armor has no effect on Eldritch Flames; only magical armor and spells or invocations provide protection.",
       "focus": "A skinning knife or shears that have never been used",
-			"toScribe": {
-				"skill": "Scholar",
-				"ob": 3
-			},
-			"toLearn": {
-				"skill": "Lore Master",
-				"ob": 3
+      "toScribe": {
+        "skill": "Scholar",
+        "ob": 3
+      },
+      "toLearn": {
+        "skill": "Lore Master",
+        "ob": 3
       },
       "casting": {
-				"test": "Skill swap",
+        "test": "Skill swap",
         "skill": "Arcanist",
         "ob": 0,
         "factorCategories": {}
@@ -1048,16 +1048,16 @@
       "description": "With words of power, the caster attains sight beyond sight that reveals the past, the future, a creature’s essence and even the truth behind a creature’s words.",
       "effect": "Using the Eye of Omens, the magician can sense the presence of the past and the future, read a person’s traits or read the thoughts of another. Declare your intended effect when casting. The effect lasts for one turn.",
       "materials": "The preserved eye of a raven",
-			"toScribe": {
-				"skill": "Scholar",
-				"ob": 3
-			},
-			"toLearn": {
-				"skill": "Lore Master",
-				"ob": 4
+      "toScribe": {
+        "skill": "Scholar",
+        "ob": 3
+      },
+      "toLearn": {
+        "skill": "Lore Master",
+        "ob": 4
       },
       "casting": {
-				"test": "Factors",
+        "test": "Factors",
         "skill": "Arcanist",
         "ob": 0,
         "factorCategories": {
@@ -1141,16 +1141,16 @@
       "description": "This sorcery grants the ability to navigate in darkness like a bat.",
       "effect": "This spell gives one character the ability to “see” like a bat in complete darkness for one phase. Characters cannot read or determine color without light.",
       "focus": "A perfectly pitched tuning fork [carried 1 or pack 1]",
-			"toScribe": {
-				"skill": "Scholar",
-				"ob": 3
-			},
-			"toLearn": {
-				"skill": "Lore Master",
-				"ob": 4
+      "toScribe": {
+        "skill": "Scholar",
+        "ob": 3
+      },
+      "toLearn": {
+        "skill": "Lore Master",
+        "ob": 4
       },
       "casting": {
-				"test": "Fixed",
+        "test": "Fixed",
         "skill": "Arcanist",
         "ob": 3
       },
@@ -1167,16 +1167,16 @@
       "description": "Piercing the Shroud of Worlds with a crooked fnger, the caster draws forth a faintly luminescent vapor of aether that causes any who breathe it to fall into a deep, unnatural slumber.",
       "effect": "Targets who fail the versus test fall into a troubled sleep. The entranced frequently moan or cry out in terror but will awake only if prodded or kicked. Otherwise, they languidly rouse themselves at the start of the next phase. When awakened, victims must pass an Ob 3 Will (or Nature) test. Failure indicates either that they are groggy and may not act for a turn or they gain the afraid condition. If a conﬂict is imminent, magicians must cast Somnifc Trance before the targets roll for disposition. Those who succumb may not participate in the conﬂict. This spell can affect a maximum of four creatures of Might 1 or 2, three creatures of Might 3, two creatures of Might 4 or one creature of Might 5. If cast on a mixed group, put to sleep the lesser creatures first. This spell does not affect undead, spirits or automatons or any creature of Might 6 or greater.",
       "materials": "Pollen of the papaver blossom [pack 1]",
-			"toScribe": {
-				"skill": "Scholar",
-				"ob": 4
-			},
-			"toLearn": {
-				"skill": "Lore Master",
-				"ob": 4
+      "toScribe": {
+        "skill": "Scholar",
+        "ob": 4
+      },
+      "toLearn": {
+        "skill": "Lore Master",
+        "ob": 4
       },
       "casting": {
-				"test": "Versus",
+        "test": "Versus",
         "skill": "Arcanist",
         "ob": 0,
         "versus": "This spell causes a versus test between the targets’ Will (or Nature for monsters) and the caster’s Arcanist skill. Each target should roll separately. The caster rolls only once. When comparing results against a target, the caster suffers -1s to their result for each rank by which the target’s Might exceeds that of the caster."
@@ -1194,16 +1194,16 @@
       "description": "Mixing blood and aether into ink, the magician inscribes an Otherworldly matrix to hold a spell.",
       "effect": "This spell allows the caster to inscribe a symbol that holds a spell in a fashion similar to a scroll. Once the sigil is created, the caster must then successfully cast the spell which they wish the sigil to contain and choose a trigger (generally when the sigil is read, touched or destroyed/disfgured). The character who activates the sigil need not be a magician, nor does the character need to voluntarily activate the sigil.",
       "materials": "A drop of the caster’s blood and a fresh quill",
-			"toScribe": {
-				"skill": "Scholar",
-				"ob": 2
-			},
-			"toLearn": {
-				"skill": "Lore Master",
-				"ob": 4
+      "toScribe": {
+        "skill": "Scholar",
+        "ob": 2
+      },
+      "toLearn": {
+        "skill": "Lore Master",
+        "ob": 4
       },
       "casting": {
-				"test": "Factors",
+        "test": "Factors",
         "skill": "Arcanist",
         "ob": 0,
         "factorCategories": {
@@ -1279,16 +1279,16 @@
       "description": "Phantasmal Vision allows the magician to conjure forth mirages and phantasms to beguile and befuddle your enemies.",
       "effect": "The caster creates an illusion that is utterly convincing to the viewer. Victims who fail the versus test are fooled by the illusion and act accordingly. The spell lasts one turn and cannot do actual harm to the victims. The caster may summon illusions of creatures equal to or less than their Might or spell effects for anything that would fit in their memory palace, whether they know it or not.",
       "focus": "A metallic sphere [carried 1 or pack 1]",
-			"toScribe": {
-				"skill": "Scholar",
-				"ob": 4
-			},
-			"toLearn": {
-				"skill": "Lore Master",
-				"ob": 4
+      "toScribe": {
+        "skill": "Scholar",
+        "ob": 4
+      },
+      "toLearn": {
+        "skill": "Lore Master",
+        "ob": 4
       },
       "casting": {
-				"test": "Versus",
+        "test": "Versus",
         "skill": "Arcanist",
         "ob": 0,
         "versus": "This spell causes a versus test between the targets’ Will (or Nature for monsters) and the caster’s Arcanist skill. Each target should roll separately. The caster rolls once. When comparing results against a target, the caster suffers -1s to their result for each rank by which the target’s Might exceeds that of the caster."
@@ -1306,16 +1306,16 @@
       "description": "With a whispered word and a gentle knock, knots loosen, bonds burst and gates swing open.",
       "effect": "Doors, locks and knots fall open and portcullises and the lids of chests rise at the magician’s command.",
       "focus": "A broken chain link [carried 1 or worn/neck]",
-			"toScribe": {
-				"skill": "Scholar",
-				"ob": 2
-			},
-			"toLearn": {
-				"skill": "Lore Master",
-				"ob": 3
+      "toScribe": {
+        "skill": "Scholar",
+        "ob": 2
+      },
+      "toLearn": {
+        "skill": "Lore Master",
+        "ob": 3
       },
       "casting": {
-				"test": "Factors",
+        "test": "Factors",
         "skill": "Arcanist",
         "ob": 0,
         "factorCategories": {
@@ -1374,16 +1374,16 @@
       "description": "With a subtle gesture, the caster calls forth darkness to smother the light.",
       "effect": "Shroud of Shadows dims lights, creating shadows and darkness—and the opportunity for dastardly knife work. Target a specifc light source when casting the spell. The light source is dimmed according to the spell intensity for the duration, providing only dim light or no light at all. If fuel remains, the source will reignite once the duration expires.",
       "focus": "A grave shroud, wrapped about the shoulders [worn/head]",
-			"toScribe": {
-				"skill": "Scholar",
-				"ob": 3
-			},
-			"toLearn": {
-				"skill": "Lore Master",
-				"ob": 3
+      "toScribe": {
+        "skill": "Scholar",
+        "ob": 3
+      },
+      "toLearn": {
+        "skill": "Lore Master",
+        "ob": 3
       },
       "casting": {
-				"test": "Factors",
+        "test": "Factors",
         "skill": "Arcanist",
         "ob": 0,
         "factorCategories": {
@@ -1467,16 +1467,16 @@
       "description": "The caster knits a veil of concealment from aetherial threads and vanishes from sight.",
       "effect": "This spell obscures the recipient’s form for the duration. It grants advantage dice when using the Scout skill. In addition, if standing still, the recipient may not be detected unless specifcally sought out. In that case, the seeker would test Scout versus the recipient’s magically enhanced Scout to evade detection.",
       "focus": "A widow’s veil [worn/head]",
-			"toScribe": {
-				"skill": "Scholar",
-				"ob": 3
-			},
-			"toLearn": {
-				"skill": "Lore Master",
-				"ob": 4
+      "toScribe": {
+        "skill": "Scholar",
+        "ob": 3
+      },
+      "toLearn": {
+        "skill": "Lore Master",
+        "ob": 4
       },
       "casting": {
-				"test": "Factors",
+        "test": "Factors",
         "skill": "Arcanist",
         "ob": 0,
         "factorCategories": {
@@ -1544,16 +1544,16 @@
       "description": "With a gesture, the caster grants the ability to breathe underwater.",
       "effect": "Those under the effect of this spell may breathe underwater for the spell’s duration. This eliminates the chance of drowning and thus makes navigating underwater obstacles more a matter of darkness and currents than certain death; you may reduce water-related Dungeoneer factors by one.",
       "materials": "A hollow reed [carried 1]",
-			"toScribe": {
-				"skill": "Scholar",
-				"ob": 2
-			},
-			"toLearn": {
-				"skill": "Lore Master",
-				"ob": 2
+      "toScribe": {
+        "skill": "Scholar",
+        "ob": 2
+      },
+      "toLearn": {
+        "skill": "Lore Master",
+        "ob": 2
       },
       "casting": {
-				"test": "Factors",
+        "test": "Factors",
         "skill": "Arcanist",
         "ob": 0,
         "factorCategories": {
@@ -1612,16 +1612,16 @@
       "description": "With a twist of the wrist, the magician creates a small snarl in the Skein of Destiny, erasing the memory of a moment.",
       "effect": "The target permanently forgets the past few moments (about the duration of a short conversation). When successfully used against a magician who recently memorized their spells, Wizard’s Bane triggers an involuntary temerarious discharge.",
       "materials": "A tuft of gray hair",
-			"toScribe": {
-				"skill": "Scholar",
-				"ob": 3
-			},
-			"toLearn": {
-				"skill": "Lore Master",
-				"ob": 4
+      "toScribe": {
+        "skill": "Scholar",
+        "ob": 3
+      },
+      "toLearn": {
+        "skill": "Lore Master",
+        "ob": 4
       },
       "casting": {
-				"test": "Versus",
+        "test": "Versus",
         "skill": "Arcanist",
         "ob": 0,
         "versus": "This spell causes a versus test between the magician’s Arcanist skill and the targets’ Will (or Nature for monsters). When comparing results against a target, the caster suffers -1s to their result for each rank by which the target’s Might exceeds that of the caster."
