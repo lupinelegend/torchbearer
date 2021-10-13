@@ -10,11 +10,14 @@ export class TorchbearerBaseItemSheet extends ItemSheet {
 
   /** @override */
   getData() {
-    const data = super.getData();
+    const baseData = super.getData();
 
-    if (this.item.actor) data._actor_id = this.item.actor.data._id;
-
-    return data;
+    return {
+      item: baseData.item,
+      data: baseData.item.data.data,
+      _actor_id: baseData.item.actor?.data?._id,
+      editable: baseData.editable,
+    };
   }
 
   /** @override */
