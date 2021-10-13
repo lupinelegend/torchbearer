@@ -1,0 +1,27 @@
+.actors-list {
+  .actor {
+    line-height: 24px;
+    padding: 3px 0;
+
+    .actor-image {
+      -webkit-box-flex: 0;
+      -ms-flex: 0 0 48px;
+      flex: 0 0 48px;
+      margin-right: 5px;
+    }
+
+    img {
+      flex: 0 0 48px;
+      height: 48px;
+      width: 48px;
+      object-fit: cover;
+      object-position: 50% 0;
+      border: none;
+    }
+  }
+
+  .actor-name {
+    margin: 0;
+    flex-basis: auto;
+  }
+}

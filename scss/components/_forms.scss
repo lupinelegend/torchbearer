@@ -3,13 +3,14 @@
 }
 
 .sheet-header {
-  flex: 0 0 210px;
+  flex: 0 0 200px;
+  flex: none;
   overflow: hidden;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-start;
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
 
   .profile-img {
     flex: 0 0 100px;

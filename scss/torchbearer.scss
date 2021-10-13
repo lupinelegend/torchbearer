@@ -5,41 +5,335 @@
 @import "utils/variables";
 
 /* Global styles */
-@import "global/window";
+@import "global/fonts";
 @import "global/grid";
 @import "global/flex";
-
-@font-face {
-  font-family: "Souvenir-Bold";
-  src: url("../assets/fonts/Souvenir-Bold.otf");
-}
-
-@font-face {
-  font-family: "Souvenir-BoldItalic";
-  src: url("../assets/fonts/Souvenir-BoldItalic.otf");
-}
-@font-face {
-  font-family: "Souvenir-Demi";
-  src: url("../assets/fonts/Souvenir-Demi.otf");
-}
-
-@font-face {
-  font-family: "Souvenir-DemiItalic";
-  src: url("../assets/fonts/Souvenir-DemiItalic.otf");
-}
-@font-face {
-  font-family: "Souvenir-Medium";
-  src: url("../assets/fonts/Souvenir-Medium.otf");
-}
-@font-face {
-  font-family: "Souvenir-MediumItalic";
-  src: url("../assets/fonts/Souvenir-MediumItalic.otf");
-}
 
 /* Styles limited to torchbearer sheets */
 .torchbearer {
   @import "components/forms";
   @import "components/resource";
   @import "components/tabs";
+  @import "components/actors";
   @import "components/items";
+}
+
+/* TODO: Everything below this point was salvaged from torchbearer.css without properly being written in SCSS.
+ * it is completely unorganized and could use attention.
+ */
+
+.dice-rolls {
+  list-style: none;
+  margin: 5px 0;
+  padding: 0;
+  overflow: hidden;
+
+  .roll {
+    width: 24px;
+    line-height: 24px;
+    float: left;
+    margin-right: 1px;
+    background-image: url("../assets/icons/d6-grey.svg");
+    background-repeat: no-repeat;
+    background-size: 24px 24px;
+    font-size: 16px;
+    color: #000;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .roll.d6 {
+    background-image: url("../assets/icons/d6-grey.svg");
+  }
+
+  .roll.d6.max {
+    /* Green */
+    /* color: #18520b;
+    filter: sepia(0.5) hue-rotate(60deg); */
+  }
+
+  .roll.help {
+    /* Blue */
+    color: #18520b;
+    filter: sepia(0.5) hue-rotate(135deg);
+  }
+
+  .roll.nature {
+    /* Green */
+    color: #18520b;
+    filter: sepia(0.5) hue-rotate(60deg);
+  }
+
+  .roll.persona {
+    /* Red */
+    color: #18520b;
+    filter: sepia(0.5) hue-rotate(275deg);
+  }
+
+  .roll.mod {
+    background-image: none;
+  }
+}
+
+.activePack {
+  color: black;
+}
+
+.passivePack {
+  color: #ccc;
+}
+
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 24px;
+  margin: 0 8px 0 8px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 4px;
+  bottom: 4px;
+  background-color: black;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(16px);
+  -ms-transform: translateX(16px);
+  transform: translateX(16px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.testBar {
+  /* Reset the default appearance */
+  -webkit-appearance: none;
+  appearance: none;
+  flex: none;
+
+  /* -webkit-progress-bar styles the container, -webkit-progress-value styles the interior */
+
+  margin-bottom: 5px;
+  width: 100%;
+  height: 20px;
+}
+
+.testBar::-webkit-progress-bar {
+  background-color: #eee;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
+}
+
+.testBar::-webkit-progress-value {
+  background-image: -webkit-linear-gradient(
+      -45deg,
+      transparent 33%,
+      rgba(0, 0, 0, 0.1) 33%,
+      rgba(0, 0, 0, 0.1) 66%,
+      transparent 66%
+    ),
+    -webkit-linear-gradient(top, rgba(255, 255, 255, 0.25), rgba(0, 0, 0, 0.25)),
+    -webkit-linear-gradient(left, #09c, #f44);
+
+  border-radius: 5px;
+  background-size: 35px 20px, 100% 100%, 100% 100%;
+}
+
+.container {
+  height: 488px;
+  width: 100%;
+}
+
+.subtabbed.container {
+  height: 448px;
+}
+
+.scroll {
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 0 4px;
+}
+
+.col {
+  flex: 33%;
+  padding: 0 4px;
+}
+
+.tbtable {
+  background: none;
+  border: none;
+}
+
+.theader {
+  background: none;
+  color: #000;
+  text-shadow: none;
+}
+
+.tooltip {
+  position: relative;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 5px 5px 5px;
+  border-radius: 6px;
+  opacity: 0.65;
+
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  z-index: 1;
+  /* top: -5px; */
+  left: 12%;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+.tooltip .tooltiptext::after {
+  content: " ";
+  position: absolute;
+  top: 50%;
+  right: 100%;
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent black transparent transparent;
+}
+
+/* Adds a custom background image to the actor sheet */
+.actor .window-content {
+  background: url("../assets/background/TB CharSheet Border 612x810.png");
+  background-size: cover;
+}
+.grind .window-content {
+  background: url("../assets/background/TB CharSheet Border 810x612.png");
+  background-size: cover;
+}
+.conflict .window-content {
+  background: url("../assets/background/TB Border.png");
+  background-size: cover;
+}
+
+@import "global/window";
+.conflictGrid {
+  display: grid;
+  grid-template-columns: auto 120px auto 90px;
+}
+
+.hidden {
+  display: none;
+}
+
+input[type="number"] {
+  width: calc(100% - 2px);
+  min-width: 20px;
+  height: 24px;
+  background: rgba(0, 0, 0, 0.05);
+  padding: 1px 3px;
+  margin: 0;
+  color: #191813;
+  font-family: inherit;
+  font-size: inherit;
+  text-align: inherit;
+  line-height: inherit;
+  border: 1px solid #7a7971;
+  border-radius: 3px;
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+#helpingDiceForm table {
+  border-collapse: collapse;
+}
+
+#helpingDiceForm table,
+#helpingDiceForm tr,
+#helpingDiceForm td {
+  border: 1px solid black;
+}
+
+#helpingDiceForm td {
+  text-align: center;
+}
+#helpingDiceForm td.name {
+  text-align: left;
+}
+
+.light-level-0 {
+  color: white;
+  background-color: #191813;
+}
+
+.light-level-1 {
+  background-color: #808080;
+}
+
+.torchbearer .clickable {
+  cursor: pointer;
+}
+
+.torchbearer.grind .sheet-header img {
+  margin-right: 0px;
+}
+.torchbearer .ddbox .dd {
+  display: none;
+}
+
+.torchbearer .ddbox:hover .dd {
+  display: block;
+}
+.torchbearer.grind h1 {
+  border-bottom: 0;
+}
+
+.torchbearer.grind .items-list h4 {
+  flex-basis: 200px;
+  flex-grow: 0;
 }
