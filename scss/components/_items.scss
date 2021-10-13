@@ -32,4 +32,29 @@
     flex: 0 0 86px;
     text-align: right;
   }
+
+  .item.last-slot-taken {
+    border-bottom: 1px solid #bbb;
+  }
+
+  .placeholder {
+    height: 30px;
+    line-height: 24px;
+    padding: 3px 0;
+    border-bottom: 1px solid #bbb;
+    background-color: silver;
+    opacity: 0.65;
+    margin-top: 2px;
+    text-align: center;
+  }
+
+  .secondary-slot-consumed {
+    opacity: 0.65;
+    font-style: italic;
+  }
+
+  .item-name {
+    margin: 0;
+    flex-basis: auto;
+  }
 }
