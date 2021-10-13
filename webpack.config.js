@@ -27,7 +27,6 @@ module.exports = {
     new CopyWebpackPlugin({
       patterns: [
         { from: "system.json" },
-        { from: "template.json" },
         { from: "static/" },
         { from: "templates/", to: "templates/" },
         {
