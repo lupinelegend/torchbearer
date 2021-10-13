@@ -428,7 +428,7 @@ Handlebars.registerHelper("renderInventory", function (capacity, actorId, contai
         } else if (item.data.consumable.consumes === "self") {
           consumeIcon = item.data.consumable.icon;
           consumeIconStyle = item.data.consumable.iconStyle;
-          consumeQuantity = item.data.computed.bundledWith.length + 1;
+          consumeQuantity = (item.data.computed.bundledWith?.length || 0) + 1;
         } else if (item.data.consumable.consumes === "light" && item.data.activatable.active) {
           consumeIcon = item.data.consumable.icon;
           consumeIconStyle = item.data.consumable.iconStyle;

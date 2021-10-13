@@ -47,7 +47,7 @@ export class TorchbearerItemSheet extends TorchbearerBaseItemSheet {
       if (this.item.actor) {
         this.item.actor.removeItemFromInventory(li.data("itemId")).then(() => {
           setTimeout(() => {
-            this.item._onUpdate();
+            this.item._onUpdate({}, { render: true });
           }, 0);
         });
       }
@@ -69,8 +69,8 @@ export class TorchbearerItemSheet extends TorchbearerBaseItemSheet {
           })
           .then(() => {
             setTimeout(() => {
-              this.item._onUpdate();
-              this.item.actor._onUpdate({ items: true }, { render: false });
+              this.item._onUpdate({}, { render: true });
+              this.item.actor._onUpdate({ items: true }, { render: true });
             }, 0);
           });
       }
@@ -84,8 +84,8 @@ export class TorchbearerItemSheet extends TorchbearerBaseItemSheet {
         tbItem.consumeOne().then((consumed) => {
           if (consumed) {
             setTimeout(() => {
-              this.item._onUpdate();
-              this.item.actor._onUpdate({ items: true }, { render: false });
+              this.item._onUpdate({}, { render: true });
+              this.item.actor._onUpdate({ items: true }, { render: true });
             }, 0);
           }
         });
@@ -100,7 +100,7 @@ export class TorchbearerItemSheet extends TorchbearerBaseItemSheet {
         tbItem.toggleActive().then((toggled) => {
           if (toggled) {
             setTimeout(() => {
-              this.item._onUpdate();
+              this.item._onUpdate({}, { render: true });
             }, 0);
           }
         });
@@ -145,7 +145,7 @@ export class TorchbearerItemSheet extends TorchbearerBaseItemSheet {
     }
     this.item.actor.sheet._onDrop(event).then(() => {
       setTimeout(() => {
-        this.item._onUpdate();
+        this.item._onUpdate({}, { render: true });
       }, 0);
     });
   }

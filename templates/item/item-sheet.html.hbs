@@ -79,7 +79,13 @@
       <div class="row" style="flex-basis: auto; margin-bottom: 8px;">
         <div class="col" style="flex: 1 1 auto;">
           <div style="margin-top: 5px;">
-            {{editor content=data.description target="data.description" button=true owner=owner editable=editable}}
+            {{editor
+              content=data.description
+              target="data.description"
+              button=true
+              owner=item.isOwner
+              editable=editable
+            }}
           </div>
         </div>
       </div>
@@ -320,7 +326,7 @@
 
     {{! Notes Tab }}
     <div class="tab notes" data-group="primary" data-tab="notes" style="margin: 5px 0 0 0;">
-      {{editor content=data.notes target="data.notes" button=true owner=owner editable=editable}}
+      {{editor content=data.notes target="data.notes" button=true owner=item.isOwner editable=editable}}
     </div>
   </section>
 </form>
