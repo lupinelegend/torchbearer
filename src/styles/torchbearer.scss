@@ -246,16 +246,19 @@ input:checked + .slider:before {
 }
 
 /* Adds a custom background image to the actor sheet */
-.actor .window-content {
-  background: url("../assets/background/TB CharSheet Border 612x810.png");
+.actor .window-content,
+.npc .window-content,
+.character .window-content,
+.monster .window-content {
+  background: url("../assets/background/tb-charsheet-border-612x810.png");
   background-size: cover;
 }
 .grind .window-content {
-  background: url("../assets/background/TB CharSheet Border 810x612.png");
+  background: url("../assets/background/tb-charsheet-border-810x612.png");
   background-size: cover;
 }
 .conflict .window-content {
-  background: url("../assets/background/TB Border.png");
+  background: url("../assets/background/tb-border.png");
   background-size: cover;
 }
 

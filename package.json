@@ -1,28 +1,27 @@
 {
   "name": "torchbearer",
-  "version": "1.0.0",
-  "description": "CSS compiler for the Torchbearer system",
+  "version": "1.1.0",
+  "description": "Torchbearer 2E system community character sheet",
   "scripts": {
-    "build": "gulp",
-    "compile": "gulp css",
-    "watch": "gulp",
-    "gulp": "gulp"
+    "build": "webpack --mode production",
+    "build:dev": "webpack",
+    "lint": "eslint ./src --ext .js"
   },
-  "browserslist": [
-    "last 3 versions"
-  ],
   "author": "yougotnick",
   "license": "MIT",
   "private": true,
   "devDependencies": {
+    "copy-webpack-plugin": "^9.0.1",
+    "css-loader": "^6.4.0",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.25.1",
-    "gulp": "^4.0.2",
-    "gulp-autoprefixer": "^8.0.0",
-    "gulp-sass": "^5.0.0",
-    "gulp-sourcemaps": "^3.0.0",
+    "mini-css-extract-plugin": "^2.4.2",
     "node-sass": "^6.0.1",
-    "prettier": "^2.4.1"
+    "prettier": "^2.4.1",
+    "sass-loader": "^12.2.0",
+    "simple-progress-webpack-plugin": "^2.0.0",
+    "webpack": "^5.58.2",
+    "webpack-cli": "^4.9.0"
   }
 }

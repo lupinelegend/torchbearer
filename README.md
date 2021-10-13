@@ -20,3 +20,7 @@
 ## Future Plans
 * Create a camp sheet so players can see everyone's relevant camping stats in one place.
 * Integrate a character builder to populate the character sheet based on user input (like when first creating a character or choosing level up benefits).
+
+## Development
+
+See [Development.md](docs/Development.md)

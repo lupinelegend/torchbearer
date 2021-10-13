@@ -7,8 +7,8 @@
   "compatibleCoreVersion": "0.8.9",
   "templateVersion": 2,
   "author": "yougotnick",
-  "esmodules": ["module/torchbearer.js"],
-  "styles": ["css/torchbearer.css"],
+  "esmodules": ["main.bundle.js"],
+  "styles": ["styles/main.css"],
   "scripts": [],
   "packs": [
     {
