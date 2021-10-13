@@ -1,17 +1,17 @@
 // Import Modules
-import { TorchbearerActor } from "./actor/actor.js";
-import { TorchbearerCharacterSheet } from "./actor/character-sheet.js";
-import { TorchbearerMonsterSheet } from "./actor/monster-sheet.js";
-import { TorchbearerNPCSheet } from "./actor/npc-sheet.js";
-import { TorchbearerItem } from "./item/item.js";
-import { TorchbearerItemSheet } from "./item/item-sheet.js";
-import { TorchbearerSpellSheet } from "./item/spell-sheet.js";
-import { ConflictSheet } from "./conflict/conflict.js";
-import { GrindSheet } from "./grind.js";
+import { TorchbearerActor } from "./module/actor/actor.js";
+import { TorchbearerCharacterSheet } from "./module/actor/character-sheet.js";
+import { TorchbearerMonsterSheet } from "./module/actor/monster-sheet.js";
+import { TorchbearerNPCSheet } from "./module/actor/npc-sheet.js";
+import { TorchbearerItem } from "./module/item/item.js";
+import { TorchbearerItemSheet } from "./module/item/item-sheet.js";
+import { TorchbearerSpellSheet } from "./module/item/spell-sheet.js";
+import { ConflictSheet } from "./module/conflict/conflict.js";
+import { GrindSheet } from "./module/grind.js";
 
 // Import Helpers
-import * as chat from "./chat.js";
-import { Capitalize } from "./misc.js";
+import * as chat from "./module/chat.js";
+import { Capitalize } from "./module/misc.js";
 
 import "../scss/torchbearer.scss";
 

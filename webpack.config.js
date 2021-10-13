@@ -20,7 +20,7 @@ module.exports = {
   context: __dirname,
   mode: buildMode,
   entry: {
-    main: "./module/torchbearer.js",
+    main: "./src/torchbearer.js",
   },
   plugins: [
     new MiniCssExtractPlugin({ filename: "styles/[name].css" }),
