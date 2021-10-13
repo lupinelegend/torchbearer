@@ -3,10 +3,9 @@
   "version": "1.0.0",
   "description": "CSS compiler for the Torchbearer system",
   "scripts": {
-    "build": "gulp",
-    "compile": "gulp css",
-    "watch": "gulp",
-    "gulp": "gulp"
+    "build": "webpack --mode production",
+    "build:dev": "webpack",
+    "lint": "eslint ./src --ext .js"
   },
   "browserslist": [
     "last 3 versions"
