@@ -5,6 +5,7 @@ import { TorchbearerMonsterSheet } from "./actor/monster-sheet.js";
 import { TorchbearerNPCSheet } from "./actor/npc-sheet.js";
 import { TorchbearerItem } from "./item/item.js";
 import { TorchbearerItemSheet } from "./item/item-sheet.js";
+import { TorchbearerSpellSheet } from "./item/spell-sheet.js";
 import { ConflictSheet } from "./conflict/conflict.js";
 import { GrindSheet } from "./grind.js";
 
@@ -130,7 +131,8 @@ Hooks.once("init", async function () {
   Actors.registerSheet("torchbearer", TorchbearerMonsterSheet, { types: ["Monster"], makeDefault: true });
   Actors.registerSheet("torchbearer", TorchbearerNPCSheet, { types: ["NPC"], makeDefault: true });
   Items.unregisterSheet("core", ItemSheet);
-  Items.registerSheet("torchbearer", TorchbearerItemSheet, { makeDefault: true });
+  Items.registerSheet("torchbearer", TorchbearerItemSheet, { types: ["Item"], makeDefault: true });
+  Items.registerSheet("torchbearer", TorchbearerSpellSheet, { types: ["Spell"], makeDefault: true });
 
   // If you need to add Handlebars helpers, here are a few useful examples:
   Handlebars.registerHelper("concat", function () {
