@@ -367,53 +367,6 @@ export function arrangeSpells(tbItemsMap) {
   return spellInventory;
 }
 
-Handlebars.registerHelper("renderSpells", function (actorId, spellCircle) {
-  let html = "";
-  let spells;
-  if (actorId) {
-    const actor = game.actors.get(actorId);
-    spells = actor.tbData().computed.spells;
-    console.log(spells);
-  }
-
-  switch (spellCircle) {
-    case "First":
-      spells.first.forEach((element) => {
-        html += `
-                    <tr id="${element.id}">
-                        <td></td>
-                        <td><h4 class="spell-name clickable" style="font-family: Souvenir-Medium;" title="${element.id}">${element.data.name}</h4></td>
-                        <td style="text-align: center;"><input type="checkbox" name="data.library" data-dtype="Boolean" {{checked data.library}}></td>
-                        <td style="text-align: center;"><input type="checkbox" name="data.spellbook" {{checked data.spellbook}}></td>
-                        <td style="text-align: center;"><input type="checkbox" name="data.memorized" {{checked data.memorized}}></td>
-                        <td style="text-align: center;"><input type="checkbox" name="data.scroll" {{checked data.scroll}}></td>
-                        <td style="text-align: center;"><input type="checkbox" name="data.supplies" {{checked data.supplies}}></td>
-                        <td style="text-align: center;"><a class="item-control spell-delete" title="Delete Item" name="${element.id}"><i class="fas fa-trash"></i></a></td>
-                    </tr>
-                `;
-      });
-      break;
-    case "Second":
-      spells.second.forEach((element) => {
-        html += `
-                    <tr id="${element.id}">
-                        <td></td>
-                        <td><h4 class="spell-name clickable" style="font-family: Souvenir-Medium;" title="${element.id}">${element.data.name}</h4></td>
-                        <td style="text-align: center;"><input type="checkbox" name="{{data.library}}" {{checked data.library}}></td>
-                        <td style="text-align: center;"><input type="checkbox" name="{{data.spellbook}}" {{checked data.spellbook}}></td>
-                        <td style="text-align: center;"><input type="checkbox" name="{{data.memorized}}" {{checked data.memorized}}></td>
-                        <td style="text-align: center;"><input type="checkbox" name="{{data.scroll}}" {{checked data.scroll}}></td>
-                        <td style="text-align: center;"><input type="checkbox" name="{{data.supplies}}" {{checked data.supplies}}></td>
-                        <td style="text-align: center;"><a class="item-control spell-delete" title="Delete Item" name="${element.id}"><i class="fas fa-trash"></i></a></td>
-                    </tr>
-                `;
-      });
-      break;
-  }
-
-  return html;
-});
-
 Handlebars.registerHelper("renderInventory", function (capacity, actorId, containerId, placeholder, sheet) {
   let { multiSlot, droppable } = renderOptions(containerId);
   let html = "";
