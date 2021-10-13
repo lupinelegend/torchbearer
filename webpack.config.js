@@ -28,7 +28,7 @@ module.exports = {
       patterns: [
         { from: "system.json" },
         { from: "template.json" },
-        { from: "assets/", to: "assets/" },
+        { from: "static/" },
         { from: "templates/", to: "templates/" },
         { from: "packs/", to: "packs/" },
         { from: "macros/", to: "macros/" },
