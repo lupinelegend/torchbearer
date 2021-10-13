@@ -31,7 +31,6 @@ module.exports = {
         { from: "static/" },
         { from: "templates/", to: "templates/" },
         { from: "packs/", to: "packs/" },
-        { from: "macros/", to: "macros/" },
         {
           from: "lang/",
           to: "lang/",
