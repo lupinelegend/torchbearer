@@ -1,5 +1,6 @@
 import { TorchbearerBaseActor } from "../base";
-import { arrangeInventory, arrangeSpells } from "@inventory/inventory";
+import { TorchbearerSpell } from "@item";
+import { arrangeInventory } from "@inventory/inventory";
 
 const GRIND_CONDITION_SEQUENCE = ["hungryandthirsty", "exhausted", "angry", "sick", "injured", "afraid", "dead"];
 
@@ -12,7 +13,7 @@ export class TorchbearerCharacterActor extends TorchbearerBaseActor {
     // Make a new Object that holds computed data and keeps it separate from anything else
     data.computed = {};
 
-    data.computed.spells = arrangeSpells(this.items);
+    data.computed.spellData = TorchbearerSpell.dataByCircle(this.items);
 
     data.computed.inventory = arrangeInventory(this.items, data.overburdened);
     //The first time this is executed, Actors don't have their items yet, so there is
