@@ -1,4 +1,4 @@
-import { TorchbearerBaseActor } from "../base-actor";
+import { TorchbearerBaseActor } from "../base";
 import { arrangeInventory, arrangeSpells } from "@inventory/inventory";
 
 const GRIND_CONDITION_SEQUENCE = ["hungryandthirsty", "exhausted", "angry", "sick", "injured", "afraid", "dead"];

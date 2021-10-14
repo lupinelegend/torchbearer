@@ -1,4 +1,4 @@
-import { TorchbearerBaseItem } from "../base-item";
+import { TorchbearerBaseItem } from "../base";
 
 import { itemExtensions } from "../itemExtensions";
 

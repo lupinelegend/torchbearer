@@ -1,3 +1,3 @@
-import { TorchbearerBaseActor } from "../base-actor";
+import { TorchbearerBaseActor } from "../base";
 
 export class TorchbearerMonsterActor extends TorchbearerBaseActor {}
