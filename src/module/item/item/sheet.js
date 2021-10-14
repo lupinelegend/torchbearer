@@ -1,4 +1,4 @@
-import { TorchbearerBaseItemSheet } from "./base-item-sheet.js";
+import { TorchbearerBaseItemSheet } from "../base-item-sheet";
 
 export class TorchbearerItemSheet extends TorchbearerBaseItemSheet {
   /** @override */

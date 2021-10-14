@@ -351,7 +351,7 @@ export class TorchbearerCharacterSheet extends TorchbearerBaseActorSheet {
   }
 
   async handleDropItem(item) {
-    // item.document means we got an ItemData rather than a TorchbearerItem
+    // item.document means we got an ItemData rather than a TorchbearerBaseItem
     const tbItem = item.document ? item.document : item;
 
     if (tbItem.type === "Spell") {
