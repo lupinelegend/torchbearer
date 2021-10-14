@@ -11,11 +11,6 @@ import { Capitalize } from "./module/misc.js";
 import "./styles/torchbearer.scss";
 
 Hooks.once("init", async function () {
-  game.torchbearer = {
-    TorchbearerBaseActor,
-    TorchbearerBaseItem,
-  };
-
   game.gmIsActive = () => {
     for (let i = 0; i < game.users.entities.length; i++) {
       const user = game.users.entities[i];
