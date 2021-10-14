@@ -61,6 +61,16 @@ module.exports = {
   devtool: isDevelopment ? "inline-source-map" : undefined,
   bail: !isDevelopment,
   watch: isDevelopment,
+  resolve: {
+    alias: {
+      "@actor": path.resolve(__dirname, "src/module/actor"),
+      "@conflict": path.resolve(__dirname, "src/module/conflict"),
+      "@inventory": path.resolve(__dirname, "src/module/inventory"),
+      "@item": path.resolve(__dirname, "src/module/item"),
+      "@rolls": path.resolve(__dirname, "src/module/rolls"),
+    },
+    extensions: [".js"],
+  },
   output: {
     clean: true,
     path: outDir,
