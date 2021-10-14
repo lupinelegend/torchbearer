@@ -1,4 +1,4 @@
-import { TorchbearerBaseActorSheet } from "../base-actor-sheet";
+import { TorchbearerBaseActorSheet } from "../base-sheet";
 
 export class TorchbearerMonsterSheet extends TorchbearerBaseActorSheet {
   /** @override */

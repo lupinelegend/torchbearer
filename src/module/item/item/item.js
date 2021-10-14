@@ -1,10 +1,8 @@
-import { itemExtensions } from "./itemExtensions.js";
+import { TorchbearerBaseItem } from "../base";
 
-/**
- * Extend the basic Item with some very simple modifications.
- * @extends {Item}
- */
-export class TorchbearerBaseItem extends Item {
+import { itemExtensions } from "../itemExtensions";
+
+export class TorchbearerItem extends TorchbearerBaseItem {
   /**
    * Augment the basic Item data model with additional dynamic data.
    */
@@ -14,7 +12,7 @@ export class TorchbearerBaseItem extends Item {
     const itemData = this.data;
     const data = itemData.data;
 
-    data.computed = data.computed || {};
+    data.computed ??= {};
     data.computed.consumedSlots = itemData.data.slots;
     let itemExtension = itemExtensions[this.data.name];
     if (itemExtension) {
@@ -24,10 +22,6 @@ export class TorchbearerBaseItem extends Item {
         }
       }
     }
-  }
-
-  tbData() {
-    return this.data.data;
   }
 
   async syncEquipVariables() {
@@ -116,46 +110,4 @@ export class TorchbearerBaseItem extends Item {
     }
     throw "Invalid slots";
   }
-
-  /**
-   * Overridable Callback action
-   * @param tbItemOther: the other object
-   * @param given: array of items that have already been confirmed
-   * @return true if ok to add, false if not and make this object unbundleable
-   */
-  onBeforeBundleWith(/* tbItemOther, given */) {
-    return true;
-  }
-  /**
-   * Overridable Callback action
-   * @param container: the inventory container being added to
-   * @param given: array of items that have already been confirmed
-   * @return true if ok to add, false if should be put on ground
-   */
-  onAfterAddToInventory(/* container, given */) {
-    return true;
-  }
-
-  /**
-   * Overridable Callback actions whenever the item is consumed as
-   * food or drink, etc.
-   */
-  onBeforeConsumed() {
-    return true;
-  }
-  async onAfterConsumed() {}
-
-  onBeforeActivate() {
-    return true;
-  }
-
-  async onAfterEquipped(/* equippedEvent */) {}
-
-  /**
-   * Overridable Callback action
-   * @param container: the inventory container being added to
-   * @param given: array of items that have already been confirmed
-   * @return nothing but can modify data.data.computed.consumedSlots
-   */
-  onCalculateConsumedSlots(/* container, given */) {}
 }

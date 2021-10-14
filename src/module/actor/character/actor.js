@@ -1,29 +1,13 @@
-import { arrangeInventory } from "@inventory/inventory.js";
-import { arrangeSpells } from "@inventory/inventory.js";
+import { TorchbearerBaseActor } from "../base";
+import { arrangeInventory, arrangeSpells } from "@inventory/inventory";
 
 const GRIND_CONDITION_SEQUENCE = ["hungryandthirsty", "exhausted", "angry", "sick", "injured", "afraid", "dead"];
 
-export class TorchbearerBaseActor extends Actor {
-  /**
-   * Augment the basic actor data with additional dynamic data.
-   */
+export class TorchbearerCharacterActor extends TorchbearerBaseActor {
   prepareData() {
     super.prepareData();
 
-    const actorData = this.data;
-
-    // Make separate methods for each Actor type (character, npc, etc.) to keep
-    // things organized.
-    if (actorData.type === "Character") this._prepareCharacterData(actorData);
-
-    if (actorData.type === "NPC") this._prepareNpcData(actorData);
-  }
-
-  /**
-   * Prepare Character type specific data
-   */
-  _prepareCharacterData(actorData) {
-    const data = actorData.data;
+    const data = this.data.data;
 
     // Make a new Object that holds computed data and keeps it separate from anything else
     data.computed = {};
@@ -42,20 +26,6 @@ export class TorchbearerBaseActor extends Actor {
     let trait3Checks = parseInt(data.traits.trait3.checks.checksEarned) || 0;
     let trait4Checks = parseInt(data.traits.trait4.checks.checksEarned) || 0;
     data.computed.totalChecks = trait1Checks + trait2Checks + trait3Checks + trait4Checks;
-  }
-
-  //TODO replace this once an actual NPC sheet is done
-  _prepareNpcData(actorData) {
-    const data = actorData.data;
-
-    // Make a new Object that holds computed data and keeps it separate from anything else
-    data.computed = {};
-    data.computed.inventory = arrangeInventory(this.items, data.overburdened);
-  }
-
-  _onUpdate(data, options, userId, context) {
-    super._onUpdate(data, options, userId, context);
-    game.grind.updateGrind(null, "actor._onUpdate");
   }
 
   _determineDumpTarget(tbItem, recursions = 0) {
@@ -190,9 +160,5 @@ export class TorchbearerBaseActor extends Actor {
 
   async getLightLevel() {
     return await game.grind.lightLevelFor(this.data._id);
-  }
-
-  tbData() {
-    return this.data.data;
   }
 }

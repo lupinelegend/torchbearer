@@ -68,6 +68,7 @@ module.exports = {
       "@inventory": path.resolve(__dirname, "src/module/inventory"),
       "@item": path.resolve(__dirname, "src/module/item"),
       "@rolls": path.resolve(__dirname, "src/module/rolls"),
+      "@scripts": path.resolve(__dirname, "src/scripts"),
     },
     extensions: [".js"],
   },

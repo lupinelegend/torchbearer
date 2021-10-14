@@ -1,4 +1,4 @@
-import { TorchbearerBaseActorSheet } from "../base-actor-sheet";
+import { TorchbearerBaseActorSheet } from "../base-sheet";
 import { alternateContainerType, canFit } from "@inventory/inventory";
 import { PlayerRoll } from "@rolls/playerRoll";
 
