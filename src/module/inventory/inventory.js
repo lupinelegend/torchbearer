@@ -325,48 +325,6 @@ function capacityConsumedIn(container) {
   return consumed;
 }
 
-export function arrangeSpells(tbItemsMap) {
-  if (!tbItemsMap) return;
-
-  let spellInventory = {
-    first: [],
-    second: [],
-    third: [],
-    fourth: [],
-    fifth: [],
-  };
-
-  const tbSpells = [];
-  for (const tbSpell of tbItemsMap) {
-    if (tbSpell.data.type === "Spell") {
-      tbSpells.push(tbSpell.data);
-      // Pushes the item data instead of the item itself to prevent breaking tokens
-      // with recursive searches.
-    }
-  }
-
-  tbSpells.forEach((element) => {
-    switch (element.data.circle) {
-      case "First":
-        spellInventory.first.push(element);
-        break;
-      case "Second":
-        spellInventory.second.push(element);
-        break;
-      case "Third":
-        spellInventory.third.push(element);
-        break;
-      case "Fourth":
-        spellInventory.fourth.push(element);
-        break;
-      case "Fifth":
-        spellInventory.fifth.push(element);
-        break;
-    }
-  });
-  return spellInventory;
-}
-
 Handlebars.registerHelper("renderInventory", function (capacity, actorId, containerId, placeholder, sheet) {
   let { multiSlot, droppable } = renderOptions(containerId);
   let html = "";

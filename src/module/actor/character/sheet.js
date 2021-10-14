@@ -1,4 +1,5 @@
 import { TorchbearerBaseActorSheet } from "../base-sheet";
+import { TorchbearerItem } from "@item";
 import { alternateContainerType, canFit } from "@inventory/inventory";
 import { PlayerRoll } from "@rolls/playerRoll";
 
@@ -97,6 +98,8 @@ export class TorchbearerCharacterSheet extends TorchbearerBaseActorSheet {
     // Add Inventory Item
     //html.find('.item-create').click(this._onItemCreate.bind(this));
 
+    this.activateSpellListeners(html);
+
     // Update Inventory Item
     html.find(".item-name.clickable").click((ev) => {
       console.log(ev.currentTarget);
@@ -104,13 +107,6 @@ export class TorchbearerCharacterSheet extends TorchbearerBaseActorSheet {
       const item = this.actor.items.get(li.data("itemId"));
       // const equip = item.data.data.equip;
       item.sheet.render(true);
-    });
-
-    // Update Inventory Item
-    html.find(".spell-name.clickable").click((ev) => {
-      const spell = this.actor.items.get(ev.currentTarget.title);
-      console.log(spell);
-      spell.sheet.render(true);
     });
 
     // Delete Inventory Item
@@ -121,40 +117,6 @@ export class TorchbearerCharacterSheet extends TorchbearerBaseActorSheet {
         // Get the equipment slot of the item being deleted
         li.slideUp(200, () => this.render(false));
       });
-    });
-
-    // Delete Spell Item
-    html.find(".spell-delete").click((ev) => {
-      document.getElementById(ev.currentTarget.name).remove();
-      this.actor.removeItemFromInventory(ev.currentTarget.name);
-    });
-
-    // Update spell data
-    html.find(".spell-toggle").click((ev) => {
-      // ev.preventDefault();
-      const spell = this.actor.items.get(ev.currentTarget.id);
-      let checkState = ev.currentTarget.checked;
-      console.log(spell);
-      switch (ev.currentTarget.title) {
-        case "cast":
-          spell.update({ "data.cast": checkState });
-          break;
-        case "library":
-          spell.update({ "data.library": checkState });
-          break;
-        case "spellbook":
-          spell.update({ "data.spellbook": checkState });
-          break;
-        case "memorized":
-          spell.update({ "data.memorized": checkState });
-          break;
-        case "scroll":
-          spell.update({ "data.scroll": checkState });
-          break;
-        case "supplies":
-          spell.update({ "data.supplies": checkState });
-          break;
-      }
     });
 
     // Drop Inventory Item
@@ -271,6 +233,24 @@ export class TorchbearerCharacterSheet extends TorchbearerBaseActorSheet {
     // });
   }
 
+  activateSpellListeners(html) {
+    const spellId = (ev) => $(ev.currentTarget).parents(".spell-row").data("spellId");
+
+    html.find(".spell-name.clickable").click((ev) => {
+      this.actor.items.get(spellId(ev)).sheet.render(true);
+    });
+
+    html.find(".spell-delete").click(async (ev) => {
+      await this.actor.deleteEmbeddedDocuments("Item", [spellId(ev)]);
+    });
+
+    html.find(".spell-toggle").click((ev) => {
+      const checkbox = ev.currentTarget;
+
+      this.actor.items.get(spellId(ev)).update({ [`data.${checkbox.dataset.checkboxType}`]: checkbox.checked });
+    });
+  }
+
   /* -------------------------------------------- */
 
   /**
@@ -354,9 +334,7 @@ export class TorchbearerCharacterSheet extends TorchbearerBaseActorSheet {
     // item.document means we got an ItemData rather than a TorchbearerBaseItem
     const tbItem = item.document ? item.document : item;
 
-    if (tbItem.type === "Spell") {
-      console.log("Yer a wizard, Harry");
-    } else {
+    if (tbItem instanceof TorchbearerItem) {
       if (tbItem.data) {
         await tbItem.syncEquipVariables();
 

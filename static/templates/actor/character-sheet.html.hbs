@@ -1320,96 +1320,21 @@
     {{! Magic Tab }}
     <div class="tab" data-group="primary" data-tab="magic">
 
-      <table class="tbtable">
-        <thead class="theader" style="font-family: Souvenir-Demi;">
-          <th style="text-align: center;">Cast?</th>
-          <th style="text-align: center">Spell</th>
-          <th style="text-align: center;">Library</th>
-          <th style="text-align: center;">Book</th>
-          <th style="text-align: center;">Mem.</th>
-          <th style="text-align: center;">Scroll</th>
-          <th style="text-align: center;">Supplies</th>
+      <table class="tbtable spells">
+        <thead class="theader">
+          <th>Cast?</th>
+          <th>Spell</th>
+          <th>Library</th>
+          <th>Book</th>
+          <th>Mem.</th>
+          <th>Scroll</th>
+          <th>Supplies</th>
           <th></th>
         </thead>
 
-        <tbody style="font-family: Souvenir-Medium;">
-          <!-- First Circle Spells -->
-          <tr>
-            <td
-              colspan="8"
-              style="text-align: center; background-color: rgba(0, 0, 0, 0.05); border-bottom: 1px solid gray;"
-            >~ First Circle ~</td>
-          </tr>
-          {{#each data.computed.spells.first as |spell|}}
-            <tr id="${element.id}">
-              <td style="text-align: center;">
-                <input type="checkbox" class="spell-toggle" id="{{_id}}" title="cast" {{checked data.cast}} />
-              </td>
-              <td>
-                <h4
-                  class="spell-name clickable"
-                  style="font-family: Souvenir-Medium; margin-bottom: 0px;"
-                  title="{{_id}}"
-                >{{name}}</h4>
-              </td>
-              <td style="text-align: center;">
-                <input type="checkbox" class="spell-toggle" id="{{_id}}" title="library" {{checked data.library}} />
-              </td>
-              <td style="text-align: center;">
-                <input type="checkbox" class="spell-toggle" id="{{_id}}" title="spellbook" {{checked data.spellbook}} />
-              </td>
-              <td style="text-align: center;">
-                <input type="checkbox" class="spell-toggle" id="{{_id}}" title="memorized" {{checked data.memorized}} />
-              </td>
-              <td style="text-align: center;">
-                <input type="checkbox" class="spell-toggle" id="{{_id}}" title="scroll" {{checked data.scroll}} />
-              </td>
-              <td style="text-align: center;">
-                <input type="checkbox" class="spell-toggle" id="{{_id}}" title="supplies" {{checked data.supplies}} />
-              </td>
-              <td style="text-align: center;">
-                <a class="item-control spell-delete" title="Delete Item" name="{{_id}}"><i class="fas fa-trash"></i></a>
-              </td>
-            </tr>
-          {{/each}}
-          <!-- Second Circle Spells -->
-          <tr>
-            <td
-              colspan="8"
-              style="text-align: center; background-color: rgba(0, 0, 0, 0.05); border-bottom: 1px solid gray;"
-            >~ Second Circle ~</td>
-          </tr>
-          {{#each data.computed.spells.second as |spell|}}
-            <tr id="${element.id}">
-              <td style="text-align: center;">
-                <input type="checkbox" class="spell-toggle" id="{{_id}}" title="cast" {{checked data.cast}} />
-              </td>
-              <td>
-                <h4
-                  class="spell-name clickable"
-                  style="font-family: Souvenir-Medium; margin-bottom: 0px;"
-                  title="{{_id}}"
-                >{{name}}</h4>
-              </td>
-              <td style="text-align: center;">
-                <input type="checkbox" class="spell-toggle" id="{{_id}}" title="library" {{checked data.library}} />
-              </td>
-              <td style="text-align: center;">
-                <input type="checkbox" class="spell-toggle" id="{{_id}}" title="spellbook" {{checked data.spellbook}} />
-              </td>
-              <td style="text-align: center;">
-                <input type="checkbox" class="spell-toggle" id="{{_id}}" title="memorized" {{checked data.memorized}} />
-              </td>
-              <td style="text-align: center;">
-                <input type="checkbox" class="spell-toggle" id="{{_id}}" title="scroll" {{checked data.scroll}} />
-              </td>
-              <td style="text-align: center;">
-                <input type="checkbox" class="spell-toggle" id="{{_id}}" title="supplies" {{checked data.supplies}} />
-              </td>
-              <td style="text-align: center;">
-                <a class="item-control spell-delete" title="Delete Item" name="{{_id}}"><i class="fas fa-trash"></i></a>
-              </td>
-            </tr>
+        <tbody>
+          {{#each data.computed.spellData as |spells|}}
+            {{> "systems/torchbearer/templates/parts/spell-list.html.hbs" circle=@key spells=spells}}
           {{/each}}
         </tbody>
       </table>
