@@ -5,6 +5,7 @@ import { ConflictSheet } from "./module/conflict/conflict.js";
 import { GrindSheet } from "./module/grind.js";
 
 import { TORCHBEARER } from "@scripts/config";
+import { preloadHandlebarsTemplates } from "@scripts/templates";
 
 // Import Helpers
 import * as chat from "./module/chat.js";
@@ -179,4 +180,6 @@ Hooks.once("init", async function () {
   Handlebars.registerHelper("json", function (context) {
     return JSON.stringify(context);
   });
+
+  preloadHandlebarsTemplates();
 });

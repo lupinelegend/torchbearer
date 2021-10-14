@@ -1,0 +1,41 @@
+<!-- {{circle}} Circle Spells -->
+<tr>
+  <td colspan="8" class="torchbearer spells spell-header">
+    ~
+    {{circle}}
+    Circle ~
+  </td>
+</tr>
+
+{{#each spells}}
+  <tr class="spell-row" data-spell-id="{{_id}}">
+    <td class="control">
+      <input type="checkbox" class="spell-toggle" title="cast" {{checked data.cast}} />
+    </td>
+    <td>
+      <h4 class="spell-name clickable" title="{{_id}}">
+        {{data.name}}
+      </h4>
+    </td>
+    <td class="control">
+      <input type="checkbox" class="spell-toggle" title="library" {{checked data.library}} />
+    </td>
+    <td class="control">
+      <input type="checkbox" class="spell-toggle" title="spellbook" {{checked data.spellbook}} />
+    </td>
+    <td class="control">
+      <input type="checkbox" class="spell-toggle" title="memorized" {{checked data.memorized}} />
+    </td>
+    <td class="control">
+      <input type="checkbox" class="spell-toggle" title="scroll" {{checked data.scroll}} />
+    </td>
+    <td class="control">
+      <input type="checkbox" class="spell-toggle" title="supplies" {{checked data.supplies}} />
+    </td>
+    <td class="control">
+      <a class="item-control spell-delete" title="Delete Spell">
+        <i class="fas fa-trash"></i>
+      </a>
+    </td>
+  </tr>
+{{/each}}
