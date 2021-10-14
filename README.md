@@ -4,6 +4,10 @@ Unofficial community Torchbearer RPG system for Foundry VTT
 
 The "Goal" of this system implementation is to automate as much of Torchbearer's bookkeeping as possible.
 
+## Changelog
+
+See [CHANGELOD.md](./CHANGELOG.md)
+
 ## Current State
 * [Drag and drop inventory](https://cdn.discordapp.com/attachments/714128930390540338/717693464187240448/2020-06-03_06.56.50.gif)! Hauling items around has never been easier.
 * All abilities and skills are rollable from the character sheet (seen in the gifs below) and tests passed and failed are automatically logged after each roll. The rolls also automatically apply Beginner's Luck rules if the skill being rolled has a rating of 0!
