@@ -1,0 +1,22 @@
+.spells {
+  font-family: Souvenir-Medium;
+
+  th {
+    font-family: Souvenir-Demi;
+    text-align: center;
+  }
+
+  .spell-header {
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid gray;
+  }
+
+  .spell-name {
+    margin-bottom: 0px;
+  }
+
+  .control {
+    text-align: center;
+  }
+}
