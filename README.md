@@ -6,7 +6,7 @@ The "Goal" of this system implementation is to automate as much of Torchbearer's
 
 ## Changelog
 
-See [CHANGELOD.md](./CHANGELOG.md)
+See [CHANGELOG.md](./CHANGELOG.md)
 
 ## Current State
 * [Drag and drop inventory](https://cdn.discordapp.com/attachments/714128930390540338/717693464187240448/2020-06-03_06.56.50.gif)! Hauling items around has never been easier.
