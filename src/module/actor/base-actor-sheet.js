@@ -1,4 +1,4 @@
-export class TorchbearerActorSheet extends ActorSheet {
+export class TorchbearerBaseActorSheet extends ActorSheet {
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       classes: ["torchbearer", "sheet", "actor"],

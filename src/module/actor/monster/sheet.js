@@ -1,6 +1,6 @@
-import { TorchbearerActorSheet } from "./actor-sheet.js";
+import { TorchbearerBaseActorSheet } from "../base-actor-sheet";
 
-export class TorchbearerMonsterSheet extends TorchbearerActorSheet {
+export class TorchbearerMonsterSheet extends TorchbearerBaseActorSheet {
   /** @override */
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {

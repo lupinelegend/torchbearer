@@ -1,9 +1,9 @@
-import { arrangeInventory } from "../inventory/inventory.js";
-import { arrangeSpells } from "../inventory/inventory.js";
+import { arrangeInventory } from "@inventory/inventory.js";
+import { arrangeSpells } from "@inventory/inventory.js";
 
 const GRIND_CONDITION_SEQUENCE = ["hungryandthirsty", "exhausted", "angry", "sick", "injured", "afraid", "dead"];
 
-export class TorchbearerActor extends Actor {
+export class TorchbearerBaseActor extends Actor {
   /**
    * Augment the basic actor data with additional dynamic data.
    */
