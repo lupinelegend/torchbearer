@@ -248,7 +248,7 @@ export class TorchbearerCharacterSheet extends TorchbearerBaseActorSheet {
       const checkbox = ev.currentTarget;
 
       const updates = {};
-      updates[`data.${checkbox.title}`] = checkbox.checked;
+      updates[`data.${checkbox.dataset.checkboxType}`] = checkbox.checked;
 
       this.actor.items.get(spellId(ev)).update(updates);
     });
