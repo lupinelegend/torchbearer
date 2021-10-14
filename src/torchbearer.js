@@ -4,6 +4,8 @@ import { TorchbearerBaseItem, TorchbearerItemSheet, TorchbearerSpellSheet } from
 import { ConflictSheet } from "./module/conflict/conflict.js";
 import { GrindSheet } from "./module/grind.js";
 
+import { TORCHBEARER } from "@scripts/config";
+
 // Import Helpers
 import * as chat from "./module/chat.js";
 import { Capitalize } from "./module/misc.js";
@@ -22,6 +24,8 @@ Hooks.once("init", async function () {
   };
   game.grind = new GrindSheet();
   game.conflict = new ConflictSheet();
+
+  CONFIG.TORCHBEARER = TORCHBEARER;
 
   /**
    * Set an initiative formula for the system
@@ -113,7 +117,7 @@ Hooks.once("init", async function () {
     });
   });
 
-  // Define custom Entity classes
+  // Custom entity classes (base classes - subclasses are defined in @scripts/config.js)
   CONFIG.Actor.documentClass = TorchbearerBaseActor;
   CONFIG.Item.documentClass = TorchbearerBaseItem;
 

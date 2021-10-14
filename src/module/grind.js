@@ -350,7 +350,7 @@ export class GrindSheet extends Application {
   async loadChars() {
     if (game.user.isGM) {
       const actorIds = game.actors.contents
-        .filter((actor) => actor.data.type === "Character")
+        .filter((actor) => actor.constructor.name === "TorchbearerCharacterActor")
         .map((actor) => actor.data._id);
       await this.updateGrind({ actors: actorIds }, "loadChars");
     }

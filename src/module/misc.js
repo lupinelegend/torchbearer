@@ -19,7 +19,7 @@ export const CurrentCharacterActorIds = async () => {
     actorIds = [];
     for (let i = 0; i < game.actors.entities.length; i++) {
       let actor = game.actors.entities[i];
-      if (actor.data.type === "Character") {
+      if (actor.constructor.name === "TorchbearerCharacterActor") {
         actorIds.push(actor.data._id);
       }
     }

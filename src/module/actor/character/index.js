@@ -1,1 +1,2 @@
-export { TorchbearerCharacterSheet } from './sheet';
+export { TorchbearerCharacterActor } from "./actor";
+export { TorchbearerCharacterSheet } from "./sheet";
