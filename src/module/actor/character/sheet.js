@@ -1,4 +1,5 @@
 import { TorchbearerBaseActorSheet } from "../base-sheet";
+import { TorchbearerItem } from "@item";
 import { alternateContainerType, canFit } from "@inventory/inventory";
 import { PlayerRoll } from "@rolls/playerRoll";
 
@@ -336,9 +337,7 @@ export class TorchbearerCharacterSheet extends TorchbearerBaseActorSheet {
     // item.document means we got an ItemData rather than a TorchbearerBaseItem
     const tbItem = item.document ? item.document : item;
 
-    if (tbItem.type === "Spell") {
-      console.log("Yer a wizard, Harry");
-    } else {
+    if (tbItem instanceof TorchbearerItem) {
       if (tbItem.data) {
         await tbItem.syncEquipVariables();
 
