@@ -1,5 +1,5 @@
 import { TorchbearerCharacterActor, TorchbearerMonsterActor, TorchbearerNPCActor } from "@actor";
-import { TorchbearerBaseItem } from "@item";
+import { TorchbearerItem, TorchbearerSpell } from "@item";
 
 export const TORCHBEARER = {
   Actor: {
@@ -10,6 +10,9 @@ export const TORCHBEARER = {
     },
   },
   Item: {
-    documentClass: TorchbearerBaseItem,
+    documentClasses: {
+      Item: TorchbearerItem,
+      Spell: TorchbearerSpell,
+    },
   },
 };

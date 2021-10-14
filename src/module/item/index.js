@@ -1,3 +1,3 @@
 export { TorchbearerBaseItem } from "./base-item";
-export { TorchbearerItemSheet } from "./item";
-export { TorchbearerSpellSheet } from "./spell";
+export { TorchbearerItem, TorchbearerItemSheet } from "./item";
+export { TorchbearerSpell, TorchbearerSpellSheet } from "./spell";
