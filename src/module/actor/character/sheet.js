@@ -1,8 +1,8 @@
-import { TorchbearerActorSheet } from "./actor-sheet.js";
-import { alternateContainerType, canFit } from "../inventory/inventory.js";
-import { PlayerRoll } from "../rolls/playerRoll.js";
+import { TorchbearerBaseActorSheet } from "../base-actor-sheet";
+import { alternateContainerType, canFit } from "@inventory/inventory";
+import { PlayerRoll } from "@rolls/playerRoll";
 
-export class TorchbearerCharacterSheet extends TorchbearerActorSheet {
+export class TorchbearerCharacterSheet extends TorchbearerBaseActorSheet {
   /** @override */
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
@@ -351,7 +351,7 @@ export class TorchbearerCharacterSheet extends TorchbearerActorSheet {
   }
 
   async handleDropItem(item) {
-    // item.document means we got an ItemData rather than a TorchbearerItem
+    // item.document means we got an ItemData rather than a TorchbearerBaseItem
     const tbItem = item.document ? item.document : item;
 
     if (tbItem.type === "Spell") {

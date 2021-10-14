@@ -23,7 +23,7 @@ let bundleableItem = function (tbItem, container, itemOwnInventory) {
 
 export function arrangeInventory(tbItemsMap, overburdened) {
   //For the most part just arrange item data not
-  // TorchbearerItem objects...is this necessary?
+  // TorchbearerBaseItem objects...is this necessary?
   if (!tbItemsMap) return;
   const tbItems = [];
   for (const tbItem of tbItemsMap) {

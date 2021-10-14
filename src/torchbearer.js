@@ -1,11 +1,6 @@
 // Import Modules
-import { TorchbearerActor } from "./module/actor/actor.js";
-import { TorchbearerCharacterSheet } from "./module/actor/character-sheet.js";
-import { TorchbearerMonsterSheet } from "./module/actor/monster-sheet.js";
-import { TorchbearerNPCSheet } from "./module/actor/npc-sheet.js";
-import { TorchbearerItem } from "./module/item/item.js";
-import { TorchbearerItemSheet } from "./module/item/item-sheet.js";
-import { TorchbearerSpellSheet } from "./module/item/spell-sheet.js";
+import { TorchbearerBaseActor, TorchbearerCharacterSheet, TorchbearerMonsterSheet, TorchbearerNPCSheet } from "@actor";
+import { TorchbearerBaseItem, TorchbearerItemSheet, TorchbearerSpellSheet } from "@item";
 import { ConflictSheet } from "./module/conflict/conflict.js";
 import { GrindSheet } from "./module/grind.js";
 
@@ -16,11 +11,6 @@ import { Capitalize } from "./module/misc.js";
 import "./styles/torchbearer.scss";
 
 Hooks.once("init", async function () {
-  game.torchbearer = {
-    TorchbearerActor,
-    TorchbearerItem,
-  };
-
   game.gmIsActive = () => {
     for (let i = 0; i < game.users.entities.length; i++) {
       const user = game.users.entities[i];
@@ -124,8 +114,8 @@ Hooks.once("init", async function () {
   });
 
   // Define custom Entity classes
-  CONFIG.Actor.documentClass = TorchbearerActor;
-  CONFIG.Item.documentClass = TorchbearerItem;
+  CONFIG.Actor.documentClass = TorchbearerBaseActor;
+  CONFIG.Item.documentClass = TorchbearerBaseItem;
 
   // Register sheet application classes
   Actors.unregisterSheet("core", ActorSheet);

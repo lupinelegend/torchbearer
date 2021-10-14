@@ -1,4 +1,4 @@
-import { TorchbearerCharacterSheet } from "./character-sheet.js";
+import { TorchbearerCharacterSheet } from "../character";
 
 export class TorchbearerNPCSheet extends TorchbearerCharacterSheet {
   /** @override */
