@@ -18,7 +18,7 @@
     "eslint-import-resolver-webpack": "^0.13.1",
     "eslint-plugin-import": "^2.25.1",
     "mini-css-extract-plugin": "^2.4.2",
-    "node-sass": "^6.0.1",
+    "node-sass": "^7.0.0",
     "prettier": "^2.4.1",
     "sass-loader": "^12.2.0",
     "simple-progress-webpack-plugin": "^2.0.0",
